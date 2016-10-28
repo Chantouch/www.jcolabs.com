@@ -1,0 +1,52 @@
+@if($postJobs->count())
+    <table class="table table-responsive" id="postJobs-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Post Name</th>
+            <th>No Of Post</th>
+            <th>Industry</th>
+            <th>City </th>
+            <th>District</th>
+            <th>Job Category</th>
+            <th>Subject</th>
+            <th>Specialization</th>
+            <th>Preferred Experience</th>
+            <th>Description</th>
+            <th colspan="3">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($postJobs as $postJob)
+            <tr>
+                <td>
+                    <a href="{!! route('employer.jobs.view', Hashids::encode($postJob->id))!!}"># {{ $postJob->emp_job_id }}</a>
+                </td>
+                <td>{!! $postJob->post_name !!}</td>
+                <td>{!! $postJob->no_of_post !!}</td>
+                <td>{!! $postJob->industry->name !!}</td>
+                <td>{!! $postJob->city->name !!}</td>
+                <td>{!! $postJob->district->name !!}</td>
+                <td>{!! $postJob->job_sub_category !!}</td>
+                <td>{!! $postJob->subject->name !!}</td>
+                <td>{!! $postJob->specialization !!}</td>
+                <td>{!! $postJob->preferred_experience !!} year (s)</td>
+                <td>{!! $postJob->description !!}</td>
+                <td>
+                    {!! Form::open(['route' => ['employer.postJobs.destroy', $postJob->id], 'method' => 'delete']) !!}
+                    <div class='btn-group'>
+                        <a href="{!! route('employer.postJobs.show', [$postJob->slug]) !!}"
+                           class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="{!! route('employer.postJobs.edit', [$postJob->id]) !!}"
+                           class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
+                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                    </div>
+                    {!! Form::close() !!}
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+@else
+    <p>There is no job, please post your job.</p>
+@endif
