@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend\Auth;
 
 use App\Mail\AdminActivation;
 use App\Model\backend\Admin;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -126,7 +127,16 @@ class RegisterController extends Controller
 
     public function verify($token)
     {
-        Admin::where('email_token', $token)->firstOrFail()->verified();
+        try {
+
+            Admin::where('email_token', $token)->firstOrFail()->verified();
+
+        } catch (ModelNotFoundException $exception) {
+
+            return redirect('/admin/login')->with('status', 'You may activated your token, or it is broken.');
+
+        }
+
         return redirect('/admin/login')->with('status', 'You activated your account, Please login here!');
     }
 }

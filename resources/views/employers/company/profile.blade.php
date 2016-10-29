@@ -384,7 +384,22 @@
         </div>
         <!-- /.row -->
     </section>
-    <!-- /.content -->
+
+    <div id="container-floating">
+
+        <div class="nd4 nds" data-toggle="tooltip" data-placement="left" data-original-title="{!! $profile->contact_name !!}"><img class="reminder">
+            <p class="letter">C</p>
+        </div>
+        <div class="nd3 nds" data-toggle="tooltip" data-placement="left" data-original-title="{!! $profile->organization_name !!}"><img class="reminder" src="{!! asset('images/ic_reminders_speeddial_white_24dp.png') !!}" /></div>
+        <div class="nd1 nds" data-toggle="tooltip" data-placement="left" data-original-title="{!! $profile->contact_email !!}"><img class="reminder">
+            <p class="letter">E</p>
+        </div>
+
+        <div id="floating-button" data-toggle="tooltip" data-placement="left" data-original-title="Update">
+            <p class="plus">+</p>
+            <a href="{!! route('employer.company.show.update') !!}"><img class="edit" src="{!! asset('images/bt_compose2_1x.png') !!}"></a>
+        </div>
+
     </div>
     <!-- /.content-wrapper -->
 @endsection

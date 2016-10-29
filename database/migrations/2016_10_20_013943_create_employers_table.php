@@ -16,12 +16,17 @@ class CreateEmployersTable extends Migration
             $table->increments('id');
             $table->string('organization_name')->comment('Organization Name')->unique();
             $table->enum('organization_type', ['Placement Agency', 'Employer', 'Govt Training Providing Organisation']);
-            $table->enum('organization_sector', ['Private', 'Central Govt', 'State Govt','Central PSU','State PSU','Local Bodies','Statutory Bodies','Others'])->comment('Organisation Sector *');
+            $table->enum('organization_sector', ['Private', 'Central Govt', 'State Govt', 'Central PSU', 'State PSU', 'Local Bodies', 'Statutory Bodies', 'Others'])->comment('Organisation Sector *');
             $table->integer('industry_id', false, true)->comment('Foreign key for industry types')->nullable();
             $table->string('photo', 200)->nullable()->default('uploads/employers/default.jpg')->comment('Photo URL');
             $table->string('tag_line', 100)->nullable()->comment('Company Tag line');
             $table->string('details', 500)->nullable()->comment('Company Details');
             $table->string('address')->nullable();
+            $table->integer('employees')->nullable()->comment('The employee number');
+            $table->string('products')->nullable()->comment('Show the product for company');
+            $table->string('services')->nullable()->comment('Show the services for company');
+            $table->string('longitude')->nullable()->comment('Show the Longitude for company');
+            $table->string('latitude')->nullable()->comment('Show the Latitude for company');
             $table->integer('city_id', false, true)->nullable();
             $table->integer('district_id', false, true)->nullable();
             $table->integer('pin_code', false)->nullable();

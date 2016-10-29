@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Psy\Exception\ErrorException;
 use Response;
 use Validator;
 use DB;
@@ -55,19 +56,26 @@ class PostJobController extends AppBaseController
      */
     public function create()
     {
-        $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
-        $job_types = ['Full Time' => 'Full Time', 'Part Time' => 'Part Time'];
-        $physical_challenge = ['YES' => 'YES', 'NO' => 'NO'];
-        $ex_service = ['YES' => 'YES', 'NO' => 'NO'];
-        $job_sub_categories = ['Govt. Regular' => 'Govt. Regular', 'Govt. Contractual' => 'Govt. Contractual', 'Pvt. Regular' => 'Pvt. Regular', 'Pvt. Contractual' => 'Pvt. Contractual', 'Not Specified' => 'Not Specified'];
-        $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');
-        $company = Auth::guard('employer')->user();
-        return view('employers.post_jobs.create', compact('industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_sub_categories', 'contact_person'));
+        try {
+            if (Auth::guard('employer')->user()->industry_id == null) {
+                return redirect()->back()->with('alert-warning', 'Please update your company profile first to start posting your job.');
+            }
+            $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
+            $job_types = ['Full Time' => 'Full Time', 'Part Time' => 'Part Time'];
+            $physical_challenge = ['YES' => 'YES', 'NO' => 'NO'];
+            $ex_service = ['YES' => 'YES', 'NO' => 'NO'];
+            $job_sub_categories = ['Govt. Regular' => 'Govt. Regular', 'Govt. Contractual' => 'Govt. Contractual', 'Pvt. Regular' => 'Pvt. Regular', 'Pvt. Contractual' => 'Pvt. Contractual', 'Not Specified' => 'Not Specified'];
+            $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');
+            $company = Auth::guard('employer')->user();
+            return view('employers.post_jobs.create', compact('industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_sub_categories', 'contact_person'));
+        } catch (ErrorException $exception) {
+            return redirect('/employers/dashboard')->with('message', ' Please complete your profile company to post your post.');
+        }
     }
 
     /**

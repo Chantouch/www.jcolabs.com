@@ -14,7 +14,7 @@
             <tr>
                 <td>{!! $index + 1 !!}</td>
                 <td>{!! $result->doc_type !!}</td>
-                <td><img src="{!! $result->doc_url !!}" alt="{!! $result->doc_type !!}"></td>
+                <td><img class="img-responsive" src="{!! asset($result->doc_url) !!}" alt="{!! $result->doc_type !!}" width="70"></td>
                 <td>{!! $result->description !!}</td>
                 <td>
                     {!! Form::open(['route' => ['employer.contactPeople.destroy', $result->id], 'method' => 'delete']) !!}

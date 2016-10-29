@@ -10,6 +10,7 @@ use App\Models\District;
 use App\Models\EmployerDocument;
 use App\Models\Exam;
 use App\Models\IndustryType;
+use App\Models\Position;
 use App\Models\PostedJob;
 use App\Models\Subject;
 use Cviebrock\EloquentSluggable\Tests\Models\Post;
@@ -222,6 +223,10 @@ class EmployerController extends Controller
         return view('employers.documents.create', compact('doc_types'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function doDocumentUploadForm(Request $request)
     {
 
@@ -231,7 +236,7 @@ class EmployerController extends Controller
 
         $id = Auth::guard('employer')->user()->id;
         $data['employer_id'] = $id;
-        $destination_path = storage_path('/uploads/employers/' . $id);
+        $destination_path = public_path('uploads/employers/' . $id);
         if (!file_exists($destination_path)) {
             mkdir($destination_path, 0777, true);
         }
@@ -240,7 +245,7 @@ class EmployerController extends Controller
             if ($request->file('doc_url')->isValid()) {
                 $fileName = uniqid($request->doc_type . '_') . '.' . $request->file('doc_url')->getClientOriginalExtension();
                 $request->file('doc_url')->move($destination_path, $fileName);
-                $data['doc_url'] = 'employers/' . $id . '/' . $fileName;
+                $data['doc_url'] = 'uploads/employers/' . $id . '/' . $fileName;
             }
         }
 
@@ -251,6 +256,9 @@ class EmployerController extends Controller
         return redirect()->route('employer.documents.uploaded.index')->with('message', 'Documents has been uploaded successfully!');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showDocumentLists()
     {
         $id = Auth::guard('employer')->user()->id;
@@ -259,10 +267,57 @@ class EmployerController extends Controller
         return view('employers.documents.index', compact('results'));
     }
 
+    /**
+     * @param $id
+     */
     public function deleteDocument($id)
     {
         # code...
         //TODO decode the id and soft delete/ perm delete it
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showUpdateCompanyProfile()
+    {
+
+        $organization_sector = ['Private' => 'Private', 'Central Govt' => 'Central Govt', 'State Govt' => 'State Govt', 'Central PSU' => 'Central PSU', 'State PSU' => 'State PSU', 'Local Bodies' => 'Local Bodies', 'Statutory Bodies' => 'Statutory Bodies', 'Others' => 'Others'];
+        $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $profile = Auth::guard('employer')->user();
+        $profile_id = Auth::guard('employer')->user()->id;
+        $position = Position::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('employers.company.edit', compact('profile', 'profile_id', 'position', 'industries', 'organization_sector'));
+
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateCompanyProfile(Request $request)
+    {
+        $employer = new Employer();
+        $data = $request->all();
+        $validator = Validator::make($data, $employer->rules());
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        $profile_id = Auth::guard('employer')->user()->id;
+        $profile = Auth::guard('employer')->user();
+        $destination_path = public_path('uploads/employers/');
+        if ($request->hasFile('photo')) {
+            if ($request->file('photo')->isValid()) {
+                $fileName = $profile->id . '.' . $request->file('photo')->getClientOriginalExtension();
+                $request->file('photo')->move($destination_path, $fileName);
+                $data['photo'] = 'uploads/employers/' . $fileName;
+            }
+        }
+
+        $profile->update($data);
+        return redirect(route('employers.dashboard'))->with('alert-success', 'You have updated your profile');
+
+    }
 }

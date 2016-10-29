@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Employer\Auth;
 use App\Mail\EmployerActivation;
 use App\Model\backend\Employer;
 use App\Model\frontend\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -116,13 +117,13 @@ class RegisterController extends Controller
             Mail::to($employer->contact_email)->send($contact_email);
             DB::commit();
             if ($employer->id) {
-                return redirect('/employer/login')->with('status', 'You have successfully register with our website, please check your email to activate your account.');
+                return redirect('/employer/login')->withInput()->with('status', 'You have successfully register with our website, please check your email to activate your account.');
             } else {
                 return redirect('employer/register')->withInput()->with('status', 'Employer not register. Please try again');
             }
         } catch (Exception $e) {
             DB::rollback();
-            return back()->withErrors('status', 'Error while registering in our website, Please contact to our Teach Support');
+            return back()->withInput()->withErrors('status', 'Error while registering in our website, Please contact to our Teach Support');
         }
     }
 
@@ -132,7 +133,17 @@ class RegisterController extends Controller
      */
     public function verify($token)
     {
-        Employer::where('confirmation_code', $token)->firstOrFail()->verified();
-        return redirect('employer/login')->with('message', 'You already activated your account, Please login here!');
+
+        try {
+
+            Employer::where('confirmation_code', $token)->firstOrFail()->verified();
+
+        } catch (ModelNotFoundException $exception) {
+
+            return back()->with('status', 'The token already used, or broken.');
+
+        }
+
+        return redirect('employer/login')->withInput()->with('status', 'You already activated your account, Please login here!');
     }
 }

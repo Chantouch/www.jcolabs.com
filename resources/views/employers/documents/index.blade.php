@@ -2,10 +2,11 @@
 
 @section('content')
     <section class="content-header">
-        <h1 class="pull-left">Contact People</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" style="margin-top: -10px;margin-bottom: 5px" href="{!! route('employer.contactPeople.create') !!}">Add New</a>
-        </h1>
+        <h1>Document Uploaded</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
     </section>
     <div class="content">
         <div class="clearfix"></div>

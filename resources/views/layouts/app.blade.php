@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{!! asset('plugins/daterangepicker/daterangepicker.css') !!}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{!! asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/jcolabs.css') !!}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -353,22 +354,32 @@
         @if (Session::has('message') || Session::has('alert-info'))
             <div class="alert alert-info alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <i class="icon fa fa-info"></i>
+                <h4><i class="icon fa fa-info"></i>Info</h4>
                 {{ Session::get('message')}} {{ Session::get('alert-info')}}
+            </div>
+        @endif
+
+        @if (Session::has('alert-error'))
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-info"></i>Errors</h4>
+                {{ Session::get('alert-error')}}
             </div>
         @endif
 
         @if (Session::has('alert-warning'))
             <div class="alert alert-warning alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <i class="icon fa fa-warning"></i>{{ Session::get('alert-warning')}}
+                <h4><i class="icon fa fa-warning"></i>Warning!</h4>
+                {{ Session::get('alert-warning')}}
             </div>
         @endif
 
         @if (Session::has('alert-success'))
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <i class="icon fa fa-check"></i>{{ Session::get('alert-success')}}
+                <h4><i class="icon fa fa-check"></i> Success</h4>
+                {{ Session::get('alert-success')}}
             </div>
         @endif
 
@@ -620,6 +631,7 @@
 <script src="{!! asset('dist/js/app.min.js') !!}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{!! asset('dist/js/pages/dashboard.js') !!}"></script>
+<script src="{!! asset('js/jcolabs.js') !!}"></script>
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{!! asset('dist/js/demo.js') !!}"></script>--}}
 
@@ -653,12 +665,12 @@
     });
 
 
-    $(function(){
+    $(function () {
 
         //change to two ? how?
 
-        $('#place_of_employment_city_id').change(function(){
-            var data= $(this).val();
+        $('#place_of_employment_city_id').change(function () {
+            var data = $(this).val();
             alert(data);
         });
 

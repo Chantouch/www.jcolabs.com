@@ -52,10 +52,10 @@
             <a href="{!! route('employer.documents.uploaded.form') !!}">
                 <i class="fa fa-plus"></i> Upload New</a>
         </li>
-        {{--<li class="{{ Request::is('employers/documents-uploaded/view*') ? 'active' : '' }}">--}}
-            {{--<a href="{!! route('employer.documents.uploaded.view') !!}">--}}
-                {{--<i class="fa fa-edit"></i><span>List All Documents</span></a>--}}
-        {{--</li>--}}
+        <li class="{{ Request::is('employers/documents-uploaded/list*') ? 'active' : '' }}">
+            <a href="{!! route('employer.documents.uploaded.index') !!}">
+                <i class="fa fa-edit"></i><span>List All Documents</span></a>
+        </li>
     </ul>
 </li>
 

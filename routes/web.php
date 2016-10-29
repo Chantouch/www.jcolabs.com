@@ -23,29 +23,29 @@ Route::group(['middleware' => ['guest']], function () {
     });
 
     // ADMIN
-    Route::get('admin/login', 'backend\Auth\LoginController@getLoginForm');
-    Route::post('admin/authenticate', 'backend\Auth\LoginController@authenticate');
+    Route::get('admin/login', ['as' => 'admin.process.login', 'uses' => 'backend\Auth\LoginController@getLoginForm']);
+    Route::post('admin/authenticate', ['as' => 'admin.process.authenticate.do', 'uses' => 'backend\Auth\LoginController@authenticate']);
 
     Route::get('admin/register', 'backend\Auth\RegisterController@getRegisterForm');
-    Route::post('admin/saveregister', 'backend\Auth\RegisterController@saveRegisterForm');
+    Route::post('admin/saveregister', ['as' => 'admin.save_register.precess', 'uses' => 'backend\Auth\RegisterController@saveRegisterForm']);
 
-    Route::get('admin/register/verify/{token}', 'backend\Auth\RegisterController@verify');
+    Route::get('admin/register/verify/{token}', ['as' => 'admin.verify.register.activate', 'uses' => 'backend\Auth\RegisterController@verify']);
 
     // USER 
-    Route::get('user/login', 'frontend\Auth\LoginController@getLoginForm');
-    Route::post('user/authenticate', 'frontend\Auth\LoginController@authenticate');
+    Route::get('user/login', ['as' => 'user.process.login', 'uses' => 'frontend\Auth\LoginController@getLoginForm']);
+    Route::post('user/authenticate', ['as' => 'user.process.authenticate.do', 'uses' => 'frontend\Auth\LoginController@authenticate']);
 
-    Route::get('user/register', 'frontend\Auth\RegisterController@getRegisterForm');
-    Route::post('user/saveregister', 'frontend\Auth\RegisterController@saveRegisterForm');
+    Route::get('user/register', ['as' => 'user.process.register', 'uses' => 'frontend\Auth\RegisterController@getRegisterForm']);
+    Route::post('user/saveregister', ['as' => 'user.process.register.do', 'uses' => 'frontend\Auth\RegisterController@saveRegisterForm']);
 
     // Employer
-    Route::get('employer/login', 'Employer\Auth\LoginController@getLoginForm');
-    Route::post('employer/authenticate', 'Employer\Auth\LoginController@authenticate');
+    Route::get('employer/login', ['as' => 'employer.process.login', 'uses' => 'Employer\Auth\LoginController@getLoginForm']);
+    Route::post('employer/authenticate', ['as' => 'employer.process.authenticate', 'uses' => 'Employer\Auth\LoginController@authenticate']);
 
-    Route::get('employer/register', 'Employer\Auth\RegisterController@getRegisterForm');
-    Route::post('employer/saveregister', 'Employer\Auth\RegisterController@saveRegisterForm');
+    Route::get('employer/register', ['as' => 'employer.process.register', 'uses' => 'Employer\Auth\RegisterController@getRegisterForm']);
+    Route::post('employer/saveregister', ['as' => 'employer.process.register.do', 'uses' => 'Employer\Auth\RegisterController@saveRegisterForm']);
 
-    Route::get('employer/verify/{token}', 'Employer\Auth\RegisterController@verify');
+    Route::get('employer/verify/{token}', ['as' => 'employer.process.verify.do', 'uses' => 'Employer\Auth\RegisterController@verify']);
 
 });
 
@@ -57,12 +57,15 @@ Route::group(['middleware' => ['user']], function () {
     Route::get('user/dashboard1/', function () {
         return view('frontend.dashboard');
     });
+
 });
 
 
 Route::group(['middleware' => ['admin']], function () {
+
     Route::group(array('prefix' => 'admin'), function () {
-        Route::post('logout', 'backend\Auth\LoginController@getLogout');
+
+        Route::post('logout', ['as' => 'admin.process.logout', 'uses' => 'backend\Auth\LoginController@getLogout']);
 
         Route::get('dashboard', ['as' => 'admin.dashboard.index', 'uses' => 'backend\AdminController@index']);
 
@@ -79,7 +82,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('industry-types/{industryTypes}', ['as' => 'admin.industryTypes.show', 'uses' => 'backend\IndustryTypeController@show']);
             Route::get('industry-types/{industryTypes}/edit', ['as' => 'admin.industryTypes.edit', 'uses' => 'backend\IndustryTypeController@edit']);
 
-
             Route::get('department-types', ['as' => 'admin.departmentTypes.index', 'uses' => 'backend\DepartmentTypeController@index']);
             Route::post('department-types', ['as' => 'admin.departmentTypes.store', 'uses' => 'backend\DepartmentTypeController@store']);
             Route::get('department-types/create', ['as' => 'admin.departmentTypes.create', 'uses' => 'backend\DepartmentTypeController@create']);
@@ -88,7 +90,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::delete('department-types/{departmentTypes}', ['as' => 'admin.departmentTypes.destroy', 'uses' => 'backend\DepartmentTypeController@destroy']);
             Route::get('department-types/{departmentTypes}', ['as' => 'admin.departmentTypes.show', 'uses' => 'backend\DepartmentTypeController@show']);
             Route::get('department-types/{departmentTypes}/edit', ['as' => 'admin.departmentTypes.edit', 'uses' => 'backend\DepartmentTypeController@edit']);
-
 
             Route::get('boards', ['as' => 'admin.boards.index', 'uses' => 'backend\BoardController@index']);
             Route::post('boards', ['as' => 'admin.boards.store', 'uses' => 'backend\BoardController@store']);
@@ -99,7 +100,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('boards/{boards}', ['as' => 'admin.boards.show', 'uses' => 'backend\BoardController@show']);
             Route::get('boards/{boards}/edit', ['as' => 'admin.boards.edit', 'uses' => 'backend\BoardController@edit']);
 
-
             Route::get('subjects', ['as' => 'admin.subjects.index', 'uses' => 'backend\SubjectController@index']);
             Route::post('subjects', ['as' => 'admin.subjects.store', 'uses' => 'backend\SubjectController@store']);
             Route::get('subjects/create', ['as' => 'admin.subjects.create', 'uses' => 'backend\SubjectController@create']);
@@ -109,7 +109,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('subjects/{subjects}', ['as' => 'admin.subjects.show', 'uses' => 'backend\SubjectController@show']);
             Route::get('subjects/{subjects}/edit', ['as' => 'admin.subjects.edit', 'uses' => 'backend\SubjectController@edit']);
 
-
             Route::get('languages', ['as' => 'admin.languages.index', 'uses' => 'backend\LanguageController@index']);
             Route::post('languages', ['as' => 'admin.languages.store', 'uses' => 'backend\LanguageController@store']);
             Route::get('languages/create', ['as' => 'admin.languages.create', 'uses' => 'backend\LanguageController@create']);
@@ -118,7 +117,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::delete('languages/{languages}', ['as' => 'admin.languages.destroy', 'uses' => 'backend\LanguageController@destroy']);
             Route::get('languages/{languages}', ['as' => 'admin.languages.show', 'uses' => 'backend\LanguageController@show']);
             Route::get('languages/{languages}/edit', ['as' => 'admin.languages.edit', 'uses' => 'backend\LanguageController@edit']);
-
 
             Route::get('proof-residences', ['as' => 'admin.proofResidenses.index', 'uses' => 'backend\ProofResidenseController@index']);
             Route::post('proof-residences', ['as' => 'admin.proofResidenses.store', 'uses' => 'backend\ProofResidenseController@store']);
@@ -145,7 +143,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('cities/{slug?}/{id}', ['as' => 'admin.cities.show', 'uses' => 'backend\CityController@show']);
             Route::get('cities/{cities}/edit', ['as' => 'admin.cities.edit', 'uses' => 'backend\CityController@edit']);
 
-
             Route::get('districts', ['as' => 'admin.districts.index', 'uses' => 'backend\DistrictController@index']);
             Route::post('districts', ['as' => 'admin.districts.store', 'uses' => 'backend\DistrictController@store']);
             Route::get('districts/create', ['as' => 'admin.districts.create', 'uses' => 'backend\DistrictController@create']);
@@ -155,7 +152,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('districts/{districts}', ['as' => 'admin.districts.show', 'uses' => 'backend\DistrictController@show']);
             Route::get('districts/{districts}/edit', ['as' => 'admin.districts.edit', 'uses' => 'backend\DistrictController@edit']);
 
-
             Route::get('exams', ['as' => 'admin.exams.index', 'uses' => 'backend\ExamController@index']);
             Route::post('exams', ['as' => 'admin.exams.store', 'uses' => 'backend\ExamController@store']);
             Route::get('exams/create', ['as' => 'admin.exams.create', 'uses' => 'backend\ExamController@create']);
@@ -164,7 +160,6 @@ Route::group(['middleware' => ['admin']], function () {
             Route::delete('exams/{exams}', ['as' => 'admin.exams.destroy', 'uses' => 'backend\ExamController@destroy']);
             Route::get('exams/{exams}', ['as' => 'admin.exams.show', 'uses' => 'backend\ExamController@show']);
             Route::get('exams/{exams}/edit', ['as' => 'admin.exams.edit', 'uses' => 'backend\ExamController@edit']);
-
 
             Route::get('positions', ['as' => 'admin.positions.index', 'uses' => 'backend\PositionController@index']);
             Route::post('positions', ['as' => 'admin.positions.store', 'uses' => 'backend\PositionController@store']);
@@ -178,16 +173,16 @@ Route::group(['middleware' => ['admin']], function () {
             //Admin List view proposed on Admin Panel
             Route::get('accounts/view/{id}', ['as' => 'admin.admins_accounts.view', 'uses' => 'backend\AdminController@adminsAccounts']);
 
-
         });
 
         //Employer Module on Admin Panel
         Route::group(array('prefix' => 'employers'), function () {
+
             Route::get('/', ['as' => 'admin.employers.employerListAll', 'uses' => 'backend\AdminController@employerListAll']);
             Route::get('view/profile/{employer_id}', ['as' => 'admin.employer_view_profile', 'uses' => 'backend\AdminController@viewEmployerProfile']);
             Route::get('verify/{id}', ['as' => 'admin.employerVerify', 'uses' => 'backend\AdminController@verifyEmployer']);
-        });
 
+        });
 
         Route::group(array('prefix' => 'candidates'), function () {
             Route::get('applications/received', ['as' => 'admin.applications_received', 'uses' => 'backend\AdminController@applicationsReceived']);
@@ -202,11 +197,13 @@ Route::group(['middleware' => ['admin']], function () {
 //End route admin
 });
 
+
+//EMPLOYER MODULES
 Route::group(['middleware' => ['employer']], function () {
 
     Route::group(array('prefix' => 'employers'), function () {
 
-        Route::get('dashboard', 'Employer\EmployerController@dashboard');
+        Route::get('dashboard', ['as' => 'employers.dashboard', 'uses' => 'Employer\EmployerController@dashboard']);
         Route::post('logout', 'Employer\Auth\LoginController@getLogout');
 
         Route::get('account-settings/contact-person', ['as' => 'employer.contactPeople.index', 'uses' => 'Employer\ContactPersonController@index']);
@@ -247,6 +244,9 @@ Route::group(['middleware' => ['employer']], function () {
         Route::post('/documents-uploaded/form', ['as' => 'employer.documents.uploaded.form', 'uses' => 'Employer\EmployerController@doDocumentUploadForm']);
         Route::get('/documents-uploaded/view/{id}', ['as' => 'employer.documents.uploaded.view', 'uses' => 'Employer\EmployerController@viewDocument']);
         Route::delete('/documents-uploaded/delete/{id}', ['as' => 'employer.documents.uploaded.delete', 'uses' => 'Employer\EmployerController@deleteDocument']);
+
+        Route::get('account-settings/company/update', ['as' => 'employer.company.show.update', 'uses' => 'Employer\EmployerController@showUpdateCompanyProfile']);
+        Route::patch('account-settings/company/update', ['as' => 'employer.company.show.update', 'uses' => 'Employer\EmployerController@updateCompanyProfile']);
 
     });
 

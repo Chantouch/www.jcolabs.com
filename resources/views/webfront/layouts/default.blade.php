@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JCOLABS Job Board</title>
+    <title>@yield('title') | Job, Career and Opportunity Lab {{ config('app.name', 'Laravel') }}</title>
     <!-- Bootstrap 3.3.4 -->
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Main Style -->
