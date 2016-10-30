@@ -17,7 +17,7 @@
 
             <!-- No Of Post Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('no_of_post', 'No Of Post:') !!}
+                {!! Form::label('no_of_post', 'Number of Hiring:') !!}
                 {!! Form::text('no_of_post', null, ['class' => 'form-control']) !!}
             </div>
 
@@ -211,7 +211,6 @@
                 {!! Form::label('contact_person_id', 'Contact Person:') !!}
                 {!! Form::select('contact_person_id',$contact_person, null, ['class' => 'form-control']) !!}
             </div>
-
 
         </div>
     </div>

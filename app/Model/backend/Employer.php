@@ -10,6 +10,8 @@ use App\Models\IndustryType;
 use App\Notifications\EmployerResetPassword;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Request;
 use Illuminate\Notifications\Notifiable;
 
 class Employer extends Authenticatable
@@ -70,48 +72,56 @@ class Employer extends Authenticatable
     public function rules()
     {
 
-        return [
-            'organization_name' => 'required|between:3,100,:id',
-            'contact_mobile_no' => 'required|numeric|unique:employers,contact_mobile_no,{$this->id},id',
-//            'organisation_email' => 'sometimes|email|required|max:100|unique:employers,organisation_email,id,id',
-            'organisation_email' => "required|between:1,128|unique:employers",
-            //'email' => 'email|required|max:255|unique:employers,email',
-            'web_address' => 'url',
-            'address' => 'required|max:255',
-//        'password' => 'confirmed|required',
-        ];
+//        return [
+//            'organization_name' => 'required|between:3,100,:id',
+//            'contact_mobile_no' => 'required|numeric|unique:employers,contact_mobile_no,{$this->id},id',
+////            'organisation_email' => 'sometimes|email|required|max:100|unique:employers,organisation_email,id,id',
+//            'organisation_email' => "required|between:1,128|unique:employers",
+//            //'email' => 'email|required|max:255|unique:employers,email',
+//            'web_address' => 'url',
+//            'address' => 'required|max:255',
+////        'password' => 'confirmed|required',
+//        ];
 
-//        $employer = Employer::find($this->employers);
-//
-//        switch ($this->method()) {
-//            case 'GET':
-//            case 'DELETE': {
-//                return [];
-//            }
-//            case 'POST': {
-//                return [
-//                    'organisation_email' => 'required|email|unique:users,email',
-//                ];
-//            }
-//            case 'PUT':
-//            case 'PATCH': {
-//                return [
-//
-//                    'organisation_email' => "email|required|max:100|unique:employers,organisation_email" . $employer->id,
-//
-//                ];
-//            }
-//            default:
-//                break;
-//        }
+        $employer = Auth::guard('employer')->user();
+
+//        dd($employer);
+
+        switch (Request::method()) {
+            case 'GET':
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return [
+                    'organisation_email' => 'required|organisation_email|unique:employers,organisation_email',
+                ];
+            }
+            case 'PUT':
+            case 'PATCH': {
+                return [
+
+                    'organisation_email' => 'required|max:100|unique:employers,organisation_email,' . $employer->id . ',id'
+
+                ];
+            }
+            default:
+                break;
+        }
     }
 
+    /**
+     * @var array
+     */
     public static $organization_type_options = [
         'Placement Agency' => 'Placement Agency',
         'Employer' => 'Employer',
         'Govt Training Providing Organisation' => 'Govt Training Providing Organisation'
     ];
 
+    /**
+     * @var array
+     */
     public static $organization_sector_options = [
         'Private' => 'Private',
         'Central Govt' => 'Central Govt',
@@ -131,6 +141,10 @@ class Employer extends Authenticatable
         'Not Specified' => 'Not Specified'
     ];
 
+    /**
+     * @return array
+     *
+     */
     public static function job_types()
     {
         return [
