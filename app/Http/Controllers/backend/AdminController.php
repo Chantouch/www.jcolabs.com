@@ -104,6 +104,7 @@ class AdminController extends Controller
      */
     public function jobUpdateStatus($id, Request $request)
     {
+
         $decode = $this->hashid->decode($id);
         $id = $decode[0];
         $modal = PostedJob::findOrFail($id);
@@ -114,6 +115,7 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->with('message', 'Unable to process your request');
         }
+        
     }
 
     public function verifyEmployer($id)

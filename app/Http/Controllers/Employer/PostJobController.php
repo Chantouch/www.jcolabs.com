@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Employer;
 use App\Helpers\BaseHelper;
 use App\Http\Requests\CreatePostJobRequest;
 use App\Http\Requests\UpdatePostJobRequest;
+use App\Model\backend\Employer;
 use App\Models\City;
 use App\Models\ContactPerson;
 use App\Models\District;
 use App\Models\Exam;
 use App\Models\IndustryType;
+use App\Models\Language;
 use App\Models\PostedJob;
 use App\Models\Subject;
 use App\Repositories\PostJobRepository;
@@ -56,6 +58,7 @@ class PostJobController extends AppBaseController
      */
     public function create()
     {
+        $id = Auth::guard('employer')->user()->id;
         try {
             if (Auth::guard('employer')->user()->industry_id == null) {
                 return redirect()->back()->with('alert-warning', 'Please update your company profile first to start posting your job.');
@@ -66,13 +69,16 @@ class PostJobController extends AppBaseController
             $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
-            $job_types = ['Full Time' => 'Full Time', 'Part Time' => 'Part Time'];
+            $job_types = Employer::job_types();
+            $job_levels = Employer::job_level();
+            $qualifications = Employer::qualification();
+            $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $physical_challenge = ['YES' => 'YES', 'NO' => 'NO'];
             $ex_service = ['YES' => 'YES', 'NO' => 'NO'];
-            $job_sub_categories = ['Govt. Regular' => 'Govt. Regular', 'Govt. Contractual' => 'Govt. Contractual', 'Pvt. Regular' => 'Pvt. Regular', 'Pvt. Contractual' => 'Pvt. Contractual', 'Not Specified' => 'Not Specified'];
-            $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');
+            $job_sub_categories = Employer::$job_sub_category;
+            $contact_person = ContactPerson::where('employer_id', $id)->orderBy('contact_name')->pluck('contact_name', 'id');
             $company = Auth::guard('employer')->user();
-            return view('employers.post_jobs.create', compact('industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_sub_categories', 'contact_person'));
+            return view('employers.post_jobs.create', compact('qualifications', 'languages', 'job_levels', 'industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_sub_categories', 'contact_person'));
         } catch (ErrorException $exception) {
             return redirect('/employers/dashboard')->with('message', ' Please complete your profile company to post your post.');
         }

@@ -123,6 +123,40 @@ class Employer extends Authenticatable
         'Others' => 'Others'
     ];
 
+    public static $job_sub_category = [
+        'Govt. Regular' => 'Govt. Regular',
+        'Govt. Contractual' => 'Govt. Contractual',
+        'Pvt. Regular' => 'Pvt. Regular',
+        'Pvt. Contractual' => 'Pvt. Contractual',
+        'Not Specified' => 'Not Specified'
+    ];
+
+    public static function job_types()
+    {
+        return [
+            'Full Time' => 'Full Time',
+            'Part Time' => 'Part Time',
+            'Contract' => 'Contract',
+            'Freelancer' => 'Freelancer'
+        ];
+    }
+
+    public static function job_level()
+    {
+        return [
+            'Entry' => 'Entry',
+            'Senior' => 'Senior',
+            'Junior' => 'Junior'
+        ];
+    }
+
+    public static function qualification()
+    {
+        return [
+            'Good' => 'Good'
+        ];
+    }
+
     public function industry()
     {
         return $this->belongsTo(IndustryType::class, 'industry_id');

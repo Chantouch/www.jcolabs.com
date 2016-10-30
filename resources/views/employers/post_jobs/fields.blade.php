@@ -83,7 +83,7 @@
             <!-- Job types Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('level', 'Level:') !!}
-                {!! Form::select('level',$job_types , null, ['class' => 'form-control']) !!}
+                {!! Form::select('level',$job_levels , null, ['class' => 'form-control']) !!}
             </div>
 
             <div class="form-group col-sm-6">
@@ -100,7 +100,7 @@
             <!-- Exam Passed Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('exam_passed_id', 'Qualification:') !!}
-                {!! Form::select('exam_passed_id',$exams, null, ['class' => 'form-control']) !!}
+                {!! Form::select('exam_passed_id',$qualifications, null, ['class' => 'form-control']) !!}
             </div>
 
             <div class="form-group col-sm-6">
@@ -116,7 +116,7 @@
 
             <div class="form-group col-sm-6">
                 {!! Form::label('language_id', 'Language:') !!}
-                {!! Form::select('language_id',$exams, null, ['class' => 'form-control']) !!}
+                {!! Form::select('language_id',$languages, null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Job types Field -->
