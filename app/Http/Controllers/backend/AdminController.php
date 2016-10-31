@@ -120,8 +120,8 @@ class AdminController extends Controller
 
     public function verifyEmployer($id)
     {
-        $decode = $this->hashid->decode($id);
-        $id = $decode[0];
+//        $decode = $this->hashid->decode($id);
+//        $id = $decode[0];
         try {
             $employer = Employer::findOrFail($id);
             $employer->enrollment_no = str_replace('TMP_', '', $employer->temp_enrollment_no);

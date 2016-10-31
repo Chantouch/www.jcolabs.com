@@ -165,7 +165,7 @@ class Employer extends Authenticatable
     public static function qualification()
     {
         return [
-            'Good' => 'Good'
+            '1' => 'Good'
         ];
     }
 

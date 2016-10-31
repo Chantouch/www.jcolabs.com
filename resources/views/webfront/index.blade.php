@@ -5,6 +5,7 @@
 @stop
 
 @section('full_content')
+
     <div class="main-slider"><!-- start main-headline section -->
         <div class="slider-nav">
             <a class="slider-prev"><i class="fa fa-chevron-circle-left"></i></a>
@@ -81,8 +82,6 @@
         </div>
     </div><!-- end job finder -->
 
-
-
     <div class="recent-job"><!-- Start Recent Job -->
         <div class="container">
             <div class="row">
@@ -104,21 +103,21 @@
                                                  alt="dummy-joblist"/>
                                         </div>
                                         <div class="col-md-5 job-list-desc">
-                                            <h6>{!!$job->post_name!!}</h6>
+                                            <h6>{!! $job->post_name !!}</h6>
                                             <p>{!! $job->description !!}</p>
                                         </div>
                                         <div class="col-md-6 full">
 
                                             <div class="job-list-location col-md-5 ">
                                                 <h6>
-                                                    <i class="fa fa-map-marker"></i>{!!$job->place_of_employment_city!!}
+                                                    <i class="fa fa-map-marker"></i>{!! $job->place_of_employment_city !!}
                                                 </h6>
                                             </div>
                                             <div class="job-list-type col-md-5 ">
-                                                <h6><i class="fa fa-user"></i>{!!$job->job_type!!}</h6>
+                                                <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                             </div>
                                             <div class="col-md-2 job-list-button">
-                                                <a href="{!! route('jobs.view.name', [$job->slug, $job->id]) !!}"
+                                                <a href="{!! route('jobs.view.name', [$job->employer->organization_name, $job->industry->name, $job->id,$job->slug]) !!}"
                                                    class="btn-view-job">View</a>
                                             </div>
 
@@ -128,10 +127,13 @@
                                 @endforeach
                             </div><!-- Tabs section 1 -->
                             <div id="contract"><!-- Tabs section 2 -->
+                                Contract
                             </div><!-- Tabs section 2 -->
                             <div id="full"><!-- Tabs section 3 -->
+                                Full time
                             </div><!-- Tabs section 3 -->
                             <div id="free"><!-- Tabs section 4 -->
+                                Freelancer
                             </div><!-- Tabs section 4 -->
                         </div>
                     </div><!-- end Tabs -->
@@ -221,16 +223,14 @@
 
                     <div class="post-resume-title">Post Your Resume</div>
                     <div class="post-resume-container">
-                        <button type="button" class="post-resume-button">Upload Your Resume<i
-                                    class="icon-upload grey"></i></button>
+                        <button type="button" class="post-resume-button">Upload Your Resume
+                            <i class="icon-upload grey"></i></button>
                     </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
         </div>
     </div><!-- end Recent Job -->
-
-
 
     <div class="job-status">
         <div class="container">
@@ -245,14 +245,14 @@
                 <div class="counter-container col-md-3 col-xs-6">
                     <div class="counter-value">125</div>
                     <div class="line"></div>
-                    <p>job posted</p>
+                    <p>Job Posted</p>
                 </div>
 
 
                 <div class="counter-container col-md-3 col-xs-6">
                     <div class="counter-value">50</div>
                     <div class="line"></div>
-                    <p>possition Filled</p>
+                    <p>Position Filled</p>
                 </div>
 
                 <div class="counter-container col-md-3 col-xs-6">
@@ -327,7 +327,6 @@
             <div class="step-spacer"></div>
         </div>
     </div>
-
 
     <div id="company-post">
         <div class="container">

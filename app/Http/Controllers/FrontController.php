@@ -38,25 +38,25 @@ class FrontController extends Controller
      * Display the specified City.
      *
      * @param $slug
+     * @param $category
+     * @param $industry
+     * @param $id
      * @return Redirect
      * @internal param int $id
      */
-    public function show($slug, $id)
+    public function show($category, $industry, $id, $slug)
     {
 
-        $job_id = PostedJob::where('slug', $slug)->firstOrFail();
+        $job = PostedJob::where('slug', $slug)->firstOrFail();
 
-        if (empty($city)) {
+        if (empty($job)) {
 
-            Flash::error('City not found');
+            Flash::error('Job not found');
 
             return redirect(route('home'));
         }
 
-        if ($slug != Str::slug($job_id->slug))
-            return redirect()->route('home', array('id' => $city->id, 'slug' => $city->slug), 301);
-
-        return view('webfront.jobs.view', compact('job_id'));
+        return view('webfront.jobs.view', compact('job'));
 
     }
 }

@@ -32,7 +32,7 @@ class CreatePostedJobsTable extends Migration
             $table->integer('preferred_age_max', false)->nullable()->comment('preferred age max');
             $table->string('preferred_caste')->nullable()->comment('Preferred cast');
             //$table->enum('preferred_relegion', ['BUDDISM', 'CHRISTIANITY','HINDUISM','ISLAM','JAINISM','PARSI','SIKHISM', 'OTHERS', 'ANY']);
-            $table->enum('preferred_sex', ['MALE', 'FEMALE','OTHERS', 'ANY'])->comment('gender');
+            $table->enum('preferred_sex', ['MALE', 'FEMALE', 'OTHERS', 'ANY'])->comment('gender');
             $table->integer('exam_passed_id', false, true)->comment('This will be the foreign key for exam passed');
             $table->integer('subject_id', false)->unsigned()->default('0')->comment('Subject foreign key from master subjects');
             $table->string('specialization', 50)->nullable();
@@ -45,9 +45,11 @@ class CreatePostedJobsTable extends Migration
             $table->decimal('physical_chest', 5, 2)->nullable()->comment('Measurement in cm');
             $table->enum('physical_challenge', ['YES', 'NO'])->default('NO')->comment('Whether Physically Challenged ?');
             $table->enum('job_type', ['Full Time', 'Part Time'])->default('Full Time')->comment('Whether JOb is part time or full time?');
-            $table->enum('job_sub_category', ['Govt. Regular', 'Govt. Contractual', 'Pvt. Regular','Pvt. Contractual', 'Not Specified'])->default('Not Specified')->comment('Sub Categories of job');
-            $table->string('description')->nullable();
-            $table->string('requirement_description')->nullable();
+            $table->enum('job_sub_category', ['Govt. Regular', 'Govt. Contractual', 'Pvt. Regular', 'Pvt. Contractual', 'Not Specified'])->default('Not Specified')->comment('Sub Categories of job');
+            $table->longText('description')->nullable();
+            $table->longText('other_benefit')->nullable();
+            $table->tinyInteger('is_expired')->nullable()->default(0);
+            $table->longText('requirement_description')->nullable();
             $table->tinyInteger('status')->comment('whether it is still available or filled or na, 0 means not verified, 1 means available, 2 means filled up ');
             $table->integer('created_by', false, true)->comment('The employer id , who have created this job');
             $table->integer('contact_person_id', false, true)->comment('For contact person , that candidate can contact to.');

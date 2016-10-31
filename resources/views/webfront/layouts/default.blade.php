@@ -39,13 +39,15 @@
 <body>
 <div id="wrapper"><!-- start main wrapper -->
     <div id="header"><!-- start main header -->
-        <div class="top-line">&nbsp;</div>
-        @include('webfront.layouts.top_nav')
+
         @include('webfront.layouts.header')
+
     </div><!-- end main header -->
+
     @yield('full_content')
     <div class="main-page-title"><!-- start main page title -->
         <div class="container">
+
             @if (Session::has('alert'))
                 <div class="alert alert-warning alert-dismissable job-alert alert-red">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i

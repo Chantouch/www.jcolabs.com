@@ -6,8 +6,8 @@
             <th>Post Name</th>
             <th>No Of Post</th>
             <th>Industry</th>
-            <th>City </th>
-            <th>District</th>
+            <th class="hidden-sm">City </th>
+            <th class="hidden-sm">District</th>
             <th>Job Category</th>
             <th>Subject</th>
             <th>Specialization</th>
@@ -25,13 +25,13 @@
                 <td>{!! $postJob->post_name !!}</td>
                 <td>{!! $postJob->no_of_post !!}</td>
                 <td>{!! $postJob->industry->name !!}</td>
-                <td>{!! $postJob->city->name !!}</td>
-                <td>{!! $postJob->district->name !!}</td>
+                <td class="hidden-sm">{!! $postJob->city->name !!}</td>
+                <td class="hidden-sm">{!! $postJob->district->name !!}</td>
                 <td>{!! $postJob->job_sub_category !!}</td>
                 <td>{!! $postJob->subject->name !!}</td>
                 <td>{!! $postJob->specialization !!}</td>
                 <td>{!! $postJob->preferred_experience !!} year (s)</td>
-                <td>{!! $postJob->description !!}</td>
+                <td>{!! \Illuminate\Support\Str::limit($postJob->description, 50) !!}</td>
                 <td>
                     {!! Form::open(['route' => ['employer.postJobs.destroy', $postJob->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

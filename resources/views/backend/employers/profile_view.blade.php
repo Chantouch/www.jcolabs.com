@@ -26,7 +26,7 @@
                 @if($employer->verified_by == 0)
                     <li class="approve_employer text-center">
                         <a title="By clicking approve the Employer profile will be marked as verified and the Employer can use all the features of this portal"
-                           href="{!! route('admin.employerVerify', Hashids::encode($employer->id)) !!}"
+                           href="{!! route('admin.employerVerify', $employer->id) !!}"
                            onclick="return confirm('Are you sure to approve this employer?')"
                            class="show_confirm"> <i class="fa fa-check"></i>&nbsp; Approve Employer
                         </a>

@@ -254,4 +254,4 @@ Route::group(['middleware' => ['employer']], function () {
 
 });
 
-Route::get('jobs/view/{slug?}/{id}', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
+Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
