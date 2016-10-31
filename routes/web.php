@@ -13,6 +13,7 @@
 Auth::routes();
 
 Route::post('api/fetch/district', ['as' => 'district.by.city', 'uses' => 'RestController@getDistricts']);
+Route::post('api/fetch/contact', ['as' => 'contact.by.id', 'uses' => 'RestController@getContactPersonDetails']);
 
 Route::group(['middleware' => ['guest']], function () {
 
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('admin/authenticate', ['as' => 'admin.process.authenticate.do', 'uses' => 'backend\Auth\LoginController@authenticate']);
 
     Route::get('admin/register', 'backend\Auth\RegisterController@getRegisterForm');
+
     Route::post('admin/saveregister', ['as' => 'admin.save_register.precess', 'uses' => 'backend\Auth\RegisterController@saveRegisterForm']);
 
     Route::get('admin/register/verify/{token}', ['as' => 'admin.verify.register.activate', 'uses' => 'backend\Auth\RegisterController@verify']);
@@ -251,3 +253,5 @@ Route::group(['middleware' => ['employer']], function () {
     });
 
 });
+
+Route::get('jobs/view/{slug?}/{id}', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);

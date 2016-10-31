@@ -56,7 +56,7 @@
             <!-- Place Of Employment District Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('place_of_employment_district_id', 'Place Of Employment District:') !!}
-                {!! Form::select('place_of_employment_district_id',$districts , null, ['class' => 'form-control place_of_employment_district_id']) !!}
+                {!! Form::select('place_of_employment_district_id',$districts , null, ['class' => 'form-control place_of_employment_district_id','placeholder' => '--Select City--']) !!}
             </div>
 
             <!-- Description Field -->
@@ -210,6 +210,35 @@
             <div class="form-group col-sm-12 col-lg-12">
                 {!! Form::label('contact_person_id', 'Contact Person:') !!}
                 {!! Form::select('contact_person_id',$contact_person, null, ['class' => 'form-control']) !!}
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('contact_name', 'Contact Name:') !!}
+                    {!! Form::text('contact_name', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('phone_number', 'Phone Number:') !!}
+                    {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('web_address', 'Website:') !!}
+                    {!! Form::text('web_address', null, ['class' => 'form-control']) !!}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {!! Form::label('department_id', 'Department Name:') !!}
+                    {!! Form::text('department_id', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('email', 'Email:') !!}
+                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                </div>
+                <div class="form-group">
+                    {!! Form::label('address', 'Address:') !!}
+                    {!! Form::text('address', null, ['class' => 'form-control']) !!}
+                </div>
             </div>
 
         </div>

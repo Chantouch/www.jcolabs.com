@@ -85,8 +85,6 @@ class Employer extends Authenticatable
 
         $employer = Auth::guard('employer')->user();
 
-//        dd($employer);
-
         switch (Request::method()) {
             case 'GET':
             case 'DELETE': {

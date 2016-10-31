@@ -86,10 +86,12 @@
             <!-- /.box-body -->
             <div class="box-footer">
                 <h4>Company Description</h4>
-                <p class="col-md-11">CamUP Agency is a recruitment agency in Cambodia, established in 2013 which
+                <p class="col-md-11">
+                    CamUP Agency is a recruitment agency in Cambodia, established in 2013 which
                     cooperate with
                     Japanese
-                    experts.</p>
+                    experts.
+                </p>
                 <p class="col-md-1 pull-right">
                     <a href="#">Edit</a>
                 </p>
@@ -110,10 +112,24 @@
 @section('page_specific_js')
 
     <script type="text/javascript">
-        $(".place_of_employment_city_id, .place_of_employment_district_id").select2();
-    </script>
 
-    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(".place_of_employment_city_id, .place_of_employment_district_id").select2();
+        $('#place_of_employment_city_id').change(function (e) {
+            getDistrictList(this, $('#place_of_employment_district_id'));
+        });
+
+        $('#contact_person_id').change(function (e) {
+            getContactPerson(this, $('#phone_number'));
+        });
+
+        $('#place_of_employment_state_id').trigger('change');
+
         $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
@@ -121,6 +137,55 @@
             //bootstrap WYSIHTML5 - text editor
             $(".textarea").wysihtml5();
         });
-    </script>
 
+
+        function getDistrictList(cityElement, districtElement) {
+            var url = '{{ route('district.by.city') }}';
+            var city = $(cityElement).val();
+            $district = $(districtElement);
+            districtElement = typeof districtElement !== 'undefined' ? districtElement : '';
+
+            if (city != '') {
+                $.ajax({url: url, type: 'POST', data: {city_id: city}}).done(function (msg) {
+                    $district.empty();
+                    $("<option>").val('').text('--Choose District--').appendTo($district);
+                    $.each(msg, function (key, value) {
+                        $("<option>").val(value.id).text(value.name).appendTo($district);
+                    });
+                    @if(Session::has('message'))
+                        $district.val('{{ old('place_of_employment_district_id') }}')
+                    @endif
+                            return true;
+                });
+            } else
+                $district.empty();
+        }
+
+        function getContactPerson(contactId, phone_number) {
+            var url = '{!! route('contact.by.id') !!}';
+            var contact = $(contactId).val();
+            console.log(contact);
+            $phone = $(phone_number);
+
+            phone_number = typeof phone_number !== 'undefined' ? phone_number : '';
+
+            if (contact != '') {
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        contact_id: contact
+                    }
+                }).done(function (msg) {
+                    console.log(msg);
+                    $phone.empty();
+                }).fail(function (response) {
+                    console.log("Error: " + response);
+                });
+            } else {
+                $phone.empty();
+            }
+        }
+
+    </script>
 @stop

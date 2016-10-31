@@ -21,6 +21,7 @@
     {!! Form::select('place_of_employment_city_id', $cities, null, array('class' => 'form-control')) !!}
 </div>
 
+
 <div class="form-group col-sm-6">
     {!! Form::label('place_of_employment_district_id', 'Place Of Employment District:') !!}
     {!! Form::select('place_of_employment_district_id', $districts, null, array('class' => 'form-control')) !!}

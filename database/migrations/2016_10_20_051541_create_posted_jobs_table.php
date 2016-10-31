@@ -47,6 +47,7 @@ class CreatePostedJobsTable extends Migration
             $table->enum('job_type', ['Full Time', 'Part Time'])->default('Full Time')->comment('Whether JOb is part time or full time?');
             $table->enum('job_sub_category', ['Govt. Regular', 'Govt. Contractual', 'Pvt. Regular','Pvt. Contractual', 'Not Specified'])->default('Not Specified')->comment('Sub Categories of job');
             $table->string('description')->nullable();
+            $table->string('requirement_description')->nullable();
             $table->tinyInteger('status')->comment('whether it is still available or filled or na, 0 means not verified, 1 means available, 2 means filled up ');
             $table->integer('created_by', false, true)->comment('The employer id , who have created this job');
             $table->integer('contact_person_id', false, true)->comment('For contact person , that candidate can contact to.');

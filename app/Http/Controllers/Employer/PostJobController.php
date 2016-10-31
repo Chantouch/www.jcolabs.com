@@ -66,6 +66,7 @@ class PostJobController extends AppBaseController
             $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
+//            $districts = ['' => '-- Select State first--'];
             $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];

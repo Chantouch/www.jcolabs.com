@@ -638,13 +638,52 @@
 @yield('page_specific_js')
 
 <script type="text/javascript">
+    $(function () {
+        $("#place_of_employment_city_id").change(function () {
+            var selectedText = $(this).find("option:selected").text();
+            var selectedValue = $(this).val();
+            alert("Selected Text: " + selectedText + " Value: " + selectedValue);
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function getDistrictList(cityElement, districtElement) {
+        var url = '{{ URL::route('district.by.city') }}';
+        var city = $(cityElement).val();
+        $district = $(districtElement);
+        districtElement = typeof districtElement !== 'undefined' ? districtElement : '';
+
+        if (city != '') {
+            $.ajax({url: url, type: 'POST', data: {city_id: city}}).done(function (msg) {
+                $district.empty();
+                $("<option>").val('').text('--Choose--').appendTo($district);
+                $.each(msg, function (key, value) {
+                    $("<option>").val(value.id).text(value.name).appendTo($district);
+                });
+                @if(Session::has('message'))
+                    $district.val('{{ old('place_of_employment_district_id') }}')
+                @endif
+                        return true;
+            });
+        } else
+            $district.empty();
+    }
+</script>
+
+<script type="text/javascript">
     $(document).ready(function () {
 
-                @yield('page_specific_scripts')
-
+        $('#place_of_employment_city_id').change(function (e) {
+            alert('It working.')
+        });
+        @if(Session::has('message'))
+        $('#place_of_employment_city_id').trigger('change');
+        @endif
         var active = '{{ Request::segment(1) }}';
         var subactive = '{{ Request::segment(2) }}';
         var subactive3 = '{{ Request::segment(3) }}';
+
         if (active == "master") {
             $('#master').addClass('active');
             $('#' + subactive).addClass('active');
