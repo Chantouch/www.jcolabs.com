@@ -15,12 +15,16 @@
 
     <ul class="treeview-menu">
 
-        <li class="{{ Request::is('admin/master/industryTypes*') ? 'active' : '' }}">
+        <li class="{{ Request::is('admin/master/industry-types*') ? 'active' : '' }}">
             <a href="{!! route('admin.industryTypes.index') !!}">
                 <i class="fa fa-edit"></i><span>Industry Types</span></a>
         </li>
 
-        <li class="{{ Request::is('admin/master/departmentTypes*') ? 'active' : '' }}">
+        <li class="{{ Request::is('admin/master/categories*') ? 'active' : '' }}">
+            <a href="{!! route('admin.categories.index') !!}"><i class="fa fa-edit"></i><span>Categories</span></a>
+        </li>
+
+        <li class="{{ Request::is('admin/master/department-types*') ? 'active' : '' }}">
             <a href="{!! route('admin.departmentTypes.index') !!}">
                 <i class="fa fa-edit"></i><span>Department Types</span></a>
         </li>
@@ -40,7 +44,7 @@
                 <i class="fa fa-edit"></i><span>Languages</span></a>
         </li>
 
-        <li class="{{ Request::is('admin/master/proofResidenses*') ? 'active' : '' }}">
+        <li class="{{ Request::is('admin/master/proof-residences*') ? 'active' : '' }}">
             <a href="{!! route('admin.proofResidenses.index') !!}">
                 <i class="fa fa-edit"></i><span>Proof Residences</span></a>
         </li>
@@ -65,7 +69,7 @@
                 <i class="fa fa-edit"></i><span>Positions</span></a>
         </li>
 
-        <li class="{{ Request::is('admin/master/jobListAll*') ? 'active' : '' }}">
+        <li class="{{ Request::is('admin/master/job-list-all*') ? 'active' : '' }}">
             <a href="{!! route('admin.jobListAll.jobListAll') !!}">
                 <i class="fa fa-edit"></i><span>Jobs list</span></a>
         </li>
@@ -100,14 +104,14 @@
         </span>
     </a>
     <ul class="treeview-menu">
-        <li class="{{ Request::is('admin/candidates/applications/received') ? 'active' : '' }}"><a
-                    href="{{URL::route('admin.applications_received')}}"><i class="text-yellow fa fa-download"></i>
+        <li class="{{ Request::is('admin/candidates/applications/received') ? 'active' : '' }}">
+            <a href="{{URL::route('admin.applications_received')}}"><i class="text-yellow fa fa-download"></i>
                 Applications Received</a></li>
-        <li class="{{ Request::is('admin/candidates/applications/verified') ? 'active' : '' }}"><a
-                    href="{{URL::route('admin.applications_verified')}}"><i class="text-green fa fa-check"></i>
+        <li class="{{ Request::is('admin/candidates/applications/verified') ? 'active' : '' }}">
+            <a href="{{URL::route('admin.applications_verified')}}"><i class="text-green fa fa-check"></i>
                 Applications Verified</a></li>
-        <li class="{{ Request::is('admin/candidates/applications/suspended') ? 'active' : '' }}"><a
-                    href="{{URL::route('admin.applications_suspended')}}"><i class="text-red fa fa-ban"></i>
+        <li class="{{ Request::is('admin/candidates/applications/suspended') ? 'active' : '' }}">
+            <a href="{{URL::route('admin.applications_suspended')}}"><i class="text-red fa fa-ban"></i>
                 Applications
                 Suspended</a></li>
     </ul>

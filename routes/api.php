@@ -24,3 +24,10 @@ Route::get('admin/post_jobs/{post_jobs}', 'PostJobAPIController@show');
 Route::put('admin/post_jobs/{post_jobs}', 'PostJobAPIController@update');
 Route::patch('admin/post_jobs/{post_jobs}', 'PostJobAPIController@update');
 Route::delete('admin/post_jobs{post_jobs}', 'PostJobAPIController@destroy');
+
+Route::get('admin/categories', 'CategoryAPIController@index');
+Route::post('admin/categories', 'CategoryAPIController@store');
+Route::get('admin/categories/{categories}', 'CategoryAPIController@show');
+Route::put('admin/categories/{categories}', 'CategoryAPIController@update');
+Route::patch('admin/categories/{categories}', 'CategoryAPIController@update');
+Route::delete('admin/categories{categories}', 'CategoryAPIController@destroy');

@@ -53,6 +53,7 @@ class PostedJob extends Model
         'physical_chest',
         'physical_weight',
         'description',
+        'category_id',
         'contact_person_id',
     ];
 
@@ -105,6 +106,7 @@ class PostedJob extends Model
         //'preferred_age_max' => 'integer|min:0|max:100',
         //'industry_id'   =>  'required|exists,industry_types,id',
     ];
+
     /**
      * @var array
      */
@@ -140,11 +142,27 @@ class PostedJob extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, 'category_id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function language()
+    {
+        return $this->belongsToMany(Language::class);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function district()
     {
-        //return $this->hasMany('App\Models\CandidateEduDetails', 'candidate_id');
         return $this->belongsTo(District::class, 'place_of_employment_district_id');
     }
 
@@ -153,7 +171,6 @@ class PostedJob extends Model
      */
     public function city()
     {
-        //return $this->hasMany('App\Models\CandidateEduDetails', 'candidate_id');
         return $this->belongsTo(City::class, 'place_of_employment_city_id');
     }
 
@@ -162,7 +179,6 @@ class PostedJob extends Model
      */
     public function exam()
     {
-        //return $this->hasMany('App\Models\CandidateEduDetails', 'candidate_id');
         return $this->belongsTo(Exam::class, 'exam_passed_id');
     }
 
@@ -171,7 +187,6 @@ class PostedJob extends Model
      */
     public function subject()
     {
-        //return $this->hasMany('App\Models\CandidateEduDetails', 'candidate_id');
         return $this->belongsTo(Subject::class, 'subject_id');
     }
 
@@ -180,7 +195,6 @@ class PostedJob extends Model
         return $this->belongsTo(ContactPerson::class, 'contact_person_id');
     }
 
-    //place_of_employment_city_id
     /**
      * @param $value
      * @return string

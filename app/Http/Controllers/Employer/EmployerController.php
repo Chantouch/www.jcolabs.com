@@ -304,15 +304,17 @@ class EmployerController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-
-        $profile_id = Auth::guard('employer')->user()->id;
+        $id = Auth::guard('employer')->user()->id;
         $profile = Auth::guard('employer')->user();
-        $destination_path = public_path('uploads/employers/');
+        $destination_path = public_path('uploads/employers/' . $id . '/profile/');
+        if (!file_exists($destination_path)) {
+            mkdir($destination_path, 0777, true);
+        }
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
-                $fileName = $profile->id . '.' . $request->file('photo')->getClientOriginalExtension();
-                $request->file('photo')->move($destination_path, $fileName);
-                $data['photo'] = 'uploads/employers/' . $fileName;
+                $fileName = $request->file('photo')->getClientOriginalExtension();
+                $request->file('photo')->store($destination_path, $fileName);
+                $data['photo'] = $destination_path . $fileName;
             }
         }
 

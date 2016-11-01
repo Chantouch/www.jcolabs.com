@@ -30,8 +30,8 @@
 
             <!-- Job Sub Category Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('job_sub_category', 'Job Category:') !!}
-                {!! Form::select('job_sub_category',$job_sub_categories, null, ['class' => 'form-control']) !!}
+                {!! Form::label('job_category', 'Job Category:') !!}
+                {!! Form::select('job_category',$job_categories, null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Salary offer Min Field -->
@@ -137,29 +137,10 @@
                 {!! Form::text('preferred_age_max', null, ['class' => 'form-control']) !!}
             </div>
 
-            <!-- Preferred Caste Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('preferred_caste', 'Preferred Caste:') !!}
-                {!! Form::text('preferred_caste', null, ['class' => 'form-control']) !!}
-            </div>
-
-
             <!-- Specialization Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('specialization', 'Specialization:') !!}
                 {!! Form::text('specialization', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Ex Service Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('ex_service', 'Ex Service:') !!}
-                {!! Form::select('ex_service',$ex_service, null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Physical Challenge Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('physical_challenge', 'Physical Challenge:') !!}
-                {!! Form::select('physical_challenge',$physical_challenge, null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Physical Height Field -->
@@ -174,22 +155,10 @@
                 {!! Form::text('physical_weight', null, ['class' => 'form-control']) !!}
             </div>
 
-            <!-- Physical Chest Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('physical_chest', 'Physical Chest:') !!}
-                {!! Form::text('physical_chest', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Physical Weight Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('physical_weight', 'Physical Weight:') !!}
-                {!! Form::text('physical_weight', null, ['class' => 'form-control']) !!}
-            </div>
-
             <!-- Description Field -->
             <div class="form-group col-sm-12 col-lg-12">
-                {!! Form::label('description', 'Description:') !!}
-                {!! Form::textarea('description', null, ['class' => 'form-control textarea', 'rows'=>'5']) !!}
+                {!! Form::label('requirement_description', 'Description:') !!}
+                {!! Form::textarea('requirement_description', null, ['class' => 'form-control textarea', 'rows'=>'5']) !!}
             </div>
         </div>
     </div>

@@ -6,6 +6,7 @@ use App\Helpers\BaseHelper;
 use App\Http\Requests\CreatePostJobRequest;
 use App\Http\Requests\UpdatePostJobRequest;
 use App\Model\backend\Employer;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\ContactPerson;
 use App\Models\District;
@@ -76,10 +77,10 @@ class PostJobController extends AppBaseController
             $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $physical_challenge = ['YES' => 'YES', 'NO' => 'NO'];
             $ex_service = ['YES' => 'YES', 'NO' => 'NO'];
-            $job_sub_categories = Employer::$job_sub_category;
+            $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $contact_person = ContactPerson::where('employer_id', $id)->orderBy('contact_name')->pluck('contact_name', 'id');
             $company = Auth::guard('employer')->user();
-            return view('employers.post_jobs.create', compact('qualifications', 'languages', 'job_levels', 'industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_sub_categories', 'contact_person'));
+            return view('employers.post_jobs.create', compact('qualifications', 'languages', 'job_levels', 'industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
         } catch (ErrorException $exception) {
             return redirect('/employers/dashboard')->with('message', ' Please complete your profile company to post your post.');
         }

@@ -17,7 +17,8 @@ Route::post('api/fetch/contact', ['as' => 'contact.by.id', 'uses' => 'RestContro
 
 Route::group(['middleware' => ['guest']], function () {
 
-    Route::get('/', ['as' => 'home', 'uses' => 'FrontController@index']);
+    Route::get('/', ['as' => '
+    ', 'uses' => 'FrontController@index']);
 
     Route::get('/home', function () {
         return view('frontend.home');
@@ -75,6 +76,7 @@ Route::group(['middleware' => ['admin']], function () {
 
             Route::get('job-list-all', ['as' => 'admin.jobListAll.jobListAll', 'uses' => 'backend\AdminController@jobListAll']);
 
+            //Industry types
             Route::get('industry-types', ['as' => 'admin.industryTypes.index', 'uses' => 'backend\IndustryTypeController@index']);
             Route::post('industry-types', ['as' => 'admin.industryTypes.store', 'uses' => 'backend\IndustryTypeController@store']);
             Route::get('industry-types/create', ['as' => 'admin.industryTypes.create', 'uses' => 'backend\IndustryTypeController@create']);
@@ -84,6 +86,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('industry-types/{industryTypes}', ['as' => 'admin.industryTypes.show', 'uses' => 'backend\IndustryTypeController@show']);
             Route::get('industry-types/{industryTypes}/edit', ['as' => 'admin.industryTypes.edit', 'uses' => 'backend\IndustryTypeController@edit']);
 
+            //Department types
             Route::get('department-types', ['as' => 'admin.departmentTypes.index', 'uses' => 'backend\DepartmentTypeController@index']);
             Route::post('department-types', ['as' => 'admin.departmentTypes.store', 'uses' => 'backend\DepartmentTypeController@store']);
             Route::get('department-types/create', ['as' => 'admin.departmentTypes.create', 'uses' => 'backend\DepartmentTypeController@create']);
@@ -93,6 +96,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('department-types/{departmentTypes}', ['as' => 'admin.departmentTypes.show', 'uses' => 'backend\DepartmentTypeController@show']);
             Route::get('department-types/{departmentTypes}/edit', ['as' => 'admin.departmentTypes.edit', 'uses' => 'backend\DepartmentTypeController@edit']);
 
+            //Boards
             Route::get('boards', ['as' => 'admin.boards.index', 'uses' => 'backend\BoardController@index']);
             Route::post('boards', ['as' => 'admin.boards.store', 'uses' => 'backend\BoardController@store']);
             Route::get('boards/create', ['as' => 'admin.boards.create', 'uses' => 'backend\BoardController@create']);
@@ -102,6 +106,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('boards/{boards}', ['as' => 'admin.boards.show', 'uses' => 'backend\BoardController@show']);
             Route::get('boards/{boards}/edit', ['as' => 'admin.boards.edit', 'uses' => 'backend\BoardController@edit']);
 
+            //Subjects
             Route::get('subjects', ['as' => 'admin.subjects.index', 'uses' => 'backend\SubjectController@index']);
             Route::post('subjects', ['as' => 'admin.subjects.store', 'uses' => 'backend\SubjectController@store']);
             Route::get('subjects/create', ['as' => 'admin.subjects.create', 'uses' => 'backend\SubjectController@create']);
@@ -111,6 +116,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('subjects/{subjects}', ['as' => 'admin.subjects.show', 'uses' => 'backend\SubjectController@show']);
             Route::get('subjects/{subjects}/edit', ['as' => 'admin.subjects.edit', 'uses' => 'backend\SubjectController@edit']);
 
+            //Languages
             Route::get('languages', ['as' => 'admin.languages.index', 'uses' => 'backend\LanguageController@index']);
             Route::post('languages', ['as' => 'admin.languages.store', 'uses' => 'backend\LanguageController@store']);
             Route::get('languages/create', ['as' => 'admin.languages.create', 'uses' => 'backend\LanguageController@create']);
@@ -120,6 +126,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('languages/{languages}', ['as' => 'admin.languages.show', 'uses' => 'backend\LanguageController@show']);
             Route::get('languages/{languages}/edit', ['as' => 'admin.languages.edit', 'uses' => 'backend\LanguageController@edit']);
 
+            //Proof residences
             Route::get('proof-residences', ['as' => 'admin.proofResidenses.index', 'uses' => 'backend\ProofResidenseController@index']);
             Route::post('proof-residences', ['as' => 'admin.proofResidenses.store', 'uses' => 'backend\ProofResidenseController@store']);
             Route::get('proof-residences/create', ['as' => 'admin.proofResidenses.create', 'uses' => 'backend\ProofResidenseController@create']);
@@ -129,6 +136,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('proof-residences/{proofResidenses}', ['as' => 'admin.proofResidenses.show', 'uses' => 'backend\ProofResidenseController@show']);
             Route::get('proof-residences/{proofResidenses}/edit', ['as' => 'admin.proofResidenses.edit', 'uses' => 'backend\ProofResidenseController@edit']);
 
+            //Pattern
             Route::pattern('id', '\d+');
             Route::pattern('hash', '[a-z0-9]+');
             Route::pattern('hex', '[a-f0-9]+');
@@ -136,6 +144,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::pattern('base', '[a-zA-Z0-9]+');
             Route::pattern('slug', '[a-z0-9-]+');
 
+            //Cities
             Route::get('cities', ['as' => 'admin.cities.index', 'uses' => 'backend\CityController@index']);
             Route::post('cities', ['as' => 'admin.cities.store', 'uses' => 'backend\CityController@store']);
             Route::get('cities/create', ['as' => 'admin.cities.create', 'uses' => 'backend\CityController@create']);
@@ -145,6 +154,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('cities/{slug?}/{id}', ['as' => 'admin.cities.show', 'uses' => 'backend\CityController@show']);
             Route::get('cities/{cities}/edit', ['as' => 'admin.cities.edit', 'uses' => 'backend\CityController@edit']);
 
+            //Districts
             Route::get('districts', ['as' => 'admin.districts.index', 'uses' => 'backend\DistrictController@index']);
             Route::post('districts', ['as' => 'admin.districts.store', 'uses' => 'backend\DistrictController@store']);
             Route::get('districts/create', ['as' => 'admin.districts.create', 'uses' => 'backend\DistrictController@create']);
@@ -154,6 +164,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('districts/{districts}', ['as' => 'admin.districts.show', 'uses' => 'backend\DistrictController@show']);
             Route::get('districts/{districts}/edit', ['as' => 'admin.districts.edit', 'uses' => 'backend\DistrictController@edit']);
 
+            //Exams
             Route::get('exams', ['as' => 'admin.exams.index', 'uses' => 'backend\ExamController@index']);
             Route::post('exams', ['as' => 'admin.exams.store', 'uses' => 'backend\ExamController@store']);
             Route::get('exams/create', ['as' => 'admin.exams.create', 'uses' => 'backend\ExamController@create']);
@@ -163,6 +174,7 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('exams/{exams}', ['as' => 'admin.exams.show', 'uses' => 'backend\ExamController@show']);
             Route::get('exams/{exams}/edit', ['as' => 'admin.exams.edit', 'uses' => 'backend\ExamController@edit']);
 
+            //Positions
             Route::get('positions', ['as' => 'admin.positions.index', 'uses' => 'backend\PositionController@index']);
             Route::post('positions', ['as' => 'admin.positions.store', 'uses' => 'backend\PositionController@store']);
             Route::get('positions/create', ['as' => 'admin.positions.create', 'uses' => 'backend\PositionController@create']);
@@ -174,6 +186,17 @@ Route::group(['middleware' => ['admin']], function () {
 
             //Admin List view proposed on Admin Panel
             Route::get('accounts/view/{id}', ['as' => 'admin.admins_accounts.view', 'uses' => 'backend\AdminController@adminsAccounts']);
+
+            //Categories
+            Route::get('categories', ['as' => 'admin.categories.index', 'uses' => 'backend\CategoryController@index']);
+            Route::post('categories', ['as' => 'admin.categories.store', 'uses' => 'backend\CategoryController@store']);
+            Route::get('categories/create', ['as' => 'admin.categories.create', 'uses' => 'backend\CategoryController@create']);
+            Route::put('categories/{categories}', ['as' => 'admin.categories.update', 'uses' => 'backend\CategoryController@update']);
+            Route::patch('categories/{categories}', ['as' => 'admin.categories.update', 'uses' => 'backend\CategoryController@update']);
+            Route::delete('categories/{categories}', ['as' => 'admin.categories.destroy', 'uses' => 'backend\CategoryController@destroy']);
+            Route::get('categories/{categories}', ['as' => 'admin.categories.show', 'uses' => 'backend\CategoryController@show']);
+            Route::get('categories/{categories}/edit', ['as' => 'admin.categories.edit', 'uses' => 'backend\CategoryController@edit']);
+
 
         });
 

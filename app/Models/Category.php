@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Language
+ * Class Category
  * @package App\Models
- * @version October 23, 2016, 11:00 am UTC
+ * @version November 1, 2016, 9:33 am ICT
  */
-class Language extends Model
+class Category extends Model
 {
     use SoftDeletes;
 
-    public $table = 'languages';
-
+    public $table = 'categories';
+    
 
     protected $dates = ['deleted_at'];
 
@@ -46,13 +46,5 @@ class Language extends Model
         'name' => 'required'
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function posted_job()
-    {
-        return $this->belongsToMany(PostedJob::class);
-    }
-
-
+    
 }
