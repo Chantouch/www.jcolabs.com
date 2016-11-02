@@ -65,7 +65,16 @@
                         <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
                         <p class="text-muted">{!! $profile->address !!}</p>
                         <hr>
-                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Services</strong>
+                        <p>
+                            <span class="label label-danger">UI Design</span>
+                            <span class="label label-success">Coding</span>
+                            <span class="label label-info">Javascript</span>
+                            <span class="label label-warning">PHP</span>
+                            <span class="label label-primary">Node.js</span>
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Products</strong>
                         <p>
                             <span class="label label-danger">UI Design</span>
                             <span class="label label-success">Coding</span>
@@ -75,7 +84,7 @@
                         </p>
                         <hr>
                         <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                        <p>{!! $profile->details !!}</p>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -387,17 +396,23 @@
 
     <div id="container-floating">
 
-        <div class="nd4 nds" data-toggle="tooltip" data-placement="left" data-original-title="{!! $profile->contact_name !!}"><img class="reminder">
+        <div class="nd4 nds" data-toggle="tooltip" data-placement="left"
+             data-original-title="{!! $profile->contact_name !!}"><img class="reminder">
             <p class="letter">C</p>
         </div>
-        <div class="nd3 nds" data-toggle="tooltip" data-placement="left" data-original-title="{!! $profile->organization_name !!}"><img class="reminder" src="{!! asset('images/ic_reminders_speeddial_white_24dp.png') !!}" /></div>
-        <div class="nd1 nds" data-toggle="tooltip" data-placement="left" data-original-title="{!! $profile->contact_email !!}"><img class="reminder">
+        <div class="nd3 nds" data-toggle="tooltip" data-placement="left"
+             data-original-title="{!! $profile->organization_name !!}"><img class="reminder"
+                                                                            src="{!! asset('images/ic_reminders_speeddial_white_24dp.png') !!}"/>
+        </div>
+        <div class="nd1 nds" data-toggle="tooltip" data-placement="left"
+             data-original-title="{!! $profile->contact_email !!}"><img class="reminder">
             <p class="letter">E</p>
         </div>
 
         <div id="floating-button" data-toggle="tooltip" data-placement="left" data-original-title="Update">
             <p class="plus">+</p>
-            <a href="{!! route('employer.company.show.update') !!}"><img class="edit" src="{!! asset('images/bt_compose2_1x.png') !!}"></a>
+            <a href="{!! route('employer.company.show.update') !!}"><img class="edit"
+                                                                         src="{!! asset('images/bt_compose2_1x.png') !!}"></a>
         </div>
 
     </div>

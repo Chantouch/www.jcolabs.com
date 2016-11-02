@@ -13,7 +13,9 @@
             <a href="{!! route('employer.postJobs.create') !!}">
                 <i class="fa fa-edit"></i><span>Post a new job</span></a>
         </li>
-        <li><a href="#"><i class="fa fa-plus"></i>Jobs Expired</a></li>
+        <li class="{{ Request::is('employers/post-jobs/expired/all*') ? 'active' : '' }}">
+            <a href="{!! route('employer.jobs.expired') !!}"><i class="fa fa-plus"></i>Jobs Expired</a>
+        </li>
     </ul>
 </li>
 

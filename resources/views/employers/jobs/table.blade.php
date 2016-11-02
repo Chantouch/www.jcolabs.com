@@ -1,4 +1,4 @@
-@if($jobs->count())
+@if($expired->count())
     <table class="table table-responsive" id="jobs-table">
         <thead>
         <tr>
@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($jobs as $index => $job)
+        @foreach($expired as $index => $job)
             <tr>
                 <td>{!! $index + 1 !!}</td>
                 <td>{!! $job->post_name !!}</td>

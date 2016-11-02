@@ -69,10 +69,10 @@ class LoginController extends Controller
             Session::put('contact_name', $contact_name);
             Session::put('photo_url', $photo_url);
             Session::put('user_since', $user_since);
-            Session::put('employer_info',  Auth::guard('employer')->user());
+            Session::put('employer_info', Auth::guard('employer')->user());
             return redirect()->intended('employers/dashboard');
         } else {
-            return redirect()->intended('employer/login')->withInput()->withErrors('error', 'Invalid Login Credentials or Account is not activated.');
+            return redirect()->intended('employer/login')->withInput()->with('error', 'Invalid password or Account is not activated.');
         }
     }
 

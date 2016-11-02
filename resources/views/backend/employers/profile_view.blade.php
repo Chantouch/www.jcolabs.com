@@ -7,21 +7,21 @@
                 <img class="" src="{!! URL::to($employer->photo) !!}" alt="User Avatar">
             </div>
             <!-- /.widget-user-image -->
-            <h3 class="widget-user-username">{{ $employer->organization_name }}</h3>
-            <h5 class="widget-user-desc"> {{ $employer->organization_type }}
-                / {{ $employer->organization_sector}}
+            <h3 class="widget-user-username">{!! $employer->organization_name !!}</h3>
+            <h5 class="widget-user-desc"> {!! $employer->organization_type !!}
+                / {!! $employer->organization_sector!!}
             </h5>
         </div>
         <div class="box-footer no-padding">
             <ul class="nav nav-stacked">
                 <li><a href="#">Total no of Jobs Posted <span
-                                class="pull-right badge bg-blue">{{$total_jobs}}</span></a></li>
+                                class="pull-right badge bg-blue">{!!$total_jobs!!}</span></a></li>
                 <li><a href="#">Jobs Not Verified yet<span
-                                class="pull-right badge bg-red">{{count($jobs_not_verified)}}</span></a></li>
+                                class="pull-right badge bg-red">{!!count($jobs_not_verified)!!}</span></a></li>
                 <li><a href="#">Jobs Filled up <span
-                                class="pull-right badge bg-green">{{count($jobs_filled_up)}}</span></a></li>
+                                class="pull-right badge bg-green">{!!count($jobs_filled_up)!!}</span></a></li>
                 <li><a href="#">Jobs Available now<span
-                                class="pull-right badge bg-aqua">{{count($jobs_available)}}</span></a></li>
+                                class="pull-right badge bg-aqua">{!!count($jobs_available)!!}</span></a></li>
 
                 @if($employer->verified_by == 0)
                     <li class="approve_employer text-center">
@@ -57,23 +57,23 @@
                     <strong><i class="fa fa-user margin-r-5"></i> Name </strong>
                     &nbsp;&nbsp;&nbsp;
                     <span>
-                                {{$employer->contact_name}} ({{ $employer->contact_designation}})
+                                {!!$employer->contact_name!!} ({!! $employer->contact_designation!!})
                             </span>
                     <hr>
                     <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
                     &nbsp;&nbsp;&nbsp;
                     <span>
-                                {{$employer->contact_mobile_no}}
+                                {!!$employer->contact_mobile_no!!}
                             </span>
                     <hr>
                     <strong><i class="fa fa-envelope margin-r-5"></i> E-mail</strong>
                     &nbsp;&nbsp;&nbsp;
                     <span>
-                                {{$employer->contact_email}}
+                                {!!$employer->contact_email!!}
                             </span>
                     <hr>
                     <strong><i class="fa fa-file-text-o margin-r-5"></i> Additional Note</strong>
-                    <p>{{ $employer->additional_info }}</p>
+                    <p>{!! $employer->details !!}</p>
                 </div>
             </div>
             <!-- /.tab-pane -->
@@ -82,50 +82,50 @@
                     <tbody>
                     <tr>
                         <th> Enrollment No</th>
-                        <td> {{ $employer->employer_enrollment }} </td>
+                        <td> {!! $employer->employer_enrollment !!} </td>
                     </tr>
                     <tr>
                         <th> Name of the Organisation</th>
-                        <td> {{ $employer->organization_name }} </td>
+                        <td> {!! $employer->organization_name !!} </td>
                     </tr>
                     <tr>
                         <th> Organisation type</th>
-                        <td> {{ $employer->organization_type }} </td>
+                        <td> {!! $employer->organization_type !!} </td>
                     </tr>
                     <tr>
                         <th> Sector</th>
-                        <td> {{ $employer->organization_sector }} </td>
+                        <td> {!! $employer->organization_sector !!} </td>
                     </tr>
                     <tr>
                         <th> Industry</th>
-                        <td> {{ $employer->industry->name }} </td>
+                        <td> {!! $employer->industry->name !!} </td>
                     </tr>
                     <tr>
                         <th> City, District</th>
-                        <td> {{ $employer->city->name }},&nbsp; {{ $employer->district->name}} </td>
+                        <td> {!! $employer->city->name !!},&nbsp; {!! $employer->district->name!!} </td>
                     </tr>
                     <tr>
                         <th> Address</th>
-                        <td> {{ $employer->address }} </td>
+                        <td> {!! $employer->address !!} </td>
                     </tr>
                     <tr>
                         <th> Phone no</th>
-                        <td> ({{ $employer->phone_no_ext}}) {{ $employer->phone_no_main }}</td>
+                        <td> ({!! $employer->phone_no_ext!!}) {!! $employer->phone_no_main !!}</td>
                     </tr>
                     <tr>
                         <th> Email</th>
-                        <td> {{ $employer->organisation_email}} </td>
+                        <td> {!! $employer->organisation_email!!} </td>
                     </tr>
                     <tr>
                         <th> Web address (URL)</th>
-                        <td> {{ $employer->web_address}} </td>
+                        <td> {!! $employer->web_address!!} </td>
                     </tr>
                     <tr>
                         <th> Verification status</th>
                         <td>
-                            @if($employer->verified_by == 0) {{ $employer->verification_status}}
+                            @if($employer->verified_by == 0) {!! $employer->verification_status!!}
                             @else
-                                <a href="{!! route('admin.admins_accounts.view', $employer->verified_by) !!}"> {{ $employer->verification_status}} </a>
+                                <a href="{!! route('admin.admins_accounts.view', $employer->verified_by) !!}"> {!! $employer->verification_status!!} </a>
                             @endif
                         </td>
                     </tr>
@@ -164,16 +164,16 @@
                             <tr>
                                 <td>
                                     <a href="{!!Hashids::encode($item->id)!!}">
-                                        #{{ $item->emp_job_id }}
+                                        #{!! $item->emp_job_id !!}
                                     </a>
                                 </td>
-                                <td> {{ $item->post_name }} </td>
-                                <td> {{ $item->no_of_post }} </td>
-                                <td> {{ $item->industry->name }} </td>
-                                <td> {{ $item->job_type }} </td>
-                                <td> {{ $item->exam->name }} </td>
-                                <td> {{ $item->salary_offered_min }} -
-                                    {{ $item->salary_offered_max }}
+                                <td> {!! $item->post_name !!} </td>
+                                <td> {!! $item->no_of_post !!} </td>
+                                <td> {!! $item->industry->name !!} </td>
+                                <td> {!! $item->job_type !!} </td>
+                                <td> {!! $item->exam->name !!} </td>
+                                <td> {!! $item->salary_offered_min !!} -
+                                    {!! $item->salary_offered_max !!}
                                 </td>
                             </tr>
                         @endforeach
@@ -198,16 +198,16 @@
                             <tr>
                                 <td>
                                     <a href="#">
-                                        #{{ $item->emp_job_id }}
+                                        #{!! $item->emp_job_id !!}
                                     </a>
                                 </td>
-                                <td> {{ $item->post_name }} </td>
-                                <td> {{ $item->no_of_post }} </td>
-                                <td> {{ $item->industry->name }} </td>
-                                <td> {{ $item->job_type }} </td>
-                                <td> {{ $item->exam->name }} </td>
-                                <td> {{ $item->salary_offered_min }} -
-                                    {{ $item->salary_offered_max }}
+                                <td> {!! $item->post_name !!} </td>
+                                <td> {!! $item->no_of_post !!} </td>
+                                <td> {!! $item->industry->name !!} </td>
+                                <td> {!! $item->job_type !!} </td>
+                                <td> {!! $item->exam->name !!} </td>
+                                <td> {!! $item->salary_offered_min !!} -
+                                    {!! $item->salary_offered_max !!}
                                 </td>
                             </tr>
                         @endforeach
@@ -232,16 +232,16 @@
                             <tr>
                                 <td>
                                     <a href="#">
-                                        #{{ $item->emp_job_id }}
+                                        #{!! $item->emp_job_id !!}
                                     </a>
                                 </td>
-                                <td> {{ $item->post_name }} </td>
-                                <td> {{ $item->no_of_post }} </td>
-                                <td> {{ $item->industry->name }} </td>
-                                <td> {{ $item->job_type }} </td>
-                                <td> {{ $item->exam->name }} </td>
-                                <td> {{ $item->salary_offered_min }} -
-                                    {{ $item->salary_offered_max }}
+                                <td> {!! $item->post_name !!} </td>
+                                <td> {!! $item->no_of_post !!} </td>
+                                <td> {!! $item->industry->name !!} </td>
+                                <td> {!! $item->job_type !!} </td>
+                                <td> {!! $item->exam->name !!} </td>
+                                <td> {!! $item->salary_offered_min !!} -
+                                    {!! $item->salary_offered_max !!}
                                 </td>
                             </tr>
                         @endforeach

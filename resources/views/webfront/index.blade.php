@@ -99,7 +99,8 @@
                                 @foreach ($posted_jobs as $job)
                                     <div class="recent-job-list-home"><!-- Tabs content -->
                                         <div class="job-list-logo col-md-1 ">
-                                            <img src="{!!asset($job->employer->photo)!!}" class="img-responsive"
+                                            <img src="{!!asset(($job->employer->path.$job->employer->photo))!!}"
+                                                 class="img-responsive"
                                                  alt="dummy-joblist"/>
                                         </div>
                                         <div class="col-md-5 job-list-desc">
@@ -156,7 +157,7 @@
                             @foreach ($top_jobs as $job)
                                 <div class="item-home">
                                     <div class="job-opening">
-                                        <img src="{!!asset($job->employer->photo)!!}" class="img-responsive"
+                                        <img src="{!!asset($job->employer->path.$job->employer->photo)!!}" class="img-responsive"
                                              alt="dummy-job-opening"/>
 
                                         <div class="job-opening-content">

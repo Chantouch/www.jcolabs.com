@@ -60,6 +60,7 @@ class PostJobController extends AppBaseController
     public function create()
     {
         $id = Auth::guard('employer')->user()->id;
+        $emp = Auth::guard('employer')->user();
         try {
             if (Auth::guard('employer')->user()->industry_id == null) {
                 return redirect()->back()->with('alert-warning', 'Please update your company profile first to start posting your job.');
@@ -75,12 +76,10 @@ class PostJobController extends AppBaseController
             $job_levels = Employer::job_level();
             $qualifications = Employer::qualification();
             $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $physical_challenge = ['YES' => 'YES', 'NO' => 'NO'];
-            $ex_service = ['YES' => 'YES', 'NO' => 'NO'];
             $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $contact_person = ContactPerson::where('employer_id', $id)->orderBy('contact_name')->pluck('contact_name', 'id');
             $company = Auth::guard('employer')->user();
-            return view('employers.post_jobs.create', compact('qualifications', 'languages', 'job_levels', 'industries', 'company', 'ex_service', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
+            return view('employers.post_jobs.create', compact('emp', 'qualifications', 'languages', 'job_levels', 'industries', 'company', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
         } catch (ErrorException $exception) {
             return redirect('/employers/dashboard')->with('message', ' Please complete your profile company to post your post.');
         }
@@ -157,6 +156,10 @@ class PostJobController extends AppBaseController
      */
     public function edit($id)
     {
+        $emp = Auth::guard('employer')->user();
+        $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $qualifications = Employer::qualification();
+        $job_levels = Employer::job_level();
         $postJob = $this->postJobRepository->findWithoutFail($id);
         $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
@@ -165,10 +168,8 @@ class PostJobController extends AppBaseController
         $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
         $job_types = ['Full Time' => 'Full Time', 'Part Time' => 'Part Time'];
-        $physical_challenge = ['YES' => 'YES', 'NO' => 'NO'];
-        $ex_service = ['YES' => 'YES', 'NO' => 'NO'];
+        $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');
-        $job_sub_categories = ['Govt. Regular' => 'Govt. Regular', 'Govt. Contractual' => 'Govt. Contractual', 'Pvt. Regular' => 'Pvt. Regular', 'Pvt. Contractual' => 'Pvt. Contractual', 'Not Specified' => 'Not Specified'];
 
         if (empty($postJob)) {
 
@@ -176,7 +177,7 @@ class PostJobController extends AppBaseController
 
             return redirect(route('employer.postJobs.index'));
         }
-        return view('employers.post_jobs.edit', compact('postJob', 'contact_person', 'ex_service', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_sub_categories'));
+        return view('employers.post_jobs.edit', compact('emp','languages','qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
     }
 
     /**

@@ -30,8 +30,8 @@
 
             <!-- Job Sub Category Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('job_category', 'Job Category:') !!}
-                {!! Form::select('job_category',$job_categories, null, ['class' => 'form-control']) !!}
+                {!! Form::label('category_id', 'Job Category:') !!}
+                {!! Form::select('category_id',$job_categories, null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Salary offer Min Field -->
@@ -192,7 +192,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('web_address', 'Website:') !!}
-                    {!! Form::text('web_address', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('web_address', $emp->web_address, ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="col-md-6">
@@ -206,7 +206,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('address', 'Address:') !!}
-                    {!! Form::text('address', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('address', $emp->address, ['class' => 'form-control']) !!}
                 </div>
             </div>
 

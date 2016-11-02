@@ -16,9 +16,7 @@ class District extends Model
 
     public $table = 'districts';
 
-
     protected $dates = ['deleted_at'];
-
 
     public $fillable = [
         'name',

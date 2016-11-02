@@ -15,28 +15,53 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <!-- Profile Image -->
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="box box-primary">
-                    {!! Form::open(['route' => 'employer.postJobs.store', 'class'=>'form-horizontal']) !!}
+                    {!! Form::open(['route' => 'employer.company.show_form_change_password', 'class'=>'form-horizontal']) !!}
+                    {{ csrf_field() }}
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="current_password" class="col-sm-2 control-label">Current password</label>
+                        <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
+                            <label for="current_password" class="col-md-2 control-label">Current password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="current_password" placeholder="Old password">
+                                {{ Form::password('current_password', array('class' => 'form-control', 'placeholder'=>'Current password')) }}
+                                @if ($errors->has('current_password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('current_password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="new_password" class="col-sm-2 control-label">New Password</label>
+                        <div class="form-group {!! $errors->has('password') ? ' has-error' : '' !!}">
+                            <label for="new_password" class="col-md-2 control-label">New Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="new_password" placeholder="New Password">
+                                {{ Form::password('password', array('class' => 'form-control', 'placeholder'=>'New password')) }}
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="confirm_new_password" class="col-sm-2 control-label">Confirm New Password</label>
+                        <div class="form-group{!! $errors->has('confirm_new_password') ? ' has-error' : '' !!}">
+                            <label for="confirm_new_password" class="col-md-2 control-label">Confirm New Password</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" id="confirm_new_password" placeholder="Confirm New Password">
+                                {{ Form::password('confirm_new_password', array('class' => 'form-control', 'placeholder'=>'Confirm New password')) }}
+                                @if ($errors->has('confirm_new_password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('confirm_new_password') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
@@ -49,11 +74,10 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-default">Cancel</button>
+                        <a href="{!! route('employer.company.profile') !!}" class="btn btn-default">Cancel</a>
                         <button type="submit" class="btn btn-info pull-right">Change now</button>
                     </div>
                     <!-- /.box-footer -->

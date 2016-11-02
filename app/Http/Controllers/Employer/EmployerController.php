@@ -288,7 +288,9 @@ class EmployerController extends Controller
         $profile = Auth::guard('employer')->user();
         $profile_id = Auth::guard('employer')->user()->id;
         $position = Position::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        return view('employers.company.edit', compact('profile', 'profile_id', 'position', 'industries', 'organization_sector'));
+        $district = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $city = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        return view('employers.company.edit', compact('profile', 'profile_id', 'position', 'industries', 'organization_sector', 'city', 'district'));
 
     }
 
@@ -300,7 +302,7 @@ class EmployerController extends Controller
     {
         $employer = new Employer();
         $data = $request->all();
-        $validator = Validator::make($data, $employer->rules());
+        $validator = Validator::make($data, $employer->rules(), Employer::$messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
@@ -322,7 +324,7 @@ class EmployerController extends Controller
                 $request->file('photo')->move($destination_path, $fileName);
                 $data['path'] = $path;
                 $data['photo'] = $fileName;
-                $storage = Storage::delete($destination_path . $oldName);
+//                $storage = Storage::delete($destination_path . $oldName);
 
             }
         }
@@ -330,5 +332,11 @@ class EmployerController extends Controller
         $profile->update($data);
         return redirect(route('employers.dashboard'))->with('alert-success', 'You have updated your profile');
 
+    }
+
+    public function jobExpired()
+    {
+        $expired = PostedJob::where('is_expired', 1);
+        return view('employers.jobs.index', compact('expired'));
     }
 }

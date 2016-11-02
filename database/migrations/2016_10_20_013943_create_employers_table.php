@@ -19,13 +19,13 @@ class CreateEmployersTable extends Migration
             $table->enum('organization_sector', ['Private', 'Central Govt', 'State Govt', 'Central PSU', 'State PSU', 'Local Bodies', 'Statutory Bodies', 'Others'])->comment('Organisation Sector *');
             $table->integer('industry_id', false, true)->comment('Foreign key for industry types')->nullable();
             $table->string('photo', 200)->nullable()->default('default.jpg')->comment('Photo URL');
-            $table->string('path', 255)->comment('For storing path of image.');
+            $table->string('path', 255)->comment('For storing path of image.')->nullable();
             $table->string('tag_line', 100)->nullable()->comment('Company Tag line');
-            $table->string('details', 500)->nullable()->comment('Company Details');
+            $table->longText('details')->nullable()->comment('Company Details');
             $table->string('address')->nullable();
             $table->integer('employees')->nullable()->comment('The employee number');
-            $table->string('products')->nullable()->comment('Show the product for company');
-            $table->string('services')->nullable()->comment('Show the services for company');
+            $table->longText('products')->nullable()->comment('Show the product for company');
+            $table->longText('services')->nullable()->comment('Show the services for company');
             $table->string('longitude')->nullable()->comment('Show the Longitude for company');
             $table->string('latitude')->nullable()->comment('Show the Latitude for company');
             $table->integer('city_id', false, true)->nullable();
@@ -39,6 +39,7 @@ class CreateEmployersTable extends Migration
             $table->string('organisation_profile')->nullable();
             $table->string('organisation_pan_card')->nullable();
             $table->string('contact_people_id')->nullable();
+
             //Contact person details or login
             $table->string('contact_name', 50)->comment('Contact Person Name')->unique();//Required field
             $table->string('contact_designation', 50)->comment('Contact Person Designation')->nullable();
@@ -56,6 +57,7 @@ class CreateEmployersTable extends Migration
             $table->foreign('city_id')->references('id')->on('states');
             $table->foreign('district_id')->references('id')->on('districts');
             $table->foreign('contact_people_id')->references('id')->on('contact_people');
+
         });
     }
 

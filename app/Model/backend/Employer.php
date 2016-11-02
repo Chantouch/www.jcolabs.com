@@ -29,7 +29,7 @@ class Employer extends Authenticatable
         'organization_type', 'latitude',
         'organization_sector', 'services',
         'industry_id', 'address', 'products',
-        'state_id', 'district_id',
+        'city_id', 'district_id',
         'pin_code', 'phone_no_ext',
         'phone_no_main', 'organisation_email',
         'web_address', 'organisation_id_proof',
@@ -66,7 +66,9 @@ class Employer extends Authenticatable
         'organization_name.between' => 'organization name must be at least minimum 3 characters',
         'contact_mobile_no.numeric' => 'Mobile No can only contain numbers',
         'password.confirmed' => 'Password and Confirm Password does not match',
-        'web_address.url' => 'the Web Address field is not valid. Please ensure that you have added http:// at the beginning'
+        'web_address.url' => 'the Web Address field is not valid. Please ensure that you have added http:// at the beginning',
+        'city_id.required' => 'Please select your city',
+        'district_id.required' => 'Please select your district',
     ];
 
     public function rules()
@@ -91,7 +93,7 @@ class Employer extends Authenticatable
                 return [
                     'organisation_email' => 'required|organisation_email|unique:employers,organisation_email',
                     'organization_name' => 'required|between:3,100,:id',
-                    'contact_mobile_no' => 'required|numeric|unique:employers,contact_mobile_no,{$this->id},id',
+                    'contact_mobile_no' => "required|numeric|unique:employers,contact_mobile_no,{$employer->id},id",
                     'web_address' => 'url',
                     'address' => 'required|max:255',
                     'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -107,6 +109,11 @@ class Employer extends Authenticatable
                     'web_address' => 'url',
                     'address' => 'required|max:255',
                     'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'employees' => 'required|numeric|min:1',
+                    'city_id' => 'required',
+                    'district_id' => 'required',
+                    'details' => 'max:500'
+
                 ];
             }
             default:

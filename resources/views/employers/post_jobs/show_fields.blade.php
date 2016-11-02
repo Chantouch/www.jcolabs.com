@@ -19,13 +19,13 @@
 
     <!-- Place Ofemployment City  Field -->
     <div class="form-group">
-        {!! Form::label('place_of_employment_city_id', 'Place Of Employment City :') !!}
+        {!! Form::label('place_of_employment_city_id', 'City :') !!}
         <p>{!! $postJob->city->name !!}</p>
     </div>
 
     <!-- Place Of Employment District  Field -->
     <div class="form-group">
-        {!! Form::label('place_of_employment_district_id', 'Place Of Employment District :') !!}
+        {!! Form::label('place_of_employment_district_id', 'District :') !!}
         <p>{!! $postJob->district->name !!}</p>
     </div>
 </div>
@@ -33,26 +33,20 @@
 <div class="col-sm-3">
     <!-- Preferred Age Min Field -->
     <div class="form-group">
-        {!! Form::label('preferred_age_min', 'Preferred Age Min:') !!}
+        {!! Form::label('preferred_age_min', 'Age Min:') !!}
         <p>{!! $postJob->preferred_age_min !!}</p>
     </div>
 
     <!-- Preferred Age Max Field -->
     <div class="form-group">
-        {!! Form::label('preferred_age_max', 'Preferred Age Max:') !!}
+        {!! Form::label('preferred_age_max', 'Age Max:') !!}
         <p>{!! $postJob->preferred_age_max !!}</p>
     </div>
 
     <!-- Job Sub Category Field -->
     <div class="form-group">
-        {!! Form::label('job_sub_category', 'Job Sub Category:') !!}
-        <p>{!! $postJob->job_sub_category !!}</p>
-    </div>
-
-    <!-- Preferred Caste Field -->
-    <div class="form-group">
-        {!! Form::label('preferred_caste', 'Preferred Caste:') !!}
-        <p>{!! $postJob->preferred_caste !!}</p>
+        {!! Form::label('category', 'Category:') !!}
+        <p>{!! $postJob->category->name !!}</p>
     </div>
 
     <!-- Exam Passed  Field -->
@@ -82,18 +76,6 @@
         <p>{!! $postJob->preferred_experience !!}</p>
     </div>
 
-    <!-- Ex Service Field -->
-    <div class="form-group">
-        {!! Form::label('ex_service', 'Ex Service:') !!}
-        <p>{!! $postJob->ex_service !!}</p>
-    </div>
-
-    <!-- Physical Challenge Field -->
-    <div class="form-group">
-        {!! Form::label('physical_challenge', 'Physical Challenge:') !!}
-        <p>{!! $postJob->physical_challenge !!}</p>
-    </div>
-
     <!-- Physical Height Field -->
     <div class="form-group">
         {!! Form::label('physical_height', 'Physical Height:') !!}
@@ -106,12 +88,6 @@
     <div class="form-group">
         {!! Form::label('physical_weight', 'Physical Weight:') !!}
         <p>{!! $postJob->physical_weight !!}</p>
-    </div>
-
-    <!-- Physical Chest Field -->
-    <div class="form-group">
-        {!! Form::label('physical_chest', 'Physical Chest:') !!}
-        <p>{!! $postJob->physical_chest !!}</p>
     </div>
 
     <!-- Physical Weight Field -->

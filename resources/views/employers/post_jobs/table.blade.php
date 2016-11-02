@@ -27,7 +27,7 @@
                 <td>{!! $postJob->industry->name !!}</td>
                 <td class="hidden-sm">{!! $postJob->city->name !!}</td>
                 <td class="hidden-sm">{!! $postJob->district->name !!}</td>
-                <td>{!! $postJob->job_sub_category !!}</td>
+                <td>{!! $postJob->category->name !!}</td>
                 <td>{!! $postJob->subject->name !!}</td>
                 <td>{!! $postJob->specialization !!}</td>
                 <td>{!! $postJob->preferred_experience !!} year (s)</td>

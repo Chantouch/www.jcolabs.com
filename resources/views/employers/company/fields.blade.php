@@ -16,7 +16,7 @@
             <div class="form-group">
                 <label for="photo" class="control-label">Logo:</label>
                 {!! Form::file('photo', array('class'=>'form-control','id'=>'photo')) !!}
-                <img src="{!! asset('uploads/employers/profile/'.Auth::guard('employer')->user()->id.'/'.$profile->photo) !!}"
+                <img src="{!! asset($profile->path.$profile->photo) !!}"
                      alt="{!! $profile->organization_name !!}" id="c_profile_preview"
                      class="img-responsive">
             </div>
@@ -29,9 +29,14 @@
                 {!! Form::select('industry_id',$industries, null, array('class'=>'form-control')) !!}
             </div>
 
-            <div class="form-group">
+            <div class="form-group{!! $errors->has('employees') ? ' has-error' : '' !!}">
                 <label for="employees" class="control-label">Employees:</label>
                 {!! Form::text('employees', null, array('class'=>'form-control')) !!}
+                @if($errors->has('employees'))
+                    <span class="help-block">
+                        <strong>{!! $errors->first('employees') !!}</strong>
+                    </span>
+                @endif
             </div>
 
         </div>
@@ -50,19 +55,27 @@
             </div>
             <div class="form-group">
                 <label for="description" class="control-label">Description:</label>
-                {!! Form::textarea('details', null, array('class'=>'form-control', 'rows'=>'5')) !!}
+                {!! Form::textarea('details', null, array('class'=>'form-control textarea', 'rows'=>'5')) !!}
             </div>
             <div class="form-group">
                 <label for="services" class="control-label">Services:</label>
-                {!! Form::textarea('services', null, array('class'=>'form-control', 'rows'=>'4')) !!}
+                {!! Form::textarea('services', null, array('class'=>'form-control textarea', 'rows'=>'4')) !!}
             </div>
             <div class="form-group">
                 <label for="products" class="control-label">Products:</label>
-                {!! Form::textarea('products', null, array('class'=>'form-control', 'rows'=>'4')) !!}
+                {!! Form::textarea('products', null, array('class'=>'form-control textarea', 'rows'=>'4', 'id'=>'editor1')) !!}
             </div>
             <div class="form-group">
                 <label for="web_address" class="control-label">Website:</label>
-                {!! Form::text('web_address', 'http://www.', array('class'=>'form-control')) !!}
+                {!! Form::text('web_address', null, array('class'=>'form-control')) !!}
+            </div>
+            <div class="form-group col-md-6 p-l-0 p-r-0">
+                <label for="city_id" class="control-label">City:</label>
+                {!! Form::select('city_id', $city, null, ['class'=>'form-control' , 'id'=>'city_id']) !!}
+            </div>
+            <div class="form-group col-md-6 p-r-0">
+                <label for="district_id" class="control-label">District:</label>
+                {!! Form::select('district_id', $district, null, ['class'=>'form-control' , 'id'=>'district_id']) !!}
             </div>
             <div class="form-group">
                 <label for="address" class="control-label">Address:</label>
@@ -119,3 +132,54 @@
         </div>
     </div>
 </div>
+
+@section('page_specific_js')
+
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#city_id, #district_id").select2();
+        $('#city_id').change(function (e) {
+            getDistrictList(this, $('#district_id'));
+        });
+
+        $('#city_id').trigger('change');
+
+        $(function () {
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1');
+            //bootstrap WYSIHTML5 - text editor
+            $(".textarea").wysihtml5();
+        });
+
+
+        function getDistrictList(cityElement, districtElement) {
+            var url = '{{ route('district.by.city') }}';
+            var city = $(cityElement).val();
+            $district = $(districtElement);
+            districtElement = typeof districtElement !== 'undefined' ? districtElement : '';
+
+            if (city != '') {
+                $.ajax({url: url, type: 'POST', data: {city_id: city}}).done(function (msg) {
+                    $district.empty();
+                    $("<option>").val('').text('--Choose City--').appendTo($district);
+                    $.each(msg, function (key, value) {
+                        $("<option>").val(value.id).text(value.name).appendTo($district);
+                    });
+
+                    $district.val('{{ old('district_id') }}')
+
+                });
+            } else
+                $district.empty();
+        }
+
+    </script>
+@stop
+

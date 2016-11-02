@@ -31,6 +31,9 @@ class PostedJob extends Model
         'post_name',
         'emp_job_id',
         'status',
+        'job_type',
+        'level',
+        'other_benefits',
         'created_by',
         'salary_offered_max',
         'salary_offered_min',
@@ -40,19 +43,16 @@ class PostedJob extends Model
         'place_of_employment_district_id',
         'preferred_age_min',
         'preferred_age_max',
-        'job_sub_category',
-        'preferred_caste',
+        'category_id',
         'exam_passed_id',
+        'preferred_religion',
         'subject_id',
         'specialization',
         'preferred_experience',
-        'ex_service',
-        'physical_challenge',
         'physical_height',
         'physical_weight',
-        'physical_chest',
-        'physical_weight',
         'description',
+        'requirement_description',
         'category_id',
         'contact_person_id',
     ];
@@ -97,11 +97,11 @@ class PostedJob extends Model
         'no_of_post' => 'required|numeric|digits_between:1,8',
         'preferred_age_min' => 'required|integer|min:15|max:80',
         //'preferred_age_max' => 'integer|min:0|max:100',
-        'preferred_age_max' => 'required|integer|max:100',
+        'preferred_age_max' => 'required|integer|greater_than:preferred_age_min|max:100',
         'salary_offered_min' => 'required|numeric',
-        'salary_offered_max' => 'required|numeric',
+        'salary_offered_max' => 'required|numeric|greater_than:salary_offered_min',
         'subject_id' => 'required|exists:subjects,id',
-        'job_sub_category' => 'required'
+        'category_id' => 'required'
         //'phone_no_ext' => 'max:',
         //'preferred_age_max' => 'integer|min:0|max:100',
         //'industry_id'   =>  'required|exists,industry_types,id',
@@ -146,7 +146,7 @@ class PostedJob extends Model
      */
     public function category()
     {
-        return $this->belongsToMany(Category::class, 'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 
 

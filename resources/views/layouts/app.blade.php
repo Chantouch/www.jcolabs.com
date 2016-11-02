@@ -674,12 +674,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $('#place_of_employment_city_id').change(function (e) {
-            alert('It working.')
-        });
-        @if(Session::has('message'))
-        $('#place_of_employment_city_id').trigger('change');
-        @endif
+        @yield('page_specific_scripts')
+
+                @if(Session::has('message'))
+                $('#place_of_employment_city_id').trigger('change');
+                @endif
+
         var active = '{{ Request::segment(1) }}';
         var subactive = '{{ Request::segment(2) }}';
         var subactive3 = '{{ Request::segment(3) }}';
@@ -701,21 +701,6 @@
             $('ul.sidebar-menu').find('#' + active).addClass('active');
         }
 
-    });
-
-
-    $(function () {
-
-        //change to two ? how?
-
-        $('#place_of_employment_city_id').change(function () {
-            var data = $(this).val();
-            alert(data);
-        });
-
-        $('#place_of_employment_city_id')
-                .val('two')
-                .trigger('change');
     });
 
 </script>

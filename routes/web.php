@@ -240,12 +240,14 @@ Route::group(['middleware' => ['employer']], function () {
         Route::get('account-settings/contact-person/{contactPeople}', ['as' => 'employer.contactPeople.show', 'uses' => 'Employer\ContactPersonController@show']);
         Route::get('account-settings/contact-person/{contactPeople}/edit', ['as' => 'employer.contactPeople.edit', 'uses' => 'Employer\ContactPersonController@edit']);
 
+        //not use
         Route::get('/jobs/create', ['as' => 'employer.jobs.create', 'uses' => 'Employer\EmployerController@createJob']);
         Route::post('/jobs/create', ['as' => 'employer.jobs.store', 'uses' => 'Employer\EmployerController@storeJob']);
         Route::get('/jobs/list', ['as' => 'employer.jobs.index', 'uses' => 'Employer\EmployerController@listJobs']);
         Route::get('/jobs/view/{num}', ['as' => 'employer.jobs.view', 'uses' => 'Employer\EmployerController@viewJob']);
 
         Route::get('account-settings/company/change-password', ['as' => 'employer.company.show_form_change_password', 'uses' => 'Employer\EmployerController@showChangePasswordForm']);
+        Route::post('account-settings/company/change-password', ['as' => 'employer.company.show_form_change_password', 'uses' => 'Employer\ChangePasswordController@changePassword']);
 
         Route::get('post-jobs/all', ['as' => 'employer.postJobs.index', 'uses' => 'Employer\PostJobController@index']);
         Route::post('post-jobs', ['as' => 'employer.postJobs.store', 'uses' => 'Employer\PostJobController@store']);
@@ -255,6 +257,7 @@ Route::group(['middleware' => ['employer']], function () {
         Route::delete('post-jobs/{postJobs}', ['as' => 'employer.postJobs.destroy', 'uses' => 'Employer\PostJobController@destroy']);
         Route::get('post-jobs/{postJobs}', ['as' => 'employer.postJobs.show', 'uses' => 'Employer\PostJobController@show']);
         Route::get('post-jobs/{postJobs}/edit', ['as' => 'employer.postJobs.edit', 'uses' => 'Employer\PostJobController@edit']);
+        Route::get('post-jobs/expired/all', ['as' => 'employer.jobs.expired', 'uses' => 'Employer\EmployerController@jobExpired']);
 
         Route::get('/job/update_status/disabled/{num}', ['as' => 'employer.update_job_status_disabled', 'uses' => 'Employer\EmployerController@updateJobStatus']);
         Route::get('/job/update_status/active/{num}', ['as' => 'employer.update_job_status_active', 'uses' => 'Employer\EmployerController@updateJobStatus']);

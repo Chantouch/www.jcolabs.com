@@ -251,3 +251,11 @@
     margin: auto;
     right: 20px;
 }
+
+.p-l-0 {
+    padding-left: 0;
+}
+
+.p-r-0 {
+    padding-right: 0;
+}

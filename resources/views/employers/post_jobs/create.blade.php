@@ -64,7 +64,7 @@
                         <strong><i class="fa fa-map-o margin-r-5"></i> Website</strong>
                         &nbsp;&nbsp;&nbsp;
                         <span>
-                                {{$company->web_address}}
+                                <a target="_blank" href="{{$company->web_address}}">{{$company->web_address}}</a>
                             </span>
                         <hr>
                         <strong><i class="fa fa-map-marker margin-r-5"></i> Address</strong>
@@ -128,7 +128,7 @@
             getContactPerson(this, $('#phone_number'));
         });
 
-        $('#place_of_employment_state_id').trigger('change');
+        $('#place_of_employment_city_id').trigger('change');
 
         $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor
