@@ -64,6 +64,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        //Generate Temp enrollment ID Job id
+        $records = Employer::all()->count();
+        $current_id = 1;
+        if (!$records == 0) {
+            $current_id = Employer::all()->last()->id + 1;
+        }
+        $enroll_id = 'TMP_EMP' . date('Y') . str_pad($current_id, 5, '0', STR_PAD_LEFT);
+
         return Employer::create([
             'contact_name' => $data['contact_name'],
             'organization_name' => $data['organization_name'],
@@ -71,6 +79,7 @@ class RegisterController extends Controller
             'contact_email' => $data['contact_email'],
             'password' => bcrypt($data['password']),
             'confirmation_code' => str_random(30),
+            'temp_enrollment_no' => $enroll_id,
         ]);
     }
 

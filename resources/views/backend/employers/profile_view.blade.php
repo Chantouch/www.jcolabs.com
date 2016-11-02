@@ -101,8 +101,8 @@
                         <td> {{ $employer->industry->name }} </td>
                     </tr>
                     <tr>
-                        <th> State, District</th>
-                        {{--<td> {{ $employer->city->name }},&nbsp; {{ $employer->district->name}} </td>--}}
+                        <th> City, District</th>
+                        <td> {{ $employer->city->name }},&nbsp; {{ $employer->district->name}} </td>
                     </tr>
                     <tr>
                         <th> Address</th>
@@ -110,7 +110,7 @@
                     </tr>
                     <tr>
                         <th> Phone no</th>
-                        <td> {{ $employer->phone_no_ext}} {{ $employer->phone_no_main }}</td>
+                        <td> ({{ $employer->phone_no_ext}}) {{ $employer->phone_no_main }}</td>
                     </tr>
                     <tr>
                         <th> Email</th>

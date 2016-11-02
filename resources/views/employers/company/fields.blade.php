@@ -16,7 +16,8 @@
             <div class="form-group">
                 <label for="photo" class="control-label">Logo:</label>
                 {!! Form::file('photo', array('class'=>'form-control','id'=>'photo')) !!}
-                <img src="{!! asset($profile->photo) !!}" alt="{!! $profile->organization_name !!}" id="c_profile_preview"
+                <img src="{!! asset('uploads/employers/profile/'.Auth::guard('employer')->user()->id.'/'.$profile->photo) !!}"
+                     alt="{!! $profile->organization_name !!}" id="c_profile_preview"
                      class="img-responsive">
             </div>
             <div class="form-group">
@@ -60,8 +61,8 @@
                 {!! Form::textarea('products', null, array('class'=>'form-control', 'rows'=>'4')) !!}
             </div>
             <div class="form-group">
-                <label for="website" class="control-label">Website:</label>
-                {!! Form::text('website', null, array('class'=>'form-control')) !!}
+                <label for="web_address" class="control-label">Website:</label>
+                {!! Form::text('web_address', 'http://www.', array('class'=>'form-control')) !!}
             </div>
             <div class="form-group">
                 <label for="address" class="control-label">Address:</label>

@@ -17,6 +17,7 @@ use Cviebrock\EloquentSluggable\Tests\Models\Post;
 use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use DB;
 use Vinkla\Hashids\HashidsManager;
@@ -306,15 +307,23 @@ class EmployerController extends Controller
 
         $id = Auth::guard('employer')->user()->id;
         $profile = Auth::guard('employer')->user();
-        $destination_path = public_path('uploads/employers/' . $id . '/profile/');
+        $path = 'uploads/employers/profile/' . $id . '/';
+        $destination_path = public_path($path);
         if (!file_exists($destination_path)) {
             mkdir($destination_path, 0777, true);
         }
+
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
-                $fileName = $request->file('photo')->getClientOriginalExtension();
-                $request->file('photo')->store($destination_path, $fileName);
-                $data['photo'] = $destination_path . $fileName;
+                //to remove space from string
+                $company_name = preg_replace('/\s+/', '', $request->organization_name);
+                $fileName = uniqid($company_name . '_') . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
+                $oldName = $profile->photo;
+                $request->file('photo')->move($destination_path, $fileName);
+                $data['path'] = $path;
+                $data['photo'] = $fileName;
+                $storage = Storage::delete($destination_path . $oldName);
+
             }
         }
 

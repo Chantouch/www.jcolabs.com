@@ -25,10 +25,10 @@ class Employer extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'organization_name',
-        'organization_type',
-        'organization_sector',
-        'industry_id', 'address',
+        'organization_name', 'path', 'longitude',
+        'organization_type', 'latitude',
+        'organization_sector', 'services',
+        'industry_id', 'address', 'products',
         'state_id', 'district_id',
         'pin_code', 'phone_no_ext',
         'phone_no_main', 'organisation_email',
@@ -75,12 +75,9 @@ class Employer extends Authenticatable
 //        return [
 //            'organization_name' => 'required|between:3,100,:id',
 //            'contact_mobile_no' => 'required|numeric|unique:employers,contact_mobile_no,{$this->id},id',
-////            'organisation_email' => 'sometimes|email|required|max:100|unique:employers,organisation_email,id,id',
-//            'organisation_email' => "required|between:1,128|unique:employers",
-//            //'email' => 'email|required|max:255|unique:employers,email',
+//            'organisation_email' => 'sometimes|email|required|max:100|unique:employers,organisation_email,id,id',
 //            'web_address' => 'url',
 //            'address' => 'required|max:255',
-////        'password' => 'confirmed|required',
 //        ];
 
         $employer = Auth::guard('employer')->user();
@@ -93,14 +90,23 @@ class Employer extends Authenticatable
             case 'POST': {
                 return [
                     'organisation_email' => 'required|organisation_email|unique:employers,organisation_email',
+                    'organization_name' => 'required|between:3,100,:id',
+                    'contact_mobile_no' => 'required|numeric|unique:employers,contact_mobile_no,{$this->id},id',
+                    'web_address' => 'url',
+                    'address' => 'required|max:255',
+                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 ];
             }
             case 'PUT':
             case 'PATCH': {
                 return [
 
-                    'organisation_email' => 'required|max:100|unique:employers,organisation_email,' . $employer->id . ',id'
-
+                    'organisation_email' => 'required|max:100|unique:employers,organisation_email,' . $employer->id . ',id',
+                    'organization_name' => 'required|between:3,100,:id',
+                    'contact_mobile_no' => "required|numeric|unique:employers,contact_mobile_no,{$employer->id},id",
+                    'web_address' => 'url',
+                    'address' => 'required|max:255',
+                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 ];
             }
             default:

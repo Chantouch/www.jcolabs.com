@@ -62,12 +62,13 @@ class AdminController extends Controller
 
     /**
      * @param $employer_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return int
      */
     public function viewEmployerProfile($employer_id)
     {
+        $auth = Auth::guard('employer')->user();
         $id = $this->hashid->decode($employer_id);
-        $employer = Employer::find($id)->first();
+        $employer = Employer::with('city', 'district')->find($id)->first();
         //return $employer->photo;
         $total_jobs = PostedJob::where('created_by', $id)
             ->count();
@@ -81,7 +82,7 @@ class AdminController extends Controller
         $jobs_filled_up = PostedJob::with('industry')->where('created_by', $id)
             ->where('status', 2)
             ->get();
-        return view('backend.employers.profile', compact('employer', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up', 'total_jobs'));
+        return view('backend.employers.profile', compact('city', 'district', 'employer', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up', 'total_jobs'));
 
     }
 
@@ -115,7 +116,7 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->with('message', 'Unable to process your request');
         }
-        
+
     }
 
     public function verifyEmployer($id)

@@ -14,7 +14,7 @@
     <div class="content">
         @include('adminlte-templates::common.errors')
 
-        {!! Form::model($profile, ['route' => ['employer.company.show.update', $profile_id], 'method' => 'patch']) !!}
+        {!! Form::model($profile, ['route' => ['employer.company.show.update', $profile_id], 'method' => 'patch', 'files' => true]) !!}
 
         @include('employers.company.fields')
 
