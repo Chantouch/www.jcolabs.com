@@ -4,7 +4,8 @@
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-aqua-active">
             <div class="widget-user-image">
-                <img class="" src="{!! URL::to($employer->photo) !!}" alt="User Avatar">
+                <img class="" src="{!! asset('uploads/employers/avatar/'. $auth->id .'/'. $auth->photo)!!}"
+                     alt="User Avatar">
             </div>
             <!-- /.widget-user-image -->
             <h3 class="widget-user-username">{!! $employer->organization_name !!}</h3>

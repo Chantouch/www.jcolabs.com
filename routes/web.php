@@ -34,12 +34,6 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::get('admin/register/verify/{token}', ['as' => 'admin.verify.register.activate', 'uses' => 'backend\Auth\RegisterController@verify']);
 
-    // USER 
-    Route::get('user/login', ['as' => 'user.process.login', 'uses' => 'frontend\Auth\LoginController@getLoginForm']);
-    Route::post('user/authenticate', ['as' => 'user.process.authenticate.do', 'uses' => 'frontend\Auth\LoginController@authenticate']);
-
-    Route::get('user/register', ['as' => 'user.process.register', 'uses' => 'frontend\Auth\RegisterController@getRegisterForm']);
-    Route::post('user/saveregister', ['as' => 'user.process.register.do', 'uses' => 'frontend\Auth\RegisterController@saveRegisterForm']);
 
     // Employer
     Route::get('employer/login', ['as' => 'employer.process.login', 'uses' => 'Employer\Auth\LoginController@getLoginForm']);
@@ -49,17 +43,6 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('employer/saveregister', ['as' => 'employer.process.register.do', 'uses' => 'Employer\Auth\RegisterController@saveRegisterForm']);
 
     Route::get('employer/verify/{token}', ['as' => 'employer.process.verify.do', 'uses' => 'Employer\Auth\RegisterController@verify']);
-
-});
-
-
-Route::group(['middleware' => ['user']], function () {
-
-    Route::post('user/logout', 'frontend\Auth\LoginController@getLogout');
-    Route::get('user/dashboard', 'frontend\UserController@dashboard');
-    Route::get('user/dashboard1/', function () {
-        return view('frontend.dashboard');
-    });
 
 });
 
@@ -281,3 +264,45 @@ Route::group(['middleware' => ['employer']], function () {
 });
 
 Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
+
+
+// USER
+Route::get('user/login', ['as' => 'user.process.login', 'uses' => 'frontend\Auth\LoginController@getLoginForm']);
+Route::post('user/authenticate', ['as' => 'user.process.authenticate.do', 'uses' => 'frontend\Auth\LoginController@authenticate']);
+
+Route::get('user/register', ['as' => 'user.process.register', 'uses' => 'frontend\Auth\RegisterController@getRegisterForm']);
+Route::post('user/saveregister', ['as' => 'user.process.register.do', 'uses' => 'frontend\Auth\RegisterController@saveRegisterForm']);
+
+Route::group(['middleware' => ['user'], 'prefix' => 'candidate'], function () {
+
+    Route::post('logout', ['as' => 'candidate.process.logout', 'uses' => 'frontend\Auth\LoginController@getLogout']);
+    Route::get('dashboard', ['as' => 'candidate.dashboard', 'uses' => 'frontend\UserController@dashboard']);
+
+    Route::get('/create_resume', ['as' => 'candidate.create.resume', 'uses' => 'CandidateHomeController@createResume']);
+    Route::post('/create_resume', ['as' => 'candidate.store.resume', 'uses' => 'CandidateHomeController@storeResume']);
+    Route::get('/edit_resume', ['as' => 'candidate.edit.resume', 'uses' => 'CandidateHomeController@editResume']);
+    Route::post('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'CandidateHomeController@updateResume']);
+
+    Route::get('/create_edu_details', ['as' => 'candidate.create.edu_details', 'uses' => 'CandidateHomeController@createEdu_details']);
+    Route::post('/create_edu_details', ['as' => 'candidate.store.edu_details', 'uses' => 'CandidateHomeController@storeEdu_details']);
+    Route::get('/edit_edu_details', ['as' => 'candidate.edit.edu_details', 'uses' => 'CandidateHomeController@editEdu_details']);
+    Route::post('/edit_edu_details', ['as' => 'candidate.update.edu_details', 'uses' => 'CandidateHomeController@updateEdu_details']);
+
+    Route::get('/create_experience_details', ['as' => 'candidate.create.exp_details', 'uses' => 'CandidateHomeController@createExperience_details']);
+    Route::post('/create_experience_details', ['as' => 'candidate.store.exp_details', 'uses' => 'CandidateHomeController@storeExperience_details']);
+
+    Route::get('/edit_experience_details', ['as' => 'candidate.edit.exp_details', 'uses' => 'CandidateHomeController@editExperience_details']);
+    Route::post('/edit_experience_details', ['as' => 'candidate.update.exp_details', 'uses' => 'CandidateHomeController@updateExperience_details']);
+
+    Route::get('/create_language_details', ['as' => 'candidate.create.language_details', 'uses' => 'CandidateHomeController@createLanguage_details']);
+    Route::post('/create_language_details', ['as' => 'candidate.store.language_details', 'uses' => 'CandidateHomeController@storeLanguage_details']);
+
+    Route::get('/edit_language_details', ['as' => 'candidate.edit.language_details', 'uses' => 'CandidateHomeController@editLanguage_details']);
+    Route::post('/edit_language_details', ['as' => 'candidate.update.language_details', 'uses' => 'CandidateHomeController@updateLanguage_details']);
+
+    Route::get('/get_identitycard', ['as' => 'candidate.get.i_card', 'uses' => 'CandidateHomeController@get_identitycard']);
+    Route::get('/files/{file}/preview', ['as' => 'candidate.image_preview', 'uses' => 'CandidateHomeController@image_preview']);
+    Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'CandidateHomeController@file_preview']);
+
+
+});

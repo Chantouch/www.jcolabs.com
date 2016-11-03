@@ -18,6 +18,7 @@ use Hashids\Hashids;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Image;
 use Validator;
 use DB;
 use Vinkla\Hashids\HashidsManager;
@@ -310,17 +311,24 @@ class EmployerController extends Controller
         $id = Auth::guard('employer')->user()->id;
         $profile = Auth::guard('employer')->user();
         $path = 'uploads/employers/profile/' . $id . '/';
+        $path_avatar = 'uploads/employers/avatar/' . $id . '/';
         $destination_path = public_path($path);
+        $destination_avatar = public_path($path_avatar);
         if (!file_exists($destination_path)) {
             mkdir($destination_path, 0777, true);
+        }
+        if (!file_exists($destination_avatar)) {
+            mkdir($destination_avatar, 0777, true);
         }
 
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
+                $avatar = Image::make($request->file('photo'))->resize(256, 256);
                 //to remove space from string
                 $company_name = preg_replace('/\s+/', '', $request->organization_name);
                 $fileName = uniqid($company_name . '_') . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
                 $oldName = $profile->photo;
+                $avatar->save($destination_avatar . '/' . $fileName, 100);
                 $request->file('photo')->move($destination_path, $fileName);
                 $data['path'] = $path;
                 $data['photo'] = $fileName;

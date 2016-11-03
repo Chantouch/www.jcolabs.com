@@ -52,10 +52,11 @@ class LoginController extends Controller
 
         if (auth()->guard('user')->attempt(['email' => $email, 'password' => $password])) {
 
-            return redirect()->intended('user/dashboard');
+            return redirect()->intended(route('candidate.dashboard'));
         } else {
             return redirect()->intended('user/login')->with('status', 'Invalid Login Credentials !');
         }
+
     }
 
 

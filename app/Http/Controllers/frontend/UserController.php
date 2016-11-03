@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        
+
     }
 
     /**
@@ -31,12 +31,12 @@ class UserController extends Controller
     {
         return view('home');
     }
-    
+
     public function dashboard()
     {
-        
-        return view('frontend.dashboard');
-        
+
+        return view('webfront.candidate.home');
+
     }
-    
+
 }

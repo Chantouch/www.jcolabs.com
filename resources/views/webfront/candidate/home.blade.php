@@ -44,7 +44,7 @@ a.tryitbtn:hover,a.tryitbtn:active,a.showbtn:hover,a.showbtn:active {
   height: 100px;
   font-size: 60px;
   line-height: 100px;
-  width: 100px;
+  width: 99px;
   float: left;
   text-align: center;
   margin-right: 20px;
@@ -204,18 +204,19 @@ a.tryitbtn:hover,a.tryitbtn:active,a.showbtn:hover,a.showbtn:active {
 @section('main_page_container')
   <div class="post-resume-page-title">Candidate Home</div>
 @stop
-<!--
-<div class="post-resume-phone"> Profile Completion
-    <div class="progress">
-      <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{$progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%">
-        {{$progress}}%
-      </div>
-    </div>
-    <div>
-        Identity Card Status : {{$i_card_status}}
-    </div>
-  </div>
--->
+
+
+{{--<div class="post-resume-phone"> Profile Completion--}}
+    {{--<div class="progress">--}}
+      {{--<div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" aria-valuenow="{{$progress}}" aria-valuemin="0" aria-valuemax="100" style="width:{{$progress}}%">--}}
+        {{--{{$progress}}%--}}
+      {{--</div>--}}
+    {{--</div>--}}
+    {{--<div>--}}
+        {{--Identity Card Status : {{$i_card_status}}--}}
+    {{--</div>--}}
+  {{--</div>--}}
+
 
 @section('content')
 <div class="container" style="padding:20px 0">

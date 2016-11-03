@@ -11,7 +11,8 @@
         "laravelcollective/html": "dev-master",
         "infyomlabs/adminlte-templates": "5.3.x-dev",
         "vinkla/hashids": "^2.4",
-        "cviebrock/eloquent-sluggable": "^4.1"
+        "cviebrock/eloquent-sluggable": "^4.1",
+        "intervention/image": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

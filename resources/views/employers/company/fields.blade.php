@@ -39,8 +39,6 @@
                 @endif
             </div>
 
-        </div>
-        <div class="col-md-6">
             <div class="col-md-3" style="padding-left: 0">
                 <div class="form-group">
                     <label for="phone_no_ext" class="control-label">Prefix:</label>
@@ -53,18 +51,7 @@
                     {!! Form::text('phone_no_main', null, array('class'=>'form-control')) !!}
                 </div>
             </div>
-            <div class="form-group">
-                <label for="description" class="control-label">Description:</label>
-                {!! Form::textarea('details', null, array('class'=>'form-control textarea', 'rows'=>'5')) !!}
-            </div>
-            <div class="form-group">
-                <label for="services" class="control-label">Services:</label>
-                {!! Form::textarea('services', null, array('class'=>'form-control textarea', 'rows'=>'4')) !!}
-            </div>
-            <div class="form-group">
-                <label for="products" class="control-label">Products:</label>
-                {!! Form::textarea('products', null, array('class'=>'form-control textarea', 'rows'=>'4', 'id'=>'editor1')) !!}
-            </div>
+
             <div class="form-group">
                 <label for="web_address" class="control-label">Website:</label>
                 {!! Form::text('web_address', null, array('class'=>'form-control')) !!}
@@ -76,6 +63,22 @@
             <div class="form-group col-md-6 p-r-0">
                 <label for="district_id" class="control-label">District:</label>
                 {!! Form::select('district_id', $district, null, ['class'=>'form-control' , 'id'=>'district_id']) !!}
+            </div>
+
+        </div>
+        <div class="col-md-6">
+
+            <div class="form-group">
+                <label for="description" class="control-label">Description:</label>
+                {!! Form::textarea('details', null, array('class'=>'form-control textarea', 'rows'=>'5')) !!}
+            </div>
+            <div class="form-group">
+                <label for="services" class="control-label">Services:</label>
+                {!! Form::textarea('services', null, array('class'=>'form-control textarea', 'rows'=>'4')) !!}
+            </div>
+            <div class="form-group">
+                <label for="products" class="control-label">Products:</label>
+                {!! Form::textarea('products', null, array('class'=>'form-control textarea', 'rows'=>'4', 'id'=>'editor1')) !!}
             </div>
             <div class="form-group">
                 <label for="address" class="control-label">Address:</label>

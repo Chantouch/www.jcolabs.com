@@ -52,6 +52,10 @@ return [
             'driver' => 'session',
             'provider' => 'employers',
         ],
+        'candidate' => [
+            'driver' => 'session',
+            'provider' => 'candidates',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -88,6 +92,10 @@ return [
         'employers' => [
             'driver' => 'eloquent',
             'model' => App\Model\backend\Employer::class,
+        ],
+        'candidates' => [
+            'driver' => 'eloquent',
+            'model' => App\Model\frontend\User::class,
         ],
 
         // 'users' => [

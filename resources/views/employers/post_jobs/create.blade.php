@@ -79,7 +79,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-4">
-                    <img src="{!! asset('images/upload/company-3.png') !!}" alt="Company profile"
+                    <img src="{!! asset($company->path.$company->photo) !!}" alt="Company profile"
                          class="img-responsive">
                 </div>
             </div>

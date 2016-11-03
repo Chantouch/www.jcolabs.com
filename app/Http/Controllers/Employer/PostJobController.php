@@ -61,14 +61,20 @@ class PostJobController extends AppBaseController
     {
         $id = Auth::guard('employer')->user()->id;
         $emp = Auth::guard('employer')->user();
+        $contact_person = ContactPerson::where('employer_id', $id)->orderBy('contact_name')->pluck('contact_name', 'id');
         try {
-            if (Auth::guard('employer')->user()->industry_id == null) {
+
+            if ($emp->industry_id == null) {
                 return redirect()->back()->with('alert-warning', 'Please update your company profile first to start posting your job.');
             }
+
+            if ($contact_person == null) {
+                return redirect()->back()->with('alert-warning', 'Please add your contact person.');
+            }
+
             $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
-//            $districts = ['' => '-- Select State first--'];
             $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
@@ -77,7 +83,6 @@ class PostJobController extends AppBaseController
             $qualifications = Employer::qualification();
             $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $contact_person = ContactPerson::where('employer_id', $id)->orderBy('contact_name')->pluck('contact_name', 'id');
             $company = Auth::guard('employer')->user();
             return view('employers.post_jobs.create', compact('emp', 'qualifications', 'languages', 'job_levels', 'industries', 'company', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
         } catch (ErrorException $exception) {
@@ -102,10 +107,13 @@ class PostJobController extends AppBaseController
         $validator = Validator::make($data = $request->all(), PostedJob::$rules, PostedJob::$message);
 
         if ($validator->fails()) {
+
             return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Some files has errors. Please correct it and then try it again.');
+
         }
 
         $data['created_by'] = Auth::guard('employer')->user()->id;
+
         DB::beginTransaction();
 
         //Generate job id
@@ -177,7 +185,7 @@ class PostJobController extends AppBaseController
 
             return redirect(route('employer.postJobs.index'));
         }
-        return view('employers.post_jobs.edit', compact('emp','languages','qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
+        return view('employers.post_jobs.edit', compact('emp', 'languages', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
     }
 
     /**

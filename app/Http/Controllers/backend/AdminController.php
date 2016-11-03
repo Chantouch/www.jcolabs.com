@@ -82,7 +82,7 @@ class AdminController extends Controller
         $jobs_filled_up = PostedJob::with('industry')->where('created_by', $id)
             ->where('status', 2)
             ->get();
-        return view('backend.employers.profile', compact('city', 'district', 'employer', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up', 'total_jobs'));
+        return view('backend.employers.profile', compact('auth','city', 'district', 'employer', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up', 'total_jobs'));
 
     }
 

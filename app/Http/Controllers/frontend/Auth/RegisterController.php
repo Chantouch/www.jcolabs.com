@@ -51,7 +51,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  request  $request
+     * @param  request $request
      * @return User
      */
     protected function saveRegisterForm(Request $request)
@@ -72,16 +72,16 @@ class RegisterController extends Controller
         $validator = Validator::make(Input::all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect('user/register')
-                            ->withErrors($validator)
-                            ->withInput();
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $input = $request->all();
         $user = User::registeruser($input);
 
-        if($user->id){
+        if ($user->id) {
             return redirect('user/login')->with('status', 'User register successfully');
-        }else{
+        } else {
             return redirect('user/register')->with('status', 'User not register. Please try again');
         }
 
