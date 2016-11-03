@@ -22,7 +22,7 @@ class Candidate extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'confirmation_code',
         'password', 'mobile_num',
         'first_name', 'last_name',
         'verified_status', 'temp_enrollment_no'

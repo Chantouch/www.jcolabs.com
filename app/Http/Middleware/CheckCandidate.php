@@ -11,18 +11,18 @@ class CheckCandidate
 {
     public function handle($request, Closure $next)
     {
-        if (!empty(auth()->guard('candidate')->id())) {
+        if (!empty(Auth::guard('candidate')->user()->id)) {
             $data = DB::table('candidates')
                 ->select('candidates.id')
-                ->where('candidates.id', auth()->guard('candidate')->id())
+                ->where('candidates.id', Auth::guard('candidate')->user()->id)
                 ->get();
 
             if (!$data[0]->id) {
-                return redirect()->intended('candidate/login/')->with('status', 'You do not have access to user admin side');
+                return redirect()->intended('candidate/login/')->with('status', 'You do not have access to candidate side');
             }
             return $next($request);
         } else {
-            return redirect()->intended('candidate/login/')->with('status', 'Please Login to access user admin area');
+            return redirect()->intended('candidate/login/')->with('status', 'Please Login to access candidate area');
         }
     }
 }

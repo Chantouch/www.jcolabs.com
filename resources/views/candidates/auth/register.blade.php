@@ -58,7 +58,7 @@
                                 <label for="email" class="col-md-4 control-label">Phone Number</label>
                                 <div class="col-md-6">
                                     <input id="mobile_num" type="tel" class="form-control" name="mobile_num"
-                                           value="{{ old('mobile_num') }}" required>
+                                           value="{{ old('mobile_num') }}">
                                     @if ($errors->has('mobile_num'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('mobile_num') }}</strong>

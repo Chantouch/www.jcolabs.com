@@ -44,6 +44,9 @@ Route::group(['middleware' => ['guest']], function () {
 
     Route::get('employer/verify/{token}', ['as' => 'employer.process.verify.do', 'uses' => 'Employer\Auth\RegisterController@verify']);
 
+    //Verify candidate after register user account
+    Route::get('candidate/account/verify/{token}', ['as' => 'candidate.account.verify', 'uses' => 'Candidate\Auth\RegisterController@verify']);
+
 });
 
 
@@ -282,12 +285,12 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/create_resume', ['as' => 'candidate.create.resume', 'uses' => 'Candidate\CandidateController@createResume']);
     Route::post('/create_resume', ['as' => 'candidate.store.resume', 'uses' => 'Candidate\CandidateController@storeResume']);
     Route::get('/edit_resume', ['as' => 'candidate.edit.resume', 'uses' => 'Candidate\CandidateController@editResume']);
-    Route::post('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'Candidate\CandidateController@updateResume']);
+    Route::patch('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'Candidate\CandidateController@updateResume']);
 
-    Route::get('/create_edu_details', ['as' => 'candidate.create.edu_details', 'uses' => 'Candidate\CandidateController@createEdu_details']);
-    Route::post('/create_edu_details', ['as' => 'candidate.store.edu_details', 'uses' => 'Candidate\CandidateController@storeEdu_details']);
-    Route::get('/edit_edu_details', ['as' => 'candidate.edit.edu_details', 'uses' => 'Candidate\CandidateController@editEdu_details']);
-    Route::post('/edit_edu_details', ['as' => 'candidate.update.edu_details', 'uses' => 'Candidate\CandidateController@updateEdu_details']);
+    Route::get('/create_edu_details', ['as' => 'candidate.create.edu_details', 'uses' => 'Candidate\CandidateController@createEduDetails']);
+    Route::post('/create_edu_details', ['as' => 'candidate.store.edu_details', 'uses' => 'Candidate\CandidateController@storeEduDetails']);
+    Route::get('/edit_edu_details', ['as' => 'candidate.edit.edu_details', 'uses' => 'Candidate\CandidateController@editEduDetails']);
+    Route::patch('/edit_edu_details', ['as' => 'candidate.update.edu_details', 'uses' => 'Candidate\CandidateController@updateEduDetails']);
 
     Route::get('/create_experience_details', ['as' => 'candidate.create.exp_details', 'uses' => 'Candidate\CandidateController@createExperience_details']);
     Route::post('/create_experience_details', ['as' => 'candidate.store.exp_details', 'uses' => 'Candidate\CandidateController@storeExperience_details']);
@@ -304,6 +307,5 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/get_identity_card', ['as' => 'candidate.get.i_card', 'uses' => 'Candidate\CandidateController@get_identity_card']);
     Route::get('/files/{file}/preview', ['as' => 'candidate.image_preview', 'uses' => 'Candidate\CandidateController@image_preview']);
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
-
 
 });

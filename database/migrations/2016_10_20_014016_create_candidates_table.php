@@ -16,11 +16,12 @@ class CreateCandidatesTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->string('email')->unique();
-            $table->string('mobile_num');
-            $table->string('first_name', 50);
-            $table->string('last_name', 50);
+            $table->string('mobile_num')->default('070375783');
+            $table->string('first_name', 50)->nullable();
+            $table->string('last_name', 50)->nullable();
             $table->string('password');
-            $table->tinyInteger('status');
+            $table->string('temp_enrollment_no');
+            $table->tinyInteger('status')->default(0);
             $table->string('confirmation_code', 100)->index()->nullable();
             $table->enum('verified_status', ['Verified', 'Not Verified', 'Halted'])->default('Not Verified');
             $table->integer('verified_by', false)->unsigned()->default('0')->comment('verified by whom admin');

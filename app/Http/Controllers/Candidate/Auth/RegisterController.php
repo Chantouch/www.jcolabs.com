@@ -70,12 +70,13 @@ class RegisterController extends Controller
         }
         $enroll_id = 'TMP_EMP' . date('Y') . str_pad($current_id, 5, '0', STR_PAD_LEFT);
 
+        $token = str_random(60);
         return Candidate::create([
             'name' => $data['name'],
             'mobile_num' => $data['mobile_num'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'confirmation_code' => str_random(30),
+            'confirmation_code' => $token,
             'temp_enrollment_no' => $enroll_id,
         ]);
     }
@@ -140,7 +141,8 @@ class RegisterController extends Controller
 
         try {
 
-            Candidate::where('confirmation_code', $token)->firstOrFail()->verified();
+            $token = Candidate::where('confirmation_code', $token)->firstOrFail()->verified();
+
 
         } catch (ModelNotFoundException $exception) {
 

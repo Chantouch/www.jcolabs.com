@@ -1,7 +1,6 @@
 @extends('webfront.layouts.default')
 
 @section('page_specific_styles')
-
     <link href="{{ asset('plugins/jQueryUI/jquery-ui-1.10.3.custom.min.css')}}" rel="stylesheet" type="text/css"/>
 
     <style>
@@ -31,10 +30,6 @@
             /*border: 1px solid #8AC007;*/
             white-space: nowrap;
         }
-
-        .p-l-0 {
-            padding-left: 0;
-        }
     </style>
 @stop
 
@@ -43,20 +38,18 @@
 @stop
 
 @section('main_page_container')
-    <div class="post-resume-page-title">Post a Resume</div>
+    <div class="post-resume-page-title">Fill up Education Details</div>
     <div class="post-resume-phone">Call: 97999 49999</div>
 @stop
 
 @section('content')
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
+        {!! Form::open(['route' => 'candidate.store.edu_details', 'files' => 'true']) !!}
 
-        {!! Form::model($candidate_info, ['route' => ['candidate.update.resume', $candidate_info->id], 'method' => 'patch']) !!}
-
-        @include('webfront.candidate.field')
+        @include('webfront.candidate.edu.field')
 
         {!! Form::close() !!}
-
     </div>
 @stop
 
@@ -76,18 +69,26 @@
 @stop
 
 @section('page_specific_js')
-    <script src="{{ URL::asset('plugins/jQueryUI/jquery-ui.min.js') }}" type="text/javascript"></script>
-@stop
+    <script type="text/javascript">
 
+        function addRow() {
+            $("._details:first").clone(true).appendTo('#edu_details').find('input, select').val('');
+            //$("._details:first").clone(true).appendTo('#edu_details').find('.datepicker').val('');
+        }
+        function removeRow() {
+            if ($("._details").length != 1)
+                $("._details").last().remove()
+        }
+    </script>
+@stop
 @section('page_specific_scripts')
-    $( "._date" ).datepicker({
-    changeMonth: true,
-    changeYear: true,
-    defaultDate: "-22Y",
-    //yearRange: "-26:+0",
-    autoSize: true,
-    dateFormat: "dd-mm-yy",
-    //minDate: '-26Y',
-    maxDate: "-16Y"
+
+    $('#add').on('click', function(e){
+    e.preventDefault();
+    addRow();
+    });
+    $('#minus').on('click', function(e){
+    e.preventDefault();
+    removeRow();
     });
 @stop

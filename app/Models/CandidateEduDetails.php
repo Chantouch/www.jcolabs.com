@@ -10,6 +10,15 @@ class CandidateEduDetails extends Model
 
     protected $guarded = ['_method', '_token'];
 
+    protected $fillable = [
+        'exam_id',
+        'board_id',
+        'subject_id',
+        'specialization',
+        'pass_year',
+        'percentage',
+    ];
+
     public static $rules = [
         'exam_id' => 'required|exists,exams,id',
         'board_id' => 'required|exists,boards,id',

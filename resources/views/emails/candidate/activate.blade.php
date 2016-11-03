@@ -93,7 +93,7 @@ $style = [
                                                 $actionColor = 'button--blue';
                                                 ?>
 
-                                                <a href="{{ route('employer.process.verify.do',[$candidate->confirmation_code]) }}"
+                                                <a href="{{ route('candidate.account.verify',[$candidate->confirmation_code]) }}"
                                                    style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
                                                    class="button"
                                                    target="_blank">

@@ -26,7 +26,7 @@ class CandidateInfo extends Model
         'photo_url' => 'required|mimes:jpeg,png|max:512',
         'cv_url' => 'required|mimes:pdf,doc,docx|max:102400',
         'proof_no' => 'max:100',
-        'relocated' => 'required|in:No,Within State,Within Country,Outside Country',
+        'relocated' => 'required|in:No,Within City,Within Country,Outside Country',
         'additional_info' => 'max:255',
 
     ];
@@ -44,16 +44,16 @@ class CandidateInfo extends Model
                     'marital_status' => 'required|in:UNMARRIED,MARRIED,DIVORCEE,WIDOW',
                     'dob' => 'required|date_format:d-m-Y|before:"now -15 year"',
                     'address' => 'max:255',
-                    'city_id' => 'required|exists:states,id',
+                    'city_id' => 'required|exists:cities,id',
                     'district_id' => 'required|exists:districts,id',
-                    'pin_code' => 'numeric|digits_between:6,6',
+                    'pin_code' => 'numeric|digits_between:5,6',
                     'physical_height' => 'numeric',
                     'physical_weight' => 'numeric',
                     'photo_url' => 'mimes:jpeg,png|max:512',
                     'cv_url' => 'mimes:pdf,doc,docx|max:102400',
-                    'proof_details_id' => 'required|exists:proof_details,id',
+                    'proof_details_id' => 'exists:proof_details,id',
                     'proof_no' => 'max:100',
-                    'relocated' => 'required|in:No,Within State,Within Country,Outside Country',
+                    'relocated' => 'required|in:No,Within City,Within Country,Outside Country',
                     'additional_info' => 'max:255',
                 ];
         } else {
@@ -150,10 +150,10 @@ class CandidateInfo extends Model
         return $this->attributes['physical_weight'] = ($value == '0.00') ? '' : $value;
     }
 
-    // public function state()
-    // {
-    //     return $this->belongsTo('employment_bank\Models\State', 'state_id');
-    // }
+     public function city()
+     {
+         return $this->belongsTo(City::class, 'city_id');
+     }
 
     public function district()
     {

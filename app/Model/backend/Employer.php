@@ -231,7 +231,7 @@ class Employer extends Authenticatable
 
     public function contacts()
     {
-        $this->hasMany(ContactPerson::class);
+        return $this->hasMany(ContactPerson::class);
     }
 
     protected function setWebAddressAttribute($value)

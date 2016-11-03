@@ -10,11 +10,6 @@
         </div>
 
         <div class="form-group">
-            <label for="guard_name" class="control-label">Guardian Name :</label>
-            {!! Form::text('guard_name', null, ['class'=>'form-control']) !!}
-        </div>
-
-        <div class="form-group">
             <label for="spouse_name" class="control-label">Spouse Name :</label>
             {!! Form::text('spouse_name', null, ['class'=> 'form-control']) !!}
         </div>
