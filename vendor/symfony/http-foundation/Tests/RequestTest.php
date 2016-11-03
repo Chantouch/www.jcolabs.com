@@ -1220,14 +1220,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/index.php', $request->getScriptName());
 
         $server = array();
-        $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
+        $server['ORIG_SCRIPT_NAME'] = '/candidates.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('/frontend.php', $request->getScriptName());
+        $this->assertEquals('/candidates.php', $request->getScriptName());
 
         $server = array();
         $server['SCRIPT_NAME'] = '/index.php';
-        $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
+        $server['ORIG_SCRIPT_NAME'] = '/candidates.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $this->assertEquals('/index.php', $request->getScriptName());

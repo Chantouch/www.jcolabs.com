@@ -3,6 +3,29 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-group">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                @if (count($errors))
+                    <div class="alert alert-success">
+                        @foreach($errors->all() as $error)
+                            <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="form-group">
             @if (session('status'))
             <div class="alert alert-success">
@@ -26,7 +49,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('user/authenticate') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('candidate.process.authenticate.do') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

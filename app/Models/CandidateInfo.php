@@ -8,7 +8,7 @@ use File;
 
 class CandidateInfo extends Model
 {
-    protected $table  =   'candidate_info';
+    protected $table = 'candidate_info';
     public static $rules = [
         //'candidate_id' =>'exists:members,id',
         'full_name' => 'required|min:3|max:50',
@@ -17,17 +17,14 @@ class CandidateInfo extends Model
         'religion' => 'required|in:BUDDHISM,CHRISTIANITY,HINDUISM,ISLAM,JAINISM,PARSI,SIKHISM,OTHERS',
         'marital_status' => 'required|in:UNMARRIED,MARRIED,DIVORCEE,WIDOW',
         'dob' => 'required|date_format:d-m-Y|before:"now -15 year"',
-        'physical_challenge' => 'required|in:YES,NO',
         'address' => 'max:255',
-        'state_id' => 'required|exists:states,id',
+        'city_id' => 'required|exists:cities,id',
         'district_id' => 'required|exists:districts,id',
-        'pin_code' => 'numeric|digits_between:6,6',
+        'pin_code' => 'numeric|digits_between:5,6',
         'physical_height' => 'numeric',
         'physical_weight' => 'numeric',
-        'physical_chest' => 'numeric',
         'photo_url' => 'required|mimes:jpeg,png|max:512',
         'cv_url' => 'required|mimes:pdf,doc,docx|max:102400',
-        'proof_details_id' => 'required|exists:proof_details,id',
         'proof_no' => 'max:100',
         'relocated' => 'required|in:No,Within State,Within Country,Outside Country',
         'additional_info' => 'max:255',
@@ -43,18 +40,15 @@ class CandidateInfo extends Model
                     'full_name' => 'required|min:3|max:50',
                     'spouse_name' => 'max:50',
                     'sex' => 'required|in:MALE,FEMALE,OTHERS',
-                    'caste_id' => 'required|exists:casts,id',
                     'religion' => 'required|in:BUDDHISM,CHRISTIANITY,HINDUISM,ISLAM,JAINISM,PARSI,SIKHISM,OTHERS',
                     'marital_status' => 'required|in:UNMARRIED,MARRIED,DIVORCEE,WIDOW',
                     'dob' => 'required|date_format:d-m-Y|before:"now -15 year"',
-                    'physical_challenge' => 'required|in:YES,NO',
                     'address' => 'max:255',
-                    'state_id' => 'required|exists:states,id',
+                    'city_id' => 'required|exists:states,id',
                     'district_id' => 'required|exists:districts,id',
                     'pin_code' => 'numeric|digits_between:6,6',
                     'physical_height' => 'numeric',
                     'physical_weight' => 'numeric',
-                    'physical_chest' => 'numeric',
                     'photo_url' => 'mimes:jpeg,png|max:512',
                     'cv_url' => 'mimes:pdf,doc,docx|max:102400',
                     'proof_details_id' => 'required|exists:proof_details,id',
@@ -79,9 +73,15 @@ class CandidateInfo extends Model
 
     protected $guarded = ['id', '_token'];
 
-    protected $fillable = ['candidate_id', 'full_name', 'spouse_name', 'sex', 'caste_id', 'religion', 'marital_status', 'dob',
-        'physical_challenge', 'address', 'city_id', 'district_id', 'pin_code', 'physical_height', 'physical_weight',
-        'physical_chest', 'photo_url', 'cv_url', 'proof_details_id', 'proof_no', 'relocated', 'additional_info'
+    protected $fillable = [
+        'candidate_id', 'full_name',
+        'spouse_name', 'sex',
+        'religion', 'marital_status', 'dob',
+        'address', 'city_id', 'district_id',
+        'pin_code', 'physical_height',
+        'physical_weight', 'photo_url', 'cv_url',
+        'proof_details_id', 'proof_no',
+        'relocated', 'additional_info'
     ];
 
     public static $sex_options = [
@@ -150,11 +150,6 @@ class CandidateInfo extends Model
         return $this->attributes['physical_weight'] = ($value == '0.00') ? '' : $value;
     }
 
-    protected function getPhysicalChestAttribute($value)
-    {
-        return $this->attributes['physical_chest'] = ($value == '0.00') ? '' : $value;
-    }
-
     // public function state()
     // {
     //     return $this->belongsTo('employment_bank\Models\State', 'state_id');
@@ -162,7 +157,7 @@ class CandidateInfo extends Model
 
     public function district()
     {
-        return $this->belongsTo('employment_bank\Models\District', 'district_id');
+        return $this->belongsTo(District::class, 'district_id');
     }
 
     public function image()
@@ -172,5 +167,6 @@ class CandidateInfo extends Model
             return 'images/image.php?id=' . $this->photo_url;
 
         return 'images/missing.png';
+
     }
 }

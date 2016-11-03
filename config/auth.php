@@ -83,7 +83,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Model\frontend\User::class,
+            'model' => App\User::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
@@ -95,7 +95,7 @@ return [
         ],
         'candidates' => [
             'driver' => 'eloquent',
-            'model' => App\Model\frontend\User::class,
+            'model' => App\Model\frontend\Candidate::class,
         ],
 
         // 'users' => [

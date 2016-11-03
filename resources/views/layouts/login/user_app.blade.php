@@ -50,27 +50,27 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         <?php 
-                        //dd(Auth::guard('user')->check() );
+                        //dd(Auth::guard('candidate')->check() );
                         ?> 
                         
-                        @if ( !Auth::guard('user')->check() ) 
-                            <li><a href="{{ url('user/login') }}">User Login</a></li>
-                            <li><a href="{{ url('user/register') }}">User Register</a></li>
+                        @if ( !Auth::guard('candidate')->check() )
+                            <li><a href="{{ url('candidate/login') }}">User Login</a></li>
+                            <li><a href="{{ url('candidate/register') }}">User Register</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::guard('user')->user()->name }} <span class="caret"></span>
+                                    {{ Auth::guard('candidate')->user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ url('user/logout') }}"
+                                        <a href="{{ url('candidate/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ url('user/logout') }}" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ url('candidate/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>

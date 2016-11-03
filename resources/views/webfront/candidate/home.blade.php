@@ -234,7 +234,7 @@ a.tryitbtn:hover,a.tryitbtn:active,a.showbtn:hover,a.showbtn:active {
       
       
 
-      <a href="{{URL::route('candidate.create.resume')}}" target="_blank">
+      <a href="{{URL::route('candidate.create.resume')}}">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="info-box blue-bg">
             <i class="fa fa-user"></i>
@@ -244,7 +244,7 @@ a.tryitbtn:hover,a.tryitbtn:active,a.showbtn:hover,a.showbtn:active {
         </div><!--/.col-->
       </a>
       
-      <a href="{{URL::route('candidate.create.edu_details')}}" target="_blank">
+      <a href="{{URL::route('candidate.create.edu_details')}}">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="info-box facebook-bg">
             <i class="fa fa-book"></i>
@@ -254,7 +254,7 @@ a.tryitbtn:hover,a.tryitbtn:active,a.showbtn:hover,a.showbtn:active {
         </div><!--/.col-->  
       </a>
       
-      <a href="{{URL::route('candidate.create.language_details')}}" target="_blank">
+      <a href="{{URL::route('candidate.create.language_details')}}">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="info-box dark-bg">
             <i class="fa fa-comments-o"></i>
@@ -264,7 +264,7 @@ a.tryitbtn:hover,a.tryitbtn:active,a.showbtn:hover,a.showbtn:active {
         </div><!--/.col-->
       </a>
       
-      <a href="{{URL::route('candidate.create.exp_details')}}" target="_blank">
+      <a href="{{URL::route('candidate.create.exp_details')}}">
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="info-box linkedin-bg">
             <i class="fa fa-cubes"></i>

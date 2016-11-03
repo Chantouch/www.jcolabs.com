@@ -21,7 +21,7 @@ Route::group(['middleware' => ['guest']], function () {
     ', 'uses' => 'FrontController@index']);
 
     Route::get('/home', function () {
-        return view('frontend.home');
+        return view('candidates.home');
     });
 
     // ADMIN
@@ -263,46 +263,47 @@ Route::group(['middleware' => ['employer']], function () {
 
 });
 
+
 Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
 
 
 // USER
-Route::get('user/login', ['as' => 'user.process.login', 'uses' => 'frontend\Auth\LoginController@getLoginForm']);
-Route::post('user/authenticate', ['as' => 'user.process.authenticate.do', 'uses' => 'frontend\Auth\LoginController@authenticate']);
+Route::get('candidate/login', ['as' => 'candidate.process.login', 'uses' => 'candidate\Auth\LoginController@getLoginForm']);
+Route::post('candidate/authenticate', ['as' => 'candidate.process.authenticate.do', 'uses' => 'candidate\Auth\LoginController@authenticate']);
 
-Route::get('user/register', ['as' => 'user.process.register', 'uses' => 'frontend\Auth\RegisterController@getRegisterForm']);
-Route::post('user/saveregister', ['as' => 'user.process.register.do', 'uses' => 'frontend\Auth\RegisterController@saveRegisterForm']);
+Route::get('candidate/register', ['as' => 'candidate.process.register', 'uses' => 'candidate\Auth\RegisterController@getRegisterForm']);
+Route::post('candidate/save-register', ['as' => 'candidate.process.register.do', 'uses' => 'candidate\Auth\RegisterController@saveRegisterForm']);
 
-Route::group(['middleware' => ['user'], 'prefix' => 'candidate'], function () {
+Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function () {
 
-    Route::post('logout', ['as' => 'candidate.process.logout', 'uses' => 'frontend\Auth\LoginController@getLogout']);
-    Route::get('dashboard', ['as' => 'candidate.dashboard', 'uses' => 'frontend\UserController@dashboard']);
+    Route::post('logout', ['as' => 'candidate.process.logout', 'uses' => 'Candidate\Auth\LoginController@getLogout']);
+    Route::get('dashboard', ['as' => 'candidate.dashboard', 'uses' => 'Candidate\CandidateController@dashboard']);
 
-    Route::get('/create_resume', ['as' => 'candidate.create.resume', 'uses' => 'CandidateHomeController@createResume']);
-    Route::post('/create_resume', ['as' => 'candidate.store.resume', 'uses' => 'CandidateHomeController@storeResume']);
-    Route::get('/edit_resume', ['as' => 'candidate.edit.resume', 'uses' => 'CandidateHomeController@editResume']);
-    Route::post('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'CandidateHomeController@updateResume']);
+    Route::get('/create_resume', ['as' => 'candidate.create.resume', 'uses' => 'Candidate\CandidateController@createResume']);
+    Route::post('/create_resume', ['as' => 'candidate.store.resume', 'uses' => 'Candidate\CandidateController@storeResume']);
+    Route::get('/edit_resume', ['as' => 'candidate.edit.resume', 'uses' => 'Candidate\CandidateController@editResume']);
+    Route::post('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'Candidate\CandidateController@updateResume']);
 
-    Route::get('/create_edu_details', ['as' => 'candidate.create.edu_details', 'uses' => 'CandidateHomeController@createEdu_details']);
-    Route::post('/create_edu_details', ['as' => 'candidate.store.edu_details', 'uses' => 'CandidateHomeController@storeEdu_details']);
-    Route::get('/edit_edu_details', ['as' => 'candidate.edit.edu_details', 'uses' => 'CandidateHomeController@editEdu_details']);
-    Route::post('/edit_edu_details', ['as' => 'candidate.update.edu_details', 'uses' => 'CandidateHomeController@updateEdu_details']);
+    Route::get('/create_edu_details', ['as' => 'candidate.create.edu_details', 'uses' => 'Candidate\CandidateController@createEdu_details']);
+    Route::post('/create_edu_details', ['as' => 'candidate.store.edu_details', 'uses' => 'Candidate\CandidateController@storeEdu_details']);
+    Route::get('/edit_edu_details', ['as' => 'candidate.edit.edu_details', 'uses' => 'Candidate\CandidateController@editEdu_details']);
+    Route::post('/edit_edu_details', ['as' => 'candidate.update.edu_details', 'uses' => 'Candidate\CandidateController@updateEdu_details']);
 
-    Route::get('/create_experience_details', ['as' => 'candidate.create.exp_details', 'uses' => 'CandidateHomeController@createExperience_details']);
-    Route::post('/create_experience_details', ['as' => 'candidate.store.exp_details', 'uses' => 'CandidateHomeController@storeExperience_details']);
+    Route::get('/create_experience_details', ['as' => 'candidate.create.exp_details', 'uses' => 'Candidate\CandidateController@createExperience_details']);
+    Route::post('/create_experience_details', ['as' => 'candidate.store.exp_details', 'uses' => 'Candidate\CandidateController@storeExperience_details']);
 
-    Route::get('/edit_experience_details', ['as' => 'candidate.edit.exp_details', 'uses' => 'CandidateHomeController@editExperience_details']);
-    Route::post('/edit_experience_details', ['as' => 'candidate.update.exp_details', 'uses' => 'CandidateHomeController@updateExperience_details']);
+    Route::get('/edit_experience_details', ['as' => 'candidate.edit.exp_details', 'uses' => 'Candidate\CandidateController@editExperience_details']);
+    Route::post('/edit_experience_details', ['as' => 'candidate.update.exp_details', 'uses' => 'Candidate\CandidateController@updateExperience_details']);
 
-    Route::get('/create_language_details', ['as' => 'candidate.create.language_details', 'uses' => 'CandidateHomeController@createLanguage_details']);
-    Route::post('/create_language_details', ['as' => 'candidate.store.language_details', 'uses' => 'CandidateHomeController@storeLanguage_details']);
+    Route::get('/create_language_details', ['as' => 'candidate.create.language_details', 'uses' => 'Candidate\CandidateController@createLanguage_details']);
+    Route::post('/create_language_details', ['as' => 'candidate.store.language_details', 'uses' => 'Candidate\CandidateController@storeLanguage_details']);
 
-    Route::get('/edit_language_details', ['as' => 'candidate.edit.language_details', 'uses' => 'CandidateHomeController@editLanguage_details']);
-    Route::post('/edit_language_details', ['as' => 'candidate.update.language_details', 'uses' => 'CandidateHomeController@updateLanguage_details']);
+    Route::get('/edit_language_details', ['as' => 'candidate.edit.language_details', 'uses' => 'Candidate\CandidateController@editLanguage_details']);
+    Route::post('/edit_language_details', ['as' => 'candidate.update.language_details', 'uses' => 'Candidate\CandidateController@updateLanguage_details']);
 
-    Route::get('/get_identitycard', ['as' => 'candidate.get.i_card', 'uses' => 'CandidateHomeController@get_identitycard']);
-    Route::get('/files/{file}/preview', ['as' => 'candidate.image_preview', 'uses' => 'CandidateHomeController@image_preview']);
-    Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'CandidateHomeController@file_preview']);
+    Route::get('/get_identity_card', ['as' => 'candidate.get.i_card', 'uses' => 'Candidate\CandidateController@get_identity_card']);
+    Route::get('/files/{file}/preview', ['as' => 'candidate.image_preview', 'uses' => 'Candidate\CandidateController@image_preview']);
+    Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
 
 });
