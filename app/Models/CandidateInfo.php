@@ -49,9 +49,9 @@ class CandidateInfo extends Model
                     'pin_code' => 'numeric|digits_between:5,6',
                     'physical_height' => 'numeric',
                     'physical_weight' => 'numeric',
-                    'photo_url' => 'mimes:jpeg,png|max:512',
+                    'photo_url' => 'mimes:jpeg,png|max:102400',
                     'cv_url' => 'mimes:pdf,doc,docx|max:102400',
-                    'proof_details_id' => 'exists:proof_details,id',
+                    'proof_details_id' => 'exists:proof_residenses,id',
                     'proof_no' => 'max:100',
                     'relocated' => 'required|in:No,Within City,Within Country,Outside Country',
                     'additional_info' => 'max:255',
@@ -150,10 +150,10 @@ class CandidateInfo extends Model
         return $this->attributes['physical_weight'] = ($value == '0.00') ? '' : $value;
     }
 
-     public function city()
-     {
-         return $this->belongsTo(City::class, 'city_id');
-     }
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
 
     public function district()
     {
@@ -163,7 +163,8 @@ class CandidateInfo extends Model
     public function image()
     {
 
-        if (!empty($this->photo_url) && File::exists(storage_path($this->photo_url)))
+        if (!empty($this->photo_url) && File::exists(public_path($this->photo_url)))
+
             return 'images/image.php?id=' . $this->photo_url;
 
         return 'images/missing.png';

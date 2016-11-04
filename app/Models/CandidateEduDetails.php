@@ -13,6 +13,7 @@ class CandidateEduDetails extends Model
     protected $fillable = [
         'exam_id',
         'board_id',
+        'candidate_id',
         'subject_id',
         'specialization',
         'pass_year',

@@ -26,7 +26,7 @@ class LanguageController extends AppBaseController
      * Display a listing of the Language.
      *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -70,7 +70,7 @@ class LanguageController extends AppBaseController
      *
      * @param  int $id
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {

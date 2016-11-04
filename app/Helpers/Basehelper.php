@@ -12,11 +12,8 @@ class BaseHelper
 
     public static function getAppName()
     {
-        //return 'Employment Bank -Arunachal Pradesh';
         return '<b>Chantouch Sek </b>Job Portal';
     }
-
-    //public static $= ['Govt. Regular', 'Govt. Contractual', 'Pvt. Regular','Pvt. Contractual', 'Not Specified'];
 
     public static function generateIdCard($candidate_id)
     {
@@ -102,7 +99,7 @@ class BaseHelper
 
         //$path = storage_path('myimages') . '/' . $img;
         $info = CandidateInfo::find($info);
-        $path = storage_path($info->photo_url);
+        $path = public_path($info->photo_url);
         $handler = new \Symfony\Component\HttpFoundation\File\File($path);
         $lifetime = 31556926;
         /**

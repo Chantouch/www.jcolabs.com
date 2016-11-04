@@ -22,10 +22,12 @@ class CreateCandidateEduDetailsTable extends Migration
             $table->string('specialization', 50)->nullable();
             $table->integer('pass_year', false)->nullable();
             $table->decimal('percentage', 5, 2)->comment('Pass percentage');
+
             $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->foreign('exam_id')->references('id')->on('exams');
             $table->foreign('board_id')->references('id')->on('boards');
             $table->foreign('subject_id')->references('id')->on('subjects');
+
             $table->timestamps();
         });
     }

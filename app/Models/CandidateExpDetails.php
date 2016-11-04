@@ -10,6 +10,16 @@ class CandidateExpDetails extends Model
 
     protected $guarded = ['_method', 'token'];
 
+    protected $fillable = [
+        'employers_name',
+        'post_held',
+        'candidate_id',
+        'year_experience',
+        'salary',
+        'experience_id',
+        'industry_id',
+    ];
+
     public static $rules = [
         'employers_name' => 'required|max:50',
         'post_held' => 'required|max:50',
