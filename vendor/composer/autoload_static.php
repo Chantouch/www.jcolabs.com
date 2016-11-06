@@ -314,6 +314,13 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
     );
 
     public static $prefixesPsr0 = array (
+        'V' => 
+        array (
+            'Venturecraft\\Revisionable' => 
+            array (
+                0 => __DIR__ . '/..' . '/venturecraft/revisionable/src',
+            ),
+        ),
         'P' => 
         array (
             'Prophecy\\' => 
@@ -374,11 +381,17 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\Candidate\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Candidate/Auth/ForgotPasswordController.php',
+        'App\\Http\\Controllers\\Candidate\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Candidate/Auth/LoginController.php',
+        'App\\Http\\Controllers\\Candidate\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Candidate/Auth/RegisterController.php',
+        'App\\Http\\Controllers\\Candidate\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Candidate/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\Candidate\\CandidateController' => __DIR__ . '/../..' . '/app/Http/Controllers/Candidate/CandidateController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\Employer\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Employer\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/Auth/LoginController.php',
         'App\\Http\\Controllers\\Employer\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Employer\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/Auth/ResetPasswordController.php',
+        'App\\Http\\Controllers\\Employer\\ChangePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/ChangePasswordController.php',
         'App\\Http\\Controllers\\Employer\\ContactPersonController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/ContactPersonController.php',
         'App\\Http\\Controllers\\Employer\\EmployerController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/EmployerController.php',
         'App\\Http\\Controllers\\Employer\\PostJobController' => __DIR__ . '/../..' . '/app/Http/Controllers/Employer/PostJobController.php',
@@ -401,15 +414,10 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'App\\Http\\Controllers\\backend\\PositionController' => __DIR__ . '/../..' . '/app/Http/Controllers/backend/PositionController.php',
         'App\\Http\\Controllers\\backend\\ProofResidenseController' => __DIR__ . '/../..' . '/app/Http/Controllers/backend/ProofResidenseController.php',
         'App\\Http\\Controllers\\backend\\SubjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/backend/SubjectController.php',
-        'App\\Http\\Controllers\\candidates\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/candidates/Auth/ForgotPasswordController.php',
-        'App\\Http\\Controllers\\candidates\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/candidates/Auth/LoginController.php',
-        'App\\Http\\Controllers\\candidates\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/candidates/Auth/RegisterController.php',
-        'App\\Http\\Controllers\\candidates\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/candidates/Auth/ResetPasswordController.php',
-        'App\\Http\\Controllers\\candidates\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/candidates/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\CheckAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckAdmin.php',
+        'App\\Http\\Middleware\\CheckCandidate' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckCandidate.php',
         'App\\Http\\Middleware\\CheckEmployer' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckEmployer.php',
-        'App\\Http\\Middleware\\CheckUser' => __DIR__ . '/../..',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
@@ -444,11 +452,12 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'App\\Http\\Requests\\UpdateProofResidenseRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateProofResidenseRequest.php',
         'App\\Http\\Requests\\UpdateSubjectRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateSubjectRequest.php',
         'App\\Mail\\AdminActivation' => __DIR__ . '/../..' . '/app/Mail/AdminActivation.php',
+        'App\\Mail\\CandidateActivation' => __DIR__ . '/../..' . '/app/Mail/CandidateActivation.php',
         'App\\Mail\\EmployerActivation' => __DIR__ . '/../..' . '/app/Mail/EmployerActivation.php',
         'App\\Model\\Candidate' => __DIR__ . '/../..' . '/app/Models/Candidate.php',
         'App\\Model\\backend\\Admin' => __DIR__ . '/../..' . '/app/Model/backend/Admin.php',
         'App\\Model\\backend\\Employer' => __DIR__ . '/../..' . '/app/Model/backend/Employer.php',
-        'App\\Model\\candidates\\User' => __DIR__ . '/../..',
+        'App\\Model\\frontend\\Candidate' => __DIR__ . '/../..' . '/app/Model/frontend/Candidate.php',
         'App\\Models\\Board' => __DIR__ . '/../..' . '/app/Models/Board.php',
         'App\\Models\\CandidateEduDetails' => __DIR__ . '/../..' . '/app/Models/CandidateEduDetails.php',
         'App\\Models\\CandidateExpDetails' => __DIR__ . '/../..' . '/app/Models/CandidateExpDetails.php',
@@ -562,6 +571,7 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'CreatePostedJobsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_051541_create_posted_jobs_table.php',
         'CreateProofDetailsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_045818_create_proof_details_table.php',
         'CreateProofResidensesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_24_075711_create_proof_residenses_table.php',
+        'CreateRevisionsTable' => __DIR__ . '/..' . '/venturecraft/revisionable/src/migrations/2013_04_09_062329_create_revisions_table.php',
         'CreateSubjectsTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_045153_create_subjects_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron/AbstractField.php',
@@ -3602,6 +3612,10 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'Symfony\\Polyfill\\Util\\TestListener' => __DIR__ . '/..' . '/symfony/polyfill-util/TestListener.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'Venturecraft\\Revisionable\\FieldFormatter' => __DIR__ . '/..' . '/venturecraft/revisionable/src/Venturecraft/Revisionable/FieldFormatter.php',
+        'Venturecraft\\Revisionable\\Revision' => __DIR__ . '/..' . '/venturecraft/revisionable/src/Venturecraft/Revisionable/Revision.php',
+        'Venturecraft\\Revisionable\\Revisionable' => __DIR__ . '/..' . '/venturecraft/revisionable/src/Venturecraft/Revisionable/Revisionable.php',
+        'Venturecraft\\Revisionable\\RevisionableTrait' => __DIR__ . '/..' . '/venturecraft/revisionable/src/Venturecraft/Revisionable/RevisionableTrait.php',
         'Vinkla\\Hashids\\Facades\\Hashids' => __DIR__ . '/..' . '/vinkla/hashids/src/Facades/Hashids.php',
         'Vinkla\\Hashids\\HashidsFactory' => __DIR__ . '/..' . '/vinkla/hashids/src/HashidsFactory.php',
         'Vinkla\\Hashids\\HashidsManager' => __DIR__ . '/..' . '/vinkla/hashids/src/HashidsManager.php',

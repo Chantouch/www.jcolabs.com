@@ -8,6 +8,6 @@ function uploadPreview(input) {
     }
 }
 
-$('#photo').change(function () {
+$('#photo, #photo_url').change(function () {
     uploadPreview(this)
 });

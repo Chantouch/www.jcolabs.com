@@ -2,13 +2,52 @@
 
 @section('page_specific_styles')
 
+    <style>
+        .box {
+            position: relative;
+            border-radius: 3px;
+            background: #ffffff;
+            border-top: 1px solid #d2d6de;
+            margin-bottom: 20px;
+            width: 100%;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-bordered tbody tr td {
+            text-align: left;
+            background: #ffffff none repeat;
+            width: 80px;
+        }
+
+        .job-detail h6 {
+            background: #fff none repeat scroll 0 0;
+            padding: 10px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-detail p {
+            padding-left: 10px;
+            line-height: 2;
+        }
+
+        .main-page-title {
+            background: #fafafa none repeat scroll 0 0;
+        }
+
+        .bg-color-table {
+            background: #f3f3f3 none repeat !important;
+            width: 15% !important;
+        }
+
+    </style>
 @stop
 
 @section('main_page_container')
 
     <div class="spacer-1">&nbsp;</div>
 
-    <img src="{!! asset('images/upload/company-3-post.png') !!}" class="img-responsive job-detail-logo" alt="company-logo">
+    <img src="{!! asset('images/upload/company-3-post.png') !!}" class="img-responsive job-detail-logo"
+         alt="company-logo">
 
     <ul class="meta-job-detail">
         <li><i class="fa fa-link"></i><a href="">Website</a></li>
@@ -25,7 +64,7 @@
     <div class="recent-job-detail">
         <div class="col-md-5 job-detail-desc">
             <h5>{!! $job->post_name !!}</h5>
-            <p>{!! \Illuminate\Support\Str::limit($job->description, 94) !!}</p>
+            <p>{!! \Illuminate\Support\Str::limit($job->description, 75) !!}</p>
         </div>
         <div class="col-md-2 job-detail-name">
             <h6>{!! $job->employer->organization_name !!}</h6>
@@ -46,23 +85,83 @@
         <div class="clearfix"></div>
     </div>
 
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td class="bg-color-table">Year Of Exp</td>
+                            <td>{!! $job->preferred_experience !!} Year (s)</td>
+                            <td class="bg-color-table">Term</td>
+                            <td>{!! $job->job_type !!}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-color-table">Hiring</td>
+                            <td>{!! $job->no_of_post !!} Post(s)</td>
+                            <td class="bg-color-table">
+                                Function
+                            </td>
+                            <td>{!! $job->category->name !!}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-color-table">Salary</td>
+                            <td>USD($) {!! $job->salary_offered_min !!} ~ USD($) {!! $job->salary_offered_max !!}</td>
+                            <td class="bg-color-table">
+                                Industry
+                            </td>
+                            <td>{!! $job->industry->name !!}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-color-table">Gender</td>
+                            <td>{!! $job->preferred_sex !!}</td>
+                            <td class="bg-color-table">
+                                Qualification
+                            </td>
+                            <td>{!! $job->q !!}</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-color-table">Age</td>
+                            <td>{!! $job->preferred_age_min !!} Years ~ {!! $job->preferred_age_max !!} Years</td>
+                            <td class="bg-color-table">
+                                Languages
+                            </td>
+                            <td>Language</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-color-table">Published Date</td>
+                            <td>{!! $job->created_at !!}</td>
+                            <td class="bg-color-table">
+                                Closing Date
+                            </td>
+                            <td>{!! $job->closed_at !!}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div class="row  job-detail">
-        <div class="col-md-6">
-            <h6>OVERVIEW</h6>
+        <div class="col-md-8">
+            <h6>Job Description</h6>
             <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
-                provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-                eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas
-                assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-                necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
-                rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-                perferendis doloribus asperiores repellat.
+                {!! $job->description !!}
+            </p>
+            <h6>Position Requirements </h6>
+            <p>
+                {!! $job->requirement_description !!}
             </p>
         </div>
-        <div class="col-md-6">
-            <h6>ABOUT JOB</h6>
+
+        <div class="col-md-4">
+            <h6>Related Jobs</h6>
             <p>
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
                 deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
@@ -79,80 +178,42 @@
 
     <div class="spacer-1">&nbsp;</div>
 
-    <div class="container job-detail">
-        <div class="spacer-1">&nbsp;</div>
-        <h6>BENEFITS</h6>
-        <div class="row">
-            <div class="col-md-4">
-                <ul class="style-list-2">
-                    <li>On the other hand, we denounce with righteous</li>
-                    <li>Dislike men who are so beguiled and demoralized</li>
-                    <li>Charms of pleasure of the moment</li>
-                    <li>Duty through weakness of will, which is</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="style-list-2">
-                    <li>On the other hand, we denounce with righteous</li>
-                    <li>Dislike men who are so beguiled and demoralized</li>
-                    <li>Charms of pleasure of the moment</li>
-                    <li>Duty through weakness of will, which is</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="style-list-2">
-                    <li>On the other hand, we denounce with righteous</li>
-                    <li>Dislike men who are so beguiled and demoralized</li>
-                    <li>Charms of pleasure of the moment</li>
-                    <li>Duty through weakness of will, which is</li>
-                </ul>
-            </div>
-        </div>
-        <div class="spacer-1">&nbsp;</div>
-        <h6>QUALIFICATION</h6>
-        <div class="row">
-            <div class="col-md-6">
-                <ul class="style-list-2">
-                    <li>I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                        born and I will give you a complete account of the system.
-                    </li>
-                    <li>Expound the actual teachings of the great explorer of the truth.</li>
-                    <li>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, be causeit
-                        is pain.
-                    </li>
-                    <li>Circumstances occur in which toil and pain can procure him some great pleasure. To take a
-                        trivial example, which of us ever undertakes laborious physical
-                    </li>
-                    <li>Right to find fault with a man who chooses to enjoy a pleasure that has no annoying
-                        consequences.
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <ul class="style-list-2">
-                    <li>I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was
-                        born and I will give you a complete account of the system.
-                    </li>
-                    <li>Expound the actual teachings of the great explorer of the truth.</li>
-                    <li>Nor again is there anyone who loves or pursues or desires to obtain pain of itself, be causeit
-                        is pain.
-                    </li>
-                    <li>Circumstances occur in which toil and pain can procure him some great pleasure. To take a
-                        trivial example, which of us ever undertakes laborious physical
-                    </li>
-                    <li>Right to find fault with a man who chooses to enjoy a pleasure that has no annoying
-                        consequences.
-                    </li>
-                </ul>
-            </div>
-        </div>
+    {{--<div class="container job-detail">--}}
+    {{--<div class="spacer-1">&nbsp;</div>--}}
+    {{--<h6>BENEFITS</h6>--}}
+    {{--<div class="row">--}}
+    {{--<div class="col-md-4">--}}
+    {{--<ul class="style-list-2">--}}
+    {{--<li>On the other hand, we denounce with righteous</li>--}}
+    {{--<li>Dislike men who are so beguiled and demoralized</li>--}}
+    {{--<li>Charms of pleasure of the moment</li>--}}
+    {{--<li>Duty through weakness of will, which is</li>--}}
+    {{--</ul>--}}
+    {{--</div>--}}
+    {{--<div class="col-md-4">--}}
+    {{--<ul class="style-list-2">--}}
+    {{--<li>On the other hand, we denounce with righteous</li>--}}
+    {{--<li>Dislike men who are so beguiled and demoralized</li>--}}
+    {{--<li>Charms of pleasure of the moment</li>--}}
+    {{--<li>Duty through weakness of will, which is</li>--}}
+    {{--</ul>--}}
+    {{--</div>--}}
+    {{--<div class="col-md-4">--}}
+    {{--<ul class="style-list-2">--}}
+    {{--<li>On the other hand, we denounce with righteous</li>--}}
+    {{--<li>Dislike men who are so beguiled and demoralized</li>--}}
+    {{--<li>Charms of pleasure of the moment</li>--}}
+    {{--<li>Duty through weakness of will, which is</li>--}}
+    {{--</ul>--}}
+    {{--</div>--}}
+    {{--</div>--}}
 
-    </div>
+    {{--</div>--}}
+
 @stop
 
 @section('page_content')
-
-
+    <div class="spacer-1">&nbsp;</div>
     <div class="tab-container" id="tab-container"><!-- Start Recent Job -->
         <div class="container">
             <div class="row">
@@ -167,30 +228,32 @@
                         </ul>
                         <div class='panel-container'>
                             <div id="all"><!-- Tabs section 1 -->
-
-                                <div class="recent-job-list"><!-- Tabs content -->
-                                    <div class="col-md-1 job-list-logo">
-                                        <img src="{!! asset('images/upload/company-1-post.png') !!}" class="img-responsive" alt="company-logo">
-                                    </div>
-                                    <div class="col-md-5 job-list-desc">
-                                        <h6>Store General Manager</h6>
-                                        <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
-                                    </div>
-                                    <div class="col-md-3 job-list-location">
-                                        <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="row">
-                                            <div class="col-md-7 job-list-type">
-                                                <h6><i class="fa fa-user"></i>Full Time</h6>
-                                            </div>
-                                            <div class="col-md-5 job-list-button">
-                                                <button class="btn-view-job">View Job</button>
+                                @foreach($emp_jobs as $jobs)
+                                    <div class="recent-job-list"><!-- Tabs content -->
+                                        <div class="col-md-1 job-list-logo">
+                                            <img src="{!! asset('images/upload/company-1-post.png') !!}"
+                                                 class="img-responsive" alt="company-logo">
+                                        </div>
+                                        <div class="col-md-5 job-list-desc">
+                                            <h6>Store General Manager</h6>
+                                            <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
+                                        </div>
+                                        <div class="col-md-3 job-list-location">
+                                            <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-md-7 job-list-type">
+                                                    <h6><i class="fa fa-user"></i>Full Time</h6>
+                                                </div>
+                                                <div class="col-md-5 job-list-button">
+                                                    <button class="btn-view-job">View Job</button>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="clearfix"></div>
                                     </div>
-                                    <div class="clearfix"></div>
-                                </div>
+                                @endforeach
 
                             </div><!-- Tabs section 1 -->
                             <div id="contract"><!-- Tabs section 2 -->
@@ -244,9 +307,23 @@
                         deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
                         provident, similique sunt.
                     </p>
-                    <h1 class="phone-cs">Call: 1 800 000 500</h1>
+                    <h1 class="phone-cs">Call: +855 70 375 783</h1>
                 </div>
             </div><!-- CS -->
+
+            <div class="row">
+                <div class="container">
+                    <div class="spacer-1">&nbsp;</div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Company Profile</div>
+                        <div class="panel-body">
+                            {!! $job->employer->details !!}
+                        </div>
+                    </div>
+                    <div class="spacer-1">&nbsp;</div>
+                </div>
+            </div>
+
         </div><!-- end content -->
     </div>
 @stop

@@ -112,7 +112,7 @@ class Employer extends Authenticatable
                     'employees' => 'required|numeric|min:1',
                     'city_id' => 'required',
                     'district_id' => 'required',
-                    'details' => 'max:500'
+                    'details' => 'max:5000'
 
                 ];
             }

@@ -17,8 +17,7 @@ Route::post('api/fetch/contact', ['as' => 'contact.by.id', 'uses' => 'RestContro
 
 Route::group(['middleware' => ['guest']], function () {
 
-    Route::get('/', ['as' => '
-    ', 'uses' => 'FrontController@index']);
+    Route::get('/', ['as' => 'home', 'uses' => 'FrontController@index']);
 
     Route::get('/home', function () {
         return view('candidates.home');

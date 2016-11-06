@@ -51,42 +51,40 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::model($edu, ['route' => ['candidate.update.edu_details'], 'method' => 'patch']) !!}
+        {!! Form::open(['route' => ['candidate.update.edu_details'], 'role'=>'form', 'method' => 'patch']) !!}
 
         <div class="bootstrap-frm">
-            @if(count($edu) >= 1)
-                @foreach($edu as $v)
-                    <div class="_details">
-                        <div class="form-group col-md-4">
-                            <label for="exam_id" class="control-label"> Exam Passed: </label>
-                            {!! Form::select('exam_id_', $exams, null, ['class'=>'exam_id form-control', 'required']) !!}
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label for="board_id" class="control-label"> Board/university :</label>
-                            {!! Form::select('board_id_', $boards, null, ['class'=>'board_id form-control', 'required']) !!}
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label for="subject_id" class="control-label">Subject/Trade :</label>
-                            {!! Form::select('subject_id_', $subjects, null, ['class'=>'subject_id form-control', 'required']) !!}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="specialization" class="control-label">Specialization :</label>
-                            {!! Form::text('specialization_', null, ['class'=>'form-control']) !!}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="pass_year" class="control-label">Year of Passing :</label>
-                            {!! Form::selectYear('pass_year_', 2020,1950, null, ['id'=>'pass_year', 'class' => 'form-control', 'required']) !!}
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="percentage" class="control-label">% of marks :</label>
-                            {!! Form::text('percentage_', null, ['class'=>'form-control', 'required']) !!}
-                        </div>
-                        <input type="hidden" name="eduIds[]" value="{{$v->id}}">
+            @foreach($res as $v)
+                <div class="_details">
+                    <div class="form-group col-md-4">
+                        <label for="exam_id" class="control-label"> Exam Passed: </label>
+                        {!! Form::select('exam_id_'.$v->exam_id, $exams,$v->exam_id, ['class'=>'exam_id form-control', 'required']) !!}
                     </div>
-                @endforeach
-            @endif
+
+                    <div class="form-group col-md-4">
+                        <label for="board_id" class="control-label"> Board/university :</label>
+                        {!! Form::select('board_id_'.$v->board_id, $boards, $v->board_id, ['class'=>'board_id form-control', 'required']) !!}
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="subject_id" class="control-label">Subject/Trade :</label>
+                        {!! Form::select('subject_id_'.$v->subject_id, $subjects, $v->subject_id, ['class'=>'subject_id form-control', 'required']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="specialization" class="control-label">Specialization :</label>
+                        {!! Form::text('specialization_'.$v->specialization, $v->specialization, ['class'=>'form-control']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="pass_year" class="control-label">Year of Passing :</label>
+                        {!! Form::selectYear('pass_year_'.$v->pass_year, 2020,1950, $v->pass_year, ['id'=>'pass_year', 'class' => 'form-control', 'required']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="percentage" class="control-label">% of marks :</label>
+                        {!! Form::text('percentage_'.$v->percentage, $v->percentage, ['class'=>'form-control', 'required']) !!}
+                    </div>
+                    <input type="hidden" name="eduIds[]" value="{{$v->id}}">
+                </div>
+            @endforeach
 
         </div>
 

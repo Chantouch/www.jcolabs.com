@@ -45,7 +45,6 @@
                 </div>
                 <button type="button" class="btn-newstler">Sign Up</button>
             </form>
-            <a href="#" target="blank">ADMIN Login<i class="media-footer footer-fb"></i></a>
             <a href="#" target="blank"><i class="media-footer footer-blog"></i></a>
             <a href="#" target="blank"><i class="media-footer footer-rss"></i></a>
         </div><!-- News Leter Widget -->
@@ -53,7 +52,7 @@
     </div>
 
     <div class="footer-credits"><!-- Footer credits -->
-        2015 &copy; Zantrik Technologies All Rights Reserved.
+        2015 &copy; Technologies All Rights Reserved.
     </div><!-- Footer credits -->
 
 </div><!-- Container -->

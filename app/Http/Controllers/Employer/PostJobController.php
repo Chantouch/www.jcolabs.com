@@ -47,7 +47,11 @@ class PostJobController extends AppBaseController
     {
         $this->postJobRepository->pushCriteria(new RequestCriteria($request));
         $postJobs = PostedJob::with('industry')->with('city', 'subject', 'district', 'exam')->paginate(20);
-
+        $id = Auth::guard('employer')->user()->id;
+        $jobs = PostedJob::where('created_by', $id)->get();
+        if (count($jobs) == 0) {
+            return redirect()->route('employer.postJobs.create')->with('message', 'Please post your jobs to view it.');
+        }
         return view('employers.post_jobs.index')
             ->with('postJobs', $postJobs);
     }
@@ -62,15 +66,14 @@ class PostJobController extends AppBaseController
         $id = Auth::guard('employer')->user()->id;
         $emp = Auth::guard('employer')->user();
         $contact_person = ContactPerson::where('employer_id', $id)->orderBy('contact_name')->pluck('contact_name', 'id');
+
         try {
 
             if ($emp->industry_id == null) {
                 return redirect()->back()->with('alert-warning', 'Please update your company profile first to start posting your job.');
             }
 
-            if ($contact_person == null) {
-                return redirect()->back()->with('alert-warning', 'Please add your contact person.');
-            }
+
 
             $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');

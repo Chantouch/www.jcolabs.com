@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use File;
+use Request;
 
 class CandidateInfo extends Model
 {
@@ -31,6 +32,32 @@ class CandidateInfo extends Model
 
     ];
 
+    public function rules()
+    {
+
+        switch (Request::method()) {
+            case 'GET':
+            case 'DELETE': {
+                return [];
+            }
+            case 'POST': {
+                return [
+                    'photo_url' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ];
+            }
+            case 'PUT':
+            case 'PATCH': {
+                return [
+
+                    'photo_url' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+                ];
+            }
+            default:
+                break;
+        }
+    }
+
 
     public static function getValidationRules($rules = '')
     {
@@ -49,7 +76,7 @@ class CandidateInfo extends Model
                     'pin_code' => 'numeric|digits_between:5,6',
                     'physical_height' => 'numeric',
                     'physical_weight' => 'numeric',
-                    'photo_url' => 'mimes:jpeg,png|max:102400',
+                    'photo_url' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'cv_url' => 'mimes:pdf,doc,docx|max:102400',
                     'proof_details_id' => 'exists:proof_residenses,id',
                     'proof_no' => 'max:100',

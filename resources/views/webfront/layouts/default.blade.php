@@ -102,6 +102,8 @@
 
 <script src="{{ asset('webfront/js/main.js')}}" type="text/javascript"></script>
 
+<script src="{{ asset('js/jcolabs.js')}}" type="text/javascript"></script>
+
 @yield('page_specific_js')
 
 <script type="text/javascript">

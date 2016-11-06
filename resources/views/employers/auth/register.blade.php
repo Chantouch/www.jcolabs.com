@@ -1,6 +1,11 @@
-@extends('layouts.login.employer_app')
+@extends('webfront.layouts.default')
 
-@section('content')
+@section('page_specific_styles')
+    <link rel="stylesheet" href="{!! asset('plugins/iCheck/square/blue.css') !!}">
+@stop
+
+@section('full_content')
+
     <div class="container">
         <div class="row">
             <div class="form-group">
@@ -21,9 +26,10 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+
+            <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Register</div>
+                    <div class="panel-heading">Employer Register</div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST"
                               action="{{ url('employer/saveregister') }}">
@@ -60,7 +66,8 @@
                             <div class="form-group{{ $errors->has('organization_name') ? ' has-error' : '' }}">
                                 <label for="organization_name" class="col-md-4 control-label">Organization name</label>
                                 <div class="col-md-6">
-                                    <input id="organization_name" type="text" class="form-control" name="organization_name"
+                                    <input id="organization_name" type="text" class="form-control"
+                                           name="organization_name"
                                            value="{{ old('organization_name') }}" required>
                                     @if ($errors->has('organization_name'))
                                         <span class="help-block">
@@ -73,7 +80,8 @@
                             <div class="form-group{{ $errors->has('contact_mobile_no') ? ' has-error' : '' }}">
                                 <label for="contact_mobile_no" class="col-md-4 control-label">Mobile number</label>
                                 <div class="col-md-6">
-                                    <input id="contact_mobile_no" type="tel" class="form-control" name="contact_mobile_no"
+                                    <input id="contact_mobile_no" type="tel" class="form-control"
+                                           name="contact_mobile_no"
                                            value="{{ old('contact_mobile_no') }}" required>
                                     @if ($errors->has('contact_mobile_no'))
                                         <span class="help-block">
@@ -113,6 +121,15 @@
                             </div>
 
                             <div class="form-group">
+                                <div class="col-sm-offset-4 col-sm-6">
+                                    <div class="checkbox icheck">
+                                        <label style="padding-left: 0">
+                                            <input type="checkbox"> I agree to the <a href="#">terms</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
                                         Register
@@ -123,6 +140,34 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ads</div>
+                    <div class="panel-body">
+                        <p>Some ads here</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-@endsection
+@stop
+
+@section('page_content')
+
+@stop
+
+@section('page_specific_js')
+    <script src="{!! asset('plugins/iCheck/icheck.min.js') !!}"></script>
+@stop
+@section('page_specific_scripts')
+
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+
+@stop

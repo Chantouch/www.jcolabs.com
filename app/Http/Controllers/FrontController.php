@@ -6,6 +6,7 @@ use App\Models\PostedJob;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Flash;
 
@@ -48,6 +49,7 @@ class FrontController extends Controller
     {
 
         $job = PostedJob::where('slug', $slug)->firstOrFail();
+        $emp_jobs = PostedJob::firstOrFail();
 
         if (empty($job)) {
 
@@ -56,7 +58,7 @@ class FrontController extends Controller
             return redirect(route('home'));
         }
 
-        return view('webfront.jobs.view', compact('job'));
+        return view('webfront.jobs.view', compact('job', 'emp_jobs'));
 
     }
 }

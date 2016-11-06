@@ -1,6 +1,11 @@
-@extends('layouts.login.employer_app')
+@extends('webfront.layouts.default')
 
-@section('content')
+@section('page_specific_styles')
+    <link rel="stylesheet" href="{!! asset('plugins/iCheck/square/blue.css') !!}">
+@stop
+
+@section('full_content')
+
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -11,7 +16,7 @@
                         </div>
                     @endif
                     @if (session('error'))
-                        <div class="alert alert-danger text-center">
+                        <div class="alert alert-danger">
                             {{ session('error') }}
                         </div>
                     @endif
@@ -66,7 +71,7 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
-                                        <label>
+                                        <label style="padding-left: 0">
                                             <input type="checkbox" name="remember"> Remember Me
                                         </label>
                                     </div>
@@ -90,4 +95,23 @@
             </div>
         </div>
     </div>
-@endsection
+@stop
+
+@section('page_content')
+
+@stop
+
+@section('page_specific_js')
+    <script src="{!! asset('plugins/iCheck/icheck.min.js') !!}"></script>
+@stop
+@section('page_specific_scripts')
+
+    $(function () {
+    $('input').iCheck({
+    checkboxClass: 'icheckbox_square-blue',
+    radioClass: 'iradio_square-blue',
+    increaseArea: '20%' // optional
+    });
+    });
+
+@stop

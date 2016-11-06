@@ -3,15 +3,12 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Post Name</th>
-            <th>No Of Post</th>
+            <th>Name</th>
+            <th>No</th>
             <th>Industry</th>
             <th class="hidden-sm">City </th>
-            <th class="hidden-sm">District</th>
-            <th>Job Category</th>
-            <th>Subject</th>
-            <th>Specialization</th>
-            <th>Preferred Experience</th>
+            <th>Category</th>
+            <th>Experience</th>
             <th>Description</th>
             <th colspan="3">Action</th>
         </tr>
@@ -26,10 +23,7 @@
                 <td>{!! $postJob->no_of_post !!}</td>
                 <td>{!! $postJob->industry->name !!}</td>
                 <td class="hidden-sm">{!! $postJob->city->name !!}</td>
-                <td class="hidden-sm">{!! $postJob->district->name !!}</td>
                 <td>{!! $postJob->category->name !!}</td>
-                <td>{!! $postJob->subject->name !!}</td>
-                <td>{!! $postJob->specialization !!}</td>
                 <td>{!! $postJob->preferred_experience !!} year (s)</td>
                 <td>{!! \Illuminate\Support\Str::limit($postJob->description, 50) !!}</td>
                 <td>

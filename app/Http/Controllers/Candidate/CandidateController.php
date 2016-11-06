@@ -166,8 +166,10 @@ class CandidateController extends Controller
 
         $check_if_valid = $this->validate($request, $validator);
 
+        $name = preg_replace('/\s+/', '', $auth->name);
+
         if (count($candidate->bio) == 1) {
-            if ($validator->fails()) {
+            if ($check_if_valid) {
                 return redirect()->back()->withErrors($validator)->withInput();
             }
             $candidate_info = CandidateInfo::where('candidate_id', $id)->firstOrFail();
@@ -179,7 +181,7 @@ class CandidateController extends Controller
 
             if ($request->hasFile('cv_url')) {
                 if ($request->file('cv_url')->isValid()) {
-                    $fileName = $auth->name . '_' . 'cv.' . $request->file('cv_url')->getClientOriginalExtension();
+                    $fileName = $name . '_' . 'cv.' . $request->file('cv_url')->getClientOriginalExtension();
                     $request->file('cv_url')->move($destination_path, $fileName);
                     $data['cv_url'] = $path . '/' . $fileName;
                 }
@@ -187,7 +189,7 @@ class CandidateController extends Controller
 
             if ($request->hasFile('photo_url')) {
                 if ($request->file('photo_url')->isValid()) {
-                    $fileName = $auth->name . '_' . 'photo.' . $request->file('photo_url')->getClientOriginalExtension();
+                    $fileName = $name . '_' . 'photo.' . $request->file('photo_url')->getClientOriginalExtension();
                     $request->file('photo_url')->move($destination_path, $fileName);
                     $data['photo_url'] = $path . '/' . $fileName;
                 }
@@ -267,9 +269,9 @@ class CandidateController extends Controller
         $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $boards = Board::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $edu = CandidateEduDetails::where('candidate_id', $id);
+        $res = CandidateEduDetails::where('candidate_id', $id)->get();
         if (count($candidate->education) >= 1) {
-            return view('webfront.candidate.edu.edit', compact('edu', 'exams', 'boards', 'subjects'));
+            return view('webfront.candidate.edu.edit', compact('res', 'exams', 'boards', 'subjects'));
         } else {
             return redirect()->route('candidate.create.edu_details')->with('message', 'You can not edit without filling up your bio');
         }
