@@ -49,7 +49,7 @@ class FrontController extends Controller
     {
 
         $job = PostedJob::where('slug', $slug)->firstOrFail();
-        $emp_jobs = PostedJob::firstOrFail();
+        $emp_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_by', 'ASC')->paginate(20);
 
         if (empty($job)) {
 

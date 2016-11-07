@@ -31,7 +31,7 @@
         }
 
         .main-page-title {
-            background: #fafafa none repeat scroll 0 0;
+            background: #f6f6f6 none repeat scroll 0 0;
         }
 
         .bg-color-table {
@@ -229,30 +229,34 @@
                         <div class='panel-container'>
                             <div id="all"><!-- Tabs section 1 -->
                                 @foreach($emp_jobs as $jobs)
-                                    <div class="recent-job-list"><!-- Tabs content -->
-                                        <div class="col-md-1 job-list-logo">
-                                            <img src="{!! asset('images/upload/company-1-post.png') !!}"
-                                                 class="img-responsive" alt="company-logo">
+                                    <div class="recent-job-list-home"><!-- Tabs content -->
+                                        <div class="job-list-logo col-md-1 ">
+                                            <img src="{!!asset(($jobs->employer->path.$jobs->employer->photo))!!}"
+                                                 class="img-responsive"
+                                                 alt="dummy-joblist"/>
                                         </div>
                                         <div class="col-md-5 job-list-desc">
-                                            <h6>Store General Manager</h6>
-                                            <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
+                                            <h6>{!! \Illuminate\Support\Str::limit($jobs->post_name, 35) !!}</h6>
+                                            <p>{!! \Illuminate\Support\Str::limit($jobs->description, 50) !!}</p>
                                         </div>
-                                        <div class="col-md-3 job-list-location">
-                                            <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="row">
-                                                <div class="col-md-7 job-list-type">
-                                                    <h6><i class="fa fa-user"></i>Full Time</h6>
-                                                </div>
-                                                <div class="col-md-5 job-list-button">
-                                                    <button class="btn-view-job">View Job</button>
-                                                </div>
+                                        <div class="col-md-6 full">
+
+                                            <div class="job-list-location col-md-5 ">
+                                                <h6>
+                                                    <i class="fa fa-map-marker"></i>{!! $jobs->city->name !!}
+                                                </h6>
                                             </div>
+                                            <div class="job-list-type col-md-5 ">
+                                                <h6><i class="fa fa-user"></i>{!! $jobs->job_type !!}</h6>
+                                            </div>
+                                            <div class="col-md-2 job-list-button">
+                                                <a href="{!! route('jobs.view.name', [$jobs->employer->organization_name, $jobs->industry->name, $jobs->id,$jobs->slug]) !!}"
+                                                   class="btn-view-job">View</a>
+                                            </div>
+
                                         </div>
                                         <div class="clearfix"></div>
-                                    </div>
+                                    </div><!-- Tabs content -->
                                 @endforeach
 
                             </div><!-- Tabs section 1 -->

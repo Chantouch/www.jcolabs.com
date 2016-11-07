@@ -105,14 +105,14 @@
                                                  alt="dummy-joblist"/>
                                         </div>
                                         <div class="col-md-5 job-list-desc">
-                                            <h6>{!! $job->post_name !!}</h6>
-                                            <p>{!! $job->description !!}</p>
+                                            <h6>{!! \Illuminate\Support\Str::limit($job->post_name, 35) !!}</h6>
+                                            <p>{!! \Illuminate\Support\Str::limit($job->description, 50) !!}</p>
                                         </div>
                                         <div class="col-md-6 full">
 
                                             <div class="job-list-location col-md-5 ">
                                                 <h6>
-                                                    <i class="fa fa-map-marker"></i>{!! $job->place_of_employment_city !!}
+                                                    <i class="fa fa-map-marker"></i>{!! $job->city->name !!}
                                                 </h6>
                                             </div>
                                             <div class="job-list-type col-md-5 ">
@@ -164,12 +164,12 @@
                                         <div class="job-opening-content">
                                             {!! $job->post_name!!}
                                             <p>
-                                                {!! $job->description !!}
+                                                {!! \Illuminate\Support\Str::limit($job->description, 100) !!}
                                             </p>
                                         </div>
                                         <div class="job-opening-meta clearfix">
                                             <div class="meta-job-location meta-block"><i
-                                                        class="fa fa-map-marker"></i> {!!$job->place_of_employment_city!!}
+                                                        class="fa fa-map-marker"></i> {!!$job->city->name !!}
                                             </div>
                                             <div class="meta-job-type meta-block"><i
                                                         class="fa fa-user"></i> {!!$job->job_type!!} </div>
