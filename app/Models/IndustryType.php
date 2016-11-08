@@ -52,5 +52,10 @@ class IndustryType extends Model
         return $this->attributes['name'] = Str::upper($value);
     }
 
+    public function Jobs()
+    {
+        return $this->belongsTo(PostedJob::class);
+    }
+
 
 }

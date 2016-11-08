@@ -259,3 +259,77 @@
 .p-r-0 {
     padding-right: 0;
 }
+
+.similar-jobs__content {
+    padding: 0px 10px;
+}
+
+.similar-job {
+    border-bottom: 1px solid #dcdcdc;
+    padding: 20px 10px;
+}
+
+.l-similar-job:before, .l-similar-job:after {
+    content: " ";
+    display: table;
+}
+
+.l-similar-job:after {
+    clear: both;
+}
+
+.l-similar-job__left {
+    float: left;
+}
+
+.l-similar-job__right {
+    padding-left: 60px;
+}
+
+.similar-job__title {
+    color: #589acb;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.similar-job__location, .similar-job__date {
+    color: #0f0f0f;
+    display: block;
+    font-size: 14px;
+    line-height: 19px;
+}
+
+.similar-job__company-img {
+    width: 50px;
+    height: 50px;
+    margin-top: 5px;
+}
+
+.similar-jobs__btn-wrapper {
+    margin: 20px 0 20px;
+    text-align: center;
+}
+
+.-btn--grey-border {
+    border-color: #dcdcdc;
+}
+
+.-btn, .file-control__btn {
+    display: inline-block;
+    min-width: 135px;
+    padding: 12px 15px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.related-job {
+    border: 1px solid #dcdcdc;
+    width: 100%;
+}

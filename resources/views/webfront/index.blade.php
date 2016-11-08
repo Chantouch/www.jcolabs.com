@@ -129,7 +129,36 @@
                                 @endforeach
                             </div><!-- Tabs section 1 -->
                             <div id="contract"><!-- Tabs section 2 -->
-                                Contract
+                                @foreach ($job_contracts as $job)
+                                    <div class="recent-job-list-home"><!-- Tabs content -->
+                                        <div class="job-list-logo col-md-1 ">
+                                            <img src="{!!asset(($job->employer->path.$job->employer->photo))!!}"
+                                                 class="img-responsive"
+                                                 alt="dummy-joblist"/>
+                                        </div>
+                                        <div class="col-md-5 job-list-desc">
+                                            <h6>{!! \Illuminate\Support\Str::limit($job->post_name, 35) !!}</h6>
+                                            <p>{!! \Illuminate\Support\Str::limit($job->description, 50) !!}</p>
+                                        </div>
+                                        <div class="col-md-6 full">
+
+                                            <div class="job-list-location col-md-5 ">
+                                                <h6>
+                                                    <i class="fa fa-map-marker"></i>{!! $job->city->name !!}
+                                                </h6>
+                                            </div>
+                                            <div class="job-list-type col-md-5 ">
+                                                <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
+                                            </div>
+                                            <div class="col-md-2 job-list-button">
+                                                <a href="{!! route('jobs.view.name', [$job->employer->organization_name, $job->industry->name, $job->id,$job->slug]) !!}"
+                                                   class="btn-view-job">View</a>
+                                            </div>
+
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div><!-- Tabs content -->
+                                @endforeach
                             </div><!-- Tabs section 2 -->
                             <div id="full"><!-- Tabs section 3 -->
                                 Full time
@@ -158,7 +187,8 @@
                             @foreach ($top_jobs as $job)
                                 <div class="item-home">
                                     <div class="job-opening">
-                                        <img src="{!!asset($job->employer->path.$job->employer->photo)!!}" class="img-responsive"
+                                        <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                             class="img-responsive"
                                              alt="dummy-job-opening"/>
 
                                         <div class="job-opening-content">
@@ -245,20 +275,20 @@
 
             <div class="counter clearfix">
                 <div class="counter-container col-md-3 col-xs-6">
-                    <div class="counter-value">125</div>
+                    <div class="counter-value">{!! $posted_job_count !!}</div>
                     <div class="line"></div>
                     <p>Job Posted</p>
                 </div>
 
 
                 <div class="counter-container col-md-3 col-xs-6">
-                    <div class="counter-value">50</div>
+                    <div class="counter-value">{!! count($jobs_filled_up) !!}</div>
                     <div class="line"></div>
                     <p>Position Filled</p>
                 </div>
 
                 <div class="counter-container col-md-3 col-xs-6">
-                    <div class="counter-value">75</div>
+                    <div class="counter-value">{!! $companies !!}</div>
                     <div class="line"></div>
                     <p>Companies</p>
                 </div>
@@ -329,6 +359,214 @@
             <div class="step-spacer"></div>
         </div>
     </div>
+
+    <div class="testimony">
+        <div class="container">
+            <h1>What People Say About Us</h1>
+            <p>
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                deleniti atque corrupti quos dolores et quas mo
+            </p>
+
+        </div>
+        <div id="sync2" class="owl-carousel">
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-1.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-2.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-3.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-4.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-5.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-6.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-7.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-8.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-9.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+            <div class="testimony-image">
+                <img src="images/upload/testimony-image-10.jpg" class="img-responsive" alt="testimony"/>
+            </div>
+
+        </div>
+
+        <div id="sync1" class="owl-carousel">
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia.
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate.
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum .
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti.
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+            <div class="testimony-content container">
+                <p>
+                    "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
+                    provident.
+
+                </p>
+                <p>
+                    John Grasin, CEO, IT-Planet
+                </p>
+                <div class="media-testimony">
+                    <a href="" target="blank"><i class="fa fa-twitter twit"></i></a>
+                    <a href="" target="blank"><i class="fa fa-linkedin linkedin"></i></a>
+                    <a href="" target="blank"><i class="fa fa-facebook fb"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div id="company-post">
         <div class="container">

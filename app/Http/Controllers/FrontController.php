@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\backend\Employer;
 use App\Models\PostedJob;
 use Illuminate\Http\Request;
 
@@ -25,13 +26,17 @@ class FrontController extends Controller
      */
     public function index()
     {
-        $posted_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_by', 'ASC')->paginate(20);
+        $posted_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_at', 'DESC')->paginate(20);
         $top_jobs = PostedJob::with('industry', 'employer')->where('status', 1)->orderBy('salary_offered_min', 'DESC')->take(5)->get();
         //here I am taking 5 records with highest minimum salary  and only the available jobs
         // $filtered = $collection->filter(function ($item) {
         //     return $item > 2;
         // });
-        return view('webfront.index', compact('posted_jobs', 'top_jobs'));
+        $posted_job_count = PostedJob::count();
+        $jobs_filled_up = PostedJob::where('status', 2)->get();
+        $companies = Employer::where('status', 1)->count();
+        $job_contracts = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
+        return view('webfront.index', compact('posted_jobs', 'top_jobs', 'posted_job_count', 'jobs_filled_up', 'companies', 'job_contracts'));
     }
 
 
@@ -49,7 +54,9 @@ class FrontController extends Controller
     {
 
         $job = PostedJob::where('slug', $slug)->firstOrFail();
+
         $emp_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_by', 'ASC')->paginate(20);
+        $related_jobs = PostedJob::where('industry_id', $job->industry->id)->where('status', 1)->orderBy('created_at', 'DES')->get();
 
         if (empty($job)) {
 
@@ -58,7 +65,7 @@ class FrontController extends Controller
             return redirect(route('home'));
         }
 
-        return view('webfront.jobs.view', compact('job', 'emp_jobs'));
+        return view('webfront.jobs.view', compact('job', 'emp_jobs', 'related_jobs'));
 
     }
 }

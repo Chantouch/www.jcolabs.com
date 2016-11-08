@@ -1,5 +1,5 @@
 @extends('webfront.layouts.default')
-
+@section('title', $job->post_name)
 @section('page_specific_styles')
 
     <style>
@@ -161,18 +161,41 @@
         </div>
 
         <div class="col-md-4">
-            <h6>Related Jobs</h6>
-            <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
-                provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-                eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas
-                assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-                necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum
-                rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-                perferendis doloribus asperiores repellat.
-            </p>
+            <h6 style="margin-bottom: 0">Related Jobs</h6>
+            <div class="related-job">
+                <div class="similar-jobs__content">
+                    <div class="js-similar-jobs" data-source="/en/job/similar/46215/" data-items="10">
+                        @if(count($related_jobs) != 0)
+                            @foreach($related_jobs as $related)
+                                <div class="similar-job js-similar-job">
+                                    <div class="l-similar-job">
+                                        <div class="l-similar-job__left">
+                                            <a href="#" title="">
+                                                <img src="{!!asset(($related->employer->path.$related->employer->photo))!!}"
+                                                     class="similar-job__company-img img-responsive">
+                                            </a>
+                                        </div>
+                                        <div class="l-similar-job__right ">
+                                    <span class="js-similar-job-title">
+                                        <a href="/en/job/show/43817/" class="similar-job__title"
+                                           title="General Manager">{!! $related->post_name !!}</a>
+                                    </span>
+                                            <span href="#" class="similar-job__location js-similar-job-location">{!! $job->city->name !!}, Cambodia</span>
+                                            <span href="#"
+                                                  class="similar-job__date js-similar-job-expiration-date">2016-11-23</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p> No job</p>
+                        @endif
+                    </div>
+                    <div class="similar-jobs__btn-wrapper">
+                        <a href="/en/jobs/similar/46215/" class="btn -btn -btn--grey-border">See more jobs</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
