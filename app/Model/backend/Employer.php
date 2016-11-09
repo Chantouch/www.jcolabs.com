@@ -7,6 +7,7 @@ use App\Models\ContactPerson;
 use App\Models\District;
 use App\Models\EmployerDocument;
 use App\Models\IndustryType;
+use App\Models\PostedJob;
 use App\Notifications\EmployerResetPassword;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -244,5 +245,10 @@ class Employer extends Authenticatable
         $this->status = 1;
         $this->confirmation_code = null;
         $this->save();
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(PostedJob::class, 'created_by');
     }
 }

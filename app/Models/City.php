@@ -76,4 +76,9 @@ class City extends Model
     {
         return 'slug';
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(PostedJob::class, 'place_of_employment_city_id');
+    }
 }

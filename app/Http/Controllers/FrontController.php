@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Model\backend\Employer;
+use App\Model\frontend\Candidate;
+use App\Models\Category;
+use App\Models\City;
+use App\Models\IndustryType;
 use App\Models\PostedJob;
 use Illuminate\Http\Request;
 
@@ -28,15 +32,16 @@ class FrontController extends Controller
     {
         $posted_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_at', 'DESC')->paginate(20);
         $top_jobs = PostedJob::with('industry', 'employer')->where('status', 1)->orderBy('salary_offered_min', 'DESC')->take(5)->get();
-        //here I am taking 5 records with highest minimum salary  and only the available jobs
-        // $filtered = $collection->filter(function ($item) {
-        //     return $item > 2;
-        // });
         $posted_job_count = PostedJob::count();
         $jobs_filled_up = PostedJob::where('status', 2)->get();
         $companies = Employer::where('status', 1)->count();
         $job_contracts = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
-        return view('webfront.index', compact('posted_jobs', 'top_jobs', 'posted_job_count', 'jobs_filled_up', 'companies', 'job_contracts'));
+        $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
+        $industry = IndustryType::with('jobs')->where('status', 1)->take(5)->get();
+        $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
+        $city = City::with('jobs')->where('status', 1)->take(5)->get();
+        $applicant = Candidate::count();
+        return view('webfront.index', compact('applicant', 'city', 'company', 'category', 'industry', 'posted_jobs', 'top_jobs', 'posted_job_count', 'jobs_filled_up', 'companies', 'job_contracts'));
     }
 
 
@@ -67,5 +72,12 @@ class FrontController extends Controller
 
         return view('webfront.jobs.view', compact('job', 'emp_jobs', 'related_jobs'));
 
+    }
+
+
+    public function viewByCategory($cat)
+    {
+        $cat = Category::find($cat)->with('jobs')->firstOrFail();
+        return view('webfront.jobs.category', compact('cat'));
     }
 }

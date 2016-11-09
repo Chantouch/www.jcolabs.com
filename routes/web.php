@@ -268,6 +268,8 @@ Route::group(['middleware' => ['employer']], function () {
 
 Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
 
+Route::get('jobs/category/{cat}/', ['as' => 'jobs.view.by.category', 'uses' => 'FrontController@viewByCategory']);
+
 
 // USER
 Route::get('candidate/login', ['as' => 'candidate.process.login', 'uses' => 'candidate\Auth\LoginController@getLoginForm']);

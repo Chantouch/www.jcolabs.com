@@ -46,5 +46,11 @@ class Category extends Model
         'name' => 'required'
     ];
 
+
+    public function jobs()
+    {
+        return $this->hasMany(PostedJob::class);
+    }
+
     
 }

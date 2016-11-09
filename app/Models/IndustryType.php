@@ -52,9 +52,9 @@ class IndustryType extends Model
         return $this->attributes['name'] = Str::upper($value);
     }
 
-    public function Jobs()
+    public function jobs()
     {
-        return $this->belongsTo(PostedJob::class);
+        return $this->hasMany(PostedJob::class, 'industry_id');
     }
 
 
