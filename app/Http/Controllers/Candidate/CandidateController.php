@@ -300,7 +300,6 @@ class CandidateController extends Controller
                     'percentage_' . $k => 'required|numeric'
                 ];
 
-
                 $this->validate($request, $rules);
 
                 $candidate_edu_details = CandidateEduDetails::find($data['eduIds'][$i]);

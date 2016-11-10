@@ -109,8 +109,7 @@
                                             <p>{!! \Illuminate\Support\Str::limit($job->description, 50) !!}</p>
                                         </div>
                                         <div class="col-md-6 full">
-
-                                            <div class="job-list-location col-md-5 ">
+                                            <div class="job-list-location col-md-5">
                                                 <h6>
                                                     <i class="fa fa-map-marker"></i>{!! $job->city->name !!}
                                                 </h6>
@@ -122,7 +121,6 @@
                                                 <a href="{!! route('jobs.view.name', [$job->employer->organization_name, $job->industry->name, $job->id,$job->slug]) !!}"
                                                    class="btn-view-job">View</a>
                                             </div>
-
                                         </div>
                                         <div class="clearfix"></div>
                                     </div><!-- Tabs content -->
@@ -141,7 +139,6 @@
                                             <p>{!! \Illuminate\Support\Str::limit($job->description, 50) !!}</p>
                                         </div>
                                         <div class="col-md-6 full">
-
                                             <div class="job-list-location col-md-5 ">
                                                 <h6>
                                                     <i class="fa fa-map-marker"></i>{!! $job->city->name !!}
@@ -154,7 +151,6 @@
                                                 <a href="{!! route('jobs.view.name', [$job->employer->organization_name, $job->industry->name, $job->id,$job->slug]) !!}"
                                                    class="btn-view-job">View</a>
                                             </div>
-
                                         </div>
                                         <div class="clearfix"></div>
                                     </div><!-- Tabs content -->
