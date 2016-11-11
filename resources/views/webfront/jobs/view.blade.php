@@ -164,7 +164,7 @@
             <h6 style="margin-bottom: 0">Related Jobs</h6>
             <div class="related-job">
                 <div class="similar-jobs__content">
-                    <div class="js-similar-jobs" data-source="/en/job/similar/46215/" data-items="10">
+                    <div class="js-similar-jobs">
                         @if(count($related_jobs) != 0)
                             @foreach($related_jobs as $related)
                                 <div class="similar-job js-similar-job">
@@ -177,10 +177,10 @@
                                         </div>
                                         <div class="l-similar-job__right ">
                                     <span class="js-similar-job-title">
-                                        <a href="/en/job/show/43817/" class="similar-job__title"
-                                           title="General Manager">{!! $related->post_name !!}</a>
+                                        <a href="#" class="similar-job__title"
+                                           title="{!! $related->post_name !!}">{!! $related->post_name !!}</a>
                                     </span>
-                                            <span href="#" class="similar-job__location js-similar-job-location">{!! $job->city->name !!}, Cambodia</span>
+                                            <span href="#" class="similar-job__location js-similar-job-location">{!! $related->city->name !!}, Cambodia</span>
                                             <span href="#"
                                                   class="similar-job__date js-similar-job-expiration-date">2016-11-23</span>
                                         </div>

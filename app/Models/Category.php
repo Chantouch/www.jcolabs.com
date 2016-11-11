@@ -15,7 +15,7 @@ class Category extends Model
     use SoftDeletes;
 
     public $table = 'categories';
-    
+
 
     protected $dates = ['deleted_at'];
 
@@ -52,5 +52,11 @@ class Category extends Model
         return $this->hasMany(PostedJob::class);
     }
 
-    
+
+    public function brands()
+    {
+        return $this->belongsToMany(Brand::class, 'brands_categories');
+    }
+
+
 }

@@ -76,7 +76,7 @@ class CandidateController extends Controller
         $relocate = CandidateInfo::$relocated_options;
 
         if (count($candidate->bio) == 0) {
-            return view('webfront.candidate.create', compact('gender', 'religion', 'marital_status', 'city', 'district', 'proof_residence', 'relocate'));
+            return view('webfront.candidate.create', compact('candidate','gender', 'religion', 'marital_status', 'city', 'district', 'proof_residence', 'relocate'));
         } else {
             return redirect()->route('candidate.edit.resume')->with('message', 'Review your your bio again');
         }

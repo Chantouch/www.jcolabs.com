@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\API\CreatePostJobAPIRequest;
 use App\Http\Requests\API\UpdatePostJobAPIRequest;
-use App\Models\PostJob;
+use App\Models\PostedJob;
 use App\Repositories\PostJobRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
@@ -70,7 +70,7 @@ class PostJobAPIController extends AppBaseController
      */
     public function show($id)
     {
-        /** @var PostJob $postJob */
+        /** @var PostedJob $postJob */
         $postJob = $this->postJobRepository->findWithoutFail($id);
 
         if (empty($postJob)) {
@@ -93,7 +93,7 @@ class PostJobAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        /** @var PostJob $postJob */
+        /** @var PostedJob $postJob */
         $postJob = $this->postJobRepository->findWithoutFail($id);
 
         if (empty($postJob)) {
@@ -115,7 +115,7 @@ class PostJobAPIController extends AppBaseController
      */
     public function destroy($id)
     {
-        /** @var PostJob $postJob */
+        /** @var PostedJob $postJob */
         $postJob = $this->postJobRepository->findWithoutFail($id);
 
         if (empty($postJob)) {

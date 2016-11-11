@@ -310,3 +310,7 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
 });
+
+Route::get('/brands/all', ['as' => 'brands.index', 'uses' => 'BrandsController@index']);
+Route::get('/brands/create', ['as' => 'brands.create', 'uses' => 'BrandsController@create']);
+Route::post('/brands/create', ['as' => 'brands.store', 'uses' => 'BrandsController@store']);

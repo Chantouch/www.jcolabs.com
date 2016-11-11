@@ -103,13 +103,13 @@
         <div class="form-group">
             <label for="photo_url" class="control-label"> Photo :</label>
             {!! Form::file('photo_url', ['class'=> 'form-control']) !!}
-            <img src="{!! asset($candidate_info->photo_url) !!}" alt="{!! $candidate_info->full_name !!}" id="photo_url">
+            <img src="{!! asset($candidate->photo_url) !!}" alt="{!! $candidate->full_name !!}" id="photo_url">
         </div>
         <div class="form-group">
             <label for="cv_url" class="control-label">CV :</label>
             {!! Form::file('cv_url', ['class'=> 'form-control']) !!}
             <p class="help-block">CV format should be .doc, .docx or pdf only.</p>
-            <a href="#">{!! $candidate_info->cv_url !!}</a>
+            <a href="#">{!! $candidate->cv_url !!}</a>
         </div>
     </div>
 

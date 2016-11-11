@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Employer;
 use App\Helpers\BaseHelper;
 use App\Http\Controllers\Controller;
 use App\Model\backend\Employer;
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\District;
 use App\Models\EmployerDocument;
@@ -346,5 +348,24 @@ class EmployerController extends Controller
     {
         $expired = PostedJob::where('is_expired', 1);
         return view('employers.jobs.index', compact('expired'));
+    }
+
+    public function getBrands()
+    {
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('employers.brands.index', compact('categories', 'brands'));
+    }
+
+    public function showBrands()
+    {
+        $categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $brands = Brand::all();
+        return view('employers.brands.create', compact('categories', 'brands'));
+    }
+
+    public function storeBrand(Request $request)
+    {
+        $input = $request->all();
     }
 }

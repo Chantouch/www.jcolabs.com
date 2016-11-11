@@ -51,7 +51,7 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::model($candidate_info, ['route' => ['candidate.update.resume', $candidate_info->id], 'method' => 'patch', 'files'=>'true']) !!}
+        {!! Form::model($candidate, ['route' => ['candidate.update.resume', $candidate->id], 'method' => 'patch', 'files'=>'true']) !!}
 
         @include('webfront.candidate.field')
 
