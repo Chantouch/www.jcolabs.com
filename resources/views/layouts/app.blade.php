@@ -27,8 +27,6 @@
     <link rel="stylesheet" href="{!! asset('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') !!}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{!! asset('plugins/iCheck/flat/blue.css') !!}">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="{!! asset('plugins/morris/morris.css') !!}">
     <!-- jvectormap -->
     <link rel="stylesheet" href="{!! asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css') !!}">
     <!-- Date Picker -->
@@ -51,6 +49,9 @@
                 'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    @yield('page_specific_css')
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -619,9 +620,6 @@
 <!-- Select2 -->
 <script src="{!! asset('plugins/select2/select2.full.min.js') !!}"></script>
 
-<!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="{!! asset('plugins/morris/morris.min.js') !!}"></script>
 <!-- Sparkline -->
 <script src="{!! asset('plugins/sparkline/jquery.sparkline.min.js') !!}"></script>
 <!-- jvectormap -->
@@ -645,46 +643,12 @@
 <!-- AdminLTE App -->
 <script src="{!! asset('dist/js/app.min.js') !!}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{!! asset('dist/js/pages/dashboard.js') !!}"></script>
+{{--<script src="{!! asset('dist/js/pages/dashboard.js') !!}"></script>--}}
 <script src="{!! asset('js/jcolabs.js') !!}"></script>
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{!! asset('dist/js/demo.js') !!}"></script>--}}
-
+@yield('page_specific_scripts')
 @yield('page_specific_js')
-
-<script type="text/javascript">
-    $(function () {
-        $("#place_of_employment_city_id").change(function () {
-            var selectedText = $(this).find("option:selected").text();
-            var selectedValue = $(this).val();
-            alert("Selected Text: " + selectedText + " Value: " + selectedValue);
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    function getDistrictList(cityElement, districtElement) {
-        var url = '{{ URL::route('district.by.city') }}';
-        var city = $(cityElement).val();
-        $district = $(districtElement);
-        districtElement = typeof districtElement !== 'undefined' ? districtElement : '';
-
-        if (city != '') {
-            $.ajax({url: url, type: 'POST', data: {city_id: city}}).done(function (msg) {
-                $district.empty();
-                $("<option>").val('').text('--Choose--').appendTo($district);
-                $.each(msg, function (key, value) {
-                    $("<option>").val(value.id).text(value.name).appendTo($district);
-                });
-                @if(Session::has('message'))
-                    $district.val('{{ old('place_of_employment_district_id') }}')
-                @endif
-                        return true;
-            });
-        } else
-            $district.empty();
-    }
-</script>
 
 <script type="text/javascript">
     $(document).ready(function () {

@@ -147,48 +147,10 @@
 
     <script type="text/javascript">
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $("#city_id, #district_id").select2();
-        $('#city_id').change(function (e) {
-            getDistrictList(this, $('#district_id'));
-        });
-
-        $('#city_id').trigger('change');
-
         $(function () {
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('editor1');
             //bootstrap WYSIHTML5 - text editor
             $(".textarea").wysihtml5();
         });
-
-
-        function getDistrictList(cityElement, districtElement) {
-            var url = '{{ route('district.by.city') }}';
-            var city = $(cityElement).val();
-            $district = $(districtElement);
-            districtElement = typeof districtElement !== 'undefined' ? districtElement : '';
-
-            if (city != '') {
-                $.ajax({url: url, type: 'POST', data: {city_id: city}}).done(function (msg) {
-                    $district.empty();
-                    $("<option>").val('').text('--Choose City--').appendTo($district);
-                    $.each(msg, function (key, value) {
-                        $("<option>").val(value.id).text(value.name).appendTo($district);
-                    });
-
-                    $district.val('{{ old('district_id') }}')
-
-                });
-            } else
-                $district.empty();
-        }
 
     </script>
 @stop

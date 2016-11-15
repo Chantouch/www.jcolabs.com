@@ -248,6 +248,11 @@ class Employer extends Authenticatable
         $this->attributes['web_address'] = ($value == 'http//www.') ? '' : $value;
     }
 
+    protected function setPhoneNoExtAttribute($value)
+    {
+        $this->attributes['phone_no_ext'] = ($value == '+855 ') ? '' : $value;
+    }
+
     public function verified()
     {
         $this->status = 1;
