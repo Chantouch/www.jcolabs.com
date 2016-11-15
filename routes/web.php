@@ -183,6 +183,16 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('categories/{categories}/edit', ['as' => 'admin.categories.edit', 'uses' => 'backend\CategoryController@edit']);
 
 
+            Route::get('admin/qualifications', ['as' => 'admin.qualifications.index', 'uses' => 'backend\QualificationController@index']);
+            Route::post('admin/qualifications', ['as' => 'admin.qualifications.store', 'uses' => 'backend\QualificationController@store']);
+            Route::get('admin/qualifications/create', ['as' => 'admin.qualifications.create', 'uses' => 'backend\QualificationController@create']);
+            Route::put('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.update', 'uses' => 'backend\QualificationController@update']);
+            Route::patch('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.update', 'uses' => 'backend\QualificationController@update']);
+            Route::delete('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.destroy', 'uses' => 'backend\QualificationController@destroy']);
+            Route::get('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.show', 'uses' => 'backend\QualificationController@show']);
+            Route::get('admin/qualifications/{qualifications}/edit', ['as' => 'admin.qualifications.edit', 'uses' => 'backend\QualificationController@edit']);
+
+
         });
 
         //Employer Module on Admin Panel

@@ -51,7 +51,7 @@ class Language extends Model
      */
     public function posted_job()
     {
-        return $this->belongsToMany(PostedJob::class);
+        return $this->belongsToMany(PostedJob::class,'language_posted_job', 'posted_job_id', 'language_id')->withPivot('posted_job_id', 'language_id')->withTimestamps();
     }
 
 

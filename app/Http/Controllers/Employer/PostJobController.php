@@ -14,13 +14,17 @@ use App\Models\Exam;
 use App\Models\IndustryType;
 use App\Models\Language;
 use App\Models\PostedJob;
+use App\Models\Qualification;
 use App\Models\Subject;
 use App\Repositories\PostJobRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Mews\Purifier\Facades\Purifier;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prophecy\Exception\Prediction\FailedPredictionException;
 use Psy\Exception\ErrorException;
 use Response;
 use Validator;
@@ -73,8 +77,6 @@ class PostJobController extends AppBaseController
                 return redirect()->back()->with('alert-warning', 'Please update your company profile first to start posting your job.');
             }
 
-
-
             $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
@@ -83,11 +85,12 @@ class PostJobController extends AppBaseController
             $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
             $job_types = Employer::job_types();
             $job_levels = Employer::job_level();
-            $qualifications = Employer::qualification();
-            $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $qualifications = Qualification::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $lang = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $company = Auth::guard('employer')->user();
-            return view('employers.post_jobs.create', compact('emp', 'qualifications', 'languages', 'job_levels', 'industries', 'company', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
+            return view('employers.post_jobs.create', compact('emp', 'qualifications', 'lang', 'job_levels', 'industries', 'company', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
+
         } catch (ErrorException $exception) {
             return redirect('/employers/dashboard')->with('message', ' Please complete your profile company to post your post.');
         }
@@ -103,6 +106,8 @@ class PostJobController extends AppBaseController
     public function store(CreatePostJobRequest $request)
     {
 
+//        dd($request);
+
         if (Auth::guard('employer')->user()->verified_by == 0 || Auth::guard('employer')->user()->enrollment_no == '') {
             return redirect()->back()->withInput()->with('message', BaseHelper::getMessage('employer_not_active'));
         }
@@ -116,24 +121,38 @@ class PostJobController extends AppBaseController
         }
 
         $data['created_by'] = Auth::guard('employer')->user()->id;
+        $data['description'] = Purifier::clean($request->description);
+        $data['requirement_description'] = Purifier::clean($request->requirement_description);
 
-        DB::beginTransaction();
+        try {
 
-        //Generate job id
-        $records = PostedJob::withTrashed()->count();
-        $current_id = 1;
-        if (!$records == 0) {
-            $current_id = PostedJob::withTrashed()->orderBy('id', 'DESC')->first()->id + 1;
+            DB::beginTransaction();
+
+            //Generate job id
+            $records = PostedJob::withTrashed()->count();
+            $current_id = 1;
+            if (!$records == 0) {
+                $current_id = PostedJob::withTrashed()->orderBy('id', 'DESC')->first()->id + 1;
+            }
+            $job_id = 'EMP_JOB' . str_pad($current_id, 6, '0', STR_PAD_LEFT);
+            $data['emp_job_id'] = $job_id;
+            $data['status'] = 1;
+
+            $job = PostedJob::create($data);
+
+            if ($job) {
+                $job->languages()->attach($request->languages_id);
+            }
+
+        } catch (ErrorException $exception) {
+
         }
-        $job_id = 'EMP_JOB' . str_pad($current_id, 6, '0', STR_PAD_LEFT);
-        $data['emp_job_id'] = $job_id;
-        $data['status'] = 1;
-        $job = PostedJob::create($data);
 
         if (!$job) {
             DB::rollbackTransaction();
             return redirect()->back()->withInput()->with('message', 'Unable to process your requires');
         }
+
         DB::commit();
         return redirect()->route('employer.postJobs.index')->with('message', 'New job has been Posted');
 
@@ -167,8 +186,13 @@ class PostJobController extends AppBaseController
      */
     public function edit($id)
     {
+
         $emp = Auth::guard('employer')->user();
-        $languages = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $languages = Language::all();
+        $lang = array();
+        foreach ($languages as $language) {
+            $lang[$language->id] = $language->name;
+        }
         $qualifications = Employer::qualification();
         $job_levels = Employer::job_level();
         $postJob = $this->postJobRepository->findWithoutFail($id);
@@ -188,7 +212,7 @@ class PostJobController extends AppBaseController
 
             return redirect(route('employer.postJobs.index'));
         }
-        return view('employers.post_jobs.edit', compact('emp', 'languages', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
+        return view('employers.post_jobs.edit', compact('lang', 'emp', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
     }
 
     /**
@@ -203,13 +227,26 @@ class PostJobController extends AppBaseController
     {
         $postJob = $this->postJobRepository->findWithoutFail($id);
 
+        $data = $request->all();
+
         if (empty($postJob)) {
             Flash::error('The job you are looking for maybe deleted or unavailable.');
 
             return redirect(route('employer.postJobs.index'));
         }
 
-        $postJob = $this->postJobRepository->update($request->all(), $id);
+        $data['description'] = Purifier::clean($request->description);
+        $data['requirement_description'] = Purifier::clean($request->requirement_description);
+
+        $postJob = $this->postJobRepository->update($data, $id);
+
+        if ($postJob) {
+            if (isset($request->languages_id)) {
+                $postJob->languages()->sync($request->languages_id);
+            } else {
+                $postJob->languages()->sync(array());
+            }
+        }
 
         Flash::success('Post Job updated successfully.');
 
@@ -232,6 +269,8 @@ class PostJobController extends AppBaseController
 
             return redirect(route('employer.postJobs.index'));
         }
+
+        $postJob->languages()->detach();
 
         $this->postJobRepository->delete($id);
 

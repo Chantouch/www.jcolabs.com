@@ -18,9 +18,15 @@
                 <!-- Profile Image -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle"
-                             src="{!! asset($profile->path.'/'.$profile->photo) !!}"
-                             alt="User profile picture">
+                        @if(Auth::guard('employer')->user()->photo != 'default.jpg')
+                            <img class="profile-user-img img-responsive img-circle"
+                                 src="{!! asset($profile->path.'/'.$profile->photo) !!}"
+                                 alt="User profile picture">
+                        @else
+                            <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
+                                 class="profile-user-img img-responsive img-circle"
+                                 alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                        @endif
                         <h3 class="profile-username text-center">{!! $profile->contact_name !!}</h3>
                         <p class="text-muted text-center">{!! $profile->organization_name !!}</p>
                         <ul class="list-group list-group-unbordered">
@@ -412,8 +418,8 @@
 
         <div id="floating-button" data-toggle="tooltip" data-placement="left" data-original-title="Update">
             <p class="plus">+</p>
-            <a href="{!! route('employer.company.show.update') !!}"><img class="edit"
-                                                                         src="{!! asset('images/bt_compose2_1x.png') !!}"></a>
+            <a href="{!! route('employer.company.show.update') !!}">
+                <img class="edit" src="{!! asset('images/bt_compose2_1x.png') !!}"></a>
         </div>
 
     </div>

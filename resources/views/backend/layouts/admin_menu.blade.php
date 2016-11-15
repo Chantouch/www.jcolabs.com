@@ -116,3 +116,7 @@
                 Suspended</a></li>
     </ul>
 </li>
+<li class="{{ Request::is('qualifications*') ? 'active' : '' }}">
+    <a href="{!! route('admin.qualifications.index') !!}"><i class="fa fa-edit"></i><span>Qualifications</span></a>
+</li>
+

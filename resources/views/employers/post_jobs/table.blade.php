@@ -7,7 +7,7 @@
             <th>No</th>
             <th>Industry</th>
             <th class="hidden-sm">City </th>
-            <th>Category</th>
+            <th>Function</th>
             <th>Experience</th>
             <th>Description</th>
             <th colspan="3">Action</th>
@@ -19,13 +19,13 @@
                 <td>
                     <a href="{!! route('employer.jobs.view', Hashids::encode($postJob->id))!!}"># {{ $postJob->emp_job_id }}</a>
                 </td>
-                <td>{!! $postJob->post_name !!}</td>
+                <td>{!! \Illuminate\Support\Str::limit($postJob->post_name, 25) !!}</td>
                 <td>{!! $postJob->no_of_post !!}</td>
                 <td>{!! $postJob->industry->name !!}</td>
                 <td class="hidden-sm">{!! $postJob->city->name !!}</td>
                 <td>{!! $postJob->category->name !!}</td>
                 <td>{!! $postJob->preferred_experience !!} year (s)</td>
-                <td>{!! \Illuminate\Support\Str::limit($postJob->description, 50) !!}</td>
+                <td>{!! \Illuminate\Support\Str::limit($postJob->description, 30) !!}</td>
                 <td>
                     {!! Form::open(['route' => ['employer.postJobs.destroy', $postJob->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

@@ -6,15 +6,22 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}" class="img-circle"
-                     alt="User Image"/>
+                @if(Auth::guard('employer')->user()->photo != 'default.jpg')
+                    <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}"
+                         class="img-circle"
+                         alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                @else
+                    <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
+                         class="img-circle"
+                         alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                @endif
             </div>
             <div class="pull-left info">
                 @if(!Auth::guard('employer')->user())
                     <p>{{ Auth::guard('admin')->user()->contact_name }}</p>
                 @else
                     <p>{!! Auth::guard('employer')->user()->contact_name !!}</p>
-                @endif
+            @endif
             <!-- Status -->
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>

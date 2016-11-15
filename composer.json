@@ -13,7 +13,8 @@
         "vinkla/hashids": "^2.4",
         "cviebrock/eloquent-sluggable": "^4.1",
         "intervention/image": "dev-master",
-        "venturecraft/revisionable": "1.*"
+        "venturecraft/revisionable": "1.*",
+        "mews/purifier": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -401,3 +401,7 @@
 .m-t-25 {
     margin-top: 25px;
 }
+
+.select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
+    border:none;
+}

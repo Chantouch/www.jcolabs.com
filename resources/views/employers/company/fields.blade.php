@@ -16,9 +16,16 @@
             <div class="form-group">
                 <label for="photo" class="control-label">Logo:</label>
                 {!! Form::file('photo', array('class'=>'form-control','id'=>'photo')) !!}
-                <img src="{!! asset($profile->path.$profile->photo) !!}"
-                     alt="{!! $profile->organization_name !!}" id="c_profile_preview"
-                     class="img-responsive">
+                @if(Auth::guard('employer')->user()->photo != 'default.jpg')
+                    <img src="{!! asset($profile->path.$profile->photo) !!}"
+                         alt="{!! $profile->organization_name !!}" id="c_profile_preview"
+                         class="img-responsive">
+                @else
+                    <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
+                         class="img-responsive" id="c_profile_preview"
+                         alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                @endif
+
             </div>
             <div class="form-group">
                 <label for="sector" class="control-label">Organization Sector:</label>

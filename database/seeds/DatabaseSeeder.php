@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SubjectsTable::class);
         $this->call(ProofTable::class);
 //        $this->call(AdminsTable::class);
-//        $this->call(EmployersTable::class);
+//        $this->call(CategoryTable::class);
+//        $this->call(QualificationTable::class);
 
         Model::reguard();
     }

@@ -22,3 +22,14 @@
 
     </div>
 @endsection
+
+@section('page_specific_js')
+
+    <script type="text/javascript">
+
+        $(function () {
+            $(".details").wysihtml5();
+        });
+
+    </script>
+@stop

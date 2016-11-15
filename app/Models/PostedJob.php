@@ -66,7 +66,7 @@ class PostedJob extends Model
     {
         return [
             'slug' => [
-                'source' => ['seo_url', 'district.name', 'exam.name'],
+                'source' => ['seo_url', 'district.name'],
             ]
         ];
     }
@@ -86,7 +86,7 @@ class PostedJob extends Model
      */
     public function getSeoUrlAttribute($value = '')
     {
-        return $this->post_name . ' at ' . $this->employer->organization_name . ' ' . $this->subject->name;
+        return $this->post_name . ' at ' . $this->employer->organization_name . ' in ' . $this->city->name;
     }
 
     /**
@@ -153,9 +153,9 @@ class PostedJob extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function language()
+    public function languages()
     {
-        return $this->belongsToMany(Language::class);
+        return $this->belongsToMany(Language::class, 'language_posted_job', 'posted_job_id', 'language_id')->withPivot('posted_job_id', 'language_id')->withTimestamps();
     }
 
     /**

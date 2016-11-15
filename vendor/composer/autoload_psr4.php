@@ -35,6 +35,7 @@ return array(
     'Prettus\\Repository\\' => array($vendorDir . '/prettus/l5-repository/src/Prettus/Repository'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'Mews\\Purifier\\' => array($vendorDir . '/mews/purifier/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'InfyOm\\Generator\\' => array($vendorDir . '/infyomlabs/laravel-generator/src'),

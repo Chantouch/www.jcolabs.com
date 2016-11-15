@@ -127,9 +127,13 @@
                             <td class="bg-color-table">Age</td>
                             <td>{!! $job->preferred_age_min !!} Years ~ {!! $job->preferred_age_max !!} Years</td>
                             <td class="bg-color-table">
-                                Languages
+                                Language
                             </td>
-                            <td>Language</td>
+                            <td>
+                                @foreach($job->languages as $language)
+                                    {!! $language->name !!},
+                                @endforeach
+                            </td>
                         </tr>
                         <tr>
                             <td class="bg-color-table">Published Date</td>
@@ -180,7 +184,8 @@
                                         <a href="#" class="similar-job__title"
                                            title="{!! $related->post_name !!}">{!! $related->post_name !!}</a>
                                     </span>
-                                            <span href="#" class="similar-job__location js-similar-job-location">{!! $related->city->name !!}, Cambodia</span>
+                                            <span href="#" class="similar-job__location js-similar-job-location">{!! $related->city->name !!}
+                                                , Cambodia</span>
                                             <span href="#"
                                                   class="similar-job__date js-similar-job-expiration-date">2016-11-23</span>
                                         </div>

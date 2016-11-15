@@ -175,6 +175,7 @@ return [
         Vinkla\Hashids\HashidsServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -237,6 +238,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Hashids' => Vinkla\Hashids\Facades\Hashids::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Purifier' => Mews\Purifier\Facades\Purifier::class,
 
     ],
 

@@ -31,3 +31,10 @@ Route::get('admin/categories/{categories}', 'CategoryAPIController@show');
 Route::put('admin/categories/{categories}', 'CategoryAPIController@update');
 Route::patch('admin/categories/{categories}', 'CategoryAPIController@update');
 Route::delete('admin/categories{categories}', 'CategoryAPIController@destroy');
+
+Route::get('admin/qualifications', 'QualificationAPIController@index');
+Route::post('admin/qualifications', 'QualificationAPIController@store');
+Route::get('admin/qualifications/{qualifications}', 'QualificationAPIController@show');
+Route::put('admin/qualifications/{qualifications}', 'QualificationAPIController@update');
+Route::patch('admin/qualifications/{qualifications}', 'QualificationAPIController@update');
+Route::delete('admin/qualifications{qualifications}', 'QualificationAPIController@destroy');

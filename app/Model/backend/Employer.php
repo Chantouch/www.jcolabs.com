@@ -160,19 +160,27 @@ class Employer extends Authenticatable
     public static function job_types()
     {
         return [
+            '' => '--Select Type--',
             'Full Time' => 'Full Time',
             'Part Time' => 'Part Time',
             'Contract' => 'Contract',
-            'Freelancer' => 'Freelancer'
+            'Freelancer' => 'Freelancer',
+            'Internship' => 'Internship',
+            'Volunteer' => 'Volunteer',
         ];
     }
 
     public static function job_level()
     {
         return [
-            'Entry' => 'Entry',
+            '' => '--Select Level--',
+            'Non-Executive' => 'Entry',
+            'Fresh Entry' => 'Fresh Entry',
+            'Junior' => 'Junior',
             'Senior' => 'Senior',
-            'Junior' => 'Junior'
+            'Manager' => 'Manager',
+            'CEO' => 'CEO',
+            'Top Management' => 'Top Management',
         ];
     }
 

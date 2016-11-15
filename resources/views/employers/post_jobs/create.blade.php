@@ -119,6 +119,14 @@
             }
         });
 
+
+        $('#is_negotiable').change(function (e) {
+            if (!this.checked)
+                $('#salary_max').fadeIn('slow');
+            else
+                $('#salary_max').fadeOut('slow');
+        });
+
         $(".place_of_employment_city_id, .place_of_employment_district_id").select2();
         $('#place_of_employment_city_id').change(function (e) {
             getDistrictList(this, $('#place_of_employment_district_id'));
@@ -128,7 +136,7 @@
             getContactPerson(this, $('#phone_number'));
         });
 
-        $('#place_of_employment_city_id').trigger('change');
+        $('#place_of_employment_city_id, #is_negotiable').trigger('change');
 
         $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor
@@ -153,7 +161,7 @@
                         $("<option>").val(value.id).text(value.name).appendTo($district);
                     });
                     @if(Session::has('message'))
-                        $district.val('{{ old('place_of_employment_district_id') }}')
+                        $district.val('{{ old('place_of_employment_district_id') }}');
                     @endif
                             return true;
                 });
@@ -186,6 +194,12 @@
                 $phone.empty();
             }
         }
+
+
+        $("#language_id").select2({
+            placeholder: "Select Languages",
+            allowClear: true
+        });
 
     </script>
 @stop

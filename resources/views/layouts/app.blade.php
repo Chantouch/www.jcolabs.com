@@ -287,15 +287,30 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}" class="user-image"
-                                 alt="User Image">
+                            @if(Auth::guard('employer')->user()->photo != 'default.jpg')
+                                <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}"
+                                     class="user-image"
+                                     alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                            @else
+                                <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
+                                     class="user-image"
+                                     alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                            @endif
                             <span class="hidden-xs">{!! Auth::guard('employer')->user()->contact_name !!}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}" class="img-circle"
-                                     alt="User Image">
+
+                                @if(Auth::guard('employer')->user()->photo != 'default.jpg')
+                                    <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}"
+                                         class="img-circle"
+                                         alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                                @else
+                                    <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
+                                         class="img-circle"
+                                         alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                                @endif
                                 <p>
                                     {!! Auth::guard('employer')->user()->contact_name !!} - Administrator
                                     <small>Member

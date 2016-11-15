@@ -21,42 +21,62 @@
                 {!! Form::text('no_of_post', null, ['class' => 'form-control']) !!}
             </div>
 
+            <!--Publish date Field -->
+            <div class="form-group col-sm-6" id="published_date">
+                {!! Form::label('published_date', 'Published Date:') !!}
+                {!! Form::date('published_date', null, ['class' => 'form-control']) !!}
+            </div>
+
+            <!--Closing date Field -->
+            <div class="form-group col-sm-6" id="closing_date">
+                {!! Form::label('closing_date', 'Closing Date:') !!}
+                {!! Form::date('closing_date', null, ['class' => 'form-control','disabled']) !!}
+            </div>
+
             <!-- Industry Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('industry_id', 'Industry:') !!}
-                {!! Form::select('industry_id', $industries, null, array('class' => 'form-control')) !!}
+                {!! Form::select('industry_id', $industries, null, array('class' => 'form-control','placeholder'=>'--Select Industry--')) !!}
 
             </div>
 
             <!-- Job Sub Category Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('category_id', 'Job Category:') !!}
-                {!! Form::select('category_id',$job_categories, null, ['class' => 'form-control']) !!}
+                {!! Form::label('category_id', 'Function:') !!}
+                {!! Form::select('category_id',$job_categories, null, ['class' => 'form-control','placeholder'=>'--Select function--']) !!}
+            </div>
+
+            <!-- Place Of employment City Field -->
+            <div class="form-group col-sm-6">
+                {!! Form::label('place_of_employment_city_id', 'City:') !!}
+                {!! Form::select('place_of_employment_city_id',$cities , null, ['class' => 'form-control place_of_employment_city_id','placeholder'=>'--Choose City--']) !!}
+            </div>
+
+            <!-- Place Of Employment District Field -->
+            <div class="form-group col-sm-6">
+                {!! Form::label('place_of_employment_district_id', 'District:') !!}
+                {!! Form::select('place_of_employment_district_id',$districts , null, ['class' => 'form-control place_of_employment_district_id','placeholder' => '--Select City--']) !!}
             </div>
 
             <!-- Salary offer Min Field -->
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-6" id="salary_min">
                 {!! Form::label('salary_offered_min', 'Salary Offered Min:') !!}
                 {!! Form::text('salary_offered_min', null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Salary offer Max Field -->
-            <div class="form-group col-sm-6">
+            <div class="form-group col-sm-6" id="salary_max">
                 {!! Form::label('salary_offered_max', 'Salary Offered Max:') !!}
                 {!! Form::text('salary_offered_max', null, ['class' => 'form-control']) !!}
             </div>
 
-
-            <!-- Place Of employment City Field -->
+            <!-- Negotiable Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('place_of_employment_city_id', 'Place Of employment City:') !!}
-                {!! Form::select('place_of_employment_city_id',$cities , null, ['class' => 'form-control place_of_employment_city_id']) !!}
-            </div>
-
-            <!-- Place Of Employment District Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('place_of_employment_district_id', 'Place Of Employment District:') !!}
-                {!! Form::select('place_of_employment_district_id',$districts , null, ['class' => 'form-control place_of_employment_district_id','placeholder' => '--Select City--']) !!}
+                {!! Form::label('is_negotiable', 'Negotiable:') !!}
+                <label class="checkbox-inline">
+                    {!! Form::hidden('is_negotiable', false) !!}
+                    {!! Form::checkbox('is_negotiable', '1', null) !!} 1
+                </label>
             </div>
 
             <!-- Description Field -->
@@ -99,30 +119,37 @@
 
             <!-- Exam Passed Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('exam_passed_id', 'Qualification:') !!}
-                {!! Form::select('exam_passed_id',$qualifications, null, ['class' => 'form-control']) !!}
+                {!! Form::label('qualification_id', 'Qualification:') !!}
+                {!! Form::select('qualification_id', $qualifications, null, ['class' => 'form-control','placeholder'=>'--Select Qualification--']) !!}
             </div>
 
             <div class="form-group col-sm-6">
-                {!! Form::label('field_of_study_id', 'Field of Study:') !!}
-                {!! Form::select('field_of_study_id',$exams, null, ['class' => 'form-control']) !!}
+                {!! Form::label('field_of_study', 'Field of Study:') !!}
+                {!! Form::select('field_of_study', $exams, null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Subject Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('subject_id', 'Subject:') !!}
-                {!! Form::select('subject_id',$subjects, null, ['class' => 'form-control']) !!}
+                {!! Form::select('subject_id', $subjects, null, ['class' => 'form-control', 'placeholder'=>'--Select Subject--']) !!}
             </div>
 
+            <!-- Specialization Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('language_id', 'Language:') !!}
-                {!! Form::select('language_id',$languages, null, ['class' => 'form-control']) !!}
+                {!! Form::label('specialization', 'Specialization:') !!}
+                {!! Form::text('specialization', null, ['class' => 'form-control']) !!}
+            </div>
+
+            <!-- Languages fields-->
+            <div class="form-group col-sm-6">
+                {!! Form::label('languages[]', 'Language:') !!}
+                {!! Form::select('languages_id[]', $lang, null, ['class' => 'form-control', 'multiple'=>'multiple', 'id'=>'language_id']) !!}
             </div>
 
             <!-- Job types Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('preferred_sex', 'Preferred Sex:') !!}
-                {!! Form::select('preferred_sex',$genders , null, ['class' => 'form-control']) !!}
+                {!! Form::select('preferred_sex', $genders , null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Preferred Age Min Field -->
@@ -135,12 +162,6 @@
             <div class="form-group col-sm-6">
                 {!! Form::label('preferred_age_max', 'Preferred Age Max:') !!}
                 {!! Form::text('preferred_age_max', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Specialization Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('specialization', 'Specialization:') !!}
-                {!! Form::text('specialization', null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Physical Height Field -->
@@ -209,7 +230,6 @@
                     {!! Form::text('address', $emp->address, ['class' => 'form-control']) !!}
                 </div>
             </div>
-
         </div>
     </div>
     <div class="box-footer">
@@ -222,4 +242,3 @@
         </div>
     </div>
 </div>
-
