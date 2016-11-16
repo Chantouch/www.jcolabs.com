@@ -50,14 +50,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('contact_email') ? ' has-error' : '' }}">
-                                <label for="contact_email" class="col-md-4 control-label">E-Mail Address</label>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
                                 <div class="col-md-6">
-                                    <input id="contact_email" type="email" class="form-control" name="contact_email"
-                                           value="{{ old('contact_email') }}" required>
-                                    @if ($errors->has('contact_email'))
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" required>
+                                    @if ($errors->has('email'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('contact_email') }}</strong>
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -134,6 +134,10 @@
                                     <button type="submit" class="btn btn-primary">
                                         Register
                                     </button>
+                                    <a class="btn btn-link" href="{{ route('employer.process.login') }}">
+                                        Login?
+                                    </a>
+
                                 </div>
                             </div>
                         </form>

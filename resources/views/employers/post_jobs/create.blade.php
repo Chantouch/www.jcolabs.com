@@ -79,8 +79,13 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-4">
-                    <img src="{!! asset($company->path.$company->photo) !!}" alt="Company profile"
-                         class="img-responsive">
+                    @if($company->photo == 'default.jpg' || $company->photo == '')
+                        <img src="{!! asset('uploads/employers/'. $company->photo) !!}" alt="Company profile"
+                             class="img-responsive">
+                    @else
+                        <img src="{!! asset($company->path.$company->photo) !!}" alt="Company profile"
+                             class="img-responsive">
+                    @endif
                 </div>
             </div>
             <!-- /.box-body -->
@@ -139,13 +144,45 @@
         $('#place_of_employment_city_id, #is_negotiable').trigger('change');
 
         $(function () {
-            // Replace the <textarea id="editor1"> with a CKEditor
-            // instance, using default configuration.
-            CKEDITOR.replace('editor1');
-            //bootstrap WYSIHTML5 - text editor
             $(".textarea").wysihtml5();
         });
 
+        $(document).ready(function () {
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            var end = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            console.log((30 * end).toString());
+
+            $('#closing_date').datepicker({
+                format: "dd-M-yyyy",
+                todayHighlight: true,
+                startDate: today,
+                endDate: "+32d",
+                autoclose: true
+            });
+            $('#published_date').datepicker({
+                format: "dd-M-yyyy",
+                todayHighlight: true,
+                startDate: today,
+                endDate: "+2d",
+                autoclose: true
+            }).change(calculate).on('changeDate', calculate);
+
+
+            $('#closing_date, #published_date').datepicker('setDate', today);
+
+
+            function calculate() {
+
+                published_date = $('#published_date').val();
+                closing_date = $('#closing_date').val();
+                var myDate = new Date(published_date);
+                newDate = myDate.getDate() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getFullYear();
+                console.log(newDate);
+                closing_date = newDate;
+
+            }
+        });
 
         function getDistrictList(cityElement, districtElement) {
             var url = '{{ route('district.by.city') }}';

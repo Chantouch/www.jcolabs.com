@@ -62,6 +62,5 @@
 </li>
 
 <li class="{{ Request::is('/brands*') ? 'active' : '' }}">
-    <a href="{!! route('brands.index') !!}"><i class="fa fa-plus"></i>Brands</a>
+    <a href="{!! route('brands.index') !!}"><i class="fa fa-plus"></i>CVs</a>
 </li>
-

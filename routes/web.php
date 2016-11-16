@@ -14,15 +14,12 @@ Auth::routes();
 
 Route::post('api/fetch/district', ['as' => 'district.by.city', 'uses' => 'RestController@getDistricts']);
 Route::post('api/fetch/contact', ['as' => 'contact.by.id', 'uses' => 'RestController@getContactPersonDetails']);
-
+Route::get('/home', function () {
+    return view('candidates.home');
+});
 Route::group(['middleware' => ['guest']], function () {
 
     Route::get('/', ['as' => 'home', 'uses' => 'FrontController@index']);
-
-    Route::get('/home', function () {
-        return view('candidates.home');
-    });
-
     // ADMIN
     Route::get('admin/login', ['as' => 'admin.process.login', 'uses' => 'backend\Auth\LoginController@getLoginForm']);
     Route::post('admin/authenticate', ['as' => 'admin.process.authenticate.do', 'uses' => 'backend\Auth\LoginController@authenticate']);
@@ -42,6 +39,10 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('employer/saveregister', ['as' => 'employer.process.register.do', 'uses' => 'Employer\Auth\RegisterController@saveRegisterForm']);
 
     Route::get('employer/verify/{token}', ['as' => 'employer.process.verify.do', 'uses' => 'Employer\Auth\RegisterController@verify']);
+    Route::get('employer/password/reset', ['as' => 'employer.reset.password', 'uses' => 'Employer\Auth\ForgotPasswordController@showLinkRequestForm']);
+    Route::post('employer/password/reset', ['as' => 'employer.password.reset', 'uses' => 'Employer\Auth\ResetPasswordController@reset']);
+    Route::get('employer/password/reset/{token}', ['as' => 'employer.reset.password.do', 'uses' => 'Employer\Auth\ResetPasswordController@showResetForm']);
+    Route::post('employer/password/email', ['as' => 'employer.password.email', 'uses' => 'Employer\Auth\ForgotPasswordController@sendResetLinkEmail']);
 
     //Verify candidate after register user account
     Route::get('candidate/account/verify/{token}', ['as' => 'candidate.account.verify', 'uses' => 'Candidate\Auth\RegisterController@verify']);
@@ -183,14 +184,14 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('categories/{categories}/edit', ['as' => 'admin.categories.edit', 'uses' => 'backend\CategoryController@edit']);
 
 
-            Route::get('admin/qualifications', ['as' => 'admin.qualifications.index', 'uses' => 'backend\QualificationController@index']);
-            Route::post('admin/qualifications', ['as' => 'admin.qualifications.store', 'uses' => 'backend\QualificationController@store']);
-            Route::get('admin/qualifications/create', ['as' => 'admin.qualifications.create', 'uses' => 'backend\QualificationController@create']);
-            Route::put('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.update', 'uses' => 'backend\QualificationController@update']);
-            Route::patch('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.update', 'uses' => 'backend\QualificationController@update']);
-            Route::delete('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.destroy', 'uses' => 'backend\QualificationController@destroy']);
-            Route::get('admin/qualifications/{qualifications}', ['as' => 'admin.qualifications.show', 'uses' => 'backend\QualificationController@show']);
-            Route::get('admin/qualifications/{qualifications}/edit', ['as' => 'admin.qualifications.edit', 'uses' => 'backend\QualificationController@edit']);
+            Route::get('qualifications', ['as' => 'admin.qualifications.index', 'uses' => 'backend\QualificationController@index']);
+            Route::post('qualifications', ['as' => 'admin.qualifications.store', 'uses' => 'backend\QualificationController@store']);
+            Route::get('qualifications/create', ['as' => 'admin.qualifications.create', 'uses' => 'backend\QualificationController@create']);
+            Route::put('qualifications/{qualifications}', ['as' => 'admin.qualifications.update', 'uses' => 'backend\QualificationController@update']);
+            Route::patch('qualifications/{qualifications}', ['as' => 'admin.qualifications.update', 'uses' => 'backend\QualificationController@update']);
+            Route::delete('qualifications/{qualifications}', ['as' => 'admin.qualifications.destroy', 'uses' => 'backend\QualificationController@destroy']);
+            Route::get('qualifications/{qualifications}', ['as' => 'admin.qualifications.show', 'uses' => 'backend\QualificationController@show']);
+            Route::get('qualifications/{qualifications}/edit', ['as' => 'admin.qualifications.edit', 'uses' => 'backend\QualificationController@edit']);
 
 
         });

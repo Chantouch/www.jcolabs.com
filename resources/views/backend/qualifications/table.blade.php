@@ -1,13 +1,15 @@
 <table class="table table-responsive" id="qualifications-table">
     <thead>
+        <th>#</th>
         <th>Name</th>
         <th>Description</th>
         <th>Status</th>
         <th colspan="3">Action</th>
     </thead>
     <tbody>
-    @foreach($qualifications as $qualification)
+    @foreach($qualifications as $index => $qualification)
         <tr>
+            <td>{!! $index + 1 !!}</td>
             <td>{!! $qualification->name !!}</td>
             <td>{!! $qualification->description !!}</td>
             <td>{!! $qualification->status !!}</td>

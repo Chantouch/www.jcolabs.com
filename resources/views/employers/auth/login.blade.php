@@ -8,7 +8,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12">
                 <div class="form-group">
                     @if (session('status'))
                         <div class="alert alert-success">
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
@@ -39,16 +39,16 @@
                               action="{{ url('employer/authenticate') }}">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('contact_email') ? ' has-error' : '' }}">
-                                <label for="contact_email" class="col-md-4 control-label">E-Mail Address</label>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                                 <div class="col-md-6">
-                                    <input id="contact_email" type="email" class="form-control" name="contact_email"
-                                           value="{{ old('contact_email') }}" required autofocus>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" required autofocus>
 
-                                    @if ($errors->has('contact_email'))
+                                    @if ($errors->has('email'))
                                         <span class="help-block">
-                                        <strong>{{ $errors->first('contact_email') }}</strong>
+                                        <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -83,13 +83,26 @@
                                     <button type="submit" class="btn btn-primary">
                                         Login
                                     </button>
+                                    <a class="btn btn-link" href="{{ route('employer.process.register') }}">
+                                        Register?
+                                    </a>
 
                                     <a class="btn btn-link" href="{{ url('employer/password/reset') }}">
                                         Forgot Your Password?
                                     </a>
+
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Ads</div>
+                    <div class="panel-body">
+                        <p>Some ads here</p>
                     </div>
                 </div>
             </div>

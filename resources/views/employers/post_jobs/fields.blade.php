@@ -22,15 +22,15 @@
             </div>
 
             <!--Publish date Field -->
-            <div class="form-group col-sm-6" id="published_date">
+            <div class="form-group col-sm-6">
                 {!! Form::label('published_date', 'Published Date:') !!}
-                {!! Form::date('published_date', null, ['class' => 'form-control']) !!}
+                {!! Form::text('published_date', $publish_date, ['class' => 'form-control', 'placeholder' => 'dd-M-yyyy']) !!}
             </div>
 
             <!--Closing date Field -->
-            <div class="form-group col-sm-6" id="closing_date">
+            <div class="form-group col-sm-6">
                 {!! Form::label('closing_date', 'Closing Date:') !!}
-                {!! Form::date('closing_date', null, ['class' => 'form-control','disabled']) !!}
+                {!! Form::text('closing_date', null, ['class' => 'form-control', 'placeholder'=>'dd-M-yyyy']) !!}
             </div>
 
             <!-- Industry Field -->

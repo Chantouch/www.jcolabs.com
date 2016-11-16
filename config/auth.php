@@ -132,6 +132,7 @@ return [
         ],
         'employers' => [
             'provider' => 'employers',
+            'email' => 'employers.auth.passwords.email',
             'table' => 'password_resets',
             'expire' => 60,
         ],

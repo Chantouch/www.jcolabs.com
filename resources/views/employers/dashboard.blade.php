@@ -7,20 +7,18 @@
 @stop
 
 @section('content')
-
-    <div class="col-md-12">
-        <div class="panel panel-default">
-
-            <div class="panel-heading">Dashboard</div>
-
-            <div class="panel-body">
-                Hello {{Auth::guard('employer')->user()->name}}
-                You are logged in!
-                {{ Auth()->guard('employer')->user()->email  }}
+    <div class="content">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
+                <div class="panel-body">
+                    Hello {{Auth::guard('employer')->user()->contact_name}}
+                    You are logged in!
+                    {{ Auth()->guard('employer')->user()->email  }}
+                </div>
             </div>
         </div>
     </div>
-
 
     <div id="container-floating">
 
@@ -44,7 +42,7 @@
             <img class="edit" src="http://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/bt_compose2_1x.png">
         </div>
     </div>
-@endsection
+@stop
 
 @section('page_specific_js')
     <!-- Morris.js charts -->

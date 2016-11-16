@@ -8,7 +8,7 @@ use App\Models\District;
 use App\Models\EmployerDocument;
 use App\Models\IndustryType;
 use App\Models\PostedJob;
-use App\Notifications\EmployerResetPassword;
+use App\Notifications\EmployerResetPassword as ResetPasswordNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +36,7 @@ class Employer extends Authenticatable
         'web_address', 'organisation_id_proof',
         'organisation_profile', 'organisation_pan_card',
         'contact_name', 'contact_designation',
-        'contact_mobile_no', 'contact_email',
+        'contact_mobile_no', 'email',
         'password', 'status', 'confirmation_code',
         'details', 'photo', 'tag_line',
         'web_address', 'temp_enrollment_no',
@@ -60,7 +60,7 @@ class Employer extends Authenticatable
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new EmployerResetPassword($token));
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public static $messages = [

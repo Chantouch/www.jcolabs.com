@@ -4,8 +4,14 @@
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-aqua-active">
             <div class="widget-user-image">
-                <img class="" src="{!! asset('uploads/employers/avatar/'. $auth->id .'/'. $auth->photo)!!}"
-                     alt="User Avatar">
+
+                @if($auth->photo == 'default.jpg')
+                    <img class="" src="{!! asset('uploads/employers/' . $auth->photo)!!}"
+                         alt="User Avatar">
+                @else
+                    <img class="" src="{!! asset('uploads/employers/avatar/'. $auth->id .'/'. $auth->photo)!!}"
+                         alt="User Avatar">
+                @endif
             </div>
             <!-- /.widget-user-image -->
             <h3 class="widget-user-username">{!! $employer->organization_name !!}</h3>
@@ -99,11 +105,23 @@
                     </tr>
                     <tr>
                         <th> Industry</th>
-                        <td> {!! $employer->industry->name !!} </td>
+                        <td>
+                            @if($employer->industry_id == '' || $employer->industry_id == null)
+                                <span>No industry</span>
+                            @else
+                                {{ $employer->industry->name }}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th> City, District</th>
-                        <td> {!! $employer->city->name !!},&nbsp; {!! $employer->district->name!!} </td>
+                        <td>
+                            @if($employer->city_id == '' || $employer->city_id == null || $employer->district_id == '' || $employer->district_id == null)
+                                <span>No city and district</span>
+                            @else
+                                {!! $employer->city->name !!},&nbsp; {!! $employer->district->name!!}
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th> Address</th>

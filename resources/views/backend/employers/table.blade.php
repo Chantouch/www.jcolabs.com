@@ -25,7 +25,13 @@
                 </td>
                 <td>{{ $employer->organization_type }}</td>
                 <td>{{ $employer->organization_sector }}</td>
-                <td>{{ $employer->industry->name }}</td>
+                <td>
+                    @if($employer->industry_id == '' || $employer->industry_id == null)
+                        <span>No industry</span>
+                    @else
+                        {{ $employer->industry->name }}
+                    @endif
+                </td>
                 <td>
                     {{ $employer->contact_name }}
                 </td>

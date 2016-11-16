@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Psy\Exception\ErrorException;
 use Vinkla\Hashids\HashidsManager;
 
 class AdminController extends Controller
@@ -56,8 +57,13 @@ class AdminController extends Controller
      */
     public function employerListAll()
     {
-        $employers = Employer::with('industry')->orderBy('id', 'DESC')->paginate(10);
-        return view('backend.employers.index', compact('employers'));
+        try {
+            $employers = Employer::with('industry')->orderBy('id', 'DESC')->paginate(10);
+            return view('backend.employers.index', compact('employers'));
+        } catch (ErrorException $exception) {
+            return redirect()->back();
+        }
+
     }
 
     /**
@@ -82,7 +88,7 @@ class AdminController extends Controller
         $jobs_filled_up = PostedJob::with('industry')->where('created_by', $id)
             ->where('status', 2)
             ->get();
-        return view('backend.employers.profile', compact('auth','city', 'district', 'employer', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up', 'total_jobs'));
+        return view('backend.employers.profile', compact('auth', 'city', 'district', 'employer', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up', 'total_jobs'));
 
     }
 

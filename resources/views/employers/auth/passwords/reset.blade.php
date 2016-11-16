@@ -1,6 +1,6 @@
-@extends('layouts.login.user_app')
+@extends('webfront.layouts.default')
 
-@section('content')
+@section('full_content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -8,7 +8,7 @@
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('employer/password/reset') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('employer.password.reset') }}">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="token" value="{{ $token }}">

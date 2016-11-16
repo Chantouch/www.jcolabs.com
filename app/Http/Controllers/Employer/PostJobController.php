@@ -18,6 +18,7 @@ use App\Models\Qualification;
 use App\Models\Subject;
 use App\Repositories\PostJobRepository;
 use App\Http\Controllers\AppBaseController;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Flash;
 use Illuminate\Support\Facades\Auth;
@@ -89,7 +90,8 @@ class PostJobController extends AppBaseController
             $lang = Language::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $company = Auth::guard('employer')->user();
-            return view('employers.post_jobs.create', compact('emp', 'qualifications', 'lang', 'job_levels', 'industries', 'company', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
+            $publish_date = Carbon::now();
+            return view('employers.post_jobs.create', compact('publish_date', 'emp', 'qualifications', 'lang', 'job_levels', 'industries', 'company', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'physical_challenge', 'job_categories', 'contact_person'));
 
         } catch (ErrorException $exception) {
             return redirect('/employers/dashboard')->with('message', ' Please complete your profile company to post your post.');

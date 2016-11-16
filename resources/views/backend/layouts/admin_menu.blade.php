@@ -74,6 +74,11 @@
                 <i class="fa fa-edit"></i><span>Jobs list</span></a>
         </li>
 
+        <li class="{{ Request::is('admin/master/qualifications*') ? 'active' : '' }}">
+            <a href="{!! route('admin.qualifications.index') !!}">
+                <i class="fa fa-edit"></i><span>Qualifications</span></a>
+        </li>
+
     </ul>
 
 </li>
@@ -116,7 +121,3 @@
                 Suspended</a></li>
     </ul>
 </li>
-<li class="{{ Request::is('qualifications*') ? 'active' : '' }}">
-    <a href="{!! route('admin.qualifications.index') !!}"><i class="fa fa-edit"></i><span>Qualifications</span></a>
-</li>
-

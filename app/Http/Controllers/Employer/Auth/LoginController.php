@@ -55,21 +55,22 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
 
-        $contact_email = $request->input('contact_email');
+        $email = $request->input('email');
         $password = $request->input('password');
-        $this->validate($request, ['contact_email' => 'required|email|exists:employers,contact_email', 'password' => 'required'], ['contact_email.exists' => 'Email does not exists in our system']);
-        if (auth()->guard('employer')->attempt(['contact_email' => $contact_email, 'password' => $password, 'status' => 1])) {
-            $organization_name = Auth::guard('employer')->user()->organization_name;
-            $profile_photo = Auth::guard('employer')->user()->photo;
-            $contact_name = Auth::guard('employer')->user()->contact_name;
-            $photo_url = Auth::guard('employer')->user()->photo;
-            $user_since = Auth::guard('employer')->user()->created_at->diffforhumans();
+        $auth = Auth::guard('employer')->user();
+        $this->validate($request, ['email' => 'required|email|exists:employers,email', 'password' => 'required'], ['email.exists' => 'Email does not exists in our system']);
+        if (auth()->guard('employer')->attempt(['email' => $email, 'password' => $password, 'status' => 1])) {
+            $organization_name = $auth->organization_name;
+            $profile_photo = $auth->photo;
+            $contact_name = $auth->contact_name;
+            $photo_url = $auth->photo;
+            $user_since = $auth->created_at->diffforhumans();
             Session::put('organization_name', $organization_name);
             Session::put('profile_photo', $profile_photo);
             Session::put('contact_name', $contact_name);
             Session::put('photo_url', $photo_url);
             Session::put('user_since', $user_since);
-            Session::put('employer_info', Auth::guard('employer')->user());
+            Session::put('employer_info', $auth);
             return redirect()->intended('employers/dashboard');
         } else {
             return redirect()->intended('employer/login')->withInput()->with('error', 'Invalid password or Account is not activated.');
