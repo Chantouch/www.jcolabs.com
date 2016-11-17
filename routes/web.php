@@ -17,6 +17,11 @@ Route::post('api/fetch/contact', ['as' => 'contact.by.id', 'uses' => 'RestContro
 Route::get('/home', function () {
     return view('candidates.home');
 });
+
+Route::get('search-job', ['as' => 'job.search.name', 'uses' => 'RestController@searchJob']);
+Route::get('search-city', ['as' => 'job.search.city', 'uses' => 'RestController@searchByCity']);
+Route::get('jobs/search/', ['as' => 'job.search', 'uses' => 'FrontController@jobSearch']);
+
 Route::group(['middleware' => ['guest']], function () {
 
     Route::get('/', ['as' => 'home', 'uses' => 'FrontController@index']);

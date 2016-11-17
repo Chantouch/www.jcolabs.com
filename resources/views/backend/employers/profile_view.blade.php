@@ -190,7 +190,7 @@
                                 <td> {!! $item->no_of_post !!} </td>
                                 <td> {!! $item->industry->name !!} </td>
                                 <td> {!! $item->job_type !!} </td>
-                                <td> {!! $item->exam->name !!} </td>
+                                <td> {!! $item->qualification->name !!} </td>
                                 <td> {!! $item->salary_offered_min !!} -
                                     {!! $item->salary_offered_max !!}
                                 </td>
@@ -224,7 +224,7 @@
                                 <td> {!! $item->no_of_post !!} </td>
                                 <td> {!! $item->industry->name !!} </td>
                                 <td> {!! $item->job_type !!} </td>
-                                <td> {!! $item->exam->name !!} </td>
+                                <td> {!! $item->qualification->name !!} </td>
                                 <td> {!! $item->salary_offered_min !!} -
                                     {!! $item->salary_offered_max !!}
                                 </td>
@@ -258,7 +258,7 @@
                                 <td> {!! $item->no_of_post !!} </td>
                                 <td> {!! $item->industry->name !!} </td>
                                 <td> {!! $item->job_type !!} </td>
-                                <td> {!! $item->exam->name !!} </td>
+                                <td> {!! $item->qualification->name !!} </td>
                                 <td> {!! $item->salary_offered_min !!} -
                                     {!! $item->salary_offered_max !!}
                                 </td>

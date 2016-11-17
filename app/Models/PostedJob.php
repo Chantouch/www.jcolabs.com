@@ -7,6 +7,9 @@ use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+use DB;
+
 
 class PostedJob extends Model
 {
@@ -250,6 +253,48 @@ class PostedJob extends Model
 
         if ($this->attributes['status'] == 2)
             return '<span class="label label-danger"> Filled Up </span>';
+    }
+
+
+    /**
+     * @param $query
+     * @internal param $job
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function scopeSearchJob($query)
+    {
+        $jobs = PostedJob::with('industry')->where('post_name', 'LIKE', "%{$query}%")->orderBy('id')->paginate(5);
+        return $jobs;
+    }
+
+    /**
+     * @param $query
+     * @param $searchTerm
+     * @return mixed
+     */
+    public function scopeSearch($query, $searchTerm)
+    {
+        return $query->where('post_name', 'LIKE', "%" . $searchTerm . "%");
+//            ->orWhere(DB::raw("CONCAT_WS(' ',salary_offered_max,salary_offered_min)"), 'like', "%" . $searchTerm . "%");
+    }
+
+    /**
+     * @return
+     * @internal param Request $request
+     * @internal param $city
+     */
+    public function scopeSearchCity()
+    {
+        $city = City::where('status', 1);
+        return $city;
+    }
+
+    public function scopeCrosstab($query, $wellID)
+    {
+        return $query->select('sampleDate', DB::raw("max(if(chemID=1, pfcLevel, ' ')) as 'PFOA', max(if(chemID=1, noteAbr, ' ')) as 'PFOANote'"))
+            ->leftJoin('SampleNote', 'WellSample.noteID', '=', 'SampleNote.noteID')
+            ->where('wellID', '=', $wellID)
+            ->groupBy('sampleDate');
     }
 
 }

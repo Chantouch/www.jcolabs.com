@@ -176,8 +176,15 @@
                                     <div class="l-similar-job">
                                         <div class="l-similar-job__left">
                                             <a href="#" title="">
-                                                <img src="{!!asset(($related->employer->path.$related->employer->photo))!!}"
-                                                     class="similar-job__company-img img-responsive">
+                                                @if($related->employer->photo == 'default.jpg')
+                                                    <img src="{!!asset('uploads/employers/'.$related->employer->photo)!!}"
+                                                         class="similar-job__company-img img-responsive"
+                                                         alt="{!! $related->post_name !!}"/>
+                                                @else
+                                                    <img src="{!!asset($related->employer->path.$related->employer->photo)!!}"
+                                                         class="similar-job__company-img img-responsive"
+                                                         alt="{!! $related->post_name !!}"/>
+                                                @endif
                                             </a>
                                         </div>
                                         <div class="l-similar-job__right ">
@@ -260,9 +267,15 @@
                                 @foreach($emp_jobs as $jobs)
                                     <div class="recent-job-list-home"><!-- Tabs content -->
                                         <div class="job-list-logo col-md-1 ">
-                                            <img src="{!!asset(($jobs->employer->path.$jobs->employer->photo))!!}"
-                                                 class="img-responsive"
-                                                 alt="dummy-joblist"/>
+                                            @if($job->employer->photo == 'default.jpg')
+                                                <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+                                                     class="img-responsive"
+                                                     alt="{!! $job->post_name !!}"/>
+                                            @else
+                                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                                     class="img-responsive"
+                                                     alt="{!! $job->post_name !!}"/>
+                                            @endif
                                         </div>
                                         <div class="col-md-5 job-list-desc">
                                             <h6>{!! \Illuminate\Support\Str::limit($jobs->post_name, 35) !!}</h6>

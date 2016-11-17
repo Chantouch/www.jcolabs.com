@@ -37,13 +37,12 @@ class FrontController extends Controller
         $companies = Employer::where('status', 1)->count();
         $job_contracts = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
         $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
-        $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name','ASC')->take(5)->get();
+        $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
         $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
         $city = City::with('jobs')->where('status', 1)->take(5)->get();
         $applicant = Candidate::count();
         return view('webfront.index', compact('applicant', 'city', 'company', 'category', 'industry', 'posted_jobs', 'top_jobs', 'posted_job_count', 'jobs_filled_up', 'companies', 'job_contracts'));
     }
-
 
     /**
      * Display the specified City.
@@ -74,10 +73,39 @@ class FrontController extends Controller
 
     }
 
-
+    /**
+     * @param $cat
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function viewByCategory($cat)
     {
         $cat = Category::find($cat)->with('jobs')->firstOrFail();
         return view('webfront.jobs.category', compact('cat'));
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function jobSearch(Request $request)
+    {
+
+        $q = PostedJob::query();
+        $city = City::query()->where('status', 1);
+        if ($request->has('searchjob')) {
+//            $q->with('industry')->where('post_name', 'LIKE', "%{$request->input('searchjob')}%")
+//                ->select('place_of_employment_city_id as name')->where('name', 'LIKE', "%{$request->input('searchplace')}%")->orderBy('id')->get();
+            $q->search($request->get('searchjob'));
+        }
+
+        if ($request->has('searchplace')) {
+            $q->searchCity($request->get('searchplace'));
+        }
+
+        $jobs = $q->orderBy('post_name', 'DESC')->paginate(20);
+
+//        return $jobs;
+        return view('webfront.jobs.search', compact('jobs'));
+    }
+
 }

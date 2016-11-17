@@ -54,32 +54,29 @@
     <div class="job-finder"><!-- start job finder -->
         <div class="container">
             <h3>Find a Job</h3>
-            <form>
-                <div class="col-md-7 form-group group-1">
-                    <label for="searchjob" class="label">Search</label>
-                    <input type="text" id="searchjob" class="input-job"
-                           placeholder="Keywords (IT Engineer, Shop Manager, Hr Manager...)">
-                </div>
-                <div class="col-md-5 form-group group-2">
-                    <label for="searchplace" class="label">Job Location</label>
-                    <input type="text" id="searchplace" class="input-location"
-                           placeholder="New York, Hong Kong, New Delhi, Berlin etc.">
-                </div>
+            {!! Form::open(array('route' => 'job.search', 'role'=>'search', 'method' => 'GET')) !!}
+            <div class="col-md-7 form-group group-1">
+                <label for="searchjob" class="label">Search</label>
+                {!! Form::text('searchjob', null, ['class' => 'input-job', 'placeholder' => 'Keywords (IT Engineer, Shop Manager, Hr Manager...)', 'id' => 'searchjob']) !!}
+            </div>
+            <div class="col-md-5 form-group group-2">
+                <label for="searchplace" class="label">Job Location</label>
+                {!! Form::text('searchplace', null, ['class' => 'input-location', 'placeholder' => 'Phnom Penh, Kandal, Kompong Chnang etc.', 'id' => 'searchplace']) !!}
+            </div>
 
-
-                <div class="form-group">
-                    <label for="experiences" class="label clearfix">Experiences(-/+)</label>
-                    <input id="experiences" class="value-slider" type="text" name="area" value="1;1"/>
-                </div>
+            <div class="form-group">
+                <label for="experiences" class="label clearfix">Experiences(-/+)</label>
+                <input id="experiences" class="value-slider" type="text" name="area" value="1;1"/>
+            </div>
+            <div class="clearfix"></div>
+            <br/>
+            <div class="form-group">
+                <label for="salary" class="label clearfix">Salary ($)/per year</label>
+                <input id="salary" class="value-slider" type="text" name="area" value="0;0"/>
                 <div class="clearfix"></div>
-                <br/>
-                <div class="form-group">
-                    <label for="salary" class="label clearfix">Salary ($)/per year</label>
-                    <input id="salary" class="value-slider" type="text" name="area" value="0;0"/>
-                    <div class="clearfix"></div>
-                </div>
-                <button type="button" class="btn btn-default btn-green">search</button>
-            </form>
+            </div>
+            {{ Form::submit('Search', array('class' => 'btn btn-default btn-green')) }}
+            {{ Form::close() }}
         </div>
     </div><!-- end job finder -->
 
@@ -100,9 +97,15 @@
                                 @foreach ($posted_jobs as $job)
                                     <div class="recent-job-list-home"><!-- Tabs content -->
                                         <div class="job-list-logo col-md-1 ">
-                                            <img src="{!!asset(($job->employer->path.$job->employer->photo))!!}"
-                                                 class="img-responsive"
-                                                 alt="dummy-joblist"/>
+                                            @if($job->employer->photo == 'default.jpg')
+                                                <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+                                                     class="img-responsive"
+                                                     alt="{!! $job->post_name !!}"/>
+                                            @else
+                                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                                     class="img-responsive"
+                                                     alt="{!! $job->post_name !!}"/>
+                                            @endif
                                         </div>
                                         <div class="col-md-5 job-list-desc">
                                             <h6>{!! \Illuminate\Support\Str::limit($job->post_name, 35) !!}</h6>
@@ -130,9 +133,15 @@
                                 @foreach ($job_contracts as $job)
                                     <div class="recent-job-list-home"><!-- Tabs content -->
                                         <div class="job-list-logo col-md-1 ">
-                                            <img src="{!!asset(($job->employer->path.$job->employer->photo))!!}"
-                                                 class="img-responsive"
-                                                 alt="dummy-joblist"/>
+                                            @if($job->employer->photo == 'default.jpg')
+                                                <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+                                                     class="img-responsive"
+                                                     alt="{!! $job->post_name !!}"/>
+                                            @else
+                                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                                     class="img-responsive"
+                                                     alt="{!! $job->post_name !!}"/>
+                                            @endif
                                         </div>
                                         <div class="col-md-5 job-list-desc">
                                             <h6>{!! \Illuminate\Support\Str::limit($job->post_name, 35) !!}</h6>
@@ -183,9 +192,15 @@
                             @foreach ($top_jobs as $job)
                                 <div class="item-home">
                                     <div class="job-opening">
-                                        <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
-                                             class="img-responsive"
-                                             alt="dummy-job-opening"/>
+                                        @if($job->employer->photo == 'default.jpg')
+                                            <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+                                                 class="img-responsive"
+                                                 alt="{!! $job->post_name !!}"/>
+                                        @else
+                                            <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                                 class="img-responsive"
+                                                 alt="{!! $job->post_name !!}"/>
+                                        @endif
 
                                         <div class="job-opening-content">
                                             {!! $job->post_name!!}
@@ -698,11 +713,40 @@
 @stop
 
 @section('page_specific_js')
-    <script type="text/javascript">
-
-
+    <script src="{{ asset('plugins/typeahead/bootstrap3-typeahead.min.js')}}" type="text/javascript"></script>
+    <script !src="">
+        //        $('#searchplace').typeahead({
+        //            source: function (query, process) {
+        //                return $.get(city, {query: query}, function (data) {
+        //                    return process(data);
+        //                })
+        //            }
+        //        });
     </script>
 @stop
 @section('page_specific_scripts')
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    var path = "{!! route('job.search.name') !!}";
+    var city_path = "{!! route('job.search.city') !!}";
+    $('#searchjob').typeahead({
+    source: function (query, process) {
+    return $.get(path, {query: query}, function (data) {
+    return process(data);
+    })
+    }
+    });
+
+    $('#searchplace').typeahead({
+    source: function (query, process) {
+    return $.get(city_path, {city: query}, function (data) {
+    return process(data);
+    })
+    }
+    });
 
 @stop
