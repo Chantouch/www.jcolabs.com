@@ -29,33 +29,17 @@ class PostedJob extends Model
      * @var array
      */
     protected $fillable = [
-        'post_name',
-        'emp_job_id',
-        'status',
-        'job_type',
-        'level',
-        'other_benefits',
-        'created_by',
-        'salary_offered_max',
-        'salary_offered_min',
-        'no_of_post',
-        'industry_id',
-        'place_of_employment_city_id',
-        'place_of_employment_district_id',
-        'preferred_age_min',
-        'preferred_age_max',
-        'category_id',
-        'exam_passed_id',
-        'preferred_religion',
-        'subject_id',
-        'specialization',
-        'preferred_experience',
-        'physical_height',
-        'physical_weight',
-        'description',
-        'requirement_description',
-        'category_id',
-        'contact_person_id',
+        'post_name', 'emp_job_id', 'status',
+        'job_type', 'level', 'other_benefits',
+        'created_by', 'salary_offered_max', 'salary_offered_min',
+        'no_of_post', 'industry_id', 'place_of_employment_city_id',
+        'place_of_employment_district_id', 'preferred_age_min',
+        'preferred_age_max', 'category_id', 'preferred_religion',
+        'subject_id', 'specialization', 'preferred_experience',
+        'physical_height', 'physical_weight', 'description',
+        'requirement_description', 'category_id', 'contact_person_id',
+        'published_date', 'closing_date', 'qualification_id',
+        'is_negotiable', 'field_of_study',
     ];
 
     /**
@@ -120,9 +104,7 @@ class PostedJob extends Model
     protected $guarded = [
         'id', '_token', '_method'
     ];
-    //protected $fillable = ['name', 'exam_category', 'status', 'description'];
-    //public static $exam_exam_categories = ['x1'=>'x1', 'x2'=>'x2', 'x3'=>'x3', 'other'=>'other'];
-    //$exam_exam_categories
+
     //i have declared all the types i.e. enum values rather then querrying to reduce the db load
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -186,6 +168,14 @@ class PostedJob extends Model
     public function exam()
     {
         return $this->belongsTo(Exam::class, 'exam_passed_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function qualification()
+    {
+        return $this->belongsTo(Qualification::class, 'qualification_id');
     }
 
     /**

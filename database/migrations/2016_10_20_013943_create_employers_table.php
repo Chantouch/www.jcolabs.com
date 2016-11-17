@@ -43,7 +43,7 @@ class CreateEmployersTable extends Migration
             //Contact person details or login
             $table->string('contact_name', 50)->comment('Contact Person Name')->unique();//Required field
             $table->string('contact_designation', 50)->comment('Contact Person Designation')->nullable();
-            $table->string('contact_mobile_no', 10)->unique();
+            $table->string('contact_mobile_no', 15)->unique();
             $table->string('email')->unique();
             $table->string('password', 60);//Required field
             $table->tinyInteger('status')->default(0);

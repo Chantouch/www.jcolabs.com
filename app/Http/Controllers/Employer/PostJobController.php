@@ -139,6 +139,10 @@ class PostJobController extends AppBaseController
             $job_id = 'EMP_JOB' . str_pad($current_id, 6, '0', STR_PAD_LEFT);
             $data['emp_job_id'] = $job_id;
             $data['status'] = 1;
+            $published_date = date('Y-m-d', strtotime($request->published_date));
+            $data['published_date'] = $published_date;
+            $closing_date = date('Y-m-d', strtotime($request->closing_date));
+            $data['closing_date'] = $closing_date;
 
             $job = PostedJob::create($data);
 
@@ -207,6 +211,7 @@ class PostJobController extends AppBaseController
         $job_types = ['Full Time' => 'Full Time', 'Part Time' => 'Part Time'];
         $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');
+        $publish_date = Carbon::now();
 
         if (empty($postJob)) {
 
@@ -214,7 +219,7 @@ class PostJobController extends AppBaseController
 
             return redirect(route('employer.postJobs.index'));
         }
-        return view('employers.post_jobs.edit', compact('lang', 'emp', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
+        return view('employers.post_jobs.edit', compact('publish_date','lang', 'emp', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
     }
 
     /**

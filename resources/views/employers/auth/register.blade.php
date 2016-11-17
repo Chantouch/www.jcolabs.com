@@ -106,10 +106,10 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                                <label for="password_confirmation" class="col-md-4 control-label">Confirm Password</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control"
+                                    <input id="password_confirmation" type="password" class="form-control"
                                            name="password_confirmation" required>
 
                                     @if ($errors->has('password_confirmation'))
@@ -120,12 +120,19 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group{{ $errors->has('terms') ? ' has-error' : '' }}">
                                 <div class="col-sm-offset-4 col-sm-6">
                                     <div class="checkbox icheck">
                                         <label style="padding-left: 0">
-                                            <input type="checkbox"> I agree to the <a href="#">terms</a>
+                                            {!! Form::hidden('terms', false) !!}
+                                            {!! Form::checkbox('terms', '1', null) !!}
+                                            I agree to the <a href="#">terms</a>
                                         </label>
+                                        @if ($errors->has('terms'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('terms') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -166,12 +173,12 @@
 @stop
 @section('page_specific_scripts')
 
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
+    $(function () {
+    $('input').iCheck({
+    checkboxClass: 'icheckbox_square-blue',
+    radioClass: 'iradio_square-blue',
+    increaseArea: '20%' // optional
+    });
+    });
 
 @stop

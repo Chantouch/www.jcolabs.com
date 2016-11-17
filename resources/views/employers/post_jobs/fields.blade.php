@@ -24,7 +24,11 @@
             <!--Publish date Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('published_date', 'Published Date:') !!}
-                {!! Form::text('published_date', $publish_date, ['class' => 'form-control', 'placeholder' => 'dd-M-yyyy']) !!}
+                @if( !Request::is('employers/post-jobs/{id}/edit'))
+                    {!! Form::text('published_date', null, ['class' => 'form-control', 'placeholder' => 'dd-M-yyyy']) !!}
+                @else
+                    {!! Form::text('published_date', $publish_date, ['class' => 'form-control', 'placeholder' => 'dd-M-yyyy']) !!}
+                @endif
             </div>
 
             <!--Closing date Field -->
@@ -125,7 +129,7 @@
 
             <div class="form-group col-sm-6">
                 {!! Form::label('field_of_study', 'Field of Study:') !!}
-                {!! Form::select('field_of_study', $exams, null, ['class' => 'form-control']) !!}
+                {!! Form::text('field_of_study', null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Subject Field -->

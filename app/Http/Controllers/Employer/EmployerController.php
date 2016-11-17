@@ -316,15 +316,18 @@ class EmployerController extends Controller
         $path_avatar = 'uploads/employers/avatar/' . $id . '/';
         $destination_path = public_path($path);
         $destination_avatar = public_path($path_avatar);
-        if (!file_exists($destination_path)) {
-            mkdir($destination_path, 0777, true);
-        }
-        if (!file_exists($destination_avatar)) {
-            mkdir($destination_avatar, 0777, true);
-        }
 
         if ($request->hasFile('photo')) {
             if ($request->file('photo')->isValid()) {
+
+                if (!file_exists($destination_path)) {
+                    mkdir($destination_path, 0777, true);
+                }
+
+                if (!file_exists($destination_avatar)) {
+                    mkdir($destination_avatar, 0777, true);
+                }
+
                 $avatar = Image::make($request->file('photo'))->resize(256, 256);
                 //to remove space from string
                 $company_name = preg_replace('/\s+/', '', $request->organization_name);
@@ -344,28 +347,13 @@ class EmployerController extends Controller
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function jobExpired()
     {
         $expired = PostedJob::where('is_expired', 1);
         return view('employers.jobs.index', compact('expired'));
     }
 
-    public function getBrands()
-    {
-        $categories = Category::all();
-        $brands = Brand::all();
-        return view('employers.brands.index', compact('categories', 'brands'));
-    }
-
-    public function showBrands()
-    {
-        $categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $brands = Brand::all();
-        return view('employers.brands.create', compact('categories', 'brands'));
-    }
-
-    public function storeBrand(Request $request)
-    {
-        $input = $request->all();
-    }
 }

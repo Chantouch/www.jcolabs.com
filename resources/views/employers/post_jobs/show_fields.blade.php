@@ -49,10 +49,10 @@
         <p>{!! $postJob->category->name !!}</p>
     </div>
 
-    <!-- Exam Passed  Field -->
+    <!-- Qualification Passed  Field -->
     <div class="form-group">
-        {!! Form::label('exam_passed_id', 'Exam Passed :') !!}
-        <p>{!! $postJob->exam->name !!}</p>
+        {!! Form::label('qualification_id', 'Qualification Passed :') !!}
+        <p>{!! $postJob->qualification->name !!}</p>
     </div>
 
 </div>

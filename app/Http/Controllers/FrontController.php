@@ -37,7 +37,7 @@ class FrontController extends Controller
         $companies = Employer::where('status', 1)->count();
         $job_contracts = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
         $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
-        $industry = IndustryType::with('jobs')->where('status', 1)->take(5)->get();
+        $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name','ASC')->take(5)->get();
         $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
         $city = City::with('jobs')->where('status', 1)->take(5)->get();
         $applicant = Candidate::count();

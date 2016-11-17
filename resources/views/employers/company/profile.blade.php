@@ -90,7 +90,7 @@
                             <span class="label label-primary">Node.js</span>
                         </p>
                         <hr>
-                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> About</strong>
                         <p>{!! $profile->details !!}</p>
                     </div>
                     <!-- /.box-body -->

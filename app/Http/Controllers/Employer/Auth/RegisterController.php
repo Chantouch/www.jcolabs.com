@@ -45,7 +45,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:employer');
     }
 
     /**
@@ -76,7 +76,7 @@ class RegisterController extends Controller
             'contact_name' => $data['contact_name'],
             'organization_name' => $data['organization_name'],
             'contact_mobile_no' => $data['contact_mobile_no'],
-            'contact_email' => $data['contact_email'],
+            'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'confirmation_code' => str_random(30),
             'temp_enrollment_no' => $enroll_id,
@@ -95,17 +95,19 @@ class RegisterController extends Controller
             'contact_name.required' => 'Please enter name',
             'organization_name.required' => 'Please enter organization name',
             'contact_mobile_no.required' => 'Please enter mobile phone',
-            'contact_email.required' => 'Please enter email',
-            'contact_email.unique' => 'This email is already taken. Please input a another email',
+            'email.required' => 'Please enter email',
+            'email.unique' => 'This email is already taken. Please input a another email',
             'password.required' => 'Please enter password',
+            'terms.required' => 'Please accept to our term and condition',
         );
 
         $rules = array(
             'contact_name' => 'required|max:255',
             'organization_name' => 'required|max:255',
             'contact_mobile_no' => 'required',
-            'contact_email' => 'required|email|max:255|unique:employers',
+            'email' => 'required|email|max:255|unique:employers',
             'password' => 'required|min:6|confirmed',
+            'terms' => 'required',
         );
 
         $validator = Validator::make(Input::all(), $rules, $messages);
@@ -116,14 +118,15 @@ class RegisterController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
         DB::beginTransaction();
         try {
             $employer = $this->create($request->all());
-            $contact_email = new EmployerActivation(new Employer([
+            $email = new EmployerActivation(new Employer([
                 'contact_name' => $employer->contact_name,
                 'confirmation_code' => $employer->confirmation_code,
             ]));
-            Mail::to($employer->contact_email)->send($contact_email);
+            Mail::to($employer->email)->send($email);
             DB::commit();
             if ($employer->id) {
                 return redirect('/employer/login')->withInput()->with('status', 'You have successfully register with our website, please check your email to activate your account.');

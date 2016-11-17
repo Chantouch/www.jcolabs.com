@@ -147,6 +147,7 @@ class AdminController extends Controller
     }
 
     /**
+     * @param $id
      * @return string
      */
     public function adminsAccounts()

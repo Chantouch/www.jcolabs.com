@@ -121,7 +121,7 @@
                             <td class="bg-color-table">
                                 Qualification
                             </td>
-                            <td>{!! $job->q !!}</td>
+                            <td>{!! $job->qualification->name !!}</td>
                         </tr>
                         <tr>
                             <td class="bg-color-table">Age</td>
@@ -137,11 +137,12 @@
                         </tr>
                         <tr>
                             <td class="bg-color-table">Published Date</td>
-                            <td>{!! $job->created_at !!}</td>
+                            <td>{!! \Carbon\Carbon::parse($job->published_date)->format('D-d-M-Y H:i A') !!}</td>
                             <td class="bg-color-table">
                                 Closing Date
                             </td>
-                            <td>{!! $job->closed_at !!}</td>
+                            <td>{!! Carbon\Carbon::parse($job->closing_date)->format('D-d-M-Y H:i A') !!}</td>
+
                         </tr>
 
                         </tbody>

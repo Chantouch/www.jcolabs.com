@@ -28,11 +28,10 @@ class CreatePostedJobsTable extends Migration
             $table->longText('other_benefits')->nullable()->comment('Other benefits offered');
             $table->integer('preferred_age_min', false)->nullable()->comment('preferred age min');
             $table->integer('preferred_age_max', false)->nullable()->comment('preferred age max');
-            $table->dateTime('published_date')->comment('Date of publishing job');
-            $table->dateTime('closing_date')->nullable()->comment('Date of closing job');
+            $table->timestamp('published_date')->comment('Date of publishing job');
+            $table->timestamp('closing_date')->nullable()->comment('Date of closing job');
             $table->enum('preferred_religion', ['BUDDHISM', 'CHRISTIANITY', 'HINDUISM', 'ISLAM', 'JAINISM', 'PARSI', 'SIKHISM', 'OTHERS', 'ANY']);
             $table->enum('preferred_sex', ['MALE', 'FEMALE', 'OTHERS', 'ANY'])->comment('gender');
-            $table->integer('exam_passed_id', false, true)->unsigned()->comment('This will be the foreign key for exam passed');
             $table->integer('subject_id', false)->unsigned()->default('0')->comment('Subject foreign key from master subjects');
             $table->string('specialization', 255)->nullable();
             $table->string('field_of_study')->nullable()->comment('Store field of study of candidate');
@@ -57,7 +56,6 @@ class CreatePostedJobsTable extends Migration
             $table->foreign('industry_id')->references('id')->on('industry_types')->onDelete('cascade');
             $table->foreign('place_of_employment_city_id')->references('id')->on('states')->onDelete('cascade');
             $table->foreign('place_of_employment_district_id')->references('id')->on('districts')->onDelete('cascade');
-            $table->foreign('exam_passed_id')->references('id')->on('exams')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('employers')->onDelete('cascade');
             $table->foreign('contact_person_id')->references('id')->on('contact_people')->onDelete('cascade');

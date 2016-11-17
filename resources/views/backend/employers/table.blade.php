@@ -9,7 +9,7 @@
             <th width="5%">Industry</th>
             <th width="7%">Contact Person</th>
             <th width="6%">Verification Status</th>
-            <th width="6%">Created</th>
+            <th width="6%">Registered</th>
         </tr>
         </thead>
         <tbody>
@@ -36,9 +36,10 @@
                     {{ $employer->contact_name }}
                 </td>
                 <td>
-                    @if($employer->verified_by == 0) {{ $employer->verification_status}}
+                    @if($employer->verified_by == 0)
+                        {{ $employer->verification_status}}
                     @else
-                        <a href="{!! route('admin.admins_accounts.view', Hashids::encode($employer->verified_by)) !!}"> {{ $employer->verification_status}} </a>
+                        <a href="{!! route('admin.admins_accounts.view', $employer->verified_by) !!}"> {{ $employer->verification_status}} </a>
                     @endif
                 </td>
                 <td> {{ $employer->created_at->diffforhumans()}}</td>

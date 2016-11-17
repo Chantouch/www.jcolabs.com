@@ -76,10 +76,10 @@
                     <strong><i class="fa fa-envelope margin-r-5"></i> E-mail</strong>
                     &nbsp;&nbsp;&nbsp;
                     <span>
-                                {!!$employer->contact_email!!}
+                                <a href="mailto:{!!$employer->email!!}" target="_top">{!!$employer->email!!}</a>
                             </span>
                     <hr>
-                    <strong><i class="fa fa-file-text-o margin-r-5"></i> Additional Note</strong>
+                    <strong><i class="fa fa-file-text-o margin-r-5"></i> About</strong>
                     <p>{!! $employer->details !!}</p>
                 </div>
             </div>
