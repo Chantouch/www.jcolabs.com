@@ -53,7 +53,7 @@ class RestController extends Controller
 
     public static function searchByCity(Request $request)
     {
-        $data = City::select("name as name")->where("name", "LIKE", "%{$request->input('city')}%")->get();
+        $data = City::select("id as id","name as name")->where("name", "LIKE", "%{$request->input('city')}%")->get();
         return response()->json($data);
     }
 

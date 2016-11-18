@@ -1,6 +1,9 @@
 @extends('webfront.layouts.default')
 @section('title', 'Jobs list')
 @section('page_specific_styles')
+    <link href="{{ asset('plugins/animate/animate.css') }}" rel="stylesheet" type="text/css"/>
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{!! asset('plugins/select2/select2.min.css') !!}">
 
 @stop
 
@@ -61,7 +64,8 @@
             </div>
             <div class="col-md-5 form-group group-2">
                 <label for="searchplace" class="label">Job Location</label>
-                {!! Form::text('searchplace', null, ['class' => 'input-location', 'placeholder' => 'Phnom Penh, Kandal, Kompong Chnang etc.', 'id' => 'searchplace']) !!}
+                {!! Form::select('searchplace', $city_list, null, ['class' => 'input-location', 'placeholder' => 'Phnom Penh, Kandal, Kompong Chnang etc.', 'id' => 'searchplace']) !!}
+{{--                {!! Form::select('searchplace', $city_list , null, ['class' => 'input-location']) !!}--}}
             </div>
 
             <div class="form-group">
@@ -121,7 +125,7 @@
                                                 <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                             </div>
                                             <div class="col-md-2 job-list-button">
-                                                <a href="{!! route('jobs.view.name', [$job->employer->organization_name, $job->industry->name, $job->id,$job->slug]) !!}"
+                                                <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
                                                    class="btn-view-job">View</a>
                                             </div>
                                         </div>
@@ -714,14 +718,11 @@
 
 @section('page_specific_js')
     <script src="{{ asset('plugins/typeahead/bootstrap3-typeahead.min.js')}}" type="text/javascript"></script>
+    <!-- Select2 -->
+    <script src="{!! asset('plugins/select2/select2.full.min.js') !!}"></script>
+
     <script !src="">
-        //        $('#searchplace').typeahead({
-        //            source: function (query, process) {
-        //                return $.get(city, {query: query}, function (data) {
-        //                    return process(data);
-        //                })
-        //            }
-        //        });
+
     </script>
 @stop
 @section('page_specific_scripts')
@@ -733,6 +734,7 @@
 
     var path = "{!! route('job.search.name') !!}";
     var city_path = "{!! route('job.search.city') !!}";
+    console.log(city_path);
     $('#searchjob').typeahead({
     source: function (query, process) {
     return $.get(path, {query: query}, function (data) {

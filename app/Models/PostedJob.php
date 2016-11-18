@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use DB;
+use Session;
 
 
 class PostedJob extends Model
@@ -269,13 +270,29 @@ class PostedJob extends Model
 
     /**
      * @param $query
-     * @param $searchTerm
      * @return mixed
      */
-    public function scopeSearch($query, $searchTerm)
+    public function scopeSearch($query)
     {
-        return $query->where('post_name', 'LIKE', "%" . $searchTerm . "%");
+        $keyword = \Request::get('searchjob');
+        $city = \Request::get('searchplace');
+        if (isset($keyword) || !is_null($keyword)) {
+            $terms = explode(' ', $keyword); // Array of searchstrings
+            foreach ($terms as $term) {
+                //        ->where('place_of_employment_city_id', $city)->first();
+
+                $query = $query->whereHas('city', function ($q) use ($city) {
+//            $city = \Request::get('searchplace');
+                    $q->where('place_of_employment_city_id', '=', $city)->with('city');
+
+                });
+
+                return $query->where('post_name', 'LIKE', "%" . $term . "%");
 //            ->orWhere(DB::raw("CONCAT_WS(' ',salary_offered_max,salary_offered_min)"), 'like', "%" . $searchTerm . "%");
+            }
+        }
+        return $query;
+
     }
 
     /**

@@ -103,6 +103,11 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         array (
             'Faker\\' => 6,
         ),
+        'E' => 
+        array (
+            'EloquentFilter\\TestClass\\' => 25,
+            'EloquentFilter\\' => 15,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -281,6 +286,14 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker',
+        ),
+        'EloquentFilter\\TestClass\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/tests/classes',
+        ),
+        'EloquentFilter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src',
         ),
         'Dotenv\\' => 
         array (
@@ -651,6 +664,14 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'Dotenv\\Exception\\ValidationException' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Exception/ValidationException.php',
         'Dotenv\\Loader' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Loader.php',
         'Dotenv\\Validator' => __DIR__ . '/..' . '/vlucas/phpdotenv/src/Validator.php',
+        'EloquentFilter\\Commands\\MakeEloquentFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/Commands/MakeEloquentFilter.php',
+        'EloquentFilter\\Filterable' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/Filterable.php',
+        'EloquentFilter\\ModelFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/ModelFilter.php',
+        'EloquentFilter\\ServiceProvider' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/src/ServiceProvider.php',
+        'EloquentFilter\\TestClass\\Client' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/tests/classes/Client.php',
+        'EloquentFilter\\TestClass\\ClientFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/tests/classes/ClientFilter.php',
+        'EloquentFilter\\TestClass\\User' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/tests/classes/User.php',
+        'EloquentFilter\\TestClass\\UserFilter' => __DIR__ . '/..' . '/tucker-eric/eloquentfilter/tests/classes/UserFilter.php',
         'EmployersTable' => __DIR__ . '/../..' . '/database/seeds/EmployersTable.php',
         'ExamsTable' => __DIR__ . '/../..' . '/database/seeds/ExamsTable.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',

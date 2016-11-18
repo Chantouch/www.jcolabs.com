@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12f9ecb3684c37c3eb7040c2aaf9597a",
-    "content-hash": "92d3fbc67004502a31578c2f84f3f6e3",
+    "hash": "0a2b132110017e93616c0c01adee50c3",
+    "content-hash": "11dfd900ae4d5620f44bad24d5afea9f",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2632,6 +2632,60 @@
                 "dump"
             ],
             "time": "2016-10-18 15:46:07"
+        },
+        {
+            "name": "tucker-eric/eloquentfilter",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Tucker-Eric/EloquentFilter.git",
+                "reference": "fcccb3f41f8a995732e2a819d7cadc082ef329f1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Tucker-Eric/EloquentFilter/zipball/fcccb3f41f8a995732e2a819d7cadc082ef329f1",
+                "reference": "fcccb3f41f8a995732e2a819d7cadc082ef329f1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5.0",
+                "illuminate/console": "~5.0",
+                "illuminate/database": "~5.0",
+                "illuminate/filesystem": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "~5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EloquentFilter\\": "src/",
+                    "EloquentFilter\\TestClass\\": "tests/classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eric Tucker",
+                    "email": "tucker.ericm@gmail.com"
+                }
+            ],
+            "description": "An Eloquent way to filter Eloquent Models",
+            "keywords": [
+                "eloquent",
+                "filter",
+                "laravel",
+                "model",
+                "query",
+                "search"
+            ],
+            "time": "2016-09-23 22:08:57"
         },
         {
             "name": "venturecraft/revisionable",
