@@ -16,6 +16,7 @@ class CreateIndustryTypesTable extends Migration
         Schema::create('industry_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->tinyInteger('status')->default(1)->comment('Only active entries will be listed on the public end');
             $table->string('description')->nullable();
             $table->timestamps();

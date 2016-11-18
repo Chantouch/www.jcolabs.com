@@ -1,7 +1,7 @@
 @extends('webfront.layouts.default')
 @section('title', 'Search all jobs')
 @section('page_specific_styles')
-
+    <link href="{{ asset('plugins/animate/animate.css') }}" rel="stylesheet" type="text/css"/>
 
 @stop
 
@@ -238,15 +238,96 @@
             </div><!-- CS -->
         </div><!-- end content -->
     </div><!-- end page content -->
+
+
+    <!-- ###################### Feature Search ##################### -->
+    <section id="stat">
+        <div class="overlay">
+            <div class="row">
+                <div class="section-heading">
+                    <h2 class="wow fadeInDown">Search for your <span class="theme-color">Jobs</span></h2>
+                </div>
+            </div>
+            <div class="section-content">
+                <div class="container">
+                    <ul>
+                        <!--======= Search By Category =========-->
+                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.3s">
+                            <h3>Search By Category</h3>
+                            <span><i class="fa fa-cloud-download"></i></span>
+                            <p class="stats-count" data-from="0" data-to="890" data-speed="1500">34353</p>
+                            <ul>
+                                @foreach($category as $cat)
+                                    <li><a href="{!! route('jobs.view.by.category',[$cat->id]) !!}">{!! $cat->name !!}
+                                            ( {!! count($cat->jobs) !!} )</a></li>
+                                @endforeach
+                            </ul>
+                            <a href="#" class="btn btn-blue m-t-25">View All</a>
+                        </li>
+                        <!--======= Search By Industry =========-->
+                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
+                            <h3>Search By Industry</h3>
+                            <span><i class="fa fa-user"></i></span>
+                            <p class="stats-count" data-from="0" data-to="900" data-speed="2000">95600</p>
+                            <ul>
+                                @foreach($industry as $ind)
+                                    <li><a href="#">{!! $ind->name !!} ( {!! count($ind->jobs) !!} )</a></li>
+                                @endforeach
+                            </ul>
+                            <a href="#" class="btn btn-blue m-t-25">View All</a>
+                        </li>
+                        <!--======= Search by Company =========-->
+                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
+                            <h3>Search by Company</h3>
+                            <span><i class="fa fa-bookmark-o"></i></span>
+                            <p class="stats-count" data-from="0" data-to="560" data-speed="1500">5600</p>
+                            <ul>
+                                @foreach($company as $com)
+                                    <li><a href="#">{!! $com->organization_name !!} ( {!! count($com->jobs) !!} )</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+
+                            <a href="#" class="btn btn-blue m-t-25">View All</a>
+                        </li>
+                        <!--======= Search by City =========-->
+                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
+                            <h3>Search by City</h3>
+                            <span><i class="fa fa-star-half-o"></i></span>
+                            <p class="stats-count" data-from="0" data-to="4.5" data-speed="4000">4.5</p>
+                            <ul>
+                                @foreach($city as $ci)
+                                    <li><a href="#">{!! $ci->name !!} ( {!! count($ci->jobs) !!} )</a></li>
+                                @endforeach
+                            </ul>
+
+                            <a href="#" class="btn btn-blue m-t-25">View All</a>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-blue m-t-25">View All</a>
+                    </div>
+                </div>
+                <!-- container -->
+            </div>
+            <!-- section-content -->
+        </div>
+        <!-- overlay black -->
+    </section>
+    <!-- #stat -->
 @stop
 
 
+
 @section('page_specific_js')
+
+    <script src="{{ asset('plugins/wow/wow.min.js')}}" type="text/javascript"></script>
+
     <script type="text/javascript">
 
 
     </script>
 @stop
 @section('page_specific_scripts')
-
+    new WOW().init();
 @stop

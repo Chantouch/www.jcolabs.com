@@ -78,23 +78,57 @@ class FrontController extends Controller
     }
 
     /**
-     * @param $cat
+     * @param $slug
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function viewByCategory($cat)
+    public function searchByFunction($slug)
     {
-        $cat = Category::find($cat)->with('jobs')->firstOrFail();
-        return view('webfront.jobs.category', compact('cat'));
+        $cat = Category::where('slug', $slug)->with('jobs')->firstOrFail();
+        return view('webfront.jobs.searchby', compact('cat'));
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function searchByIndustry($slug)
+    {
+        $industry = IndustryType::where('slug', $slug)->with('jobs')->firstOrFail();
+        return view('webfront.jobs.searchby', compact('industry'));
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function searchByCompany($slug)
+    {
+        $company = Employer::where('slug', $slug)->with('jobs')->firstOrFail();
+        return view('webfront.jobs.searchby', compact('company'));
+    }
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function searchByCity($slug)
+    {
+        $city = City::where('slug', $slug)->with('jobs')->firstOrFail();
+        return view('webfront.jobs.searchby', compact('city'));
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function jobsSearch(Request $request)
+    public function jobSearch(Request $request)
     {
 
         $q = PostedJob::query();
+        $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
+        $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
+        $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
+        $city = City::with('jobs')->where('status', 1)->take(5)->get();
         $job = PostedJob::with('industry')->with('employer')->get();
         if ($request->has('searchjob') || $request->has('searchplace')) {
 //            $q->with('industry')->where('post_name', 'LIKE', "%{$request->input('searchjob')}%")
@@ -110,23 +144,28 @@ class FrontController extends Controller
         $jobs = $q->orderBy('post_name', 'DESC')->paginate(20);
 
 //        return $jobs;
-        return view('webfront.jobs.search', compact('jobs', 'job'));
+        return view('webfront.jobs.search', compact('job', 'jobs', 'city', 'company', 'category', 'industry'));
     }
 
 
-    public function jobSearch(Request $request)
+    public function jobsSearch(Request $request)
     {
-        $query = PostedJob::where('place_of_employment_city_id', $request->input('searchplace'));
+        $jobs = PostedJob::where('place_of_employment_city_id', $request->input('searchplace'));
+        $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
+        $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
+        $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
+        $city = City::with('jobs')->where('status', 1)->take(5)->get();
 
         if ($request->has('searchjob')) {
-            $query->where('post_name', 'LIKE', '%' . $request->input('searchjob') . '%');
+            $jobs->where('post_name', 'LIKE', '%' . $request->input('searchjob') . '%');
         }
 
-        $query->whereHas('city', function ($q) use ($request) {
+        $jobs->whereHas('city', function ($q) use ($request) {
             return $q->where('id', $request->input('searchplace'))->with('city');
         });
 
-        return $query->get();
+        $jobs = $jobs->get();
+        return view('webfront.jobs.search', compact('jobs', 'city', 'company', 'category', 'industry'));
 
     }
 

@@ -62,7 +62,7 @@ class City extends Model
     {
         return [
             'slug' => [
-                'source' => ['name', 'description']
+                'source' => ['name']
             ]
         ];
     }

@@ -9,6 +9,7 @@ use App\Models\EmployerDocument;
 use App\Models\IndustryType;
 use App\Models\PostedJob;
 use App\Notifications\EmployerResetPassword as ResetPasswordNotification;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,7 @@ use Illuminate\Notifications\Notifiable;
 class Employer extends Authenticatable
 {
     use Notifiable;
+    use Sluggable;
 
     public $guarded = ['_token', 'name'];
     /**
@@ -263,5 +265,28 @@ class Employer extends Authenticatable
     public function jobs()
     {
         return $this->hasMany(PostedJob::class, 'created_by');
+    }
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => ['seo_url'],
+            ]
+        ];
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function getSeoUrlAttribute($value = '')
+    {
+        return $this->organization_name;
     }
 }

@@ -15,55 +15,105 @@ class IndustryTypesTable extends Seeder
      */
     public function run()
     {
-        IndustryType::create(['name' => 'IT']);
-        IndustryType::create(['name' => 'Engineering']);
-        IndustryType::create(['name' => 'Electrical']);
-        IndustryType::create(['name' => 'Construction']);
-        IndustryType::create(['name' => 'Automobiles']);
-        IndustryType::create(['name' => 'Printing']);
 
-        DepartmentType::create([
-            'name' => 'IT',
-            'description' => 'IT',
-            'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DepartmentType::create([
-            'name' => 'Account',
-            'description' => 'Account',
-            'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        DepartmentType::create([
-            'name' => 'HR',
-            'description' => 'Human Resource',
-            'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $industry = [
+            [
+                'name' => 'IT',
+                'slug' => 'it',
+                'description' => 'IT',
+                'status' => 1
+            ],
+            [
+                'name' => 'Engineering',
+                'slug' => 'engineering',
+                'description' => 'Engineering',
+                'status' => 1
+            ],
+            [
+                'name' => 'Electrical',
+                'slug' => 'electrical',
+                'description' => 'Electrical',
+                'status' => 1
+            ],
+            [
+                'name' => 'Construction',
+                'slug' => 'construction',
+                'description' => 'Construction',
+                'status' => 1
+            ],
+            [
+                'name' => 'Automobiles',
+                'slug' => 'automobiles',
+                'description' => 'Automobiles',
+                'status' => 1
+            ],
+            [
+                'name' => 'Printing',
+                'slug' => 'printing',
+                'description' => 'Printing',
+                'status' => 1
+            ]
+        ];
 
-        Position::create([
-            'name' => 'HR Manager',
-            'description' => 'Help HR',
-            'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        Position::create([
-            'name' => 'IT Manager',
-            'description' => 'Help HR',
-            'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
-        Position::create([
-            'name' => 'Sale Consultant',
-            'description' => 'Help HR',
-            'status' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        foreach ($industry as $key => $value) {
+            IndustryType::create($value);
+        }
+
+        $department_type = [
+            [
+                'name' => 'IT',
+                'description' => 'IT',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Account',
+                'description' => 'Account',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'HR',
+                'description' => 'Human Resource',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]
+        ];
+
+        foreach ($department_type as $key => $value) {
+            DepartmentType::create($value);
+        }
+
+
+        $position = [
+            [
+                'name' => 'HR Manager',
+                'description' => 'Help HR',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'IT Manager',
+                'description' => 'Help HR',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Sale Consultant',
+                'description' => 'Help HR',
+                'status' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]
+        ];
+
+        foreach ($position as $key => $value) {
+            Position::create($value);
+        }
     }
 }

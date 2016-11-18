@@ -12,13 +12,60 @@ class CityTable extends Seeder
      */
     public function run()
     {
-        City::create(['name' => 'Phnom Penh']);
-        City::create(['name' => 'Kompong Change']);
-        City::create(['name' => 'Siem Reap']);
-        City::create(['name' => 'Svay Rieng']);
-        City::create(['name' => 'Kompong Thorm']);
-        City::create(['name' => 'Kompong Spue']);
-        City::create(['name' => 'Kandal']);
-        City::create(['name' => 'Battom Bong']);
+
+        $city = [
+            [
+                'name' => 'Phnom Penh',
+                'slug' => 'phnom-penh',
+                'description' => 'Phnom Penh',
+                'status' => 1
+            ],
+            [
+                'name' => 'Kompong Change',
+                'slug' => 'kompong-change',
+                'description' => 'Kompong Change',
+                'status' => 1
+            ],
+            [
+                'name' => 'Siem Reap',
+                'slug' => 'siem-reap',
+                'description' => 'Siem Reap',
+                'status' => 1
+            ],
+            [
+                'name' => 'Svay Rieng',
+                'slug' => 'svay-rieng',
+                'description' => 'Svay Rieng',
+                'status' => 1
+            ],
+            [
+                'name' => 'Kompong Thorm',
+                'slug' => 'kompong-thorm',
+                'description' => 'Kompong Thorm',
+                'status' => 1
+            ],
+            [
+                'name' => 'Kompong Spue',
+                'slug' => 'kompong-spue',
+                'description' => 'Kompong Spue',
+                'status' => 1
+            ],
+            [
+                'name' => 'Kandal',
+                'slug' => 'kandal',
+                'description' => 'Kandal',
+                'status' => 1
+            ],
+            [
+                'name' => 'Battom Bong',
+                'slug' => 'battom-bong',
+                'description' => 'Battom Bong',
+                'status' => 1
+            ]
+        ];
+
+        foreach ($city as $key => $value) {
+            City::create($value);
+        }
     }
 }

@@ -12,30 +12,36 @@ class QualificationTable extends Seeder
      */
     public function run()
     {
-        Qualification::create([
-            'name' => 'High School',
-            'description' => 'High School',
-            'status' => 1
-        ]);
-        Qualification::create([
-            'name' => 'Bachelor Degree',
-            'description' => 'Bachelor',
-            'status' => 1
-        ]);
-        Qualification::create([
-            'name' => 'Master Degree',
-            'description' => 'Master Degree',
-            'status' => 1
-        ]);
-        Qualification::create([
-            'name' => 'Phd',
-            'description' => 'Phd',
-            'status' => 1
-        ]);
-        Qualification::create([
-            'name' => 'Doctor',
-            'description' => 'Doctor',
-            'status' => 1
-        ]);
+        $qualification = [
+            [
+                'name' => 'High School',
+                'description' => 'High School',
+                'status' => 1
+            ], [
+                'name' => 'Bachelor Degree',
+                'description' => 'Bachelor',
+                'status' => 1
+            ],
+            [
+                'name' => 'Master Degree',
+                'description' => 'Master Degree',
+                'status' => 1
+            ],
+            [
+                'name' => 'Phd',
+                'description' => 'Phd',
+                'status' => 1
+            ],
+            [
+                'name' => 'Doctor',
+                'description' => 'Doctor',
+                'status' => 1
+            ]
+
+        ];
+
+        foreach ($qualification as $key => $value) {
+            Qualification::create($value);
+        }
     }
 }

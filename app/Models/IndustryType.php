@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -14,6 +15,7 @@ use Illuminate\Support\Str;
 class IndustryType extends Model
 {
     use SoftDeletes;
+    use Sluggable;
 
     public $table = 'industry_types';
 
@@ -58,4 +60,27 @@ class IndustryType extends Model
     }
 
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => [
+                    'seo_url'
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function setSeoUrlAttribute()
+    {
+        return $this->name;
+    }
 }

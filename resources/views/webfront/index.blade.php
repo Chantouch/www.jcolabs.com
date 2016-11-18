@@ -65,7 +65,7 @@
             <div class="col-md-5 form-group group-2">
                 <label for="searchplace" class="label">Job Location</label>
                 {!! Form::select('searchplace', $city_list, null, ['class' => 'input-location', 'placeholder' => 'Phnom Penh, Kandal, Kompong Chnang etc.', 'id' => 'searchplace']) !!}
-{{--                {!! Form::select('searchplace', $city_list , null, ['class' => 'input-location']) !!}--}}
+                {{--                {!! Form::select('searchplace', $city_list , null, ['class' => 'input-location']) !!}--}}
             </div>
 
             <div class="form-group">
@@ -643,13 +643,14 @@
                     <ul>
                         <!--======= Search By Category =========-->
                         <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.3s">
-                            <h3>Search By Category</h3>
+                            <h3>Search By Function</h3>
                             <span><i class="fa fa-cloud-download"></i></span>
                             <p class="stats-count" data-from="0" data-to="890" data-speed="1500">34353</p>
                             <ul>
                                 @foreach($category as $cat)
-                                    <li><a href="{!! route('jobs.view.by.category',[$cat->id]) !!}">{!! $cat->name !!}
-                                            ( {!! count($cat->jobs) !!} )</a></li>
+                                    <li><a href="{!! route('jobs.view.by.function',[$cat->slug]) !!}">{!! $cat->name !!}
+                                            ( {!! count($cat->jobs) !!} )</a>
+                                    </li>
                                 @endforeach
                             </ul>
                             <a href="#" class="btn btn-blue m-t-25">View All</a>
@@ -661,7 +662,10 @@
                             <p class="stats-count" data-from="0" data-to="900" data-speed="2000">95600</p>
                             <ul>
                                 @foreach($industry as $ind)
-                                    <li><a href="#">{!! $ind->name !!} ( {!! count($ind->jobs) !!} )</a></li>
+                                    <li>
+                                        <a href="{!! route('jobs.view.by.industry', [$ind->slug]) !!}">{!! $ind->name !!}
+                                            ( {!! count($ind->jobs) !!} )</a>
+                                    </li>
                                 @endforeach
                             </ul>
                             <a href="#" class="btn btn-blue m-t-25">View All</a>
@@ -673,7 +677,7 @@
                             <p class="stats-count" data-from="0" data-to="560" data-speed="1500">5600</p>
                             <ul>
                                 @foreach($company as $com)
-                                    <li><a href="#">{!! $com->organization_name !!} ( {!! count($com->jobs) !!} )</a>
+                                    <li><a href="{!! route('jobs.view.by.company', [$com->slug]) !!}">{!! $com->organization_name !!} ( {!! count($com->jobs) !!} )</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -687,7 +691,7 @@
                             <p class="stats-count" data-from="0" data-to="4.5" data-speed="4000">4.5</p>
                             <ul>
                                 @foreach($city as $ci)
-                                    <li><a href="#">{!! $ci->name !!} ( {!! count($ci->jobs) !!} )</a></li>
+                                    <li><a href="{!! route('jobs.view.by.city', [$ci->slug]) !!}">{!! $ci->name !!} ( {!! count($ci->jobs) !!} )</a></li>
                                 @endforeach
                             </ul>
 

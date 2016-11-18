@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Category extends Model
 {
+    use Sluggable;
     use SoftDeletes;
 
     public $table = 'categories';
@@ -59,4 +61,26 @@ class Category extends Model
     }
 
 
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => ['seo_url'],
+            ]
+        ];
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function getSeoUrlAttribute($value = '')
+    {
+        return $this->name;
+    }
 }

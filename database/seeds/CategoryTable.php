@@ -12,30 +12,42 @@ class CategoryTable extends Seeder
      */
     public function run()
     {
-        Category::create([
-            'name' => 'Accounting',
-            'description' => 'Accounting',
-            'status' => 1
-        ]);
-        Category::create([
-            'name' => 'Administration',
-            'description' => 'Administration',
-            'status' => 1
-        ]);
-        Category::create([
-            'name' => 'Architecture/Engineering',
-            'description' => 'Architecture/Engineering',
-            'status' => 1
-        ]);
-        Category::create([
-            'name' => 'Assistant/Secretary',
-            'description' => 'Assistant/Secretary',
-            'status' => 1
-        ]);
-        Category::create([
-            'name' => 'Audit/Taxation',
-            'description' => 'Audit/Taxation',
-            'status' => 1
-        ]);
+        $category = [
+            [
+                'name' => 'Accounting',
+                'slug' => 'accounting',
+                'description' => 'Accounting',
+                'status' => 1
+            ],
+            [
+                'name' => 'Administration',
+                'slug' => 'administration',
+                'description' => 'Administration',
+                'status' => 1
+            ],
+            [
+                'name' => 'Architecture/Engineering',
+                'slug' => 'architecture-engineering',
+                'description' => 'Architecture/Engineering',
+                'status' => 1
+            ],
+            [
+                'name' => 'Assistant/Secretary',
+                'slug' => 'assistant-secretary',
+                'description' => 'Assistant/Secretary',
+                'status' => 1
+            ],
+            [
+                'name' => 'Audit/Taxation',
+                'slug' => 'audit-taxation',
+                'description' => 'Audit/Taxation',
+                'status' => 1
+            ]
+
+        ];
+
+        foreach ($category as $key => $value) {
+            Category::create($value);
+        }
     }
 }

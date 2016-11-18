@@ -49,33 +49,122 @@
 
                 <div class='panel-container'>
                     <div id="all"><!-- Tabs section 1 -->
-                        @foreach($cat as $job)
-                            <div class="recent-job-list"><!-- Tabs content -->
-                                <div class="col-md-1 job-list-logo">
-                                    <img src="{!! asset('images/upload/company-1.png') !!}" class="img-responsive"
-                                         alt="company-logo"/>
-                                </div>
+                        @if(!empty($cat))
+                            @foreach($cat as $job)
+                                <div class="recent-job-list"><!-- Tabs content -->
+                                    <div class="col-md-1 job-list-logo">
+                                        <img src="{!! asset('images/upload/company-1.png') !!}" class="img-responsive"
+                                             alt="company-logo"/>
+                                    </div>
 
-                                <div class="col-md-5 job-list-desc">
-                                    <h6>Store General Manager</h6>
-                                    <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
-                                </div>
-                                <div class="col-md-3 job-list-location">
-                                    <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        <div class="col-md-7 job-list-type">
-                                            <h6><i class="fa fa-user"></i>Full Time</h6>
-                                        </div>
-                                        <div class="col-md-5 job-list-button">
-                                            <button class="btn-view-job">View Job</button>
+                                    <div class="col-md-5 job-list-desc">
+                                        <h6>Store General Manager</h6>
+                                        <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
+                                    </div>
+                                    <div class="col-md-3 job-list-location">
+                                        <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-7 job-list-type">
+                                                <h6><i class="fa fa-user"></i>Full Time</h6>
+                                            </div>
+                                            <div class="col-md-5 job-list-button">
+                                                <button class="btn-view-job">View Job</button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div><!-- Tabs content -->
-                        @endforeach
+                                    <div class="clearfix"></div>
+                                </div><!-- Tabs content -->
+                            @endforeach
+                        @endif
+                        @if(!empty($industry))
+                            @foreach($industry as $job)
+                                <div class="recent-job-list"><!-- Tabs content -->
+                                    <div class="col-md-1 job-list-logo">
+                                        <img src="{!! asset('images/upload/company-1.png') !!}" class="img-responsive"
+                                             alt="company-logo"/>
+                                    </div>
+
+                                    <div class="col-md-5 job-list-desc">
+                                        <h6>Store General Manager</h6>
+                                        <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
+                                    </div>
+                                    <div class="col-md-3 job-list-location">
+                                        <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-7 job-list-type">
+                                                <h6><i class="fa fa-user"></i>Full Time</h6>
+                                            </div>
+                                            <div class="col-md-5 job-list-button">
+                                                <button class="btn-view-job">View Job</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div><!-- Tabs content -->
+                            @endforeach
+                        @endif
+                        @if(!empty($company))
+                            @foreach($company as $job)
+                                <div class="recent-job-list"><!-- Tabs content -->
+                                    <div class="col-md-1 job-list-logo">
+                                        <img src="{!! asset('images/upload/company-1.png') !!}" class="img-responsive"
+                                             alt="company-logo"/>
+                                    </div>
+
+                                    <div class="col-md-5 job-list-desc">
+                                        <h6>Store General Manager</h6>
+                                        <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
+                                    </div>
+                                    <div class="col-md-3 job-list-location">
+                                        <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-7 job-list-type">
+                                                <h6><i class="fa fa-user"></i>Full Time</h6>
+                                            </div>
+                                            <div class="col-md-5 job-list-button">
+                                                <button class="btn-view-job">View Job</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div><!-- Tabs content -->
+                            @endforeach
+                        @endif
+                        @if(!empty($city))
+                            @foreach($city as $job)
+                                <div class="recent-job-list"><!-- Tabs content -->
+                                    <div class="col-md-1 job-list-logo">
+                                        <img src="{!! asset('images/upload/company-1.png') !!}" class="img-responsive"
+                                             alt="company-logo"/>
+                                    </div>
+
+                                    <div class="col-md-5 job-list-desc">
+                                        <h6>Store General Manager</h6>
+                                        <p>Similique sunt in culpa qui officia deserunt mollitia animi</p>
+                                    </div>
+                                    <div class="col-md-3 job-list-location">
+                                        <h6><i class="fa fa-map-marker"></i>San Fransisco</h6>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-7 job-list-type">
+                                                <h6><i class="fa fa-user"></i>Full Time</h6>
+                                            </div>
+                                            <div class="col-md-5 job-list-button">
+                                                <button class="btn-view-job">View Job</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div><!-- Tabs content -->
+                            @endforeach
+                        @endif
                     </div><!-- Tabs section 1 -->
                     <div id="contract"><!-- Tabs section 2 -->
                     </div><!-- Tabs section 2 -->

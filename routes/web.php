@@ -284,7 +284,10 @@ Route::group(['middleware' => ['employer']], function () {
 
 Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
 
-Route::get('jobs/category/{cat}/', ['as' => 'jobs.view.by.category', 'uses' => 'FrontController@viewByCategory']);
+Route::get('jobs/function/{slug}/', ['as' => 'jobs.view.by.function', 'uses' => 'FrontController@searchByFunction']);
+Route::get('jobs/industry/{slug}/', ['as' => 'jobs.view.by.industry', 'uses' => 'FrontController@searchByIndustry']);
+Route::get('jobs/company/{slug}/', ['as' => 'jobs.view.by.company', 'uses' => 'FrontController@searchByCompany']);
+Route::get('jobs/city/{slug}/', ['as' => 'jobs.view.by.city', 'uses' => 'FrontController@searchByCity']);
 
 
 // USER
@@ -326,7 +329,3 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
 });
-
-Route::get('/brands/all', ['as' => 'brands.index', 'uses' => 'BrandsController@index']);
-Route::get('/brands/create', ['as' => 'brands.create', 'uses' => 'BrandsController@create']);
-Route::post('/brands/create', ['as' => 'brands.store', 'uses' => 'BrandsController@store']);
