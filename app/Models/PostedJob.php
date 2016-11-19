@@ -26,6 +26,12 @@ class PostedJob extends Model
     /**
      * @var string
      */
+
+    public static function boot()
+    {
+        parent::boot();
+    }
+
     protected $table = 'posted_jobs';
     /**
      * @var array
@@ -36,6 +42,13 @@ class PostedJob extends Model
     protected $revisionCleanup = true; //Remove old revisions (works only when used with $historyLimit)
     protected $historyLimit = 500; //Maintain a maximum of 500 changes at any point of time, while cleaning up old revisions.
     protected $revisionCreationsEnabled = true;
+
+    protected $revisionFormattedFields = array(
+        'post_name'  => 'string:<strong>%s</strong>',
+        'status' => 'boolean:No|Yes',
+        'updated_at' => 'datetime:m/d/Y g:i A',
+        'deleted_at' => 'isEmpty:Active|Deleted'
+    );
 
     /**
      * @var array

@@ -33,7 +33,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body table-responsive no-padding">
-                        @if($history->revisions->count() > 0)
+                        @if($histories->revisionHistory->count() > 0)
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
@@ -47,21 +47,21 @@
                                 <tbody>
                                 <tbody>
 
-                                @foreach($history->revisions as $revision)
+                                @foreach($histories->revisionHistory as $revision)
                                     <tr>
                                         <td>
-                                            {!! $revision->getUserResponsible()->email !!}}
+                                            {!! $revision->userResponsible()->email !!}
                                         </td>
-                                        <td>{!! $revision->post_name !!}}</td>
+                                        <td>{!! $revision->key !!}</td>
                                         <td>
-                                            @if(is_null($revision->getOldValue()))
+                                            @if(is_null($revision->oldValue()))
                                                 <em>None</em>
                                             @else
-                                                {!! $revision->getOldValue() !!}}
+                                                {!! $revision->oldValue() !!}
                                             @endif
                                         </td>
-                                        <td>{!! $revision->getNewValue() !!}}</td>
-                                        <td>{!! $revision->created_at !!}}</td>
+                                        <td>{!! $revision->newValue() !!}</td>
+                                        <td>{!! $revision->created_at !!}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

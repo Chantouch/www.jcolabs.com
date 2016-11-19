@@ -6,7 +6,7 @@
             <th>Name</th>
             <th>No</th>
             <th>Industry</th>
-            <th class="hidden-sm">City </th>
+            <th class="hidden-sm">City</th>
             <th>Function</th>
             <th>Experience</th>
             <th>Description</th>
@@ -29,11 +29,13 @@
                 <td>
                     {!! Form::open(['route' => ['employer.postJobs.destroy', $postJob->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{!! route('employer.postJobs.show', [$postJob->slug]) !!}"
+                        <a href="{!! route('employer.postJobs.show', [$postJob->slug]) !!}" title="View job"
                            class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                         <a href="{!! route('employer.postJobs.edit', [$postJob->id]) !!}"
                            class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                         {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        <a href="{!! route('employer.histories.jobs.activity', [$postJob->id]) !!}" title="View History job"
+                           class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
                     </div>
                     {!! Form::close() !!}
                 </td>

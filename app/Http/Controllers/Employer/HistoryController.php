@@ -16,7 +16,7 @@ class HistoryController extends Controller
 
     public function showJobsActivities($id)
     {
-        $history = PostedJob::with('revisions')->orderBy('id', 'DESC')->find($id);
-        return view('employers.histories.jobs-activities', compact('history'));
+        $histories = PostedJob::with('revisionHistory')->find($id);
+        return view('employers.histories.jobs-activities', compact('histories'));
     }
 }

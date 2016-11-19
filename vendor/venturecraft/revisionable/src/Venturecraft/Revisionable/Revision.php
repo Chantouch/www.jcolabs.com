@@ -38,7 +38,7 @@ class Revision extends Eloquent
      *
      * Grab the revision history for the model that is calling
      *
-     * @return array revision history
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function revisionable()
     {
@@ -222,7 +222,7 @@ class Revision extends Eloquent
     /**
      * User Responsible.
      *
-     * @return User user responsible for the change
+     * @return bool
      */
     public function userResponsible()
     {
@@ -235,7 +235,7 @@ class Revision extends Eloquent
             $user_model = app('config')->get('auth.model');
 
             if (empty($user_model)) {
-                $user_model = app('config')->get('auth.providers.users.model');
+                $user_model = app('config')->get('auth.providers.employers.model');
                 if (empty($user_model)) {
                     return false;
                 }
