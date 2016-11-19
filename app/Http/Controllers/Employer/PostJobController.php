@@ -199,7 +199,7 @@ class PostJobController extends AppBaseController
         foreach ($languages as $language) {
             $lang[$language->id] = $language->name;
         }
-        $qualifications = Employer::qualification();
+        $qualifications = Qualification::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $job_levels = Employer::job_level();
         $postJob = $this->postJobRepository->findWithoutFail($id);
         $industries = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
