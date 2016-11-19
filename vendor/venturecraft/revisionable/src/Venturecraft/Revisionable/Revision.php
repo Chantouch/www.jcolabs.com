@@ -226,7 +226,9 @@ class Revision extends Eloquent
      */
     public function userResponsible()
     {
-        if (empty($this->user_id)) { return false; }
+        if (empty($this->user_id)) {
+            return false;
+        }
         if (class_exists($class = '\Cartalyst\Sentry\Facades\Laravel\Sentry')
             || class_exists($class = '\Cartalyst\Sentinel\Laravel\Facades\Sentinel')
         ) {

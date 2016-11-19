@@ -208,7 +208,7 @@ class PostJobController extends AppBaseController
         $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
-        $job_types = ['Full Time' => 'Full Time', 'Part Time' => 'Part Time'];
+        $job_types = Employer::job_types();
         $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');
         $publish_date = Carbon::now();

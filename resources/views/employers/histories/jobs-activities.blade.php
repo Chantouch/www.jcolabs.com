@@ -37,6 +37,7 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>User Responsible</th>
                                     <th>Changed</th>
                                     <th>From</th>
@@ -47,12 +48,13 @@
                                 <tbody>
                                 <tbody>
 
-                                @foreach($histories->revisionHistory as $revision)
+                                @foreach($histories->revisionHistory as $index => $revision)
                                     <tr>
+                                        <td>{!! $index + 1 !!}</td>
                                         <td>
-                                            {!! $revision->userResponsible()->email !!}
+                                            {!! $revision->userResponsible()->contact_name !!}
                                         </td>
-                                        <td>{!! $revision->key !!}</td>
+                                        <td>{!! $revision->fieldName() !!}</td>
                                         <td>
                                             @if(is_null($revision->oldValue()))
                                                 <em>None</em>
@@ -66,6 +68,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+
                         @else
                             <h5>There are no revisions to display.</h5>
                         @endif

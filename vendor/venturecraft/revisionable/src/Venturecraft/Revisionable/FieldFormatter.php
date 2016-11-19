@@ -2,13 +2,13 @@
 
 namespace Venturecraft\Revisionable;
 
-/**
- * FieldFormatter.
- *
- * Allows formatting of fields
- *
- * (c) Venture Craft <http://www.venturecraft.com.au>
- */
+    /**
+     * FieldFormatter.
+     *
+     * Allows formatting of fields
+     *
+     * (c) Venture Craft <http://www.venturecraft.com.au>
+     */
 
 /**
  * Class FieldFormatter
@@ -98,7 +98,7 @@ class FieldFormatter
 
         return sprintf($format, $value);
     }
-    
+
     /**
      * Format the datetime
      *
@@ -110,9 +110,9 @@ class FieldFormatter
     public static function datetime($value, $format = 'Y-m-d H:i:s')
     {
         if (empty($value)) {
-            return null;    
+            return null;
         }
-        
+
         $datetime = new \DateTime($value);
 
         return $datetime->format($format);

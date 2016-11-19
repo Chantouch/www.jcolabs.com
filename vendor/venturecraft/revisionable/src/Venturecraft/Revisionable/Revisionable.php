@@ -64,7 +64,7 @@ class Revisionable extends Eloquent
             $model->postSave();
         });
 
-        static::created(function($model){
+        static::created(function ($model) {
             $model->postCreate();
         });
 
@@ -93,12 +93,12 @@ class Revisionable extends Eloquent
             // if there's no revisionEnabled. Or if there is, if it's true
 
             $this->originalData = $this->original;
-            $this->updatedData  = $this->attributes;
+            $this->updatedData = $this->attributes;
 
             // we can only safely compare basic items,
             // so for now we drop any object based items, like DateTime
             foreach ($this->updatedData as $key => $val) {
-                if (gettype($val) == 'object' && ! method_exists($val, '__toString')) {
+                if (gettype($val) == 'object' && !method_exists($val, '__toString')) {
                     unset($this->originalData[$key]);
                     unset($this->updatedData[$key]);
                 }
@@ -141,14 +141,14 @@ class Revisionable extends Eloquent
 
             foreach ($changes_to_record as $key => $change) {
                 $revisions[] = array(
-                    'revisionable_type'     => $this->getMorphClass(),
-                    'revisionable_id'       => $this->getKey(),
-                    'key'                   => $key,
-                    'old_value'             => array_get($this->originalData, $key),
-                    'new_value'             => $this->updatedData[$key],
-                    'user_id'               => $this->getSystemUserId(),
-                    'created_at'            => new \DateTime(),
-                    'updated_at'            => new \DateTime(),
+                    'revisionable_type' => $this->getMorphClass(),
+                    'revisionable_id' => $this->getKey(),
+                    'key' => $key,
+                    'old_value' => array_get($this->originalData, $key),
+                    'new_value' => $this->updatedData[$key],
+                    'user_id' => $this->getSystemUserId(),
+                    'created_at' => new \DateTime(),
+                    'updated_at' => new \DateTime(),
                 );
             }
 
@@ -160,21 +160,19 @@ class Revisionable extends Eloquent
     }
 
     /**
-    * Called after record successfully created
-    */
+     * Called after record successfully created
+     */
     public function postCreate()
     {
 
         // Check if we should store creations in our revision history
         // Set this value to true in your model if you want to
-        if(empty($this->revisionCreationsEnabled))
-        {
+        if (empty($this->revisionCreationsEnabled)) {
             // We should not store creations.
             return false;
         }
 
-        if ((!isset($this->revisionEnabled) || $this->revisionEnabled))
-        {
+        if ((!isset($this->revisionEnabled) || $this->revisionEnabled)) {
             $revisions[] = array(
                 'revisionable_type' => $this->getMorphClass(),
                 'revisionable_id' => $this->getKey(),
@@ -199,7 +197,8 @@ class Revisionable extends Eloquent
     {
         if ((!isset($this->revisionEnabled) || $this->revisionEnabled)
             && $this->isSoftDelete()
-            && $this->isRevisionable($this->getDeletedAtColumn())) {
+            && $this->isRevisionable($this->getDeletedAtColumn())
+        ) {
             $revisions[] = array(
                 'revisionable_type' => $this->getMorphClass(),
                 'revisionable_id' => $this->getKey(),
@@ -223,7 +222,8 @@ class Revisionable extends Eloquent
     {
         try {
             if (class_exists($class = '\Cartalyst\Sentry\Facades\Laravel\Sentry')
-                    || class_exists($class = '\Cartalyst\Sentinel\Laravel\Facades\Sentinel')) {
+                || class_exists($class = '\Cartalyst\Sentinel\Laravel\Facades\Sentinel')
+            ) {
                 return ($class::check()) ? $class::getUser()->id : null;
             } elseif (\Auth::check()) {
                 return \Auth::user()->getAuthIdentifier();
@@ -346,7 +346,7 @@ class Revisionable extends Eloquent
      */
     public function getRevisionNullString()
     {
-        return isset($this->revisionNullString)?$this->revisionNullString:'nothing';
+        return isset($this->revisionNullString) ? $this->revisionNullString : 'nothing';
     }
 
     /**
@@ -359,7 +359,7 @@ class Revisionable extends Eloquent
      */
     public function getRevisionUnknownString()
     {
-        return isset($this->revisionUnknownString)?$this->revisionUnknownString:'unknown';
+        return isset($this->revisionUnknownString) ? $this->revisionUnknownString : 'unknown';
     }
 
     /**
