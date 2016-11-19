@@ -60,3 +60,18 @@
         </li>
     </ul>
 </li>
+
+<li class="treeview {{ Request::is('employers/histories/jobs/*') ? 'active' : '' }}">
+    <a href="#">
+        <i class="fa fa-dashboard"></i> <span>Activities</span>
+        <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li class="{!! Request::is ('employers/histories/jobs/all*') ? 'active' : '' !!}">
+            <a href="{!! route('employer.histories.jobs.all') !!}">
+                <i class="fa fa-plus"></i> Jobs Deleted</a>
+        </li>
+    </ul>
+</li>

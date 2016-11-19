@@ -290,6 +290,11 @@ Route::group(['middleware' => ['employer']], function () {
         Route::get('account-settings/company/update', ['as' => 'employer.company.show.update', 'uses' => 'Employer\EmployerController@showUpdateCompanyProfile']);
         Route::patch('account-settings/company/update', ['as' => 'employer.company.show.update', 'uses' => 'Employer\EmployerController@updateCompanyProfile']);
 
+
+        //Get history of employer activities
+        Route::get('histories/jobs/all', ['as' => 'employer.histories.jobs.all', 'uses' => 'Employer\HistoryController@getJobDeleted']);
+        Route::get('histories/jobs/{id}/activity', ['as' => 'employer.histories.jobs.activity', 'uses' => 'Employer\HistoryController@showJobsActivities']);
+
     });
 
 });
