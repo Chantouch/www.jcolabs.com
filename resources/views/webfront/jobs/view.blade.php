@@ -55,6 +55,12 @@
             border-bottom: 1px solid #ddd;
         }
 
+        td .label {
+            font-size: 14px !important;
+            padding: 0 3px 0 5px !important;
+            margin: 0.15em !important;
+        }
+
     </style>
 @stop
 
@@ -147,7 +153,9 @@
                             </td>
                             <td>
                                 @foreach($job->languages as $language)
-                                    {!! $language->name !!},
+                                    <span class="label label-success">
+                                        {!! $language->name !!}
+                                    </span>
                                 @endforeach
                             </td>
                         </tr>
@@ -233,37 +241,75 @@
         <div class="row">
             <div class="col-md-12">
                 <table class="table contact-information">
-                    @foreach($job->employer->contacts as $contact)
+                    @if(!empty($job->employer->contact_id))
+                        @foreach($job->employer->contacts as $contact)
+                            <thead>
+                            <tr>
+                                <th class="col-md-2 col-xs-5 no-border">Contact Name:</th>
+                                <td>{!! $contact->contact_name !!}</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>Department:</th>
+                                <td>{!! $contact->department->name !!}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone:</th>
+                                <td>{!! $contact->phone_number !!}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td><a href="mailto:{!! $contact->email !!}" target="_top">{!! $contact->email !!}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Website:</th>
+                                <td><a href="{!! $job->employer->web_address !!}"
+                                       target="_blank">{!! $job->employer->web_address !!}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Address:</th>
+                                <td>{!! $job->employer->address !!}</td>
+                            </tr>
+                            </tbody>
+                        @endforeach
+                    @else
                         <thead>
                         <tr>
                             <th class="col-md-2 col-xs-5 no-border">Contact Name:</th>
-                            <td>{!! $contact->contact_name !!}</td>
+                            <td>{!! $job->employer->contact_name !!}</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <th>Department:</th>
-                            <td>{!! $contact->department->name !!}</td>
-                        </tr>
-                        <tr>
                             <th>Phone:</th>
-                            <td>{!! $contact->phone_number !!}</td>
+                            <td>{!! $job->employer->contact_mobile_no !!}</td>
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <td><a href="mailto:{!! $contact->email !!}" target="_top">{!! $contact->email !!}</a></td>
+                            <td><a href="mailto:{!! $job->employer->email !!}"
+                                   target="_top">{!! $job->employer->email !!}</a>
+                            </td>
                         </tr>
                         <tr>
                             <th>Website:</th>
-                            <td><a href="{!! $job->employer->web_address !!}"
-                                   target="_blank">{!! $job->employer->web_address !!}</a></td>
+                            <td>
+                                @if(!empty($job->employer->web_address))
+                                    <a href="{!! $job->employer->web_address !!}"
+                                       target="_blank">{!! $job->employer->web_address !!}</a>
+                                @else
+                                    <a href="www.jcolabs.com"
+                                       target="_blank">www.jcolabs.com</a>
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th>Address:</th>
                             <td>{!! $job->employer->address !!}</td>
                         </tr>
                         </tbody>
-                    @endforeach
+                    @endif
                 </table>
             </div>
         </div>
@@ -344,134 +390,13 @@
         </div>
     </div><!-- end Recent Job -->
 
-    <div id="page-content"><!-- start content -->
-        <div class="content-about">
-
-            <div class="row clearfix">
-                <div class="col-md-6 about-post-resume">
-                    <h4>Post Your Resume</h4>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                        deleniti atque corrupti quos dolores et quas molestias</p>
-                    <p>
-                        <button class="btn btn-default btn-black">UPLOAD YOUR RESUME <i class="icon-upload white"></i>
-                        </button>
-                    </p>
-                </div>
-                <div class="col-md-6 about-post-job">
-                    <h4>Post Job Now</h4>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                        deleniti atque corrupti quos dolores et quas molestias</p>
-                    <p>
-                        <button class="btn btn-default btn-green">POST A JOB NOW</button>
-                    </p>
-                </div>
-            </div>
-            <div class="spacer-2">&nbsp;</div>
-
-            <div id="cs"><!-- CS -->
-                <div class="container">
-                    <div class="spacer-1">&nbsp;</div>
-                    <h1>Hey Friends Any Quries?</h1>
-                    <p>
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                        deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
-                        provident, similique sunt.
-                    </p>
-                    <h1 class="phone-cs">Call: +855 70 375 783</h1>
-                </div>
-            </div><!-- CS -->
-
-            <div class="row">
-                <div class="container">
-                    <div class="spacer-1">&nbsp;</div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Company Profile</div>
-                        <div class="panel-body">
-                            {!! $job->employer->details !!}
-                        </div>
-                    </div>
-                    <div class="spacer-1">&nbsp;</div>
-                </div>
-            </div>
-
-        </div><!-- end content -->
-    </div>
+    <!-- Start page content -->
+    @include('webfront.jobs.page-content')
+    <!--End page content -->
 
     <!-- ###################### Feature Search ##################### -->
-    <section id="stat">
-        <div class="overlay">
-            <div class="row">
-                <div class="section-heading">
-                    <h2 class="wow fadeInDown">Search for your <span class="theme-color">Jobs</span></h2>
-                </div>
-            </div>
-            <div class="section-content">
-                <div class="container">
-                    <ul>
-                        <!--======= Search By Category =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.3s">
-                            <h3>Search By Category</h3>
-                            <span><i class="fa fa-cloud-download"></i></span>
-                            <p class="stats-count" data-from="0" data-to="890" data-speed="1500">34353</p>
-                            <ul>
-                                @foreach($category as $cat)
-                                    <li><a href="{!! route('jobs.view.by.category',[$cat->id]) !!}">{!! $cat->name !!}
-                                            ( {!! count($cat->jobs) !!} )</a></li>
-                                @endforeach
-                            </ul>
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                        <!--======= Search By Industry =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-                            <h3>Search By Industry</h3>
-                            <span><i class="fa fa-user"></i></span>
-                            <p class="stats-count" data-from="0" data-to="900" data-speed="2000">95600</p>
-                            <ul>
-                                @foreach($industry as $ind)
-                                    <li><a href="#">{!! $ind->name !!} ( {!! count($ind->jobs) !!} )</a></li>
-                                @endforeach
-                            </ul>
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                        <!--======= Search by Company =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
-                            <h3>Search by Company</h3>
-                            <span><i class="fa fa-bookmark-o"></i></span>
-                            <p class="stats-count" data-from="0" data-to="560" data-speed="1500">5600</p>
-                            <ul>
-                                @foreach($company as $com)
-                                    <li><a href="#">{!! $com->organization_name !!} ( {!! count($com->jobs) !!} )</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                        <!--======= Search by City =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
-                            <h3>Search by City</h3>
-                            <span><i class="fa fa-star-half-o"></i></span>
-                            <p class="stats-count" data-from="0" data-to="4.5" data-speed="4000">4.5</p>
-                            <ul>
-                                @foreach($city as $ci)
-                                    <li><a href="#">{!! $ci->name !!} ( {!! count($ci->jobs) !!} )</a></li>
-                                @endforeach
-                            </ul>
-
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                    </ul>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-blue m-t-25">View All</a>
-                    </div>
-                </div>
-                <!-- container -->
-            </div>
-            <!-- section-content -->
-        </div>
-        <!-- overlay black -->
-    </section>
-    <!-- #stat -->
+    @include('webfront.jobs.feature-search')
+    <!--End Feature search -->
 
 @stop
 

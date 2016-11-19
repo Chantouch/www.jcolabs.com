@@ -1765,8 +1765,8 @@ div.map-popup > h6 {
     margin: 5px 0;
 }
 
-.recent-job-list-home .job-list-logo {
-    padding: 15px 10px 15px 0;
+.recent-job-list-home .job-list-logo, .recent-job-list .job-list-logo {
+    padding: 2px 10px 2px 0;
 }
 
 .recent-job-list-home .job-list-location {

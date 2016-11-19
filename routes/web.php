@@ -20,7 +20,6 @@ Route::get('/home', function () {
 
 Route::get('search-job', ['as' => 'job.search.name', 'uses' => 'RestController@searchJob']);
 Route::get('search-city', ['as' => 'job.search.city', 'uses' => 'RestController@searchByCity']);
-Route::get('jobs/search/', ['as' => 'job.search', 'uses' => 'FrontController@jobSearch']);
 
 Route::group(['middleware' => ['guest']], function () {
 
@@ -28,29 +27,43 @@ Route::group(['middleware' => ['guest']], function () {
     // ADMIN
     Route::get('admin/login', ['as' => 'admin.process.login', 'uses' => 'backend\Auth\LoginController@getLoginForm']);
     Route::post('admin/authenticate', ['as' => 'admin.process.authenticate.do', 'uses' => 'backend\Auth\LoginController@authenticate']);
-
     Route::get('admin/register', 'backend\Auth\RegisterController@getRegisterForm');
-
     Route::post('admin/saveregister', ['as' => 'admin.save_register.precess', 'uses' => 'backend\Auth\RegisterController@saveRegisterForm']);
-
     Route::get('admin/register/verify/{token}', ['as' => 'admin.verify.register.activate', 'uses' => 'backend\Auth\RegisterController@verify']);
 
 
     // Employer
     Route::get('employer/login', ['as' => 'employer.process.login', 'uses' => 'Employer\Auth\LoginController@getLoginForm']);
     Route::post('employer/authenticate', ['as' => 'employer.process.authenticate', 'uses' => 'Employer\Auth\LoginController@authenticate']);
-
     Route::get('employer/register', ['as' => 'employer.process.register', 'uses' => 'Employer\Auth\RegisterController@getRegisterForm']);
     Route::post('employer/saveregister', ['as' => 'employer.process.register.do', 'uses' => 'Employer\Auth\RegisterController@saveRegisterForm']);
-
     Route::get('employer/verify/{token}', ['as' => 'employer.process.verify.do', 'uses' => 'Employer\Auth\RegisterController@verify']);
     Route::get('employer/password/reset', ['as' => 'employer.reset.password', 'uses' => 'Employer\Auth\ForgotPasswordController@showLinkRequestForm']);
     Route::post('employer/password/reset', ['as' => 'employer.password.reset', 'uses' => 'Employer\Auth\ResetPasswordController@reset']);
     Route::get('employer/password/reset/{token}', ['as' => 'employer.reset.password.do', 'uses' => 'Employer\Auth\ResetPasswordController@showResetForm']);
     Route::post('employer/password/email', ['as' => 'employer.password.email', 'uses' => 'Employer\Auth\ForgotPasswordController@sendResetLinkEmail']);
-
+    // USER
+    Route::get('candidate/login', ['as' => 'candidate.process.login', 'uses' => 'candidate\Auth\LoginController@getLoginForm']);
+    Route::post('candidate/authenticate', ['as' => 'candidate.process.authenticate.do', 'uses' => 'candidate\Auth\LoginController@authenticate']);
+    Route::get('candidate/register', ['as' => 'candidate.process.register', 'uses' => 'candidate\Auth\RegisterController@getRegisterForm']);
+    Route::post('candidate/save-register', ['as' => 'candidate.process.register.do', 'uses' => 'candidate\Auth\RegisterController@saveRegisterForm']);
     //Verify candidate after register user account
     Route::get('candidate/account/verify/{token}', ['as' => 'candidate.account.verify', 'uses' => 'Candidate\Auth\RegisterController@verify']);
+    //Search all jobs or specific
+    Route::get('jobs/search/', ['as' => 'job.search', 'uses' => 'FrontController@jobSearch']);
+    //View jobs by company or industry
+    Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
+    //Search by
+    Route::get('jobs/function/{slug}/', ['as' => 'jobs.view.by.function', 'uses' => 'FrontController@searchByFunction']);
+    Route::get('jobs/industry/{slug}/', ['as' => 'jobs.view.by.industry', 'uses' => 'FrontController@searchByIndustry']);
+    Route::get('jobs/company/{slug}/', ['as' => 'jobs.view.by.company', 'uses' => 'FrontController@searchByCompany']);
+    Route::get('jobs/city/{slug}/', ['as' => 'jobs.view.by.city', 'uses' => 'FrontController@searchByCity']);
+    //For jobs all by specific
+    Route::get('jobs/functions/all', ['as' => 'jobs.search.by.function.all', 'uses' => 'FrontController@allFunction']);
+    Route::get('jobs/industries/all', ['as' => 'jobs.search.by.industry.all', 'uses' => 'FrontController@allIndustry']);
+    Route::get('jobs/companies/all', ['as' => 'jobs.search.by.company.all', 'uses' => 'FrontController@allCompany']);
+    Route::get('jobs/cities/all', ['as' => 'jobs.search.by.city.all', 'uses' => 'FrontController@allCity']);
+
 
 });
 
@@ -281,21 +294,6 @@ Route::group(['middleware' => ['employer']], function () {
 
 });
 
-
-Route::get('employer/job/view/{employer}/{industry}/{id}/{slug?}/', ['as' => 'jobs.view.name', 'uses' => 'FrontController@show']);
-
-Route::get('jobs/function/{slug}/', ['as' => 'jobs.view.by.function', 'uses' => 'FrontController@searchByFunction']);
-Route::get('jobs/industry/{slug}/', ['as' => 'jobs.view.by.industry', 'uses' => 'FrontController@searchByIndustry']);
-Route::get('jobs/company/{slug}/', ['as' => 'jobs.view.by.company', 'uses' => 'FrontController@searchByCompany']);
-Route::get('jobs/city/{slug}/', ['as' => 'jobs.view.by.city', 'uses' => 'FrontController@searchByCity']);
-
-
-// USER
-Route::get('candidate/login', ['as' => 'candidate.process.login', 'uses' => 'candidate\Auth\LoginController@getLoginForm']);
-Route::post('candidate/authenticate', ['as' => 'candidate.process.authenticate.do', 'uses' => 'candidate\Auth\LoginController@authenticate']);
-
-Route::get('candidate/register', ['as' => 'candidate.process.register', 'uses' => 'candidate\Auth\RegisterController@getRegisterForm']);
-Route::post('candidate/save-register', ['as' => 'candidate.process.register.do', 'uses' => 'candidate\Auth\RegisterController@saveRegisterForm']);
 
 Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function () {
 

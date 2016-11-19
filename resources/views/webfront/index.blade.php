@@ -48,7 +48,8 @@
                 <h4>Hire Skilled People, best of them</h4>
                 <p>It is a long established fact that a reader will be distracted by the readable content of a page when
                     looking at its layout. The point of using</p>
-                <p><a href="#" class="btn btn-default btn-light">Post a Job</a></p>
+                <p><a href="{!! route('employer.postJobs.create') !!}" class="btn btn-default btn-light">Post a Job</a>
+                </p>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -121,12 +122,14 @@
                                                     <i class="fa fa-map-marker"></i>{!! $job->city->name !!}
                                                 </h6>
                                             </div>
-                                            <div class="job-list-type col-md-5 ">
+                                            <div class="job-list-type col-md-4 ">
                                                 <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                             </div>
-                                            <div class="col-md-2 job-list-button">
-                                                <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
-                                                   class="btn-view-job">View</a>
+                                            <div class="col-md-3 job-list-button">
+                                                <h6 class="pull-right">
+                                                    <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                                       class="btn-view-job">View</a>
+                                                </h6>
                                             </div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -303,7 +306,7 @@
                 </div>
 
                 <div class="counter-container col-md-3 col-xs-6">
-                    <div class="counter-value">{!! $companies !!}</div>
+                    <div class="counter-value">{!! count($companies) !!}</div>
                     <div class="line"></div>
                     <p>Companies</p>
                 </div>
@@ -320,8 +323,8 @@
 
     <div class="step-to">
         <div class="container">
-            <h1>Easiest Way To Use</h1>
-            <p>
+            <h1 class="wow fadeInDown" data-wow-delay="0.3s">Easiest Way To Use</h1>
+            <p class="wow bounceIn" data-wow-delay="0.6s">
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
                 deleniti atque corrupti quos dolores et quas mo
             </p>
@@ -329,7 +332,7 @@
             <div class="step-spacer"></div>
             <div id="step-image">
                 <div class="step-by-container">
-                    <div class="step-by">
+                    <div class="step-by wow fadeInUp" data-wow-delay="0.3s">
                         First Step
                         <div class="step-by-inner">
                             <div class="step-by-inner-img">
@@ -339,7 +342,7 @@
                         <h5>Register with us</h5>
                     </div>
 
-                    <div class="step-by">
+                    <div class="step-by wow fadeInUp" data-wow-delay="0.6s">
                         Second Step
                         <div class="step-by-inner">
                             <div class="step-by-inner-img">
@@ -349,7 +352,7 @@
                         <h5>Create your profile</h5>
                     </div>
 
-                    <div class="step-by">
+                    <div class="step-by wow fadeInUp" data-wow-delay="0.9s">
                         Third Step
                         <div class="step-by-inner">
                             <div class="step-by-inner-img">
@@ -359,7 +362,7 @@
                         <h5>Upload your resume</h5>
                     </div>
 
-                    <div class="step-by">
+                    <div class="step-by wow fadeInUp" data-wow-delay="1.2s">
                         Now it's our turn
                         <div class="step-by-inner">
                             <div class="step-by-inner-img">
@@ -594,9 +597,22 @@
             </p>
 
             <div id="company-post-list" class="owl-carousel company-post">
-                <div class="company">
-                    <img src="images/upload/company-1.png" class="img-responsive" alt="company-post"/>
-                </div>
+                @if(!empty($companies))
+                    @foreach($companies as $com)
+                        <div class="company">
+                            @if($com->photo != 'default.jpg')
+                                <img class="profile-user-img img-responsive img-circle"
+                                     src="{!! asset($com->path.'/'.$com->photo) !!}"
+                                     alt="{!! $com->contact_name !!}">
+                            @else
+                                <img src="{!! asset('uploads/employers/' .$com->photo) !!}"
+                                     class="profile-user-img img-responsive img-circle"
+                                     alt="{!! $com->contact_name !!}"/>
+                            @endif
+                        </div>
+                    @endforeach
+                @endif
+
                 <div class="company">
                     <img src="images/upload/company-2.png" class="img-responsive" alt="company-post"/>
                 </div>
@@ -631,84 +647,8 @@
     </div>
 
     <!-- ###################### Feature Search ##################### -->
-    <section id="stat">
-        <div class="overlay">
-            <div class="row">
-                <div class="section-heading">
-                    <h2 class="wow fadeInDown">Search for your <span class="theme-color">Jobs</span></h2>
-                </div>
-            </div>
-            <div class="section-content">
-                <div class="container">
-                    <ul>
-                        <!--======= Search By Category =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.3s">
-                            <h3>Search By Function</h3>
-                            <span><i class="fa fa-cloud-download"></i></span>
-                            <p class="stats-count" data-from="0" data-to="890" data-speed="1500">34353</p>
-                            <ul>
-                                @foreach($category as $cat)
-                                    <li><a href="{!! route('jobs.view.by.function',[$cat->slug]) !!}">{!! $cat->name !!}
-                                            ( {!! count($cat->jobs) !!} )</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                        <!--======= Search By Industry =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.6s">
-                            <h3>Search By Industry</h3>
-                            <span><i class="fa fa-user"></i></span>
-                            <p class="stats-count" data-from="0" data-to="900" data-speed="2000">95600</p>
-                            <ul>
-                                @foreach($industry as $ind)
-                                    <li>
-                                        <a href="{!! route('jobs.view.by.industry', [$ind->slug]) !!}">{!! $ind->name !!}
-                                            ( {!! count($ind->jobs) !!} )</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                        <!--======= Search by Company =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="0.9s">
-                            <h3>Search by Company</h3>
-                            <span><i class="fa fa-bookmark-o"></i></span>
-                            <p class="stats-count" data-from="0" data-to="560" data-speed="1500">5600</p>
-                            <ul>
-                                @foreach($company as $com)
-                                    <li><a href="{!! route('jobs.view.by.company', [$com->slug]) !!}">{!! $com->organization_name !!} ( {!! count($com->jobs) !!} )</a>
-                                    </li>
-                                @endforeach
-                            </ul>
-
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                        <!--======= Search by City =========-->
-                        <li class="col-sm-3 wow fadeInUp" data-wow-delay="1.2s">
-                            <h3>Search by City</h3>
-                            <span><i class="fa fa-star-half-o"></i></span>
-                            <p class="stats-count" data-from="0" data-to="4.5" data-speed="4000">4.5</p>
-                            <ul>
-                                @foreach($city as $ci)
-                                    <li><a href="{!! route('jobs.view.by.city', [$ci->slug]) !!}">{!! $ci->name !!} ( {!! count($ci->jobs) !!} )</a></li>
-                                @endforeach
-                            </ul>
-
-                            <a href="#" class="btn btn-blue m-t-25">View All</a>
-                        </li>
-                    </ul>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-blue m-t-25">View All</a>
-                    </div>
-                </div>
-                <!-- container -->
-            </div>
-            <!-- section-content -->
-        </div>
-        <!-- overlay black -->
-    </section>
-    <!-- #stat -->
+    @include('webfront.jobs.feature-search')
+    <!--End Feature search -->
 
 @stop
 
@@ -724,6 +664,7 @@
     <script src="{{ asset('plugins/typeahead/bootstrap3-typeahead.min.js')}}" type="text/javascript"></script>
     <!-- Select2 -->
     <script src="{!! asset('plugins/select2/select2.full.min.js') !!}"></script>
+    <script src="{{ asset('plugins/wow/wow.min.js')}}" type="text/javascript"></script>
 
     <script !src="">
 
@@ -738,7 +679,6 @@
 
     var path = "{!! route('job.search.name') !!}";
     var city_path = "{!! route('job.search.city') !!}";
-    console.log(city_path);
     $('#searchjob').typeahead({
     source: function (query, process) {
     return $.get(path, {query: query}, function (data) {
@@ -754,5 +694,7 @@
     })
     }
     });
+
+    new WOW().init();
 
 @stop

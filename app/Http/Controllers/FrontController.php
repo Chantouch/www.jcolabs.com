@@ -34,7 +34,7 @@ class FrontController extends Controller
         $top_jobs = PostedJob::with('industry', 'employer')->where('status', 1)->orderBy('salary_offered_min', 'DESC')->take(5)->get();
         $posted_job_count = PostedJob::count();
         $jobs_filled_up = PostedJob::where('status', 2)->get();
-        $companies = Employer::where('status', 1)->count();
+        $companies = Employer::where('status', 1)->orderBy('created_at', 'DESC')->get();
         $job_contracts = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
         $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
         $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
@@ -115,6 +115,42 @@ class FrontController extends Controller
     {
         $city = City::where('slug', $slug)->with('jobs')->firstOrFail();
         return view('webfront.jobs.searchby', compact('city'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function allFunction()
+    {
+        $functions = Category::all();
+        return view('webfront.search.all', compact('functions'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function allIndustry()
+    {
+        $industries = IndustryType::all();
+        return view('webfront.search.all', compact('industries'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function allCompany()
+    {
+        $companies = Employer::all();
+        return view('webfront.search.all', compact('companies'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function allCity()
+    {
+        $cities = City::all();
+        return view('webfront.search.all', compact('cities'));
     }
 
     /**

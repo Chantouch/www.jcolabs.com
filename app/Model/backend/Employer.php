@@ -71,6 +71,8 @@ class Employer extends Authenticatable
         'password.confirmed' => 'Password and Confirm Password does not match',
         'web_address.url' => 'the Web Address field is not valid. Please ensure that you have added http:// at the beginning',
         'city_id.required' => 'Please select your city',
+        'email.required' => 'Contact email is required',
+        'details.required' => 'Please describe something about your company.',
         'district_id.required' => 'Please select your district',
     ];
 
@@ -114,8 +116,9 @@ class Employer extends Authenticatable
                     'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                     'employees' => 'required|numeric|min:1',
                     'city_id' => 'required',
+                    'contact_name' => 'required',
                     'district_id' => 'required',
-                    'details' => 'max:5000'
+                    'details' => 'required|max:5000'
 
                 ];
             }
