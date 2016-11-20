@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ApplyJobRequest;
 use App\Model\backend\Employer;
 use App\Model\frontend\Candidate;
 use App\Models\Category;
@@ -202,6 +203,16 @@ class FrontController extends Controller
 
         $jobs = $jobs->get();
         return view('webfront.jobs.search', compact('jobs', 'city', 'company', 'category', 'industry'));
+
+    }
+
+
+    //For candidate apply job directly from site
+    /**
+     * @param ApplyJobRequest $request
+     */
+    public function applyJob(ApplyJobRequest $request)
+    {
 
     }
 

@@ -127,7 +127,7 @@
                                             </div>
                                             <div class="col-md-3 job-list-button">
                                                 <h6 class="pull-right">
-                                                    <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                                    <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
                                                        class="btn-view-job">View</a>
                                                 </h6>
                                             </div>

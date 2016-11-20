@@ -61,13 +61,20 @@
             margin: 0.15em !important;
         }
 
+        .contact {
+            margin: 15px 0 0 0;
+        }
+
     </style>
 @stop
 
 @section('main_page_container')
 
     <div class="spacer-1">&nbsp;</div>
-
+    <div class="col-md-12 text-center">
+        <h1>{!! $job->post_name !!}</h1>
+        <div class="spacer-1">&nbsp;</div>
+    </div>
     <img src="{!! asset('images/upload/company-3-post.png') !!}" class="img-responsive job-detail-logo"
          alt="company-logo">
 
@@ -316,6 +323,55 @@
         <div class="spacer-1">&nbsp;</div>
     </div>
 
+    <div class="job-detail">
+        <div id="page-content"><!-- start content -->
+            <h6>Apply this job</h6>
+            <div class="content-about">
+                <div class="container">
+                    {!! Form::open(['route' => 'employer.contactPeople.store', 'class'=>'contact', 'role'=>'form', 'id'=>'apply-job']) !!}
+                    <div class="form-group col-md-6">
+                        <label for="name">Name:</label>
+                        {!! Form::text('name', null, ['class' => 'form-control name', 'id'=>'name']) !!}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="email">Email:</label>
+                        {!! Form::text('email', null, ['class'=>'form-control email', 'id'=>'email']) !!}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="phone">Tel:</label>
+                        {!! Form::text('phone', null, ['class' => 'form-control phone', 'id'=>'phone']) !!}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="subject">Subject:</label>
+                        {!! Form::text('subject', null, ['class'=>'form-control subject', 'id'=>'subject']) !!}
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="message">Message:</label>
+                        {!! Form::textarea('message', null, ['class'=>'form-control message', 'id'=>'message', 'rows'=>'8'  ,'placeholder'=>'Describe about yourself that want to apply this position']) !!}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="cv">CV:</label>
+                        {!! Form::file('cv', null, ['id'=>'cv']) !!}
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <button class="btn btn-default btn-green" type="submit" name="submit" id="submit">APPLY
+                        </button>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    {!! Form::close() !!}
+                </div>
+            </div><!-- end content -->
+        </div><!-- end page content -->
+        <div class="spacer-1"></div>
+    </div>
+
 @stop
 
 @section('page_content')
@@ -362,7 +418,7 @@
                                                 <h6><i class="fa fa-user"></i>{!! $jobs->job_type !!}</h6>
                                             </div>
                                             <div class="col-md-2 job-list-button">
-                                                <a href="{!! route('jobs.view.name', [$jobs->employer->organization_name, $jobs->industry->name, $jobs->id,$jobs->slug]) !!}"
+                                                <a href="{!! route('jobs.view.name', [$jobs->employer->slug, $jobs->industry->slug, $jobs->id,$jobs->slug]) !!}"
                                                    class="btn-view-job">View</a>
                                             </div>
 

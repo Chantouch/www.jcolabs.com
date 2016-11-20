@@ -1,6 +1,5 @@
 <div id="page-content"><!-- start content -->
     <div class="content-about">
-        <div class="spacer-2">&nbsp;</div>
         <div class="clearfix">
             <div class="col-md-6 about-post-resume">
                 <h4>Post Your Resume</h4>
