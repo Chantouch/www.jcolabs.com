@@ -140,15 +140,13 @@ class ContactPersonController extends AppBaseController
      * Update the specified ContactPerson in storage.
      *
      * @param  int $id
-     * @param UpdateContactPersonRequest $request
-     *
+     * @param UpdateContactPersonRequest|Request $request
      * @return Redirect
      */
-    public function update($id, UpdateContactPersonRequest $request)
+    public function update($id, Request $request)
     {
 
         $validator = Validator::make($data = $request->all(), ContactPerson::rules($id));
-        dd($validator);
 
         if ($validator->fails())
             return Redirect::back()->withErrors($validator)->withInput()->with('message', 'Some fields has errors. Please correct it and then try again');

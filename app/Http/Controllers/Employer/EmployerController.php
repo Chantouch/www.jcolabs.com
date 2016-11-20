@@ -169,6 +169,7 @@ class EmployerController extends Controller
         $departments = ['' => '--- Choose Department---'] + DepartmentType::where('status', 1)->orderBy('name')->pluck('name', 'id')->toArray();;
         $positions = ['' => '--- Choose Position ---'] + Position::where('status', 1)->orderBy('name')->pluck('name', 'id')->toArray();
         $id = Auth::guard('employer')->user()->id;
+        $all_jobs = PostedJob::with('employer')->where('created_by', $id)->paginate(2);
         $total_jobs = PostedJob::where('created_by', $id)
             ->count();
         $jobs_not_verified = PostedJob::with('industry')->where('created_by', $id)
@@ -180,7 +181,7 @@ class EmployerController extends Controller
         $jobs_filled_up = PostedJob::with('industry')->where('created_by', $id)
             ->where('status', 2)
             ->get();
-        return view('employers.company.profile', compact('positions', 'departments', 'profile', 'total_jobs', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up'));
+        return view('employers.company.profile', compact('all_jobs','positions', 'departments', 'profile', 'total_jobs', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up'));
     }
 
     /**

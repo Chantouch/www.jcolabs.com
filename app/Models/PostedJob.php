@@ -23,6 +23,7 @@ class PostedJob extends Model
     use Sluggable;
 
     use SoftDeletes;
+
     /**
      * @var string
      */

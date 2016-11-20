@@ -71,34 +71,30 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
-                        <p class="text-muted">
-                            B.S. in Computer Science from the University of Tennessee at Knoxville
-                        </p>
-                        <hr>
-                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
-                        <p class="text-muted">{!! $profile->address !!}</p>
-                        <hr>
-                        <strong><i class="fa fa-pencil margin-r-5"></i> Services</strong>
-                        <p>
-                            <span class="label label-danger">UI Design</span>
-                            <span class="label label-success">Coding</span>
-                            <span class="label label-info">Javascript</span>
-                            <span class="label label-warning">PHP</span>
-                            <span class="label label-primary">Node.js</span>
-                        </p>
-                        <hr>
-                        <strong><i class="fa fa-pencil margin-r-5"></i> Products</strong>
-                        <p>
-                            <span class="label label-danger">UI Design</span>
-                            <span class="label label-success">Coding</span>
-                            <span class="label label-info">Javascript</span>
-                            <span class="label label-warning">PHP</span>
-                            <span class="label label-primary">Node.js</span>
-                        </p>
-                        <hr>
                         <strong><i class="fa fa-file-text-o margin-r-5"></i> About</strong>
                         <p>{!! $profile->details !!}</p>
+                        @if(is_null($profile->address) || !empty($profile->address))
+                            <hr>
+                            <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                            <p class="text-muted">{!! $profile->address !!}</p>
+                        @endif
+
+
+                        @if(!empty($profile->services) || !is_null($profile->services))
+                            <hr>
+                            <strong><i class="fa fa-pencil margin-r-5"></i> Services</strong>
+                            <p>
+                                {!! $profile->services !!}
+                            </p>
+                        @endif
+
+                        @if(!empty($profile->products) || !is_null($profile->products))
+                            <hr>
+                            <strong><i class="fa fa-pencil margin-r-5"></i> Products</strong>
+                            <p>
+                                {!! $profile->products !!}
+                            </p>
+                        @endif
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -108,140 +104,138 @@
             <div class="col-md-9">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
+                        <li class="active"><a href="#joblist" data-toggle="tab">Jobs List</a></li>
                         <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
                         <li><a href="#settings" data-toggle="tab">Settings</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="active tab-pane" id="activity">
+                        <div class="active tab-pane" id="joblist">
                             <!-- Post -->
-                            <div class="post">
-                                <div class="user-block">
-                                    <img class="img-circle img-bordered-sm"
-                                         src="{!! asset('dist/img/user1-128x128.jpg') !!}" alt="user image">
-                                    <span class="username">
-                          <a href="#">Jonathan Burke Jr.</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                        </span>
-                                    <span class="description">Shared publicly - 7:30 PM today</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <p>
-                                    Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore the hate as they create awesome
-                                    tools to help create filler text for everyone from bacon lovers
-                                    to Charlie Sheen fans.
-                                </p>
-                                <ul class="list-inline">
-                                    <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i>
-                                            Share</a></li>
-                                    <li><a href="#" class="link-black text-sm"><i
-                                                    class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="link-black text-sm"><i
-                                                    class="fa fa-comments-o margin-r-5"></i> Comments
-                                            (5)</a></li>
-                                </ul>
-
-                                <input class="form-control input-sm" type="text" placeholder="Type a comment">
-                            </div>
-                            <!-- /.post -->
-
-                            <!-- Post -->
-                            <div class="post clearfix">
-                                <div class="user-block">
-                                    <img class="img-circle img-bordered-sm"
-                                         src="{!! asset('dist/img/user7-128x128.jpg') !!}" alt="User Image">
-                                    <span class="username">
-                          <a href="#">Sarah Ross</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                        </span>
-                                    <span class="description">Sent you a message - 3 days ago</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <p>
-                                    Lorem ipsum represents a long-held tradition for designers,
-                                    typographers and the like. Some people hate it and argue for
-                                    its demise, but others ignore the hate as they create awesome
-                                    tools to help create filler text for everyone from bacon lovers
-                                    to Charlie Sheen fans.
-                                </p>
-
-                                <form class="form-horizontal">
-                                    <div class="form-group margin-bottom-none">
-                                        <div class="col-sm-9">
-                                            <input class="form-control input-sm" placeholder="Response">
+                            @if(!empty($all_jobs))
+                                @foreach($all_jobs as $job)
+                                    <div class="post">
+                                        <div class="user-block">
+                                            @if(Auth::guard('employer')->user()->photo != 'default.jpg')
+                                                <img class="img-circle img-bordered-sm"
+                                                     src="{!! asset($profile->path.'/'.$profile->photo) !!}"
+                                                     alt="User profile picture">
+                                            @else
+                                                <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
+                                                     class="img-circle img-bordered-sm"
+                                                     alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
+                                            @endif
+                                            <span class="username">
+                                      <a href="#">{!! $job->post_name !!}</a>
+                                      <a href="#" class="pull-right btn-box-tool" data-widget="collapse"><i
+                                                  class="fa fa-times"></i></a>
+                                    </span>
+                                            <span class="description">Shared publicly - {!! \Carbon\Carbon::parse($job->created_at)->diffForHumans() !!}</span>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <button type="submit" class="btn btn-danger pull-right btn-block btn-sm">
-                                                Send
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.post -->
+                                        <div class="box">
+                                            <!-- /.box-header -->
+                                            <div class="box-body">
+                                                <table class="table table-bordered">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td class="bg-color-table">Year Of Exp</td>
+                                                        <td>{!! $job->preferred_experience !!} Year (s)</td>
+                                                        <td class="bg-color-table">Term</td>
+                                                        <td>{!! $job->job_type !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bg-color-table">Hiring</td>
+                                                        <td>{!! $job->no_of_post !!} Post(s)</td>
+                                                        <td class="bg-color-table">
+                                                            Function
+                                                        </td>
+                                                        <td>{!! $job->category->name !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bg-color-table">Salary</td>
+                                                        <td>USD($) {!! $job->salary_offered_min !!} ~
+                                                            USD($) {!! $job->salary_offered_max !!}</td>
+                                                        <td class="bg-color-table">
+                                                            Industry
+                                                        </td>
+                                                        <td>{!! $job->industry->name !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bg-color-table">Gender</td>
+                                                        <td>{!! $job->preferred_sex !!}</td>
+                                                        <td class="bg-color-table">
+                                                            Qualification
+                                                        </td>
+                                                        <td>{!! $job->qualification->name !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bg-color-table">Age</td>
+                                                        <td>{!! $job->preferred_age_min !!} Years
+                                                            ~ {!! $job->preferred_age_max !!} Years
+                                                        </td>
+                                                        <td class="bg-color-table">
+                                                            Language
+                                                        </td>
+                                                        <td>
+                                                            @foreach($job->languages as $language)
+                                                                <span class="label label-success">
+                                                                {!! $language->name !!}
+                                                            </span>
+                                                            @endforeach
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="bg-color-table">Published Date</td>
+                                                        <td>{!! \Carbon\Carbon::parse($job->published_date)->format('D-d-M-Y H:i A') !!}</td>
+                                                        <td class="bg-color-table">
+                                                            Closing Date
+                                                        </td>
+                                                        <td>{!! Carbon\Carbon::parse($job->closing_date)->format('D-d-M-Y H:i A') !!}</td>
 
-                            <!-- Post -->
-                            <div class="post">
-                                <div class="user-block">
-                                    <img class="img-circle img-bordered-sm"
-                                         src="{!! asset('dist/img/user6-128x128.jpg') !!}" alt="User Image">
-                                    <span class="username">
-                          <a href="#">Adam Jones</a>
-                          <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
-                        </span>
-                                    <span class="description">Posted 5 photos - 5 days ago</span>
-                                </div>
-                                <!-- /.user-block -->
-                                <div class="row margin-bottom">
-                                    <div class="col-sm-6">
-                                        <img class="img-responsive" src="{!! asset('dist/img/photo1.png') !!}"
-                                             alt="Photo">
-                                    </div>
-                                    <!-- /.col -->
-                                    <div class="col-sm-6">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <img class="img-responsive" src="{!! asset('dist/img/photo2.png') !!}"
-                                                     alt="Photo">
-                                                <br>
-                                                <img class="img-responsive" src="{!! asset('dist/img/photo3.jpg') !!}"
-                                                     alt="Photo">
+                                                    </tr>
+
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <!-- /.col -->
-                                            <div class="col-sm-6">
-                                                <img class="img-responsive" src="{!! asset('dist/img/photo4.jpg') !!}"
-                                                     alt="Photo">
-                                                <br>
-                                                <img class="img-responsive" src="{!! asset('dist/img/photo1.png') !!}"
-                                                     alt="Photo">
-                                            </div>
-                                            <!-- /.col -->
                                         </div>
-                                        <!-- /.row -->
+                                        <div class="col-md-12">
+                                            <h4><i class="fa fa-file-text-o margin-r-5"></i>Responsibilities:</h4>
+                                            <hr>
+                                            <div class="minimize">
+                                                <p>
+                                                    {!! $job->description !!}
+                                                </p>
+                                            </div>
+                                            <h4><i class="fa fa-file-text-o margin-r-5"></i>Requirements:</h4>
+                                            <hr>
+                                            <div class="minimize">
+                                                <p>{!! $job->requirement_description !!}</p>
+                                            </div>
+
+                                        </div>
+                                        <ul class="list-inline">
+                                            <li><a href="#" class="link-black text-sm">
+                                                    <i class="fa fa-share margin-r-5"></i>
+                                                    Share</a>
+                                            </li>
+                                            {{--<li><a href="#" class="link-black text-sm"><i--}}
+                                            {{--class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>--}}
+                                            {{--</li>--}}
+                                            {{--<li class="pull-right">--}}
+                                            {{--<a href="#" class="link-black text-sm"><i--}}
+                                            {{--class="fa fa-comments-o margin-r-5"></i> Comments--}}
+                                            {{--(5)</a></li>--}}
+                                        </ul>
+
+                                        {{--<input class="form-control input-sm" type="text" placeholder="Type a comment">--}}
+
                                     </div>
-                                    <!-- /.col -->
+                                @endforeach
+                            @else
+                                <div class="post">
+                                    <p>There is no job post yet.</p>
                                 </div>
-                                <!-- /.row -->
-
-                                <ul class="list-inline">
-                                    <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i>
-                                            Share</a></li>
-                                    <li><a href="#" class="link-black text-sm"><i
-                                                    class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
-                                    </li>
-                                    <li class="pull-right">
-                                        <a href="#" class="link-black text-sm"><i
-                                                    class="fa fa-comments-o margin-r-5"></i> Comments
-                                            (5)</a></li>
-                                </ul>
-
-                                <input class="form-control input-sm" type="text" placeholder="Type a comment">
-                            </div>
-                            <!-- /.post -->
+                            @endif
+                            {!! $all_jobs->render() !!}
                         </div>
                         <!-- /.tab-pane -->
                         <div class="tab-pane" id="timeline">
@@ -249,9 +243,9 @@
                             <ul class="timeline timeline-inverse">
                                 <!-- timeline time label -->
                                 <li class="time-label">
-                        <span class="bg-red">
-                          10 Feb. 2014
-                        </span>
+                                    <span class="bg-red">
+                                      10 Feb. 2014
+                                    </span>
                                 </li>
                                 <!-- /.timeline-label -->
                                 <!-- timeline item -->
@@ -312,9 +306,9 @@
                                 <!-- END timeline item -->
                                 <!-- timeline time label -->
                                 <li class="time-label">
-                        <span class="bg-green">
-                          3 Jan. 2014
-                        </span>
+                                    <span class="bg-green">
+                                      3 Jan. 2014
+                                    </span>
                                 </li>
                                 <!-- /.timeline-label -->
                                 <!-- timeline item -->
@@ -383,16 +377,16 @@
                                     {!! Form::email('email', null, ['class' => 'form-control']) !!}
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> I agree to the <a href="#">terms and
-                                                conditions</a>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                            {{--<div class="form-group">--}}
+                            {{--<div class="col-sm-offset-2 col-sm-10">--}}
+                            {{--<div class="checkbox">--}}
+                            {{--<label>--}}
+                            {{--<input type="checkbox"> I agree to the <a href="#">terms and--}}
+                            {{--conditions</a>--}}
+                            {{--</label>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
@@ -438,3 +432,35 @@
     <!-- /.content-wrapper -->
 @endsection
 
+@section('page_specific_js')
+
+    <script>
+        jQuery(function () {
+
+            var minimized_elements = $('div.minimizes');
+
+            minimized_elements.each(function () {
+                var t = $(this).text();
+                if (t.length < 500) return;
+
+                $(this).html(
+                        t.slice(0, 500) + '<span>... </span><a href="#" class="more label label-info">More</a>' +
+                        '<span style="display:none;">' + t.slice(500, t.length) + ' <a href="#" class="less label label-info">Less</a></span>'
+                );
+
+            });
+
+            $('a.more', minimized_elements).click(function (event) {
+                event.preventDefault();
+                $(this).hide().prev().hide();
+                $(this).next().show();
+            });
+
+            $('a.less', minimized_elements).click(function (event) {
+                event.preventDefault();
+                $(this).parent().hide().prev().show().prev().show();
+            });
+
+        });
+    </script>
+@stop

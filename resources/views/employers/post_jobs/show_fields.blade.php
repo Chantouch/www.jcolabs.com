@@ -1,116 +1,113 @@
-<div class="col-sm-3">
-    <!-- Post Name Field -->
-    <div class="form-group">
-        {!! Form::label('post_name', 'Post Name:') !!}
-        <p>{!! $postJob->post_name !!}</p>
+{{--<div class="col-md-12 text-center view-job">--}}
+    {{--<h3>{!! $postJob->post_name !!}</h3>--}}
+    {{--<div class="spacer-1"></div>--}}
+{{--</div>--}}
+
+<table class="table table-bordered">
+    <tbody>
+    <tr>
+        <td class="bg-color-table">Year Of Exp</td>
+        <td>{!! $postJob->preferred_experience !!} Year (s)</td>
+        <td class="bg-color-table">Term</td>
+        <td>{!! $postJob->job_type !!}</td>
+    </tr>
+    <tr>
+        <td class="bg-color-table">Hiring</td>
+        <td>{!! $postJob->no_of_post !!} Post(s)</td>
+        <td class="bg-color-table">
+            Function
+        </td>
+        <td>{!! $postJob->category->name !!}</td>
+    </tr>
+    <tr>
+        <td class="bg-color-table">Salary</td>
+        <td>USD($) {!! $postJob->salary_offered_min !!} ~
+            USD($) {!! $postJob->salary_offered_max !!}</td>
+        <td class="bg-color-table">
+            Industry
+        </td>
+        <td>{!! $postJob->industry->name !!}</td>
+    </tr>
+    <tr>
+        <td class="bg-color-table">Gender</td>
+        <td>{!! $postJob->preferred_sex !!}</td>
+        <td class="bg-color-table">
+            Qualification
+        </td>
+        <td>{!! $postJob->qualification->name !!}</td>
+    </tr>
+    <tr>
+        <td class="bg-color-table">Age</td>
+        <td>{!! $postJob->preferred_age_min !!} Years
+            ~ {!! $postJob->preferred_age_max !!} Years
+        </td>
+        <td class="bg-color-table">
+            Language
+        </td>
+        <td>
+            @foreach($postJob->languages as $language)
+                <span class="label label-success">
+                                                                {!! $language->name !!}
+                                                            </span>
+            @endforeach
+        </td>
+    </tr>
+    <tr>
+        <td class="bg-color-table">Published Date</td>
+        <td>{!! \Carbon\Carbon::parse($postJob->published_date)->format('D-d-M-Y H:i A') !!}</td>
+        <td class="bg-color-table">
+            Closing Date
+        </td>
+        <td>{!! Carbon\Carbon::parse($postJob->closing_date)->format('D-d-M-Y H:i A') !!}</td>
+
+    </tr>
+
+    </tbody>
+</table>
+<div class="col-md-12">
+    <h4><i class="fa fa-file-text-o margin-r-5"></i>Responsibilities:</h4>
+    <hr>
+    <div class="minimize">
+        <p>
+            {!! $postJob->description !!}
+        </p>
     </div>
-
-    <!-- No Of Post Field -->
-    <div class="form-group">
-        {!! Form::label('no_of_post', 'No Of Post:') !!}
-        <p>{!! $postJob->no_of_post !!}</p>
-    </div>
-
-    <!-- Industry  Field -->
-    <div class="form-group">
-        {!! Form::label('industry_id', 'Industry :') !!}
-        <p>{!! $postJob->industry->name !!}</p>
-    </div>
-
-    <!-- Place Ofemployment City  Field -->
-    <div class="form-group">
-        {!! Form::label('place_of_employment_city_id', 'City :') !!}
-        <p>{!! $postJob->city->name !!}</p>
-    </div>
-
-    <!-- Place Of Employment District  Field -->
-    <div class="form-group">
-        {!! Form::label('place_of_employment_district_id', 'District :') !!}
-        <p>{!! $postJob->district->name !!}</p>
-    </div>
-</div>
-
-<div class="col-sm-3">
-    <!-- Preferred Age Min Field -->
-    <div class="form-group">
-        {!! Form::label('preferred_age_min', 'Age Min:') !!}
-        <p>{!! $postJob->preferred_age_min !!}</p>
-    </div>
-
-    <!-- Preferred Age Max Field -->
-    <div class="form-group">
-        {!! Form::label('preferred_age_max', 'Age Max:') !!}
-        <p>{!! $postJob->preferred_age_max !!}</p>
-    </div>
-
-    <!-- Job Sub Category Field -->
-    <div class="form-group">
-        {!! Form::label('category', 'Category:') !!}
-        <p>{!! $postJob->category->name !!}</p>
-    </div>
-
-    <!-- Qualification Passed  Field -->
-    <div class="form-group">
-        {!! Form::label('qualification_id', 'Qualification Passed :') !!}
-        <p>{!! $postJob->qualification->name !!}</p>
-    </div>
-
-</div>
-
-<div class="col-sm-3">
-    <!-- Subject  Field -->
-    <div class="form-group">
-        {!! Form::label('subject_id', 'Subject :') !!}
-        <p>{!! $postJob->subject->name !!}</p>
-    </div>
-
-    <!-- Specialization Field -->
-    <div class="form-group">
-        {!! Form::label('specialization', 'Specialization:') !!}
-        <p>{!! $postJob->specialization !!}</p>
-    </div>
-
-    <!-- Preferred Experience Field -->
-    <div class="form-group">
-        {!! Form::label('preferred_experience', 'Preferred Experience:') !!}
-        <p>{!! $postJob->preferred_experience !!}</p>
-    </div>
-
-    <!-- Physical Height Field -->
-    <div class="form-group">
-        {!! Form::label('physical_height', 'Physical Height:') !!}
-        <p>{!! $postJob->physical_height !!}</p>
+    <h4><i class="fa fa-file-text-o margin-r-5"></i>Requirements:</h4>
+    <hr>
+    <div class="minimize">
+        <p>{!! $postJob->requirement_description !!}</p>
     </div>
 </div>
 
-<div class="col-sm-3">
-    <!-- Physical Weight Field -->
-    <div class="form-group">
-        {!! Form::label('physical_weight', 'Physical Weight:') !!}
-        <p>{!! $postJob->physical_weight !!}</p>
+<div class="row" style="margin-top:10px;">
+    <div class="col-md-12 project-add-info">
+        <a href="{{ route('employer.postJobs.index')}}" class="btn btn-primary btn-sm"><span
+                    class="glyphicon glyphicon-chevron-left"></span> BACK</a>
+        <a href="{{route('employer.postJobs.edit', $postJob->id) }}" class="btn btn-success btn-sm"><span
+                    class="glyphicon glyphicon-edit"></span> EDIT</a>
+        @if($postJob->status==1)
+            <a href="{{route('employer.update_job_status_filled_up', Hashids::encode($postJob->id)) }}"
+               class="btn bg-orange btn-flat btn-sm">
+                <i class="fa fa-archive"></i> &nbsp;Marked Status as Filled Up</a>
+        @elseif($postJob->status==0 || $postJob->status==2)
+            <a href="{{route('employer.update_job_status_active', Hashids::encode($postJob->id)) }}"
+               class="btn bg-olive btn-flat btn-sm">
+                <i class="fa fa-archive"></i> &nbsp;Marked Status as Active</a>
+        @endif
+        @if($postJob->status!=0)
+            <a href="{{route('employer.update_job_status_disabled', Hashids::encode($postJob->id)) }}"
+               class="btn btn-danger btn-flat btn-sm">
+                <i class="fa fa-archive"></i> &nbsp;Marked Status as Disabled</a>
+        @endif
     </div>
+</div>
 
-    <!-- Physical Weight Field -->
-    <div class="form-group">
-        {!! Form::label('physical_weight', 'Physical Weight:') !!}
-        <p>{!! $postJob->physical_weight !!}</p>
-    </div>
-
-    <!-- Description Field -->
-    <div class="form-group">
-        {!! Form::label('description', 'Description:') !!}
-        <p>{!! $postJob->description !!}</p>
-    </div>
-
-    <!-- Created At Field -->
-    <div class="form-group">
-        {!! Form::label('created_at', 'Created At:') !!}
-        <p>{{ date('d-m-Y h:i A', strtotime($postJob->created_at)) }}</p>
-    </div>
-
-    <!-- Updated At Field -->
-    <div class="form-group">
-        {!! Form::label('updated_at', 'Updated At:') !!}
-        <p>{{ date('d-m-Y h:i A', strtotime($postJob->updated_at)) }}</p>
+<div class="row" style="margin-top:20px">
+    <div class="col-md-8 project-add-info col-md-offset-2">
+        <i class="fa fa-bullseye"></i> Job Status {!! $postJob->job_status !!} | <i
+                class="fa fa-calendar-check-o"></i> Job created at
+        <strong>{{ date('d-m-Y h:i A', strtotime($postJob->created_at)) }}</strong> | <i
+                class="fa fa-get-pocket"></i> Employer
+        <strong>{{ $postJob->employer['organization_name'] }} </strong>
     </div>
 </div>
