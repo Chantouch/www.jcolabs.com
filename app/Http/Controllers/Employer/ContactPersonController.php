@@ -70,8 +70,8 @@ class ContactPersonController extends AppBaseController
      */
     public function store(CreateContactPersonRequest $request)
     {
-        $rules = new ContactPerson();
-        $validator = Validator::make($data = $request->all(), $rules->rules());
+
+        $validator = Validator::make($data = $request->all(), ContactPerson::$rules);
 
         if ($validator->fails())
             return Redirect::back()->withErrors($validator)->withInput()->with('message', 'Some fields has errors. Please correct it and then try again');
@@ -98,7 +98,7 @@ class ContactPersonController extends AppBaseController
      *
      * @param  int $id
      *
-     * @return Redirect
+     * @return \Illuminate\Contracts\View\Factory|Redirect|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -146,6 +146,13 @@ class ContactPersonController extends AppBaseController
      */
     public function update($id, UpdateContactPersonRequest $request)
     {
+
+        $validator = Validator::make($data = $request->all(), ContactPerson::rules($id));
+        dd($validator);
+
+        if ($validator->fails())
+            return Redirect::back()->withErrors($validator)->withInput()->with('message', 'Some fields has errors. Please correct it and then try again');
+
         $contactPerson = $this->contactPersonRepository->findWithoutFail($id);
 
         if (empty($contactPerson)) {

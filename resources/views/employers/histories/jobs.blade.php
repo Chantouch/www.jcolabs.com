@@ -79,7 +79,9 @@
                                 </tbody>
                             </table>
                         @else
-                            <span>There are no revisions to display.</span>
+                            <div class="col-sm-12">
+                                <p>There are no revisions to display.</p>
+                            </div>
                         @endif
                     </div>
                     <!-- /.box-body -->

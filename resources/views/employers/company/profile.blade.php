@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+@section('title', 'Company profile')
+@section('page_specific_css')
+    <style>
+        .spacer-1 {
+            height: 15px;
+        }
+    </style>
+@stop
 @section('content')
     <section class="content-header">
         <h1>
@@ -336,59 +343,64 @@
                         <!-- /.tab-pane -->
 
                         <div class="tab-pane" id="settings">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                            <div class="col-md-12 text-center">
+                                <h2>Add contact</h2>
+                                <div class="spacer-1"></div>
+                            </div>
+                            {!! Form::open(['route' => 'employer.contactPeople.store','class'=>'form-horizontal']) !!}
+                            <div class="form-group">
+                                <label for="contact_name" class="col-sm-2 control-label">Name</label>
 
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputName" placeholder="Name">
-                                    </div>
+                                <div class="col-sm-10">
+                                    {!! Form::text('contact_name', null, ['class' => 'form-control']) !!}
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="department_id" class="col-sm-2 control-label">Department</label>
 
-                                    <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                    </div>
+                                <div class="col-sm-10">
+                                    {!! Form::select('department_id', $departments, null, array('class' => 'form-control')) !!}
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="position_id" class="col-sm-2 control-label">Position</label>
 
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputName" placeholder="Name">
-                                    </div>
+                                <div class="col-sm-10">
+                                    {!! Form::select('position_id', $positions, null, array('class' => 'form-control')) !!}
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number" class="col-sm-2 control-label">Phone number</label>
 
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" id="inputExperience"
-                                                  placeholder="Experience"></textarea>
-                                    </div>
+                                <div class="col-sm-10">
+                                    {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-sm-2 control-label">Email</label>
 
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                                <div class="col-sm-10">
+                                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> I agree to the <a href="#">terms and
+                                                conditions</a>
+                                        </label>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox"> I agree to the <a href="#">terms and
-                                                    conditions</a>
-                                            </label>
-                                        </div>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                                    <a href="{!! route('employer.contactPeople.index') !!}"
+                                       class="btn btn-default">Cancel</a>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-danger">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
+                            {!! Form::close() !!}
                         </div>
                         <!-- /.tab-pane -->
                     </div>

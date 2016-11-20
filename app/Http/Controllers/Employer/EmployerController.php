@@ -8,6 +8,7 @@ use App\Model\backend\Employer;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\DepartmentType;
 use App\Models\District;
 use App\Models\EmployerDocument;
 use App\Models\Exam;
@@ -165,6 +166,8 @@ class EmployerController extends Controller
     public function viewCompanyProfile()
     {
         $profile = Auth::guard('employer')->user();
+        $departments = ['' => '--- Choose Department---'] + DepartmentType::where('status', 1)->orderBy('name')->pluck('name', 'id')->toArray();;
+        $positions = ['' => '--- Choose Position ---'] + Position::where('status', 1)->orderBy('name')->pluck('name', 'id')->toArray();
         $id = Auth::guard('employer')->user()->id;
         $total_jobs = PostedJob::where('created_by', $id)
             ->count();
@@ -177,7 +180,7 @@ class EmployerController extends Controller
         $jobs_filled_up = PostedJob::with('industry')->where('created_by', $id)
             ->where('status', 2)
             ->get();
-        return view('employers.company.profile', compact('profile', 'total_jobs', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up'));
+        return view('employers.company.profile', compact('positions', 'departments', 'profile', 'total_jobs', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up'));
     }
 
     /**

@@ -90,13 +90,12 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <h4>Company Description</h4>
-                <p class="col-md-11">
-                    CamUP Agency is a recruitment agency in Cambodia, established in 2013 which
-                    cooperate with
-                    Japanese
-                    experts.
-                </p>
+                <h4 class="col-md-12">Company Description</h4>
+                <div class="col-md-12">
+                    <p>
+                        {!! $company->details !!}
+                    </p>
+                </div>
                 <p class="col-md-1 pull-right">
                     <a href="#">Edit</a>
                 </p>

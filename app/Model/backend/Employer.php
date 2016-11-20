@@ -175,6 +175,9 @@ class Employer extends Authenticatable
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function job_level()
     {
         return [
@@ -189,6 +192,9 @@ class Employer extends Authenticatable
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function qualification()
     {
         return [
@@ -196,6 +202,9 @@ class Employer extends Authenticatable
         ];
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function industry()
     {
         return $this->belongsTo(IndustryType::class, 'industry_id');
@@ -212,6 +221,9 @@ class Employer extends Authenticatable
         }
     }
 
+    /**
+     * @return string
+     */
     public function getVerificationStatusAttribute()
     {
         $name = '';
@@ -228,36 +240,57 @@ class Employer extends Authenticatable
         }
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function city()
     {
         return $this->belongsTo(City::class, 'city_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function documents()
     {
         return $this->hasMany(EmployerDocument::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function contacts()
     {
         return $this->hasMany(ContactPerson::class);
     }
 
+    /**
+     * @param $value
+     */
     protected function setWebAddressAttribute($value)
     {
         $this->attributes['web_address'] = ($value == 'http//www.') ? '' : $value;
     }
 
+    /**
+     * @param $value
+     */
     protected function setPhoneNoExtAttribute($value)
     {
         $this->attributes['phone_no_ext'] = ($value == '+855 ') ? '' : $value;
     }
 
+    /**
+     * verified employer
+     */
     public function verified()
     {
         $this->status = 1;
@@ -265,6 +298,9 @@ class Employer extends Authenticatable
         $this->save();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function jobs()
     {
         return $this->hasMany(PostedJob::class, 'created_by');

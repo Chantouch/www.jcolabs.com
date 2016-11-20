@@ -58,10 +58,10 @@ class ContactPerson extends Model
         'email' => 'email|required|max:255|unique:contact_people,email'
     ];
 
-    public function rules()
+    public static function rules($id)
     {
-        $contact = new ContactPerson();
-
+        $contact_id = new ContactPerson();
+        dd($contact_id->id);
         switch (Request::method()) {
             case 'GET':
             case 'DELETE': {
@@ -84,7 +84,7 @@ class ContactPerson extends Model
                     'position_id' => 'required',
                     'phone_number' => 'required|numeric|unique:contact_people,phone_number',
 //                    'email' => 'email|required|max:255|unique:contact_people,email',
-                    'email' => 'required|max:100|unique:employers,contact_people,' . $contact->id . ',id'
+                    'email' => "required|max:100|unique:contact_people,email, {$id} ,id"
 
                 ];
             }

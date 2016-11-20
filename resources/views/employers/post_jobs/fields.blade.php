@@ -1,4 +1,4 @@
-<div class="box box-primary">
+<div class="box box-primary" id="jobs">
     <div class="box-header with-border">
         <h3 class="box-title">Job Description</h3>
         <div class="box-tools pull-right">
@@ -200,40 +200,55 @@
     </div>
     <div class="box-body">
         <div class="row">
-            <!-- Contact Person Field -->
-            <div class="form-group col-sm-12 col-lg-12">
-                {!! Form::label('contact_person_id', 'Contact Person:') !!}
-                {!! Form::select('contact_person_id',$contact_person, null, ['class' => 'form-control']) !!}
-            </div>
+            <fieldset {!! is_null($emp->contacts) ? ' disabled' : '' !!}>
+                <!-- Contact Person Field -->
+                <div class="form-group col-sm-12 col-lg-12">
+                    {!! Form::label('contact_person_id', 'Contact Person:') !!}
+                    @if(!is_null($emp->contacts))
+                        {!! Form::select('contact_person_id',$contact_person, null, ['class' => 'form-control']) !!}
+                    @else
+                        {!! Form::text('contact_name', $emp->contact_name, ['class' => 'form-control']) !!}
+                    @endif
+                </div>
 
-            <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('contact_name', 'Contact Name:') !!}
-                    {!! Form::text('contact_name', null, ['class' => 'form-control']) !!}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('phone_number', 'Phone Number:') !!}
+                        @if(!is_null($emp->contacts))
+                            {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
+                        @else
+                            {!! Form::text('phone_number', $emp->contact_mobile_no, ['class' => 'form-control']) !!}
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('web_address', 'Website:') !!}
+                        {!! Form::text('web_address', $emp->web_address, ['class' => 'form-control']) !!}
+                    </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('phone_number', 'Phone Number:') !!}
-                    {!! Form::text('phone_number', null, ['class' => 'form-control']) !!}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {!! Form::label('department_id', 'Department Name:') !!}
+                        @if(!is_null($emp->contacts))
+                            {!! Form::text('department_id', null, ['class' => 'form-control']) !!}
+                        @else
+                            {!! Form::text('department_id', 'Administrator', ['class' => 'form-control']) !!}
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('email', 'Email:') !!}
+                        @if(!is_null($emp->contacts))
+                            {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                        @else
+                            {!! Form::email('email', $emp->email, ['class' => 'form-control']) !!}
+                        @endif
+                    </div>
                 </div>
-                <div class="form-group">
-                    {!! Form::label('web_address', 'Website:') !!}
-                    {!! Form::text('web_address', $emp->web_address, ['class' => 'form-control']) !!}
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('department_id', 'Department Name:') !!}
-                    {!! Form::text('department_id', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('email', 'Email:') !!}
-                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
+
+                <div class="form-group col-md-12">
                     {!! Form::label('address', 'Address:') !!}
                     {!! Form::text('address', $emp->address, ['class' => 'form-control']) !!}
                 </div>
-            </div>
+            </fieldset>
         </div>
     </div>
     <div class="box-footer">

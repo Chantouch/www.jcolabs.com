@@ -10,7 +10,7 @@
             <a href="{!! route('employer.postJobs.index') !!}"><i class="fa fa-edit"></i><span>All Jobs</span></a>
         </li>
         <li class="{{ Request::is('employers/post-jobs/create*') ? 'active' : '' }}">
-            <a href="{!! route('employer.postJobs.create') !!}">
+            <a href="{!! route('employer.postJobs.create') !!}#jobs">
                 <i class="fa fa-edit"></i><span>Post a new job</span></a>
         </li>
         <li class="{{ Request::is('employers/post-jobs/expired/all*') ? 'active' : '' }}">
