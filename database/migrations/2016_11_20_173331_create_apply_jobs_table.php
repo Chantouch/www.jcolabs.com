@@ -18,12 +18,12 @@ class CreateApplyJobsTable extends Migration
             $table->integer('job_id', false, true)->unsigned();
             $table->string('name');
             $table->string('email');
-            $table->string('phone');
+            $table->string('phone', 15);
             $table->string('subject');
             $table->longText('message');
             $table->string('cv');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('job_id')->references('id')->on('posted_job')
                 ->onUpdate('cascade')->onDelete('cascade');

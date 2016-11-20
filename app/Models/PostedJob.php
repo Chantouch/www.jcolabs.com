@@ -337,4 +337,12 @@ class PostedJob extends Model
             ->groupBy('sampleDate');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function applies()
+    {
+        return $this->hasMany(ApplyJob::class);
+    }
+
 }

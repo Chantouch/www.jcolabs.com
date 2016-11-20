@@ -328,35 +328,67 @@
             <h6>Apply this job</h6>
             <div class="content-about">
                 <div class="container">
-                    {!! Form::open(['route' => 'employer.contactPeople.store', 'class'=>'contact', 'role'=>'form', 'id'=>'apply-job']) !!}
-                    <div class="form-group col-md-6">
+                    {!! Form::open(['route' => ['job.candidate.apply', $job->id], 'class'=>'contact', 'role'=>'form', 'id'=>'apply-job', 'files'=>'true']) !!}
+                    <div class="form-group col-md-6{!! $errors->has('name') ? ' has-error' : '' !!}">
                         <label for="name">Name:</label>
                         {!! Form::text('name', null, ['class' => 'form-control name', 'id'=>'name']) !!}
+
+                        @if($errors->has('name'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('name') !!}</strong>
+                            </span>
+                        @endif
+
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6{!! $errors->has('email') ? ' has-error' : '' !!}">
                         <label for="email">Email:</label>
                         {!! Form::text('email', null, ['class'=>'form-control email', 'id'=>'email']) !!}
+                        @if($errors->has('email'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('email') !!}</strong>
+                            </span>
+                        @endif
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6{!! $errors->has('phone') ? ' has-error' : '' !!}">
                         <label for="phone">Tel:</label>
                         {!! Form::text('phone', null, ['class' => 'form-control phone', 'id'=>'phone']) !!}
+                        @if($errors->has('phone'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('phone') !!}</strong>
+                            </span>
+                        @endif
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6{!! $errors->has('subject') ? ' has-error' : '' !!}">
                         <label for="subject">Subject:</label>
                         {!! Form::text('subject', null, ['class'=>'form-control subject', 'id'=>'subject']) !!}
+                        @if($errors->has('subject'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('subject') !!}</strong>
+                            </span>
+                        @endif
                     </div>
 
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12{!! $errors->has('message') ? ' has-error' : '' !!}">
                         <label for="message">Message:</label>
                         {!! Form::textarea('message', null, ['class'=>'form-control message', 'id'=>'message', 'rows'=>'8'  ,'placeholder'=>'Describe about yourself that want to apply this position']) !!}
+                        @if($errors->has('message'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('message') !!}</strong>
+                            </span>
+                        @endif
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6{!! $errors->has('cv') ? ' has-error' : '' !!}">
                         <label for="cv">CV:</label>
                         {!! Form::file('cv', null, ['id'=>'cv']) !!}
+                        @if($errors->has('cv'))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('cv') !!}</strong>
+                            </span>
+                        @endif
                     </div>
 
                     <div class="form-group col-md-12">

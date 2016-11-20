@@ -3,18 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApplyJobRequest;
+use App\Mail\ApplyJobMail;
 use App\Model\backend\Employer;
 use App\Model\frontend\Candidate;
+use App\Models\ApplyJob;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\IndustryType;
 use App\Models\PostedJob;
+use Cviebrock\EloquentSluggable\Tests\Models\Post;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Mail;
+use Mews\Purifier\Facades\Purifier;
+use Mockery\CountValidator\Exception;
+use Validator;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Flash;
+use DB;
 
 class FrontController extends Controller
 {
@@ -209,10 +216,69 @@ class FrontController extends Controller
 
     //For candidate apply job directly from site
     /**
-     * @param ApplyJobRequest $request
+     * @param $id
+     * @param ApplyJobRequest|Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @internal param $job_id
      */
-    public function applyJob(ApplyJobRequest $request)
+    public function applyJob($id, Request $request)
     {
+
+        $validator = Validator::make($data = $request->all(), ApplyJob::rule());
+        if ($validator->fails()) {
+            $this->throwValidationException($request, $validator);
+            return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Please fix errors, and try once again');
+        }
+
+        DB::beginTransaction();
+        $job = PostedJob::find($id);
+
+        try {
+            $path = 'uploads/applies/cv/' . date('Y/m/d/h-i');
+            $destination_path = public_path($path);
+            if ($request->hasFile('cv')) {
+                if ($request->file('cv')) {
+                    if (!file_exists($destination_path)) {
+                        mkdir($destination_path, 0777, true);
+                    }
+
+                    $fileName = preg_replace('/\s+/', '', $request->name) . '_' . 'cv.' . $request->file('cv')->getClientOriginalExtension();
+                    $request->file('cv')->move($destination_path, $fileName);
+                    $data['cv'] = $path . '/' . $fileName;
+
+                }
+            }
+            $job_id = $job->id;
+            $data['job_id'] = $job_id;
+            $data['message'] = Purifier::clean($request->message);
+            $apply = ApplyJob::create($data);
+
+            $email = new ApplyJobMail(new ApplyJob([
+
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'cv' => $request->cv,
+                'email' => $request->email,
+                'subject' => $request->subject,
+                'message' => $request->message,
+                'job' => $job,
+
+            ]));
+            Mail::to('chantouchsek.cs83@gmail.com')->send($email);
+
+        } catch (Exception $exception) {
+
+        }
+
+        if (!$apply) {
+
+            DB::rollbackTransaction();
+            return redirect()->back()->withInput()->with('error', 'Error in you transaction');
+
+        }
+
+        DB::commit();
+        return redirect()->back()->withInput()->with('message', "You are successfully applied to {$job->post_name}");
 
     }
 

@@ -64,6 +64,9 @@ Route::group(['middleware' => ['guest']], function () {
     Route::get('jobs/companies/all', ['as' => 'jobs.search.by.company.all', 'uses' => 'FrontController@allCompany']);
     Route::get('jobs/cities/all', ['as' => 'jobs.search.by.city.all', 'uses' => 'FrontController@allCity']);
 
+    //Candidate apply the specific job
+    Route::post('candidate/apply/{id}', ['as' => 'job.candidate.apply', 'uses' => 'FrontController@applyJob']);
+
 
 });
 

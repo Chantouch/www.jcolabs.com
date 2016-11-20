@@ -15,7 +15,7 @@ class ApplyJob extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'subject', 'message', 'cv'
+        'name', 'email', 'phone', 'subject', 'message', 'cv', 'job_id'
     ];
 
     /**
@@ -25,11 +25,11 @@ class ApplyJob extends Model
     {
         return [
             'name' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'subject' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'subject' => 'required|max:100',
             'message' => 'required|max:700',
-            'cv' => 'required|mimes:jpg,jpeg,png,bmp,wbmp|max:2048',
+            'cv' => 'required|mimes:pdf,doc,docx|max:1024000',
         ];
     }
 
@@ -41,7 +41,7 @@ class ApplyJob extends Model
             'phone.required' => 'required',
             'subject.required' => 'required',
             'message.required' => 'required|max:700',
-            'cv.required' => 'required|mimes:jpg,jpeg,png,bmp,wbmp|max:2048',
+            'cv.required' => 'required|mimes:pdf,doc,docx|max:1024000',
         ];
     }
 
@@ -53,4 +53,9 @@ class ApplyJob extends Model
         '_token',
         '_method'
     ];
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = ($value == '+855') ? '' : $value;
+    }
 }

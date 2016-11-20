@@ -341,7 +341,7 @@ class EmployerController extends Controller
                 $request->file('photo')->move($destination_path, $fileName);
                 $data['path'] = $path;
                 $data['photo'] = $fileName;
-//                $storage = Storage::delete($destination_path . $oldName);
+                //$storage = Storage::delete($destination_path . $oldName);
 
             }
         }
