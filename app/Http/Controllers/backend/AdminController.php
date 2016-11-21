@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\backend;
 
-use App\Model\Candidate;
+use App\Model\frontend\Candidate;
 use App\Model\backend\Employer;
 use App\Model\backend\User;
 use App\Models\CandidateInfo;
@@ -248,6 +248,13 @@ class AdminController extends Controller
         } else {
             return redirect()->back()->with('message', 'Unable to process your request. Please try again or contact TechSupport.');
         }
+    }
+
+
+    public function getAllCandidate()
+    {
+        $candidates = Candidate::with('education')->orderBy('created_at', 'ASC')->paginate(10);
+        return view('backend.applications.index', compact('candidates'));
     }
 
 

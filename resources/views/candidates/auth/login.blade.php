@@ -1,4 +1,6 @@
-@extends('layouts.login.user_app')
+@extends('webfront.layouts.default')
+@section('title', 'User login page')
+
 
 @section('content')
     <div class="container">
@@ -83,6 +85,12 @@
                                     <a class="btn btn-link" href="{{ url('user/password/reset') }}">
                                         Forgot Your Password?
                                     </a>
+                                    <a class="btn btn-link" href="{!! route('candidate.process.register') !!}">
+                                        Register?
+                                    </a><a class="btn btn-link" href="{!! route('auth.github') !!}">
+                                        Login with github
+                                    </a>
+
                                 </div>
                             </div>
                         </form>
@@ -92,3 +100,7 @@
         </div>
     </div>
 @endsection
+
+@section('full_content')
+
+@stop

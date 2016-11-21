@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Candidate\Auth;
 
+use App\Model\frontend\Candidate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use League\Flysystem\Exception;
 
 class LoginController extends Controller
 {
@@ -38,6 +41,56 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback()
+    {
+        try {
+            $user = Socialite::driver('github')->user();
+        } catch (Exception $e) {
+            return redirect()->route('auth.github');
+        }
+
+        $authUser = $this->findOrCreateUser($user);
+
+        Auth::guard('candidate')->login($authUser, true);
+
+        return redirect()->route('candidate.dashboard');
+    }
+
+    /**
+     * Return user if exists; create and return if doesn't
+     *
+     * @param $githubUser
+     * @return Candidate
+     */
+    private function findOrCreateUser($githubUser)
+    {
+        if ($authUser = Candidate::where('github_id', $githubUser->id)->first()) {
+            return $authUser;
+        }
+
+        return Candidate::create([
+            'name' => $githubUser->name,
+            'email' => $githubUser->email,
+            'github_id' => $githubUser->id,
+            'avatar' => $githubUser->avatar
+        ]);
     }
 
     /**

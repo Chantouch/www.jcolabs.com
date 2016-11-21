@@ -6,7 +6,7 @@
 
     <style>
         .form-horizontal .form-group {
-            margin-right: 0px !important;
+            margin-right: 0 !important;
         }
 
         .aug_group {

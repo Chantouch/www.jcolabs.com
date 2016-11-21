@@ -68,6 +68,9 @@ Route::group(['middleware' => ['guest']], function () {
     Route::post('candidate/apply/{id}', ['as' => 'job.candidate.apply', 'uses' => 'FrontController@applyJob']);
 
 
+    //Candidate login with social network
+    Route::get('auth/github', ['as' => 'auth.github', 'uses' => 'Candidate\Auth\LoginController@redirectToProvider']);
+    Route::get('auth/github/callback', ['as' => 'auth.gitgub.callback', 'uses' => 'Candidate\Auth\LoginController@handleProviderCallback']);
 });
 
 
@@ -228,12 +231,13 @@ Route::group(['middleware' => ['admin']], function () {
 
         Route::group(array('prefix' => 'candidates'), function () {
             Route::get('applications/received', ['as' => 'admin.applications_received', 'uses' => 'backend\AdminController@applicationsReceived']);
-            //Route::get('candidates/view/i_card/{candidate_id}', ['as' => 'admin.view.i_card', 'uses' => 'RestController@viewIdentityCard']);
-            //Route::get('candidates/view/profile/{candidate_id}', ['as' => 'admin.view.profile', 'uses' => 'RestController@viewCandidateProfile']);
+            Route::get('candidates/view/i_card/{candidate_id}', ['as' => 'admin.view.i_card', 'uses' => 'RestController@viewIdentityCard']);
+            Route::get('candidates/view/profile/{candidate_id}', ['as' => 'admin.view.profile', 'uses' => 'RestController@viewCandidateProfile']);
             Route::get('verify/profile/{candidate_id}', ['as' => 'admin.verify.profile', 'uses' => 'backend\AdminController@verifyCandidate']);
             Route::get('applications/verified', ['as' => 'admin.applications_verified', 'uses' => 'backend\AdminController@applicationsVerified']);
             Route::get('suspend/profile/{candidate_id}', ['as' => 'admin.suspend.profile', 'uses' => 'backend\AdminController@suspendCandidate']);
             Route::get('applications/suspended', ['as' => 'admin.applications_suspended', 'uses' => 'backend\AdminController@applicationsSuspended']);
+            Route::get('applications/candidates', ['as' => 'admin.applications.candidate', 'uses' => 'backend\AdminController@getAllCandidate']);
         });
     });
 //End route admin

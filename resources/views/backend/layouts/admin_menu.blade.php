@@ -109,6 +109,9 @@
         </span>
     </a>
     <ul class="treeview-menu">
+        <li class="{{ Request::is('applications/candidates') ? 'active' : '' }}">
+            <a href="{{URL::route('admin.applications.candidate')}}"><i class="text-yellow fa fa-download"></i>
+                Applicants</a></li>
         <li class="{{ Request::is('admin/candidates/applications/received') ? 'active' : '' }}">
             <a href="{{URL::route('admin.applications_received')}}"><i class="text-yellow fa fa-download"></i>
                 Applications Received</a></li>

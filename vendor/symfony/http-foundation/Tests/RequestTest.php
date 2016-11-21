@@ -1107,7 +1107,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             array('put'),
             array('delete'),
             array('patch'),
-
         );
     }
 
@@ -1220,14 +1219,14 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/index.php', $request->getScriptName());
 
         $server = array();
-        $server['ORIG_SCRIPT_NAME'] = '/candidates.php';
+        $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('/candidates.php', $request->getScriptName());
+        $this->assertEquals('/frontend.php', $request->getScriptName());
 
         $server = array();
         $server['SCRIPT_NAME'] = '/index.php';
-        $server['ORIG_SCRIPT_NAME'] = '/candidates.php';
+        $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $this->assertEquals('/index.php', $request->getScriptName());

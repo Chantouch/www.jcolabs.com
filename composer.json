@@ -15,7 +15,9 @@
         "intervention/image": "dev-master",
         "venturecraft/revisionable": "1.*",
         "mews/purifier": "^2.0",
-        "tucker-eric/eloquentfilter": "^1.0"
+        "tucker-eric/eloquentfilter": "^1.0",
+        "laravel/socialite": "^2.0",
+        "guzzlehttp/guzzle": "^4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

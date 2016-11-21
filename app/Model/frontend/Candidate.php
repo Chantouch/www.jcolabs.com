@@ -23,8 +23,8 @@ class Candidate extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'confirmation_code',
-        'password', 'mobile_num',
-        'first_name', 'last_name',
+        'password', 'mobile_num', 'github_id',
+        'first_name', 'last_name', 'avatar',
         'verified_status', 'temp_enrollment_no'
     ];
 

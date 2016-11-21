@@ -16,6 +16,11 @@ class CreateCandidatesTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->string('email')->unique();
+
+            // Cached from GitHub
+            $table->string('github_id')->unique();
+            $table->string('avatar');
+
             $table->string('mobile_num')->default('070375783');
             $table->string('first_name', 50)->nullable();
             $table->string('last_name', 50)->nullable();

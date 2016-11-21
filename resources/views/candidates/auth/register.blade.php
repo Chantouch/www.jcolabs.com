@@ -1,4 +1,4 @@
-@extends('layouts.login.user_app')
+@extends('webfront.layouts.default')
 
 @section('content')
     <div class="container">
@@ -97,6 +97,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         Register
                                     </button>
+                                    <a href="{!! route('candidate.process.login') !!}" class="btn bt-default">Login</a>
                                 </div>
                             </div>
                         </form>
