@@ -5,12 +5,12 @@
         <div class="widget-user-header bg-aqua-active">
             <div class="widget-user-image">
 
-                @if($auth->photo == 'default.jpg')
-                    <img class="" src="{!! asset('uploads/employers/' . $auth->photo)!!}"
+                @if($employer->photo == 'default.jpg')
+                    <img class="" src="{!! asset('uploads/employers/' . $employer->photo)!!}"
                          alt="User Avatar">
                 @else
-                    <img class="" src="{!! asset('uploads/employers/avatar/'. $auth->id .'/'. $auth->photo)!!}"
-                         alt="User Avatar">
+                    <img class="" src="{!! asset('uploads/employers/avatar/'. $employer->id .'/'. $employer->photo)!!}"
+                         alt="{!! $employer->contact_name !!}">
                 @endif
             </div>
             <!-- /.widget-user-image -->

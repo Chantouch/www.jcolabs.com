@@ -20,6 +20,7 @@
                 @include('employers.post_jobs.table')
             </div>
         </div>
+
         <div id="container-floating">
 
             <div class="nd5 nds" data-toggle="tooltip" data-placement="left" data-original-title="Simone"></div>
