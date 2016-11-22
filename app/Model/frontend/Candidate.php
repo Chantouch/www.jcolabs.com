@@ -51,7 +51,6 @@ class Candidate extends Authenticatable
 
     public function bio()
     {
-
         return $this->hasOne(CandidateInfo::class, 'candidate_id');
     }
 
@@ -78,6 +77,12 @@ class Candidate extends Authenticatable
         $this->status = 1;
         $this->confirmation_code = null;
         $this->save();
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $email = $this->name;
+        return $this->attributes['email'] = ($value == $email . '@gmail.com') ? '' : $value;
     }
 
 }

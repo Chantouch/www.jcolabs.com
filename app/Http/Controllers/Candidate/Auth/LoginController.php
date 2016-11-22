@@ -6,6 +6,7 @@ use App\Model\frontend\Candidate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
@@ -84,12 +85,22 @@ class LoginController extends Controller
         if ($authUser = Candidate::where('github_id', $githubUser->id)->first()) {
             return $authUser;
         }
-
+        $records = Candidate::all()->count();
+        $current_id = 1;
+        if (!$records == 0) {
+            $current_id = Candidate::all()->last()->id + 1;
+        }
+        $enroll_id = 'TMP_EMP' . date('Y') . str_pad($current_id, 5, '0', STR_PAD_LEFT);
+        $token = str_random(60);
+        $temp_password = bcrypt('123456');
         return Candidate::create([
             'name' => $githubUser->name,
             'email' => $githubUser->email,
+            'password' => $temp_password,
             'github_id' => $githubUser->id,
-            'avatar' => $githubUser->avatar
+            'confirmation_code' => $token,
+            'avatar' => $githubUser->avatar,
+            'temp_enrollment_no' => $enroll_id,
         ]);
     }
 
