@@ -97,7 +97,6 @@ class EmployerController extends Controller
 
         $validator = Validattor::make($data = $request->all(), PostedJob::$rules, PostedJob::$message);
 
-        dd($validator);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Some files has errors. Please correct it and then try it again.');
         }
