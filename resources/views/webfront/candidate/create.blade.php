@@ -43,8 +43,12 @@
 @stop
 
 @section('main_page_container')
-    <div class="post-resume-page-title">Post a Resume</div>
-    <div class="post-resume-phone">Call: 97999 49999</div>
+    <div class="col-md-6">
+        <div class="post-resume-page-title"><h3>Post a Resume</h3></div>
+    </div>
+    <div class="col-md-6">
+        <div class="post-resume-phone"><h3>Call: 97999 49999</h3></div>
+    </div>
 @stop
 
 @section('content')

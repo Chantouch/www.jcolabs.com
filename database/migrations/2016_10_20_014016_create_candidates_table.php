@@ -15,12 +15,10 @@ class CreateCandidatesTable extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50);
-            $table->string('email')->unique();
-
+            $table->string('email')->unique()->default('candidate@jcolabs.com')->nullable();
             // Cached from GitHub
             $table->string('github_id')->unique();
             $table->string('avatar');
-
             $table->string('mobile_num')->default('070375783');
             $table->string('first_name', 50)->nullable();
             $table->string('last_name', 50)->nullable();
