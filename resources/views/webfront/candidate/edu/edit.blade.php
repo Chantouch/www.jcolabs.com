@@ -54,6 +54,7 @@
         {!! Form::open(['route' => ['candidate.update.edu_details'], 'role'=>'form', 'method' => 'patch']) !!}
 
         <div class="bootstrap-frm">
+            <div class="form-group aug_legend"> Education Details :</div>
             @foreach($res as $v)
                 <div class="_details">
                     <div class="form-group col-md-4">
@@ -78,14 +79,57 @@
                         <label for="pass_year" class="control-label">Year of Passing :</label>
                         {!! Form::selectYear('pass_year_'.$v->pass_year, 2020,1950, $v->pass_year, ['id'=>'pass_year', 'class' => 'form-control', 'required']) !!}
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-4 {!! $errors->has('percentage_'.$v->percentage) ? 'has-error' : '' !!}">
                         <label for="percentage" class="control-label">% of marks :</label>
                         {!! Form::text('percentage_'.$v->percentage, $v->percentage, ['class'=>'form-control', 'required']) !!}
+                        @if($errors->has('percentage_'.$v->percentage))
+                            <span class="help-block">
+                                <strong>{!! $errors->first('percentage_'.$v->percentage) !!}</strong>
+                            </span>
+                        @endif
                     </div>
                     <input type="hidden" name="eduIds[]" value="{{$v->id}}">
                 </div>
             @endforeach
 
+        </div>
+        <div id="edu_details">
+            <div class="add_more">
+                <div class="form-group col-md-4">
+                    <label for="exam_id" class="control-label"> Exam Passed: </label>
+                    {!! Form::select('exam_id[]', $exams, null, ['class'=>'exam_id form-control', 'placeholder' => '--Pick Exam--']) !!}
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="board_id" class="control-label"> Board/university :</label>
+                    {!! Form::select('board_id[]', $boards, null, ['class'=>'board_id form-control', 'placeholder' => '--Pick College--']) !!}
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="subject_id" class="control-label">Subject/Trade :</label>
+                    {!! Form::select('subject_id[]', $subjects, null, ['class'=>'subject_id form-control', 'placeholder' => '--Pick Subject--']) !!}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="specialization" class="control-label">Specialization :</label>
+                    {!! Form::text('specialization[]', null, ['class'=>'form-control', 'placeholder' => 'Enter your specialization']) !!}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="pass_year" class="control-label">Year of Passing :</label>
+                    {!! Form::selectYear('pass_year[]', 2020,1950, null, ['id'=>'pass_year', 'class' => 'form-control', 'placeholder' => '--Pick year--']) !!}
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="percentage" class="control-label">% of marks :</label>
+                    {!! Form::text('percentage[]', null, ['class'=>'form-control', 'placeholder' => 'Give your percent mark']) !!}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button id="add" class="btn btn-sm" type="button"><i class="fa fa-plus"></i> Add New
+            </button>
+            <button id="minus" class="btn btn-sm" type="button"><i class="fa fa-minus"></i> Remove
+            </button>
         </div>
 
         <div class="form-group col-sm-12 text-center" style="margin-top:40px;">
@@ -119,12 +163,12 @@
     <script type="text/javascript">
 
         function addRow() {
-            $("._details:first").clone(true).appendTo('#edu_details').find('input, select').val('');
+            $(".add_more:first").clone(true).appendTo('#edu_details').find('input, select').val('');
             //$("._details:first").clone(true).appendTo('#edu_details').find('.datepicker').val('');
         }
         function removeRow() {
-            if ($("._details").length != 1)
-                $("._details").last().remove()
+            if ($(".add_more").length != 1)
+                $(".add_more").last().remove()
         }
     </script>
 @stop

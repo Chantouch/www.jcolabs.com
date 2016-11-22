@@ -21,7 +21,7 @@ class CreateCandidateEduDetailsTable extends Migration
             $table->integer('subject_id', false)->unsigned()->default('0')->comment('Subject by whom');
             $table->string('specialization', 50)->nullable();
             $table->integer('pass_year', false)->nullable();
-            $table->decimal('percentage', 5, 2)->comment('Pass percentage');
+            $table->string('percentage', 100)->comment('Pass percentage');
 
             $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->foreign('exam_id')->references('id')->on('exams');

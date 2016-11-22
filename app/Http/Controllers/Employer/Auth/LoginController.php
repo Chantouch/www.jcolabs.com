@@ -56,9 +56,10 @@ class LoginController extends Controller
     {
 
         $email = $request->input('email');
+        $remember = $request->input('remember');
         $password = $request->input('password');
         $this->validate($request, ['email' => 'required|email|exists:employers,email', 'password' => 'required'], ['email.exists' => 'Email does not exists in our system']);
-        if (auth()->guard('employer')->attempt(['email' => $email, 'password' => $password, 'status' => 1])) {
+        if (auth()->guard('employer')->attempt(['email' => $email, 'password' => $password, 'status' => 1], $remember)) {
             $auth = Auth::guard('employer')->user();
             $organization_name = $auth->organization_name;
             $profile_photo = $auth->photo;

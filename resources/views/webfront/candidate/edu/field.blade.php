@@ -2,7 +2,6 @@
 
     <div id="edu_details" class="col-md-12 aug_group">
         <div class="form-group aug_legend"> Education Details :</div>
-        <div class="col-md-12"></div>
         <div class="_details">
             <div class="form-group col-md-4">
                 <label for="exam_id" class="control-label"> Exam Passed: </label>

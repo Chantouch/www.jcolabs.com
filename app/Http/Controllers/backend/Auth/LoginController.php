@@ -58,6 +58,7 @@ class LoginController extends Controller
     {
 
         $email = $request->input('email');
+        $remember = $request->input('remember');
         $password = $request->input('password');
         $this->validate($request, ['email' => 'required|email|exists:admins,email', 'password' => 'required'], ['email.exists' => 'Email does not exists in our system']);
         if (auth()->guard('admin')->attempt([
@@ -65,7 +66,7 @@ class LoginController extends Controller
             'password' => $password,
             'verified' => 1,
             'is_super_admin' => 1
-        ])
+        ], $remember)
         ) {
             Session::flash('success', 'You have successfully logged in to dashboard');
             return redirect()->intended('admin/dashboard');

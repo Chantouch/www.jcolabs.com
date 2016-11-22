@@ -42,7 +42,7 @@
                                 <td>{{ $candidate->dob }}</td>
                                 <td>{{ $candidate->address }}</td>
                                 <td>
-                                    <a href="{!!route('admin.view.i_card', [$candidate->id])!!}"
+                                    <a href="{!!route('admin.view.i_card', [Hashids::encode($candidate->id)])!!}"
                                        class="btn btn-info btn-xs pull-left aug-margin">
                                         <i class="fa fa-search"></i>
                                     </a>

@@ -4,18 +4,28 @@
         <div class="form-group aug_legend">
             Personal Information:
         </div>
-        <div class="form-group">
+        <div class="form-group{!! $errors->has('full_name')? ' has-error' : '' !!}">
             <label for="full_name" class="control-label">Full Name :</label>
             {!! Form::text('full_name', null, ['class'=>'form-control']) !!}
+            @if($errors->has('full_name'))
+                <span class="help-block">
+                    <strong>{!! $errors->first('full_name') !!}</strong>
+                </span>
+            @endif
         </div>
 
         <div class="form-group">
             <label for="spouse_name" class="control-label">Spouse Name :</label>
             {!! Form::text('spouse_name', null, ['class'=> 'form-control']) !!}
         </div>
-        <div class="form-group">
+        <div class="form-group{!! $errors->has('dob') ? ' has-error' : '' !!}">
             <label for="dob" class="control-label">Date of Birth :</label>
             {!! Form::text('dob', null, ['class'=> 'form-control _date']) !!}
+            @if($errors->has('dob'))
+                <span class="help-block">
+                    <strong>{!! $errors->first('dob') !!}</strong>
+                </span>
+            @endif
         </div>
         <div class="form-group">
             <label for="sex" class="control-label">Gender :</label>
@@ -99,15 +109,25 @@
     </div>
 
     <div class="col-md-6">
-        <div class="form-group aug_legend"> Photo / CV :</div>
-        <div class="form-group">
+
+        <div class="form-group{!! $errors->has('photo_url') ? ' has-error' : '' !!}">
             <label for="photo_url" class="control-label"> Photo :</label>
             {!! Form::file('photo_url', ['class'=> 'form-control']) !!}
+            @if($errors->has('photo_url'))
+                <span class="help-block">
+                    <strong>{!! $errors->first('photo_url') !!}</strong>
+                </span>
+            @endif
             <img src="{!! asset($candidate->photo_url) !!}" alt="{!! $candidate->full_name !!}" id="photo_url">
         </div>
-        <div class="form-group">
+        <div class="form-group{!! $errors->has('cv_url') ? ' has-error' : '' !!}">
             <label for="cv_url" class="control-label">CV :</label>
             {!! Form::file('cv_url', ['class'=> 'form-control']) !!}
+            @if($errors->has('cv_url'))
+                <span class="help-block">
+                    <strong>{!! $errors->first('cv_url') !!}</strong>
+                </span>
+            @endif
             <p class="help-block">CV format should be .doc, .docx or pdf only.</p>
             <a href="#">{!! $candidate->cv_url !!}</a>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Model\frontend\Candidate;
 use Illuminate\Database\Eloquent\Model;
 
 class CandidateEduDetails extends Model
@@ -29,5 +30,8 @@ class CandidateEduDetails extends Model
         'percentage' => 'required|numeric',
     ];
 
-
+    public function candidate()
+    {
+        return $this->belongsTo(Candidate::class);
+    }
 }

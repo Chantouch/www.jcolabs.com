@@ -208,23 +208,32 @@ class AdminController extends Controller
     /**
      * @param $candidate_id
      * @return \Illuminate\Http\RedirectResponse
+     * @internal param $id
+     * @internal param $candidate_id
      */
     public function verifyCandidate($candidate_id)
     {
         //This will approve the candiate
         //Hashids::getDefaultConnection();
-        $decoded = $this->hashid->decode($candidate_id);
-        $id = $decoded[0];
-        $candidate = Candidate::find($decoded)->first();
-        $candidate->verified_status = 'Verified';
-        $candidate->verified_by = Auth::guard('admin')->user()->id;
+        try {
+            $decoded = $this->hashid->decode($candidate_id);
+            $id = $decoded[0];
+            $candidate = Candidate::find($id)->first();
+            //$candidate = Candidate::findOrFail($id);
+            $candidate->verified_status = 'Verified';
+            $candidate->verified_by = Auth::guard('admin')->user()->id;
 
-        if ($candidate->save()) {
+            if ($candidate->save()) {
 
-            return redirect()->route('admin.applications_verified')->with('message', 'The Application has been Verified Successfully');
+                return redirect()->back()->with('message', 'The Application has been Verified Successfully');
 
-        } else {
-            return redirect()->back()->with('message', 'Unable to process your request. Please try again or contact TechSupport.');
+            } else {
+                return redirect()->back()->with('message', 'Unable to process your request. Please try again or contact TechSupport.');
+            }
+        } catch (ErrorException $exception) {
+
+            return redirect()->back()->with('message', 'The employer has not found!. 404');
+
         }
     }
 
@@ -243,7 +252,7 @@ class AdminController extends Controller
 
         if ($candidate->save()) {
 
-            return redirect()->route('admin.applications_suspended')->with('message', 'The Application has been Halted');
+            return redirect()->back()->with('message', 'The Application has been Halted');
 
         } else {
             return redirect()->back()->with('message', 'Unable to process your request. Please try again or contact TechSupport.');

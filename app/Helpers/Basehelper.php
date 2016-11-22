@@ -1,11 +1,13 @@
 <?php
 namespace App\Helpers;
 
+use App\Model\frontend\Candidate;
 use File, Response, Session;
 //use App\Models\Candidate;
 use App\Models\CandidateInfo;
 use App\Models\CandidateEduDetails;
 use App\Models\CandidateLanguageInfo;
+use Vinkla\Hashids\Facades\Hashids;
 
 class BaseHelper
 {
@@ -56,6 +58,7 @@ class BaseHelper
 
             $info->index_card_no = $category;
             $info->save();
+
         }
 
         return $info->index_card_no;
@@ -139,7 +142,9 @@ class BaseHelper
 
     public static function check_candidate($id)
     {
-        $candidate = Candidate::find($id);
+        $decoded =  Hashids::decode($id);
+        $id = $decoded[0];
+        $candidate = Candidate::find($id)->firstOrFail();
         $info = CandidateInfo::where('candidate_id', $id)->count();
         $edu = CandidateEduDetails::where('candidate_id', $id)->count();
         $lang = CandidateLanguageInfo::where('candidate_id', $id)->count();

@@ -39,28 +39,26 @@
             width: 800px;
             margin: auto;
             height: 20px;
-            border: 0px solid;
+            border: 0 solid;
             background: #1ABC9C;
             table-layout: fixed;
         }
 
         .table2 {
             width: 624px;
-            margin: auto;
             height: 450px;
-            margin-top: 0px;
-            margin-bottom: 0px;
-            border: 0px solid;
+            margin: 0 auto;
+            border: 0 solid;
             text-align: left;
             table-layout: fixed;
         }
 
         .table3 {
             width: 166px;
-            margin-top: 0px;
+            margin-top: 0;
             margin-bottom: 180px;
             height: 150px;
-            border: 0px solid;
+            border: 0 solid;
             table-layout: fixed;
         }
 

@@ -50,11 +50,14 @@
 @section('content')
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
+
         {!! Form::open(['route' => 'candidate.store.resume', 'files' => 'true']) !!}
+        {{ csrf_field() }}
 
         @include('webfront.candidate.field')
 
         {!! Form::close() !!}
+
     </div>
 @stop
 

@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use Response;
 use DB;
+use Symfony\Component\HttpFoundation\File\File;
 use Validator;
 
 class CandidateController extends Controller
@@ -76,7 +77,7 @@ class CandidateController extends Controller
         $relocate = CandidateInfo::$relocated_options;
 
         if (count($candidate->bio) == 0) {
-            return view('webfront.candidate.create', compact('candidate','gender', 'religion', 'marital_status', 'city', 'district', 'proof_residence', 'relocate'));
+            return view('webfront.candidate.create', compact('candidate', 'gender', 'religion', 'marital_status', 'city', 'district', 'proof_residence', 'relocate'));
         } else {
             return redirect()->route('candidate.edit.resume')->with('message', 'Review your your bio again');
         }
@@ -146,7 +147,7 @@ class CandidateController extends Controller
         $candidate_info = CandidateInfo::where('candidate_id', $candidate_id->id)->first();
 
         if (count($candidate->bio) == 1) {
-            return view('webfront.candidate.edit', compact('candidate_info', 'gender', 'religion', 'marital_status', 'city', 'district', 'proof_residence', 'relocate'));
+            return view('webfront.candidate.edit', compact('candidate', 'candidate_info', 'gender', 'religion', 'marital_status', 'city', 'district', 'proof_residence', 'relocate'));
         }
 
     }
@@ -175,11 +176,11 @@ class CandidateController extends Controller
             $candidate_info = CandidateInfo::where('candidate_id', $id)->firstOrFail();
             $path = 'uploads/candidates/' . date('Y') . '/' . $id;
             $destination_path = public_path($path);
-            if (!file_exists($destination_path)) {
-                mkdir($destination_path, 0777, true);
-            }
 
             if ($request->hasFile('cv_url')) {
+                if (!file_exists($destination_path)) {
+                    mkdir($destination_path, 0777, true);
+                }
                 if ($request->file('cv_url')->isValid()) {
                     $fileName = $name . '_' . 'cv.' . $request->file('cv_url')->getClientOriginalExtension();
                     $request->file('cv_url')->move($destination_path, $fileName);
@@ -284,34 +285,68 @@ class CandidateController extends Controller
     public function updateEduDetails(Request $request)
     {
         $data = $request->all();
-        $id = Auth::guard('candidate')->user()->id;
+//        dd($data);
+        $id = auth()->guard('candidate')->user()->id;
         $candidate = Candidate::find($id);
+        $edu = CandidateEduDetails::where('candidate_id', $id)->get();
         if (count($candidate->education) >= 1) {
-            for ($i = 0; $i < count($data['eduIds']); $i++) {
-
-                $k = $i + 1;
+            DB::beginTransaction();
+            foreach ($edu as $i => $value) {
                 $rules = [
                     //'candidate_id' => 'required' ,
-                    'exam_id_' . $k => 'required',
-                    'board_id_' . $k => 'required',
-                    'subject_id_' . $k => 'sometimes',
-                    'specialization_' . $k => 'required|max:50',
-                    'pass_year_' . $k => 'required|numeric',
-                    'percentage_' . $k => 'required|numeric'
+                    'exam_id_' . $edu[$i]->exam_id => 'required',
+                    'board_id_' . $edu[$i]->board_id => 'required',
+                    'subject_id_' . $edu[$i]->subject_id => 'sometimes',
+                    'specialization_' . $edu[$i]->specialization => 'required|max:50',
+                    'pass_year_' . $edu[$i]->pass_year => 'required|numeric',
+                    'percentage_' . str_replace(".", "_", $edu[$i]->percentage) => 'required|numeric'
+                ];
+                $this->validate($request, $rules);
+                $candidate_edu_details = CandidateEduDetails::find($data['eduIds'][$i]);
+                $candidate_edu_details->exam_id = $data['exam_id_' . $value->exam_id];
+                $candidate_edu_details->board_id = $data['board_id_' . $value->board_id];
+                $candidate_edu_details->subject_id = $data['subject_id_' . $value->subject_id];
+                $candidate_edu_details->specialization = $data['specialization_' . $value->specialization];
+                $candidate_edu_details->pass_year = $data['pass_year_' . $value->pass_year];
+                $candidate_edu_details->percentage = $data['percentage_' . str_replace(".", "_", $value->percentage)];
+                $candidate_edu_details->save();
+
+            }
+
+            foreach ($request->exam_id as $key => $n) {
+                $entry = [
+                    'candidate_id' => $id,
+                    'exam_id' => $request->exam_id[$key],
+                    'board_id' => $request->board_id[$key],
+                    'subject_id' => $request->subject_id[$key],
+                    'specialization' => $request->specialization[$key],
+                    'pass_year' => $request->pass_year[$key],
+                    'percentage' => $request->percentage[$key],
                 ];
 
-                $this->validate($request, $rules);
+                $entries = CandidateEduDetails::create($entry);
 
-                $candidate_edu_details = CandidateEduDetails::find($data['eduIds'][$i]);
-
-                $candidate_edu_details->exam_id = $data['exam_id_' . $k];
-                $candidate_edu_details->board_id = $data['board_id_' . $k];
-                $candidate_edu_details->subject_id = $data['subject_id_' . $k];
-                $candidate_edu_details->specialization = $data['specialization_' . $k];
-                $candidate_edu_details->pass_year = $data['pass_year_' . $k];
-                $candidate_edu_details->percentage = $data['percentage_' . $k];
-                $candidate_edu_details->save();
+                if (!$entries) {
+                    DB::rollbackTransaction();
+                    return redirect()->back()->with('error', 'Error while your process');
+                }
             }
+
+            DB::commit();
+
+//            for ($i = 0; $i < count($data['eduIds']); $i++) {
+//                $k = $i + 1;
+//                $rules = [
+//                    //'candidate_id' => 'required' ,
+//                    'exam_id_' . $k => 'required',
+//                    'board_id_' . $k => 'required',
+//                    'subject_id_' . $k => 'sometimes',
+//                    'specialization_' . $k => 'required|max:50',
+//                    'pass_year_' . $k => 'required|numeric',
+//                    'percentage_' . $k => 'required|numeric'
+//                ];
+//            }
+
             return redirect()->route('candidate.dashboard')->with('message', 'Educational Information has been Updated!');
         } else {
 
@@ -319,117 +354,6 @@ class CandidateController extends Controller
         }
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function createExperienceDetails()
-    {
-        $id = Auth::guard('candidate')->user()->id;
-        $candidate = Candidate::find($id);
-        if (count($candidate->experience) == 0) {
-            $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            return view('webfront.candidate.experience.create', compact('sectors', 'subjects'));
-        } else {
-            return redirect()->route('candidate.edit.exp_details')->with('status', 'Edit your change if needed dd');
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function storeExperienceDetails(Request $request)
-    {
-        $id = Auth::guard('candidate')->user()->id;
-        $candidate = Candidate::find($id);
-        if (count($candidate->experience) == 0) {
-
-            DB::beginTransaction();
-
-            foreach ($request->employers_name as $key => $n) {
-
-                $entry = [
-                    'candidate_id' => $id,
-                    'employers_name' => $request->employers_name[$key],
-                    'post_held' => $request->post_held[$key],
-                    'year_experience' => $request->year_experience[$key],
-                    'salary' => $request->salary[$key],
-                    'experience_id' => $request->experience_id[$key],
-                    'industry_id' => $request->industry_id[$key],
-                ];
-
-                CandidateExpDetails::create($entry);
-            }
-
-            DB::commit();
-
-            return redirect()->route('candidate.dashboard')->with('message', 'Experience Details has been added.');
-
-        } else {
-            return redirect()->route('candidate.edit.exp_details')->with('message', 'Edit your change if needed ss');
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function editExperienceDetails(Request $request)
-    {
-        $id = Auth::guard('candidate')->user()->id;
-        $candidate = Candidate::find($id);
-        if (count($candidate->experience) >= 1) {
-            $res = CandidateExpDetails::where('candidate_id', $id)->get();
-            $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $url = $this->route . 'update.exp_details';
-            return view('webfront.candidate.experience.exp_details_edit', compact('sectors', 'subjects', 'res', 'url'));
-        } else {
-            return redirect()->route('candidate.create.language_details')->with('status', 'Edit your change if needed more experience');
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function updateExperienceDetails(Request $request)
-    {
-        $data = $request->all();
-        $id = Auth::guard('candidate')->user()->id;
-        $candidate = Candidate::find($id);
-        if (count($candidate->experience) >= 1) {
-            for ($i = 0; $i < count($data['expIds']); $i++) {
-                $k = $i + 1;
-                $rules = [
-                    'employers_name_' . $k => 'required|max:50',
-                    'post_held_' . $k => 'required|max:50',
-                    'year_experience_' . $k => 'numeric|max:99',
-                    'salary_' . $k => 'required|numeric',
-                    'experience_id_' . $k => 'required',
-                    'industry_id_' . $k => 'required',
-                ];
-
-                $this->validate($request, $rules);
-
-                $candidate_exp_details = CandidateExpDetails::find($data['expIds'][$i]);
-
-                $candidate_exp_details->employers_name = $data['employers_name_' . $k];
-                $candidate_exp_details->post_held = $data['post_held_' . $k];
-                $candidate_exp_details->year_experience = $data['year_experience_' . $k];
-                $candidate_exp_details->salary = $data['salary_' . $k];
-                $candidate_exp_details->experience_id = $data['experience_id_' . $k];
-                $candidate_exp_details->industry_id = $data['industry_id_' . $k];
-
-                $candidate_exp_details->save();
-            }
-
-            return redirect()->route('candidate.dashboard')->with('message', 'Experience Information has been Updated');
-        } else {
-            return redirect()->route('candidate.create.exp_details')->with('message', 'You can not edit without inserting data');
-        }
-    }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
@@ -526,6 +450,133 @@ class CandidateController extends Controller
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function createExperienceDetails()
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        if (count($candidate->experience) == 0) {
+            $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            return view('webfront.candidate.experience.create', compact('sectors', 'subjects'));
+        } else {
+            return redirect()->route('candidate.edit.exp_details')->with('status', 'Edit your change if needed dd');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeExperienceDetails(Request $request)
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        if (count($candidate->experience) == 0) {
+
+            DB::beginTransaction();
+
+            foreach ($request->employers_name as $key => $n) {
+
+                $entry = [
+                    'candidate_id' => $id,
+                    'employers_name' => $request->employers_name[$key],
+                    'post_held' => $request->post_held[$key],
+                    'year_experience' => $request->year_experience[$key],
+                    'salary' => $request->salary[$key],
+                    'experience_id' => $request->experience_id[$key],
+                    'industry_id' => $request->industry_id[$key],
+                ];
+
+                CandidateExpDetails::create($entry);
+            }
+
+            DB::commit();
+
+            return redirect()->route('candidate.dashboard')->with('message', 'Experience Details has been added.');
+
+        } else {
+            return redirect()->route('candidate.edit.exp_details')->with('message', 'Edit your change if needed ss');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function editExperienceDetails(Request $request)
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        if (count($candidate->experience) >= 1) {
+            $res = CandidateExpDetails::where('candidate_id', $id)->get();
+            $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $url = $this->route . 'update.exp_details';
+            return view('webfront.candidate.experience.exp_details_edit', compact('sectors', 'subjects', 'res', 'url'));
+        } else {
+            return redirect()->route('candidate.create.language_details')->with('status', 'Edit your change if needed more experience');
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateExperienceDetails(Request $request)
+    {
+        $data = $request->all();
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        $experience = CandidateExpDetails::where('candidate_id', $id)->get();
+        if (count($candidate->experience) >= 1) {
+
+            foreach ($experience as $i => $value) {
+                $rules = [
+                    'employers_name_' . $experience[$i]->id => 'required|max:50',
+                    'post_held_' . $experience[$i]->id => 'required|max:50',
+                    'year_experience_' . $experience[$i]->id => 'numeric|max:99',
+                    'salary_' . $experience[$i]->id => 'required|numeric',
+                    'experience_id_' . $experience[$i]->experience_id => 'required',
+                    'industry_id_' . $experience[$i]->industry_id => 'required',
+                ];
+
+                $this->validate($request, $rules);
+                $candidate_exp_details = CandidateExpDetails::find($data['expIds'][$i]);
+                $candidate_exp_details->employers_name = $data['employers_name_' . $value->id];
+                $candidate_exp_details->post_held = $data['post_held_' . $value->id];
+                $candidate_exp_details->year_experience = $data['year_experience_' . $value->id];
+                $candidate_exp_details->salary = $data['salary_' . $value->id];
+                $candidate_exp_details->experience_id = $data['experience_id_' . $value->experience_id];
+                $candidate_exp_details->industry_id = $data['industry_id_' . $value->industry_id];
+                $candidate_exp_details->save();
+            }
+
+//            for ($i = 0; $i < count($data['expIds']); $i++) {
+//                $k = $i + 1;
+//                $rules = [
+//                    'employers_name_' . $k => 'required|max:50',
+//                    'post_held_' . $k => 'required|max:50',
+//                    'year_experience_' . $k => 'numeric|max:99',
+//                    'salary_' . $k => 'required|numeric',
+//                    'experience_id_' . $k => 'required',
+//                    'industry_id_' . $k => 'required',
+//                ];
+//
+//
+//            }
+
+            return redirect()->route('candidate.dashboard')->with('message', 'Experience Information has been Updated');
+        } else {
+            return redirect()->route('candidate.create.exp_details')->with('message', 'You can not edit without inserting data');
+        }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function getIdentityCard()
     {
         $id = Auth::guard('candidate')->user()->id;
@@ -550,12 +601,19 @@ class CandidateController extends Controller
         return view('webfront.candidate.id_card.card', compact('id_card', 'result', 'photo'));
     }
 
+    /**
+     * @param $file
+     * @param $year
+     * @param $id
+     * @param $file_name
+     * @return mixed
+     */
     public function file_preview($file, $year, $id, $file_name)
     {
         //files/{file}/{year}/{id}/{file_name}/preview
         $url = $file . '/' . $year . '/' . $id . '/' . $file_name;
         $path = public_path($url);
-        $handler = new \Symfony\Component\HttpFoundation\File\File($path);
+        $handler = new File($path);//\Symfony\Component\HttpFoundation\File\
         $lifetime = 31556926;
         /**
          * Prepare some header variables
@@ -592,13 +650,17 @@ class CandidateController extends Controller
         return Response::make(file_get_contents($path), 200, $headers);
     }
 
+    /**
+     * @param $info
+     * @return mixed
+     */
     public function image_preview($info)
     {
 
         //TODO have to code for checking whether the candidate acessing the url is meant for him or others if not his/her then restrict 404
         $info = CandidateInfo::find($info);
         $path = public_path($info->photo_url);
-        $handler = new \Symfony\Component\HttpFoundation\File\File($path);
+        $handler = new File($path);
         $lifetime = 31556926;
         /**
          * Prepare some header variables
