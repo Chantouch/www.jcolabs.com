@@ -139,5 +139,20 @@
     });
 </script>
 
+<script src="https://apis.google.com/js/platform.js"></script>
+
+<script>
+    function onYtEvent(payload) {
+        if (payload.eventType == 'subscribe') {
+            // Add code to handle subscribe event.
+        } else if (payload.eventType == 'unsubscribe') {
+            // Add code to handle unsubscribe event.
+        }
+        if (window.console) { // for debugging only
+            window.console.log('YT event: ', payload);
+        }
+    }
+</script>
+
 </body>
 </html>

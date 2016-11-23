@@ -5,6 +5,7 @@
             <div class="textwidget">
                 <p>At vero eos et accusamitate non provident, similique sunt in culpa qui officia deserunt mollitia
                     animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+                <div class="g-ytsubscribe" data-channelid="UC9dOG6hh1W6stSpRuQmXeyQ" data-layout="full" data-theme="dark" data-count="hidden" data-onytevent="onYtEvent"></div>
             </div>
         </div><!-- Text Widget -->
 
