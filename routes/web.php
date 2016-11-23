@@ -338,4 +338,7 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/files/{file}/preview', ['as' => 'candidate.image_preview', 'uses' => 'Candidate\CandidateController@image_preview']);
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
+    Route::get('/personal/info', ['as' => 'candidate.personal.info', 'uses' => 'Candidate\CVController@personalInfo']);
+
+
 });

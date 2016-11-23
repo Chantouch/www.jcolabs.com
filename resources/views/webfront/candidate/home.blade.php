@@ -276,6 +276,16 @@
                 </div><!--/.col-->
             </a>
 
+            <a href="{{URL::route('candidate.personal.info')}}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box blue-bg">
+                        <i class="fa fa-user"></i>
+                        <div class="count">Bio/Personal Information</div>
+
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+            </a>
+
             <a href="{{URL::route('candidate.create.edu_details')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box facebook-bg">
