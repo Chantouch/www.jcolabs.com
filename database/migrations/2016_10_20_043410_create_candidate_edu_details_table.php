@@ -16,7 +16,7 @@ class CreateCandidateEduDetailsTable extends Migration
         Schema::create('candidate_edu_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('candidate_id', false, true)->unsigned();
-
+            $table->string('field_of_study');
 //            $table->integer('exam_id', false, true)->comment('This will be the foreign key for exam passed');
 //            $table->integer('board_id', false, true)->comment('This will be the foreign key for Board/university passed');
 //            $table->integer('subject_id', false)->unsigned()->default('0')->comment('Subject by whom');
@@ -25,7 +25,7 @@ class CreateCandidateEduDetailsTable extends Migration
 //            $table->string('percentage', 100)->comment('Pass percentage');
 
             $table->string('school_university_name');
-            $table->enum('degree_level', ['High School or equivalent', 'Vocational training', 'Certification (Diploma)', 'Bachelor\'s degree', 'Master\'s degree', 'PhD\'s degree']);
+            $table->enum('degree_level', ['High School or equivalent', 'Vocational training', 'Certification (Diploma)', 'Bachelors degree', 'Masters degree', 'PhDs degree']);
             $table->tinyInteger('is_studying');
             $table->dateTime('start_date');
             $table->dateTime('end_date');

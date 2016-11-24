@@ -1250,13 +1250,13 @@ nav {
     color: #1abc9c;
 }
 
-.post-job-form .input, .post-resume-form .input {
+.post-job-form .input, .post-resume-form .input, .post-education .input {
     height: 50px;
     border: 1px solid #dee4e5;
     box-shadow: none;
 }
 
-.post-job-form .input:focus, .post-job-form .textarea:focus, .post-resume-form .input:focus, .post-resume-form .textarea:focus {
+.post-job-form .input:focus, .post-education .input:focus, .post-job-form .textarea:focus, .post-resume-form .input:focus, .post-resume-form .textarea:focus {
     box-shadow: none;
     border: 1px solid #c0c9cb;
 }
@@ -1266,13 +1266,13 @@ nav {
     margin: 44px 0 34px 0;
 }
 
-.post-job-form .textarea, .post-resume-form .textarea {
+.post-education .textarea, .post-job-form .textarea, .post-resume-form .textarea {
     height: 146px;
     border: 1px solid #dee4e5;
     box-shadow: none;
 }
 
-.post-job-form select, .post-resume-form select {
+.post-education select, .post-job-form select, .post-resume-form select {
     background: #FFF url('../images/down-arrow.png') no-repeat right;
     appearance: none;
     -webkit-appearance: none;
@@ -1286,12 +1286,12 @@ nav {
     padding: 12px 10px;
 }
 
-.post-job-form select:focus, .post-resume-form select:focus {
+.post-education select:focus, .post-job-form select:focus, .post-resume-form select:focus {
     box-shadow: none;
     border: 1px solid #c0c9cb;
 }
 
-.post-job-form .upload, .post-resume-form .upload {
+.post-education .upload, .post-job-form .upload, .post-resume-form .upload {
     width: 91px;
     height: 23px;
     overflow: hidden;
@@ -1301,7 +1301,7 @@ nav {
     background: #fcfcfc url(../images/upload.png) left no-repeat;
 }
 
-.post-job-form .upload input, .post-resume-form .upload input {
+.post-education .upload input, .post-job-form .upload input, .post-resume-form .upload input {
     width: 91px !important;
     height: 23px !important;
     opacity: 0 !important;
@@ -1309,11 +1309,11 @@ nav {
     cursor: pointer;
 }
 
-.post-job-form .upload:hover, .post-resume-form .upload:hover {
+.post-education .upload:hover, .post-job-form .upload:hover, .post-resume-form .upload:hover {
     box-shadow: 0px 0px 3px rgba(0, 0, 0, .9);
 }
 
-.post-job-form p, .post-resume-form p {
+.post-education p, .post-job-form p, .post-resume-form p {
     color: #797e7e;
     font-size: 14px;
 }
@@ -2183,7 +2183,6 @@ div.map-popup > h6 {
 .company img {
     margin: 0 auto;
 }
-
 
 /*--------------------------------------------------------------------------------*/
 /*	footer/footer-widget */
@@ -3065,10 +3064,7 @@ select[multiple].aug-form-group-sm .form-control {
     text-align: center;
     padding: 5px 16px;
     text-decoration: none;
-    /*margin-left: -15px;
-  margin-right: 15px;*/
-    margin-top: 0px;
-    margin-bottom: 10px;
-    /*border: 1px solid #8AC007;*/
+    margin: 15px 15px 10px;
+    border: 1px solid #8AC007;
     white-space: nowrap;
 }

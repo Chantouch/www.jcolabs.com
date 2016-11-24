@@ -315,10 +315,10 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/edit_resume', ['as' => 'candidate.edit.resume', 'uses' => 'Candidate\CandidateController@editResume']);
     Route::patch('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'Candidate\CandidateController@updateResume']);
 
-    Route::get('/create_edu_details', ['as' => 'candidate.create.edu_details', 'uses' => 'Candidate\CandidateController@createEduDetails']);
-    Route::post('/create_edu_details', ['as' => 'candidate.store.edu_details', 'uses' => 'Candidate\CandidateController@storeEduDetails']);
-    Route::get('/edit_edu_details', ['as' => 'candidate.edit.edu_details', 'uses' => 'Candidate\CandidateController@editEduDetails']);
-    Route::patch('/edit_edu_details', ['as' => 'candidate.update.edu_details', 'uses' => 'Candidate\CandidateController@updateEduDetails']);
+    Route::get('/create-edu-details', ['as' => 'candidate.create.edu_details', 'uses' => 'Candidate\CandidateController@createEduDetails']);
+    Route::post('/create-edu-details', ['as' => 'candidate.store.edu_details', 'uses' => 'Candidate\CandidateController@storeEduDetails']);
+    Route::get('/edit-edu-details', ['as' => 'candidate.edit.edu_details', 'uses' => 'Candidate\CandidateController@editEduDetails']);
+    Route::patch('/edit-edu-details', ['as' => 'candidate.update.edu_details', 'uses' => 'Candidate\CandidateController@updateEduDetails']);
 
     Route::get('/create_experience_details', ['as' => 'candidate.create.exp_details', 'uses' => 'Candidate\CandidateController@createExperienceDetails']);
     Route::post('/create_experience_details', ['as' => 'candidate.store.exp_details', 'uses' => 'Candidate\CandidateController@storeExperienceDetails']);

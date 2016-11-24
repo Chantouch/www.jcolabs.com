@@ -6,7 +6,7 @@
 
     <style>
         .form-horizontal .form-group {
-            margin-right: 0px !important;
+            margin-right: 0 !important;
         }
 
         .aug_group {
@@ -151,16 +151,12 @@
 
                         <div class="form-group">
                             <label for="sex">Gender</label>
-                            <select class="form-control" id="sex" name="sex">
-                                <option>Blank 1</option>
-                                <option>Blank 2</option>
-                                <option>Blank 3</option>
-                            </select>
+                            {!! Form::select('gender', $gender, null, ['class'=>'form-control', 'id'=>'gender']) !!}
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Phone</label>
-                            {!! Form::text('phone', null, ['class'=>'form-control input']) !!}
+                            <label for="mobile_num">Phone</label>
+                            {!! Form::text('mobile_num', null, ['class'=>'form-control input']) !!}
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -217,7 +213,7 @@
 
 
                     <div class="ratio img-responsive img-circle"
-                         style="background-image: url(http://trovacamporella.com/img/trovacamporella-fiat500.png);"></div>
+                         style="background-image: url({!! $c_id->avatar !!});"></div>
                     <div class="btn-wrapper-cover">
                         <button type="button" class="edit-btn" id="avatar">
                             <i class="edit_img_btn fa fa-pencil"></i>

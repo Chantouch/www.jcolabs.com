@@ -16,21 +16,13 @@ class CandidateInfo extends Model
         'first_name' => 'required|min:3|max:50',
         'last_name' => 'required|min:3|max:50',
         'sex' => 'required|in:MALE,FEMALE,OTHERS',
-        'religion' => 'required|in:BUDDHISM,CHRISTIANITY,HINDUISM,ISLAM,JAINISM,PARSI,SIKHISM,OTHERS',
-        'marital_status' => 'required|in:UNMARRIED,MARRIED,DIVORCEE,WIDOW',
         'dob' => 'required|date_format:d-m-Y|before:"now -15 year"',
-        'address' => 'max:255',
-        'city_id' => 'required|exists:cities,id',
-        'district_id' => 'required|exists:districts,id',
-        'pin_code' => 'numeric|digits_between:5,6',
-        'physical_height' => 'numeric',
-        'physical_weight' => 'numeric',
         'photo_url' => 'required|mimes:jpeg,png|max:512',
-        'additional_info' => 'max:255',
+        'email' => 'email|required|max:255|unique:candidates,email'
 
     ];
 
-    public function rules()
+    public static function rules($id)
     {
 
         switch (Request::method()) {
@@ -46,8 +38,12 @@ class CandidateInfo extends Model
             case 'PUT':
             case 'PATCH': {
                 return [
-
+                    'first_name' => 'required|min:3|max:50',
+                    'last_name' => 'required|min:3|max:50',
+                    'sex' => 'required|in:MALE,FEMALE,OTHERS',
+                    'dob' => 'required|date_format:d-m-Y|before:"now -15 year"',
                     'photo_url' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'email' => 'email|required|max:255|unique:candidates,email,' . $id . ',id'
 
                 ];
             }

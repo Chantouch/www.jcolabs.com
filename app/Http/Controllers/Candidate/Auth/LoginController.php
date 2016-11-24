@@ -98,6 +98,7 @@ class LoginController extends Controller
             'email' => $githubUser->email,
             'password' => $temp_password,
             'github_id' => $githubUser->id,
+            'nationality' => 'Cambodian',
             'confirmation_code' => $token,
             'avatar' => $githubUser->avatar,
             'temp_enrollment_no' => $enroll_id,

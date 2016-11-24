@@ -16,7 +16,8 @@ class CVController extends Controller
     public function personalInfo()
     {
         $c_id = auth()->guard('candidate')->user();
-        return view('candidates.personal_info', compact('c_id'));
+        $gender = Candidate::$gender;
+        return view('candidates.personal_info', compact('c_id', 'gender'));
     }
 
     /**
@@ -25,17 +26,22 @@ class CVController extends Controller
      */
     public function updatePersonalInfo(Request $request)
     {
-        $candidate_info = new CandidateInfo();
-        $validator = Validator::make($data = $request->all(), $candidate_info->rules(), $candidate_info::$messages);
+
+        $candidate = auth()->guard('candidate')->user();
+        $validator = Validator::make($data = $request->all(), Candidate::rules($candidate->id), Candidate::$messages);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        $candidate = auth()->guard('candidate')->user();
 
         $candidate->update($data);
 
         return redirect()->route('candidate.dashboard')->with('message', 'Personal/Contact Info has been added');
 
+    }
+
+    public function editEdu()
+    {
+        $c_id = auth()->guard('candidate')->user();
+        return view('candidates.edu.edit', compact('c_id'));
     }
 }

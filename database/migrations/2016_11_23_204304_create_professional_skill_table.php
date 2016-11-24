@@ -32,6 +32,6 @@ class CreateProfessionalSkillTable extends Migration
      */
     public function down()
     {
-        Schema::drop('professional_skill');
+        Schema::drop('profession_skill');
     }
 }
