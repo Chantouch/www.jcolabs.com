@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                {!! Form::model($c_id, ['route' => ['employer.company.show.update', $c_id], 'method' => 'patch', 'files' => 'true', 'role'=>'form','class'=>'post-resume-form']) !!}
+                {!! Form::model($c_id, ['route' => ['candidate.personal.info.update', $c_id], 'method' => 'patch', 'files' => 'true', 'role'=>'form','class'=>'post-resume-form']) !!}
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

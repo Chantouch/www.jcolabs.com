@@ -10,10 +10,11 @@ use Request;
 class CandidateInfo extends Model
 {
     protected $table = 'candidate_info';
+
     public static $rules = [
         //'candidate_id' =>'exists:members,id',
-        'full_name' => 'required|min:3|max:50',
-        'spouse_name' => 'max:50',
+        'first_name' => 'required|min:3|max:50',
+        'last_name' => 'required|min:3|max:50',
         'sex' => 'required|in:MALE,FEMALE,OTHERS',
         'religion' => 'required|in:BUDDHISM,CHRISTIANITY,HINDUISM,ISLAM,JAINISM,PARSI,SIKHISM,OTHERS',
         'marital_status' => 'required|in:UNMARRIED,MARRIED,DIVORCEE,WIDOW',
@@ -25,9 +26,6 @@ class CandidateInfo extends Model
         'physical_height' => 'numeric',
         'physical_weight' => 'numeric',
         'photo_url' => 'required|mimes:jpeg,png|max:512',
-        'cv_url' => 'required|mimes:pdf,doc,docx|max:102400',
-        'proof_no' => 'max:100',
-        'relocated' => 'required|in:No,Within City,Within Country,Outside Country',
         'additional_info' => 'max:255',
 
     ];

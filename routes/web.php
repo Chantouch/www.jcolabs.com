@@ -243,7 +243,6 @@ Route::group(['middleware' => ['admin']], function () {
 //End route admin
 });
 
-
 //EMPLOYER MODULES
 Route::group(['middleware' => ['employer']], function () {
 
@@ -306,7 +305,6 @@ Route::group(['middleware' => ['employer']], function () {
 
 });
 
-
 Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function () {
 
     Route::post('logout', ['as' => 'candidate.process.logout', 'uses' => 'Candidate\Auth\LoginController@getLogout']);
@@ -339,6 +337,6 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
     Route::get('/personal/info', ['as' => 'candidate.personal.info', 'uses' => 'Candidate\CVController@personalInfo']);
-
+    Route::patch('/personal/info/update', ['as'=>'candidate.personal.info.update', 'uses' => 'Candidate\CVController@updatePersonalInfo']);
 
 });
