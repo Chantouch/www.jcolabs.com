@@ -46,7 +46,7 @@ class PostedJob extends Model
     protected $revisionNullString = 'nothing';
     protected $revisionUnknownString = 'unknown';
     protected $revisionFormattedFields = array(
-        'post_name'  => 'string:<strong>%s</strong>',
+        'post_name' => 'string:<strong>%s</strong>',
         'status' => 'boolean:No|Yes',
         'updated_at' => 'datetime:m/d/Y g:i A',
         'deleted_at' => 'isEmpty:Active|Deleted'
@@ -66,7 +66,7 @@ class PostedJob extends Model
         'physical_height', 'physical_weight', 'description',
         'requirement_description', 'category_id', 'contact_person_id',
         'published_date', 'closing_date', 'qualification_id',
-        'is_negotiable', 'field_of_study',
+        'is_negotiable', 'field_of_study', 'preferred_sex'
     ];
 
     /**
@@ -110,8 +110,8 @@ class PostedJob extends Model
         'preferred_age_min' => 'required|integer|min:15|max:80',
         //'preferred_age_max' => 'integer|min:0|max:100',
         'preferred_age_max' => 'required|integer|greater_than:preferred_age_min|max:100',
-        'salary_offered_min' => 'required|numeric',
-        'salary_offered_max' => 'required|numeric|greater_than:salary_offered_min',
+        'salary_offered_min' => 'numeric',
+        'salary_offered_max' => 'numeric|greater_than:salary_offered_min',
         'subject_id' => 'required|exists:subjects,id',
         'category_id' => 'required'
         //'phone_no_ext' => 'max:',
@@ -132,14 +132,19 @@ class PostedJob extends Model
         'id', '_token', '_method'
     ];
 
+
+    public static function gender()
+    {
+        return ['MALE', 'FEMALE', 'OTHERS', 'ANY'];
+    }
+
     //i have declared all the types i.e. enum values rather then querrying to reduce the db load
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function industry()
     {
-        //return $this->hasMany('App\Models\CandidateEduDetails', 'candidate_id');
-        return $this->belongsTo(IndustryType::class, 'industry_id');
+        return $this->belongsTo(IndustryType::class);
     }
 
     /**

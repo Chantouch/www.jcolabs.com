@@ -166,7 +166,7 @@ class AdminController extends Controller
             ->where('candidate_info.index_card_no', '!=', 'NULL')
             ->where('candidate_info.index_card_no', '!=', '')
             ->where('candidates.verified_status', 'Not Verified')
-            ->select('candidates.id', 'candidate_info.full_name', 'candidate_info.index_card_no as index_card_no',
+            ->select('candidates.id', 'candidate_info.first_name as first_name', 'candidate_info.last_name as last_name', 'candidate_info.index_card_no as index_card_no',
                 'candidate_info.sex as sex', 'candidate_info.address as address')
             ->get();
 
@@ -182,7 +182,7 @@ class AdminController extends Controller
             ->where('candidates.verified_status', 'Verified')
             ->where('candidate_info.index_card_no', '!=', 'NULL')
             ->where('candidate_info.index_card_no', '!=', '')
-            ->select('candidates.id', 'candidate_info.full_name', 'candidate_info.index_card_no as index_card_no',
+            ->select('candidates.id', 'candidate_info.first_name as first_name', 'candidate_info.last_name as last_name', 'candidate_info.index_card_no as index_card_no',
                 'candidate_info.sex as sex', 'candidate_info.address as address')
             ->get();
 
@@ -198,7 +198,7 @@ class AdminController extends Controller
             ->where('candidates.verified_status', 'Halted')
             // ->where('candidate_info.index_card_no', '!=', 'NULL')
             // ->where('candidate_info.index_card_no', '!=', '')
-            ->select('candidates.id', 'candidate_info.full_name', 'candidate_info.index_card_no as index_card_no',
+            ->select('candidates.id', 'candidate_info.first_name as first_name', 'candidate_info.last_name as last_name', 'candidate_info.index_card_no as index_card_no',
                 'candidate_info.sex as sex', 'candidate_info.address as address')
             ->get();
 

@@ -111,7 +111,7 @@
                     <div class="tab-content">
                         <div class="active tab-pane" id="joblist">
                             <!-- Post -->
-                            @if(!empty($all_jobs))
+                            @if(count($all_jobs))
                                 @foreach($all_jobs as $job)
                                     <div class="post">
                                         <div class="user-block">
@@ -225,9 +225,6 @@
                                             {{--class="fa fa-comments-o margin-r-5"></i> Comments--}}
                                             {{--(5)</a></li>--}}
                                         </ul>
-
-                                        {{--<input class="form-control input-sm" type="text" placeholder="Type a comment">--}}
-
                                     </div>
                                 @endforeach
                             @else

@@ -28,6 +28,12 @@
     {!! Form::email('email', null, ['class' => 'form-control']) !!}
 </div>
 
+<div class="form-group col-sm-6">
+    {!! Form::label('status', 'Status:') !!}
+    {!! Form::hidden('status', '0', null) !!}
+    {!! Form::checkbox('status', '1', null, ['id' => 'status', 'onclick' => 'alert("sdfs")']) !!}
+</div>
+
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}

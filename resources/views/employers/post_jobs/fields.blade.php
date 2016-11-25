@@ -65,21 +65,21 @@
             <!-- Salary offer Min Field -->
             <div class="form-group col-sm-6" id="salary_min">
                 {!! Form::label('salary_offered_min', 'Salary Offered Min:') !!}
-                {!! Form::text('salary_offered_min', null, ['class' => 'form-control']) !!}
+                {!! Form::text('salary_offered_min', null, ['class' => 'form-control', 'id'=> 'salary_offered_min']) !!}
             </div>
 
             <!-- Salary offer Max Field -->
             <div class="form-group col-sm-6" id="salary_max">
                 {!! Form::label('salary_offered_max', 'Salary Offered Max:') !!}
-                {!! Form::text('salary_offered_max', null, ['class' => 'form-control']) !!}
+                {!! Form::text('salary_offered_max', null, ['class' => 'form-control', 'id'=>'salary_offered_max']) !!}
             </div>
 
             <!-- Negotiable Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('is_negotiable', 'Negotiable:') !!}
                 <label class="checkbox-inline">
-                    {!! Form::hidden('is_negotiable', false) !!}
-                    {!! Form::checkbox('is_negotiable', '1', null) !!} 1
+                    {!! Form::hidden('is_negotiable', '0', false) !!}
+                    {!! Form::checkbox('is_negotiable', '1', null, ['class'=> 'icheck', 'id'=> 'is_negotiable', 'onchange'=> 'checkbox(this)']) !!} 1
                 </label>
             </div>
 

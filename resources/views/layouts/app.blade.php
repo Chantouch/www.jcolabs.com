@@ -647,7 +647,7 @@
 <script src="{!! asset('js/jcolabs.js') !!}"></script>
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{!! asset('dist/js/demo.js') !!}"></script>--}}
-@yield('page_specific_scripts')
+
 @yield('page_specific_js')
 
 <script type="text/javascript">

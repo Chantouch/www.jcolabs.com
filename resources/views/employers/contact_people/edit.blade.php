@@ -22,3 +22,19 @@
         </div>
     </div>
 @endsection
+
+@section('page_specific_scripts')
+
+    $(function () {
+    $("#status").click(function () {
+    if ($(this).is(":checked")) {
+    alert('sfds');
+    $("#salary_offered_max").attr("disabled", "disabled");
+    } else {
+    $("#salary_offered_max").removeAttr("disabled");
+    $("#salary_offered_min").focus();
+    }
+    });
+    });
+
+@stop

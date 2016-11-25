@@ -11,11 +11,13 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\IndustryType;
 use App\Models\PostedJob;
+use App\Repositories\FrontRepositoryEloquent;
 use Cviebrock\EloquentSluggable\Tests\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Mews\Purifier\Facades\Purifier;
 use Mockery\CountValidator\Exception;
+use Psy\Exception\ErrorException;
 use Validator;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
@@ -25,12 +27,17 @@ use DB;
 
 class FrontController extends Controller
 {
+
+    private $frontRepository;
+
     /**
      * FrontController constructor.
+     * @param FrontRepositoryEloquent $eloquent
      */
-    public function __construct()
+    public function __construct(FrontRepositoryEloquent $eloquent)
     {
-        return $this->middleware('guest');
+        $this->frontRepository = $eloquent;
+        $this->middleware('guest');
     }
 
     /**
@@ -60,25 +67,31 @@ class FrontController extends Controller
      * @param $category
      * @param $industry
      * @param $id
-     * @return Redirect
+     * @return \Exception|ErrorException
      * @internal param int $id
      */
     public function show($category, $industry, $id, $slug)
     {
 
-        $job = PostedJob::where('slug', $slug)->firstOrFail();
-        $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
-        $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
-        $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
-        $city = City::with('jobs')->where('status', 1)->take(5)->get();
-        $emp_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_by', 'ASC')->paginate(20);
-        $related_jobs = PostedJob::where('industry_id', $job->industry->id)->where('status', 1)->orderBy('created_at', 'DES')->get();
+        try {
+            $job = PostedJob::where('slug', $slug)->first();
+//            $job = $this->frontRepository->findByField('slug', $slug);
+            $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
+            $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
+            $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
+            $city = City::with('jobs')->where('status', 1)->take(5)->get();
+            $emp_jobs = PostedJob::with('industry', 'employer', 'exam', 'subject')->where('status', 1)->orderBy('created_by', 'ASC')->paginate(20);
+            $related_jobs = PostedJob::where('status', 1)->orderBy('created_at', 'DES')->get();
+//            $related_jobs = $this->frontRepository->findWhere(['industry_id', 'status'], [$job->inudstry->id, 1]);
 
-        if (empty($job)) {
+            if (empty($job)) {
 
-            Flash::error('Job not found');
+                Flash::error('Job not found');
 
-            return redirect(route('home'));
+                return redirect(route('home'))->with('error', 'Job not found');
+            }
+        } catch (ErrorException $errorException) {
+            return $errorException;
         }
 
         return view('webfront.jobs.view', compact('job', 'city', 'company', 'category', 'industry', 'emp_jobs', 'related_jobs'));

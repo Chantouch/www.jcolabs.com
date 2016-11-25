@@ -70,13 +70,14 @@ class DepartmentTypeController extends AppBaseController
      *
      * @param  int $id
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
         $departmentType = $this->departmentTypeRepository->findWithoutFail($id);
 
         if (empty($departmentType)) {
+
             Flash::error('Department Type not found');
 
             return redirect(route('admin.departmentTypes.index'));

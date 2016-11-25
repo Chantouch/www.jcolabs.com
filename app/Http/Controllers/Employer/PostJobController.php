@@ -83,7 +83,7 @@ class PostJobController extends AppBaseController
             $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
+            $genders = PostedJob::gender();
             $job_types = Employer::job_types();
             $job_levels = Employer::job_level();
             $qualifications = Qualification::where('status', 1)->orderBy('name')->pluck('name', 'id');
@@ -107,29 +107,18 @@ class PostJobController extends AppBaseController
      */
     public function store(CreatePostJobRequest $request)
     {
-
-//        dd($request);
-
         if (Auth::guard('employer')->user()->verified_by == 0 || Auth::guard('employer')->user()->enrollment_no == '') {
             return redirect()->back()->withInput()->with('message', BaseHelper::getMessage('employer_not_active'));
         }
-
         $validator = Validator::make($data = $request->all(), PostedJob::$rules, PostedJob::$message);
-
         if ($validator->fails()) {
-
             return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Some files has errors. Please correct it and then try it again.');
-
         }
-
         $data['created_by'] = Auth::guard('employer')->user()->id;
         $data['description'] = Purifier::clean($request->description);
         $data['requirement_description'] = Purifier::clean($request->requirement_description);
-
         try {
-
             DB::beginTransaction();
-
             //Generate job id
             $records = PostedJob::withTrashed()->count();
             $current_id = 1;
@@ -219,7 +208,7 @@ class PostJobController extends AppBaseController
 
             return redirect(route('employer.postJobs.index'));
         }
-        return view('employers.post_jobs.edit', compact('publish_date','lang', 'emp', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
+        return view('employers.post_jobs.edit', compact('publish_date', 'lang', 'emp', 'qualifications', 'job_levels', 'postJob', 'contact_person', 'industries', 'cities', 'exams', 'subjects', 'districts', 'genders', 'job_types', 'job_categories'));
     }
 
     /**

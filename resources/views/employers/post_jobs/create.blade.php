@@ -124,12 +124,15 @@
         });
 
 
-        $('#is_negotiable').change(function (e) {
-            if (!this.checked)
-                $('#salary_max').fadeIn('slow');
-            else
-                $('#salary_max').fadeOut('slow');
+        $('#is_negotiable').click(function () {
+            if ($(this).is(":checked")) {
+                $("#salary_offered_max").attr("disabled", "disabled");
+            } else {
+                $("#salary_offered_max").removeAttr("disabled");
+                $("#salary_offered_min").focus();
+            }
         });
+
 
         $(".place_of_employment_city_id, .place_of_employment_district_id").select2();
         $('#place_of_employment_city_id').change(function (e) {
@@ -199,7 +202,7 @@
                     @if(Session::has('message'))
                         $district.val('{{ old('place_of_employment_district_id') }}');
                     @endif
-                            return true;
+                        return true;
                 });
             } else
                 $district.empty();
@@ -236,6 +239,16 @@
             placeholder: "Select Languages",
             allowClear: true
         });
+
+        function checkbox(chkPassport) {
+            var salary_offered_min = document.getElementById("salary_offered_min");
+            var salary_offered_max = document.getElementById("salary_offered_max");
+            salary_offered_min.disabled = !!chkPassport.checked;
+            salary_offered_max.disabled = chkPassport.checked ? true : false;
+            if (!salary_offered_min.disabled) {
+                salary_offered_min.focus();
+            }
+        }
 
     </script>
 @stop

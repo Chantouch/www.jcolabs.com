@@ -110,9 +110,11 @@
         </div>
 
         <div class="form-group">
-            <button id="add" class="btn btn-sm" type="button"><i class="fa fa-plus"></i> Add New
+            <button id="add" class="btn btn-sm" type="button"><i class="fa fa-plus"></i>
+                Add New
             </button>
-            <button id="minus" class="btn btn-sm" type="button"><i class="fa fa-minus"></i> Remove
+            <button id="minus" class="btn btn-sm" type="button"><i class="fa fa-minus"></i>
+                Remove
             </button>
         </div>
 
