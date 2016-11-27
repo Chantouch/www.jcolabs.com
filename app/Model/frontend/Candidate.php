@@ -6,6 +6,7 @@ use App\Models\CandidateEduDetails;
 use App\Models\CandidateExpDetails;
 use App\Models\CandidateInfo;
 use App\Models\CandidateLanguageInfo;
+use App\Models\EduDetails;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Request;
@@ -149,6 +150,11 @@ class Candidate extends Authenticatable
     public function education()
     {
         return $this->hasMany(CandidateEduDetails::class, 'candidate_id');
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(EduDetails::class, 'candidate_id');
     }
 
     public function experience()

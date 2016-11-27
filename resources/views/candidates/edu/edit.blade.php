@@ -51,59 +51,59 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::open(['route' => ['candidate.update.edu_details'], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
+        {!! Form::open(['route' => ['candidate.update.edu.details'], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
 
         <div class="bootstrap-frm">
             <div class="form-group aug_legend"> Education Details :</div>
-            @foreach($c_edu as $c_educ)
+            @foreach($educations as $education)
                 <div class="_details">
                     <div class="form-group col-md-6">
                         <label for="school_university_name" class="control-label"> University Name: </label>
-                        {!! Form::text('school_university_name[]', $c_educ->school_university_name, ['class'=>'university_name form-control input']) !!}
+                        {!! Form::text('school_university_name'.$education->school_university_name, $education->school_university_name, ['class'=>'university_name form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="degree_level" class="control-label"> Degree/Level:</label>
-                        {!! Form::select('degree_level[]', $degree_level, $c_educ->degree_level, ['class'=>'degree_level form-control input']) !!}
+                        {!! Form::select('degree_level'.$education->degree_level, $degree_level, $education->degree_level, ['class'=>'degree_level form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-6{!! $errors->has('start_date[]') ? ' has-error' : '' !!}">
                         <label for="start_date" class="control-label">Start date:</label>
-                        {!! Form::date('start_date[]', $c_educ->start_date, ['class'=>'start_date form-control input']) !!}
+                        {!! Form::date('start_date'.Carbon\Carbon::parse($education->start_date)->format('d_m_Y'), $education->start_date, ['class'=>'start_date form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="end_date" class="control-label">End date:</label>
                         <label for="end_date" class="control-label" style="float: right">
-                            I'm currently learning here {!! Form::hidden('is_studying', '0', false) !!}
-                            {!! Form::checkbox('is_studying', '1', null, ['id'=>'is_studying', 'checked']) !!}</label>
-                        {!! Form::date('end_date[]', null, ['class'=>'end_date form-control input', 'id' => 'end_date', 'disabled']) !!}
+                            I'm currently learning here {!! Form::hidden('is_studying'.$education->is_studying, '0', false) !!}
+                            {!! Form::checkbox('is_studying'.$education->is_studying, '1', null, ['id'=>'is_studying', 'checked']) !!}</label>
+                        {!! Form::date('end_date'.Carbon\Carbon::parse($education->end_date)->format('d_m_Y'), $education->end_date, ['class'=>'end_date form-control input', 'id' => 'end_date', 'disabled']) !!}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="field_of_study" class="control-label">Field of study:</label>
-                        {!! Form::text('field_of_study[]', $c_educ->field_of_study, ['class'=>'form-control input']) !!}
+                        {!! Form::text('field_of_study'.$education->field_of_study, $education->field_of_study, ['class'=>'form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="country_name" class="control-label">Country:</label>
-                        {!! Form::text('country_name[]', $c_educ->country_name, ['class'=>'form-control input']) !!}
+                        {!! Form::text('country_name'.$education->country_name, $education->country_name, ['class'=>'form-control input']) !!}
                     </div>
                     <div class="form-group col-md-6">
                         <label for="city_id" class="control-label">City:</label>
-                        {!! Form::text('city_id[]', $c_educ->city_id, ['class'=>'form-control input']) !!}
+                        {!! Form::text('city_id'.$education->city_id, $education->city_id, ['class'=>'form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="grade" class="control-label">Grade:</label>
-                        {!! Form::text('grade[]', $c_educ->grade, ['id'=>'grade', 'class' => 'form-control input']) !!}
+                        {!! Form::text('grade'.$education->grade, $education->grade, ['id'=>'grade', 'class' => 'form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-12">
                         <label for="description" class="control-label">Description:</label>
-                        {!! Form::textarea('description[]', $c_educ->description, ['id'=>'description', 'class' => 'form-control textarea']) !!}
+                        {!! Form::textarea('description'.$education->description, $education->description, ['id'=>'description', 'class' => 'form-control textarea']) !!}
                     </div>
-
+                    {!! Form::hidden('eduIds[]', $education->id) !!}
                 </div>
             @endforeach
 

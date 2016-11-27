@@ -339,4 +339,10 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/personal/info', ['as' => 'candidate.personal.info', 'uses' => 'Candidate\CVController@personalInfo']);
     Route::patch('/personal/info/update', ['as'=>'candidate.personal.info.update', 'uses' => 'Candidate\CVController@updatePersonalInfo']);
 
+
+    Route::get('/create/edu/details', ['as' => 'candidate.create.edu.details', 'uses' => 'Candidate\CVController@createEduDetails']);
+    Route::post('/create/edu/details', ['as' => 'candidate.store.edu.details', 'uses' => 'Candidate\CVController@storeEduDetails']);
+    Route::get('/edit/edu/details', ['as' => 'candidate.edit.edu.details', 'uses' => 'Candidate\CVController@editEduDetails']);
+    Route::patch('/edit/edu/details', ['as' => 'candidate.update.edu.details', 'uses' => 'Candidate\CVController@updateEduDetails']);
+
 });

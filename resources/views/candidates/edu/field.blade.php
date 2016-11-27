@@ -21,8 +21,8 @@
             <div class="form-group col-md-6">
                 <label for="end_date" class="control-label">End date:</label>
                 <label for="end_date" class="control-label" style="float: right">
-                    I'm currently learning here {!! Form::hidden('is_studying', '0', false) !!}
-                    {!! Form::checkbox('is_studying', '1', null, ['id'=>'is_studying', 'checked']) !!}</label>
+                    I'm currently learning here {!! Form::hidden('is_studying[]', '0', false) !!}
+                    {!! Form::checkbox('is_studying[]', '1', null, ['id'=>'is_studying', 'checked']) !!}</label>
                 {!! Form::date('end_date[]', null, ['class'=>'end_date form-control input', 'id' => 'end_date', 'disabled']) !!}
             </div>
 

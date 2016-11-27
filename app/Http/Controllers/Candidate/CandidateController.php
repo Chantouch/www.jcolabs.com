@@ -215,11 +215,13 @@ class CandidateController extends Controller
      */
     public function createEduDetails()
     {
-        $id = auth()->guard('candidate')->user()->id;
+        $id = Auth::guard('candidate')->user()->id;
         $candidate = Candidate::find($id);
-        $degree_level = CandidateEduDetails::degree_level();
+        $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $boards = Board::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
         if (count($candidate->education) == 0) {
-            return view('candidates.edu.create', compact('degree_level'));
+            return view('webfront.candidate.edu.create', compact('exams', 'boards', 'subjects'));
         } else {
             return redirect()->route('candidate.edit.edu_details')->with('message', 'Edit your change if needed');
         }
@@ -231,30 +233,19 @@ class CandidateController extends Controller
      */
     public function storeEduDetails(Request $request)
     {
-
-        $id = auth()->guard('candidate')->user()->id;
+        $id = Auth::guard('candidate')->user()->id;
         $candidate = Candidate::find($id);
         if (count($candidate->education) == 0) {
             DB::beginTransaction();
-
-            $validator = Validator::make($request->all(), CandidateEduDetails::rules($request));
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->with('error', 'Please review your fields');
-            }
-
-            foreach ($request->city_id as $key => $n) {
+            foreach ($request->exam_id as $key => $n) {
                 $entry = [
                     'candidate_id' => $id,
-                    'city_id' => $request->city_id[$key],
-                    'degree_level' => $request->degree_level[$key],
-                    'description' => $request->description[$key],
-                    'end_date' => $request->end_date[$key],
-                    'grade' => $request->grade[$key],
-                    'is_studying' => $request->is_studying[$key],
-                    'field_of_study' => $request->field_of_study[$key],
-                    'school_university_name' => $request->school_university_name[$key],
-                    'start_date' => $request->start_date[$key],
-                    'country_name' => $request->country_name[$key],
+                    'exam_id' => $request->exam_id[$key],
+                    'board_id' => $request->board_id[$key],
+                    'subject_id' => $request->subject_id[$key],
+                    'specialization' => $request->specialization[$key],
+                    'pass_year' => $request->pass_year[$key],
+                    'percentage' => $request->percentage[$key],
                 ];
 
                 CandidateEduDetails::create($entry);
@@ -276,10 +267,12 @@ class CandidateController extends Controller
     {
         $id = Auth::guard('candidate')->user()->id;
         $candidate = Candidate::find($id);
-        $degree_level = CandidateEduDetails::degree_level();
-        $c_edu = CandidateEduDetails::where('candidate_id', $id)->get();
+        $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $boards = Board::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
+        $res = CandidateEduDetails::where('candidate_id', $id)->get();
         if (count($candidate->education) >= 1) {
-            return view('candidates.edu.edit', compact('c_edu', 'degree_level'));
+            return view('webfront.candidate.edu.edit', compact('res', 'exams', 'boards', 'subjects'));
         } else {
             return redirect()->route('candidate.create.edu_details')->with('message', 'You can not edit without filling up your bio');
         }
@@ -292,7 +285,6 @@ class CandidateController extends Controller
     public function updateEduDetails(Request $request)
     {
         $data = $request->all();
-//        dd($data);
         $id = auth()->guard('candidate')->user()->id;
         $candidate = Candidate::find($id);
         $edu = CandidateEduDetails::where('candidate_id', $id)->get();
@@ -320,24 +312,6 @@ class CandidateController extends Controller
 
             }
 
-            foreach ($request->exam_id as $key => $n) {
-                $entry = [
-                    'candidate_id' => $id,
-                    'exam_id' => $request->exam_id[$key],
-                    'board_id' => $request->board_id[$key],
-                    'subject_id' => $request->subject_id[$key],
-                    'specialization' => $request->specialization[$key],
-                    'pass_year' => $request->pass_year[$key],
-                    'percentage' => $request->percentage[$key],
-                ];
-
-                $entries = CandidateEduDetails::create($entry);
-
-                if (!$entries) {
-                    DB::rollbackTransaction();
-                    return redirect()->back()->with('error', 'Error while your process');
-                }
-            }
 
             DB::commit();
 
