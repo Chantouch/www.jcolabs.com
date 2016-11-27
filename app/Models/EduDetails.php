@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Model\frontend\Candidate;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -82,4 +83,24 @@ class EduDetails extends Model
 
         ];
     }
+
+    public static function clean($string)
+    {
+        $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
+        $string = preg_replace('/[^A-Za-z0-9\-]/', '_', $string); // Removes special chars.
+
+        return preg_replace('/-+/', '_', $string); // Replaces multiple hyphens with single one.
+    }
+
+    public function getStartDateAttribute()
+    {
+        return $this->attributes['start_date'] = Carbon::parse($this->attributes['start_date'])->format('Y-m-d');
+    }
+
+    public function getEndDateAttribute()
+    {
+        return $this->attributes['end_date'] = Carbon::parse($this->attributes['end_date'])->format('Y-m-d');
+    }
+
+
 }

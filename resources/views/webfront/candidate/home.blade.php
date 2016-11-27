@@ -275,7 +275,17 @@
                 </div><!--/.col-->
             </a>
 
-            <a href="{{URL::route('candidate.create.edu_details')}}">
+            {{--<a href="{{URL::route('candidate.create.edu_details')}}">--}}
+                {{--<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">--}}
+                    {{--<div class="info-box facebook-bg">--}}
+                        {{--<i class="fa fa-book"></i>--}}
+                        {{--<div class="count">Education Details</div>--}}
+
+                    {{--</div><!--/.info-box-->--}}
+                {{--</div><!--/.col-->--}}
+            {{--</a>--}}
+
+            <a href="{{URL::route('candidate.create.edu.details')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box facebook-bg">
                         <i class="fa fa-book"></i>
@@ -285,17 +295,7 @@
                 </div><!--/.col-->
             </a>
 
-            <a href="{{URL::route('candidate.create.edu.details')}}">
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box facebook-bg">
-                        <i class="fa fa-book"></i>
-                        <div class="count">Education Details 1</div>
-
-                    </div><!--/.info-box-->
-                </div><!--/.col-->
-            </a>
-
-            <a href="{{URL::route('candidate.create.language_details')}}">
+            <a href="{{URL::route('candidate.lang.details')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box dark-bg">
                         <i class="fa fa-comments-o"></i>

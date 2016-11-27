@@ -18,6 +18,11 @@ class CreateCandidateLanguageInfoTable extends Migration
             $table->integer('candidate_id', false, true)->unsigned();
             $table->string('name');
 
+            $table->enum('read', ['b', 'c', 'd', 'e', 'f']);
+            $table->enum('write', ['b', 'c', 'd', 'e', 'f']);
+            $table->enum('listen', ['b', 'c', 'd', 'e', 'f']);
+            $table->enum('speak', ['b', 'c', 'd', 'e', 'f']);
+
 //            $table->enum('can_read', ['YES', 'NO'])->default('NO')->comment('language the candidate can read?');
 //            $table->enum('can_write', ['YES', 'NO'])->default('NO')->comment('if the language the candidate can write');
 //            $table->enum('can_speak', ['YES', 'NO'])->default('NO')->comment('if the language the candidate can Speak?');

@@ -11,11 +11,18 @@ class CandidateLanguageInfo extends Model
     protected $guarded = ['_method', 'token'];
 
     public static $rules = [
-        'employers_name' => 'required|max:50',
-        'post_held' => 'required|max:50',
-        'year_experience' => 'numeric|max:99',
-        'salary' => 'required|numeric',
-        'experience_id' => 'required|exists,subjects,id',
-        'industry_id' => 'required|exists,industry_types,id',
+        'name' => 'required|max:50'
     ];
+
+    public static function level()
+    {
+        return [
+            'b' => 'Beginner',
+            'c' => 'Conversation',
+            'd' => 'Business',
+            'e' => 'Fluent',
+            'f' => 'Mother Tongue'
+        ];
+    }
 }
+

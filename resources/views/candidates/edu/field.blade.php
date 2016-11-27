@@ -1,5 +1,4 @@
 <div class="row" style="background-color: #ECF0F1;">
-
     <div id="edu_details" class="col-md-12 aug_group">
         <div class="form-group aug_legend"> Education Details :</div>
         <div class="_details">
@@ -15,7 +14,7 @@
 
             <div class="form-group col-md-6{!! $errors->has('start_date[]') ? ' has-error' : '' !!}">
                 <label for="start_date" class="control-label">Start date:</label>
-                {!! Form::date('start_date[]', null, ['class'=>'start_date form-control input']) !!}
+                {!! Form::text('start_date[]', null, ['class'=>'start_date form-control input', 'data-date-format' => 'yyyy-m-d']) !!}
             </div>
 
             <div class="form-group col-md-6">
@@ -66,7 +65,7 @@
     <div class="form-group col-sm-12">
         {{--<div class="spacer-1"></div>--}}
         <div class="col-md-12">
-            <button class="btn btn-lg my_button">Save</button>
+            <button type="submit" class="btn btn-lg my_button">Save</button>
         </div>
     </div>
 </div>

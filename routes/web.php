@@ -337,12 +337,27 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
     Route::get('/personal/info', ['as' => 'candidate.personal.info', 'uses' => 'Candidate\CVController@personalInfo']);
-    Route::patch('/personal/info/update', ['as'=>'candidate.personal.info.update', 'uses' => 'Candidate\CVController@updatePersonalInfo']);
+    Route::patch('/personal/info/update', ['as' => 'candidate.personal.info.update', 'uses' => 'Candidate\CVController@updatePersonalInfo']);
 
 
     Route::get('/create/edu/details', ['as' => 'candidate.create.edu.details', 'uses' => 'Candidate\CVController@createEduDetails']);
     Route::post('/create/edu/details', ['as' => 'candidate.store.edu.details', 'uses' => 'Candidate\CVController@storeEduDetails']);
     Route::get('/edit/edu/details', ['as' => 'candidate.edit.edu.details', 'uses' => 'Candidate\CVController@editEduDetails']);
     Route::patch('/edit/edu/details', ['as' => 'candidate.update.edu.details', 'uses' => 'Candidate\CVController@updateEduDetails']);
+
+    Route::get('/edu/details', ['as' => 'candidate.edu.details', 'uses' => 'Candidate\CVController@eduDetails']);
+    Route::get('/edu/{idEdu}/details', ['as' => 'candidate.edu.details.show', 'uses' => 'Candidate\CVController@showEdu']);
+    Route::get('/edu/{idEdu}/details/edit', ['as' => 'candidate.edu.details.edit', 'uses' => 'Candidate\CVController@editEdu']);
+    Route::patch('/edu/{idEdu}/details/update', ['as' => 'candidate.edu.details.update', 'uses' => 'Candidate\CVController@updateEdu']);
+    Route::delete('/destroy/{idEdu}/details/update', ['as' => 'candidate.edu.details.destroy', 'uses' => 'Candidate\CVController@deleteEdu']);
+
+    //Candidate Language details
+    Route::get('/lang/details', ['as' => 'candidate.lang.details', 'uses' => 'Candidate\CVController@langDetails']);
+    Route::get('/create/language/details', ['as' => 'candidate.create.language.details', 'uses' => 'Candidate\CVController@createLang']);
+    Route::post('/create/language/details', ['as' => 'candidate.store.language.details', 'uses' => 'Candidate\CVController@storeLang']);
+    Route::get('/edit/{id}/language/details', ['as' => 'candidate.edit.language.details', 'uses' => 'Candidate\CVController@editLang']);
+    Route::patch('/edit/{id}/language/details', ['as' => 'candidate.update.language.details', 'uses' => 'Candidate\CVController@updateLang']);
+    Route::delete('/destroy/{id}/language/details', ['as' => 'candidate.destroy.language.details', 'uses' => 'Candidate\CVController@deleteLang']);
+
 
 });
