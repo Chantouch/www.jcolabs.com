@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use App\Model\frontend\Candidate;
+use App\Models\CandidateEduDetails;
 use App\Models\CandidateExpDetails;
 use App\Models\CandidateInfo;
 use App\Models\CandidateLanguageInfo;
@@ -378,6 +379,9 @@ class CVController extends Controller
         return view('candidates.experiences.index', compact('experiences'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function createExperiences()
     {
         $id = Auth::guard('candidate')->user()->id;
@@ -386,10 +390,51 @@ class CVController extends Controller
             $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $departments = DepartmentType::where('status', 1)->orderBy('name')->pluck('name', 'id');
             $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-            return view('candidates.experiences.create', compact('sectors', 'subjects', 'cities', 'departments'));
+            $career_level = CandidateExpDetails::career_level();
+            $contract_type = CandidateExpDetails::contract_type();
+            return view('candidates.experiences.create', compact('contract_type', 'sectors', 'career_level', 'cities', 'departments'));
         } else {
             return redirect()->route('candidate.edit.exp_details')->with('status', 'Edit your change if needed dd');
         }
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storeExperiences(Request $request)
+    {
+        $data = $request->all();
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        if (count($candidate->experience) == 0) {
+            DB::beginTransaction();
+            foreach ($request->company_name as $key => $n) {
+
+                $entry = [
+                    'candidate_id' => $id,
+                    'city_id' => $request->city_id[$key],
+                    'career_level' => $request->career_level[$key],
+                    'company_name' => $request->company_name[$key],
+                    'salary' => $request->salary[$key],
+                    'contract_type' => $request->contract_type[$key],
+                    'industry_id' => $request->industry_id[$key],
+                    'country' => $request->country[$key],
+                    'department_id' => $request->department_id[$key],
+                    'description' => $request->description[$key],
+                    'end_date' => $request->end_date[$key],
+                    'is_working' => $request->is_working[$key],
+                    'job_title' => $request->job_title[$key],
+                    'start_date' => $request->start_date[$key],
+                ];
+                CandidateExpDetails::create($entry);
+            }
+
+            DB::commit();
+            return redirect()->route('candidate.dashboard')->with('message', 'Experience Details has been added.');
+        } else {
+            return redirect()->route('candidate.experiences.details')->with('message', 'Edit your change if needed ss');
+        }
+    }
+
 }

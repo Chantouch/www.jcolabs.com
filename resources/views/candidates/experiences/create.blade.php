@@ -2,7 +2,7 @@
 
 @section('page_specific_styles')
     <link href="{{ asset('plugins/jQueryUI/jquery-ui-1.10.3.custom.min.css')}}" rel="stylesheet" type="text/css"/>
-
+    <link href="{{ asset('plugins/datepicker/datepicker3.css')}}" rel="stylesheet" type="text/css"/>
     <style>
         .form-horizontal .form-group {
             margin-right: 0px !important;
@@ -22,7 +22,7 @@
 @section('content')
     <div class="container" id="languages">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.store.language.details', 'files' => 'true', 'class'=>'post-education']) !!}
+        {!! Form::open(['route' => 'candidate.experiences.details.store', 'files' => 'true', 'class'=>'post-education']) !!}
 
         @include('candidates.experiences.field')
 
@@ -47,6 +47,7 @@
 @stop
 
 @section('page_specific_js')
+    <script src="{{ asset('plugins/datepicker/bootstrap-datepicker.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
 
         function addRow() {
@@ -79,6 +80,13 @@
     $("#end_date").focus();
     }
     });
+    });
+
+    $('#start_date, #end_date').datepicker({
+    format: 'yyyy-mm-dd',
+    startDate: '-16y',
+    endDate: 'today',
+    todayHighlight: true,
     });
 
 @stop

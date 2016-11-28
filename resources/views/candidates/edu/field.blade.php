@@ -14,7 +14,7 @@
 
             <div class="form-group col-md-6{!! $errors->has('start_date[]') ? ' has-error' : '' !!}">
                 <label for="start_date" class="control-label">Start date:</label>
-                {!! Form::text('start_date[]', null, ['class'=>'start_date form-control input', 'data-date-format' => 'yyyy-m-d']) !!}
+                {!! Form::text('start_date[]', null, ['class'=>'start_date form-control input', 'data-date-format' => 'yyyy-m-d','id'=>'start_date']) !!}
             </div>
 
             <div class="form-group col-md-6">

@@ -22,7 +22,7 @@
 @section('content')
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.store.edu.details', 'files' => 'true', 'class'=>'post-education']) !!}
+        {!! Form::open(['route' => 'candidate.experiences.details.store', 'files' => 'true', 'class'=>'post-education']) !!}
 
         @include('candidates.edu.field')
 
@@ -80,4 +80,11 @@
     });
     });
 
+
+    $('#start_date').datepicker({
+    format: 'mm/dd/yyyy',
+    startDate: '-3d'
+    });
+
 @stop
+

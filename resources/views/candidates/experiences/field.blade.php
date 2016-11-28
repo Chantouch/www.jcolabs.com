@@ -13,7 +13,7 @@
 
             <div class="form-group col-md-6">
                 <label for="can_read" class="control-label">Start Date :</label>
-                {!! Form::text('start_date[]', null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::text('start_date[]', null, ['class'=>'form-control input','id' => 'start_date']) !!}
             </div>
             <div class="form-group col-md-6">
                 <label for="end_date" class="control-label">End date:</label>
@@ -24,27 +24,27 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="can_speak" class="control-label">Country :</label>
-                {!! Form::text('country[]', null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::text('country[]', null, ['class'=>'form-control input']) !!}
             </div>
             <div class="form-group col-md-4">
                 <label for="can_speak_fluently" class="control-label">City :</label>
-                {!! Form::select('city_id[]', $cities, null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::select('city_id[]', $cities, null, ['class'=>'form-control input']) !!}
             </div>
             <div class="form-group col-md-4">
                 <label for="can_speak_fluently" class="control-label">Contract :</label>
-                {!! Form::select('contract_type[]', $cities, null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::select('contract_type[]', $contract_type, null, ['class'=>'form-control input']) !!}
             </div>
             <div class="form-group col-md-4">
                 <label for="can_speak" class="control-label">Industry :</label>
-                {!! Form::select('industry_id[]', $sectors, null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::select('industry_id[]', $sectors, null, ['class'=>'form-control input']) !!}
             </div>
             <div class="form-group col-md-4">
                 <label for="can_speak_fluently" class="control-label">Job Role :</label>
-                {!! Form::select('department_id[]', $departments, null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::select('department_id[]', $departments, null, ['class'=>'form-control input']) !!}
             </div>
             <div class="form-group col-md-4">
                 <label for="can_speak_fluently" class="control-label">Career Level :</label>
-                {!! Form::select('career_level[]', $cities, null, ['class'=>'form-control input', 'required']) !!}
+                {!! Form::select('career_level[]', $career_level, null, ['class'=>'form-control input']) !!}
             </div>
             <div class="form-group col-md-12">
                 <label for="can_speak_fluently" class="control-label">Description :</label>

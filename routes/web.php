@@ -362,6 +362,7 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     //Candidate Experiences
     Route::get('/experiences/details', ['as' => 'candidate.experiences.details', 'uses' => 'Candidate\CVController@getExperiences']);
     Route::get('/experiences/details/create', ['as' => 'candidate.experiences.details.create', 'uses' => 'Candidate\CVController@createExperiences']);
+    Route::post('/experiences/details/create', ['as' => 'candidate.experiences.details.store', 'uses' => 'Candidate\CVController@storeExperiences']);
 
 
 });
