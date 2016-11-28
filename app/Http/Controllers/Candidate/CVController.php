@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use App\Model\frontend\Candidate;
+use App\Models\CandidateExpDetails;
 use App\Models\CandidateInfo;
 use App\Models\CandidateLanguageInfo;
+use App\Models\City;
+use App\Models\DepartmentType;
 use App\Models\EduDetails;
+use App\Models\IndustryType;
+use App\Models\Subject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -263,7 +268,7 @@ class CVController extends Controller
         if (count($candidate->language) == 0) {
             return view('candidates.languages.create', compact('level'));
         } else {
-            return redirect()->route($this->route . 'edit.language_details')->with('message', 'Edit your change if needed more languages');
+            return redirect()->route('candidate.lang.details')->with('message', 'Edit your change if needed more languages');
         }
     }
 
@@ -362,4 +367,29 @@ class CVController extends Controller
         return redirect()->route('candidate.lang.details')->with('message', 'Language deleted successfully');
     }
 
+    public function getExperiences()
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $experiences = CandidateExpDetails::with('candidate')->where('candidate_id', $id)->get()->forPage('5', '5');
+        $candidate = Candidate::find($id);
+        if (count($candidate->experience) == 0) {
+            return redirect()->route('candidate.experiences.details.create')->with('error', 'You can not view without insert data');
+        }
+        return view('candidates.experiences.index', compact('experiences'));
+    }
+
+    public function createExperiences()
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        if (count($candidate->experience) == 0) {
+            $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $departments = DepartmentType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            return view('candidates.experiences.create', compact('sectors', 'subjects', 'cities', 'departments'));
+        } else {
+            return redirect()->route('candidate.edit.exp_details')->with('status', 'Edit your change if needed dd');
+        }
+    }
 }

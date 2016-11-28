@@ -20,7 +20,7 @@
                 {!! Form::select('speak[]', $level, null, ['class'=>'form-control', 'required']) !!}
             </div>
             <div class="form-group col-md-2">
-                <label for="can_speak_fluently" class="control-label">Speak Fluently :</label>
+                <label for="can_speak_fluently" class="control-label">Listen :</label>
                 {!! Form::select('listen[]', $level, null, ['class'=>'form-control', 'required']) !!}
             </div>
 
@@ -40,7 +40,7 @@
     <div class="form-group col-sm-12">
         {{--<div class="spacer-1"></div>--}}
         <div class="col-md-12">
-            <button type="submit" class="btn btn-lg my_button">Save</button>
+            <button type="submit" class="btn btn-lg my_button btn-green">Save</button>
         </div>
     </div>
 </div>

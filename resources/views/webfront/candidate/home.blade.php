@@ -305,7 +305,7 @@
                 </div><!--/.col-->
             </a>
 
-            <a href="{{URL::route('candidate.create.exp_details')}}">
+            <a href="{{URL::route('candidate.experiences.details')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box linkedin-bg">
                         <i class="fa fa-cubes"></i>

@@ -359,5 +359,9 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::patch('/edit/{id}/language/details', ['as' => 'candidate.update.language.details', 'uses' => 'Candidate\CVController@updateLang']);
     Route::delete('/destroy/{id}/language/details', ['as' => 'candidate.destroy.language.details', 'uses' => 'Candidate\CVController@deleteLang']);
 
+    //Candidate Experiences
+    Route::get('/experiences/details', ['as' => 'candidate.experiences.details', 'uses' => 'Candidate\CVController@getExperiences']);
+    Route::get('/experiences/details/create', ['as' => 'candidate.experiences.details.create', 'uses' => 'Candidate\CVController@createExperiences']);
+
 
 });

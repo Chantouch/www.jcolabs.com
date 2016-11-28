@@ -65,7 +65,8 @@
     <div class="form-group col-sm-12">
         {{--<div class="spacer-1"></div>--}}
         <div class="col-md-12">
-            <button type="submit" class="btn btn-lg my_button">Save</button>
+            <button type="submit" class="my_button"><i class="fa fa-save"></i> Save</button>
+            <a href="{!! route('candidate.dashboard') !!}" class="my_button"><i class="fa fa-backward"></i> <span> Back</span></a>
         </div>
     </div>
 </div>

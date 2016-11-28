@@ -24,7 +24,7 @@
         <div class="spacer-1">&nbsp;</div>
         {!! Form::open(['route' => 'candidate.store.language.details', 'files' => 'true', 'class'=>'post-education']) !!}
 
-        @include('candidates.languages.field')
+        @include('candidates.experiences.field')
 
         {!! Form::close() !!}
         <div class="spacer-1">&nbsp;</div>

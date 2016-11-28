@@ -188,8 +188,8 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-default btn-green">Save</button>
-                    <a href="#" class="btn btn-default">Cancel</a>
+                    <button class="btn-green my_button"><i class="fa fa-save"></i> Save</button>
+                    <a href="{!! route('candidate.dashboard') !!}" class="my_button"><i class="fa fa-step-backward"></i> Cancel</a>
                 </div>
                 {!! Form::close() !!}
 
