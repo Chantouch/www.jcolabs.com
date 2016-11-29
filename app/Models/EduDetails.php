@@ -5,16 +5,15 @@ namespace App\Models;
 use App\Model\frontend\Candidate;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
 class EduDetails extends Model
 {
+    use SoftDeletes;
     protected $table = 'edu_details';
-
     protected $guarded = ['_method', '_token'];
-
     protected $dates = ['start_date', 'end_date'];
-
     protected $fillable = [
         'city_id',
         'country_name',

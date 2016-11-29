@@ -31,6 +31,7 @@ class CreateCandidateExperienceInfoTable extends Migration
             $table->dateTime('end_date')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->foreign('industry_id')->references('id')->on('industry_types');

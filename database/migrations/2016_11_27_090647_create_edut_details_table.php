@@ -29,6 +29,7 @@ class CreateEdutDetailsTable extends Migration
             $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->foreign('city_id')->references('id')->on('cities');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -371,7 +371,7 @@ class CVController extends Controller
     public function getExperiences()
     {
         $id = Auth::guard('candidate')->user()->id;
-        $experiences = CandidateExpDetails::with('candidate')->where('candidate_id', $id)->get()->forPage('5', '5');
+        $experiences = CandidateExpDetails::where('candidate_id', $id)->get();
         $candidate = Candidate::find($id);
         if (count($candidate->experience) == 0) {
             return redirect()->route('candidate.experiences.details.create')->with('error', 'You can not view without insert data');
@@ -394,7 +394,7 @@ class CVController extends Controller
             $contract_type = CandidateExpDetails::contract_type();
             return view('candidates.experiences.create', compact('contract_type', 'sectors', 'career_level', 'cities', 'departments'));
         } else {
-            return redirect()->route('candidate.edit.exp_details')->with('status', 'Edit your change if needed dd');
+            return redirect()->route('candidate.lang.details')->with('status', 'Edit your change if needed dd');
         }
     }
 
@@ -404,7 +404,6 @@ class CVController extends Controller
      */
     public function storeExperiences(Request $request)
     {
-        $data = $request->all();
         $id = Auth::guard('candidate')->user()->id;
         $candidate = Candidate::find($id);
         if (count($candidate->experience) == 0) {
@@ -435,6 +434,72 @@ class CVController extends Controller
         } else {
             return redirect()->route('candidate.experiences.details')->with('message', 'Edit your change if needed ss');
         }
+    }
+
+    /**
+     * @param $idExp
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @internal param Request $request
+     */
+    public function editExperiences($idExp)
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
+        $experience = CandidateExpDetails::where('candidate_id', $id)->find($idExp);
+        if (empty($experience)) {
+            return redirect()->route('candidate.experiences.details')->with('error', 'Your experience is not found.');
+        }
+        if (count($candidate->experience) >= 1) {
+            $sectors = IndustryType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $departments = DepartmentType::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $cities = City::where('status', 1)->orderBy('name')->pluck('name', 'id');
+            $career_level = CandidateExpDetails::career_level();
+            $contract_type = CandidateExpDetails::contract_type();
+            return view('candidates.experiences.edit', compact('departments', 'cities', 'sectors', 'career_level', 'contract_type', 'experience'));
+        } else {
+            return redirect()->route('candidate.experiences.details.create')->with('status', 'Edit your change if needed more experience');
+        }
+    }
+
+    public function updateExperiences($idExp, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $validator = Validator::make($data = $request->all(), CandidateExpDetails::$rules);
+            if ($validator->fails()) {
+                return redirect()->back()->withInput()->withErrors($validator)->with('error', 'Error in your fields');
+            }
+            $id = Auth::guard('candidate')->user()->id;
+            $candidate = Candidate::find($id);
+            $experience = CandidateExpDetails::with('candidate')->where('candidate_id', $id)->find($idExp);
+            if (empty($experience)) {
+                return redirect()->route('candidate.experiences.details')->with('error', 'Your experience is not found.');
+            }
+            if (count($candidate->experience) >= 1) {
+                $experience = $experience->update($data);
+                if (!$experience) {
+                    DB::rollbackTransaction();
+                    return redirect()->back()->withInput()->with('error', 'Unable to process your request right now');
+                }
+            } else {
+                return redirect()->route('candidate.experiences.details.create')->with('status', 'Edit your change if needed more experience');
+            }
+        } catch (ErrorException $errorException) {
+
+        }
+        DB::commit();
+        return redirect()->route('candidate.experiences.details')->with('message', 'Your experience updated successfully');
+    }
+
+    public function deleteExperience($idExp)
+    {
+        $id = Auth::guard('candidate')->user()->id;
+        $experience = CandidateExpDetails::where('candidate_id', $id)->find($idExp);
+        if (empty($experience)) {
+            return redirect()->route('candidate.experiences.details')->with('error', 'Your experience is not found.');
+        }
+        $experience->delete();
+        return redirect()->route('candidate.experiences.details')->with('message', 'Your experience deleted successfully');
     }
 
 }

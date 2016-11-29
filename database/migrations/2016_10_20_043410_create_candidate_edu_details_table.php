@@ -29,6 +29,7 @@ class CreateCandidateEduDetailsTable extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

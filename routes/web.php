@@ -363,6 +363,9 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/experiences/details', ['as' => 'candidate.experiences.details', 'uses' => 'Candidate\CVController@getExperiences']);
     Route::get('/experiences/details/create', ['as' => 'candidate.experiences.details.create', 'uses' => 'Candidate\CVController@createExperiences']);
     Route::post('/experiences/details/create', ['as' => 'candidate.experiences.details.store', 'uses' => 'Candidate\CVController@storeExperiences']);
+    Route::get('/experiences/details/{id}/edit', ['as' => 'candidate.experiences.details.edit', 'uses' => 'Candidate\CVController@editExperiences']);
+    Route::patch('/experiences/details/{id}/edit', ['as' => 'candidate.experiences.details.update', 'uses' => 'Candidate\CVController@updateExperiences']);
+    Route::delete('/experiences/details/{id}/destroy', ['as' => 'candidate.experiences.details.delete', 'uses' => 'Candidate\CVController@deleteExperience']);
 
 
 });

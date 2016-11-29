@@ -2,11 +2,11 @@
     <thead>
     <tr>
         <th width="50px">#</th>
-        <th>Name</th>
-        <th>Read</th>
-        <th>Write</th>
-        <th>Listen</th>
-        <th>Speak</th>
+        <th>Company Name</th>
+        <th>Job Title</th>
+        <th>Level</th>
+        <th>Contract Type</th>
+        <th>Country</th>
         <th width="87px">Action</th>
     </tr>
     </thead>
@@ -15,66 +15,26 @@
         <tr>
             <td>{!! $index + 1 !!}</td>
             <td>
-                {!! $experience->name !!}
+                {!! $experience->company_name !!}
             </td>
             <td>
-                @if($experience->read=='b')
-                    <span>Beginner</span>
-                @elseif($experience->read=='c')
-                    <span>Conversation</span>
-                @elseif($experience->read=='d')
-                    <span>Business</span>
-                @elseif($experience->read=='e')
-                    <span>Fluent</span>
-                @else
-                    <span>Mother Tongue</span>
-                @endif
+                <span>{!! $experience->job_title !!}</span>
             </td>
             <td>
-                @if($experience->write=='b')
-                    <span>Beginner</span>
-                @elseif($experience->write=='c')
-                    <span>Conversation</span>
-                @elseif($experience->write=='d')
-                    <span>Business</span>
-                @elseif($experience->write=='e')
-                    <span>Fluent</span>
-                @else
-                    <span>Mother Tongue</span>
-                @endif
+                <span>{!! $experience->career_level !!}</span>
             </td>
             <td>
-                @if($experience->listen=='b')
-                    <span>Beginner</span>
-                @elseif($experience->listen=='c')
-                    <span>Conversation</span>
-                @elseif($experience->listen=='d')
-                    <span>Business</span>
-                @elseif($experience->listen=='e')
-                    <span>Fluent</span>
-                @else
-                    <span>Mother Tongue</span>
-                @endif
+                <span>{!! $experience->contract_type !!}</span>
             </td>
             <td>
-                @if($experience->speak=='b')
-                    <span>Beginner</span>
-                @elseif($experience->speak=='c')
-                    <span>Conversation</span>
-                @elseif($experience->speak=='d')
-                    <span>Business</span>
-                @elseif($experience->speak=='e')
-                    <span>Fluent</span>
-                @else
-                    <span>Mother Tongue</span>
-                @endif
+                <span>{!! $experience->country !!}</span>
             </td>
             <td>
-                {!! Form::open(['route' => ['candidate.destroy.language.details', $experience->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['candidate.experiences.details.delete', $experience->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
                     {{--<a href="{!! route('candidate.edu.details.show', [$experience->id]) !!}"--}}
                     {{--class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>--}}
-                    <a href="{!! route('candidate.edit.language.details', [$experience->id]) !!}"
+                    <a href="{!! route('candidate.experiences.details.edit', [$experience->id]) !!}"
                        class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>

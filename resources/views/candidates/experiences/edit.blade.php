@@ -33,32 +33,59 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::model($language, ['route' => ['candidate.update.language.details', $language->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
+        {!! Form::model($experience, ['route' => ['candidate.experiences.details.update', $experience->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
 
         <div class="row" style="background-color: #ECF0F1;">
             <div id="edu_details" class="col-md-12 aug_group">
-                <div class="form-group aug_legend"> Education Details :</div>
+                <div class="form-group aug_legend"> Experiences Details :</div>
                 <div class="_details">
-                    <div class="form-group col-md-4">
-                        <label for="school_university_name" class="control-label"> University Name: </label>
-                        {!! Form::text('name', null, ['class'=>'university_name form-control input']) !!}
+                    <div class="form-group col-md-6">
+                        <label for="job_title" class="control-label"> Job Title: </label>
+                        {!! Form::text('job_title', null, ['class'=>'job_title form-control input']) !!}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="job_title" class="control-label"> Company name: </label>
+                        {!! Form::text('company_name', null, ['class'=>'job_title form-control input']) !!}
                     </div>
 
-                    <div class="form-group col-md-2">
-                        <label for="can_read" class="control-label">Read :</label>
-                        {!! Form::select('read', $level, null, ['class'=>'form-control', 'required']) !!}
+                    <div class="form-group col-md-6">
+                        <label for="can_read" class="control-label">Start Date :</label>
+                        {!! Form::text('start_date', null, ['class'=>'form-control input','id' => 'start_date']) !!}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="can_write" class="control-label">Write :</label>
-                        {!! Form::select('write', $level, null, ['class'=>'form-control', 'required']) !!}
+                    <div class="form-group col-md-6">
+                        <label for="end_date" class="control-label">End date:</label>
+                        <label for="end_date" class="control-label" style="float: right">
+                            I'm currently working here {!! Form::hidden('is_working', '0', false) !!}
+                            {!! Form::checkbox('is_working', '1', null, ['id'=>'is_working', 'checked']) !!}</label>
+                        {!! Form::text('end_date', null, ['class'=>'end_date form-control input', 'id' => 'end_date', 'disabled']) !!}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="can_speak" class="control-label">Speak :</label>
-                        {!! Form::select('speak', $level, null, ['class'=>'form-control', 'required']) !!}
+                    <div class="form-group col-md-4">
+                        <label for="can_speak" class="control-label">Country :</label>
+                        {!! Form::text('country', null, ['class'=>'form-control input']) !!}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="can_speak_fluently" class="control-label">Listen :</label>
-                        {!! Form::select('listen', $level, null, ['class'=>'form-control', 'required']) !!}
+                    <div class="form-group col-md-4">
+                        <label for="can_speak_fluently" class="control-label">City :</label>
+                        {!! Form::select('city_id', $cities, null, ['class'=>'form-control input']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="can_speak_fluently" class="control-label">Contract :</label>
+                        {!! Form::select('contract_type', $contract_type, null, ['class'=>'form-control input']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="can_speak" class="control-label">Industry :</label>
+                        {!! Form::select('industry_id', $sectors, null, ['class'=>'form-control input']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="can_speak_fluently" class="control-label">Job Role :</label>
+                        {!! Form::select('department_id', $departments, null, ['class'=>'form-control input']) !!}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="can_speak_fluently" class="control-label">Career Level :</label>
+                        {!! Form::select('career_level', $career_level, null, ['class'=>'form-control input']) !!}
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="can_speak_fluently" class="control-label">Description :</label>
+                        {!! Form::textarea('description', null, ['class'=>'form-control', 'cols'=>'15', 'rows'=>'7']) !!}
                     </div>
 
                 </div>
@@ -67,8 +94,9 @@
             <div class="form-group col-sm-12">
                 {{--<div class="spacer-1"></div>--}}
                 <div class="col-md-12">
-                    <button type="submit" class="my_button">Save</button>
-                    <a href="{!! route('candidate.lang.details') !!}" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="my_button"><i class="fa fa-save"></i> Save</button>
+                    <a href="{!! route('candidate.experiences.details') !!}" class="my_button"><i
+                                class="fa fa-backward"></i> Cancel</a>
                 </div>
             </div>
         </div>
