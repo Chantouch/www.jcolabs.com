@@ -26,7 +26,7 @@
             <div id="edu_details" class="aug_group">
                 <div class="form-group aug_legend"> Education Details :</div>
                 <div class="col-md-12">
-                    @include('candidates.edu.table')
+                    @include('candidates.professionals.table')
                 </div>
             </div>
         </div>

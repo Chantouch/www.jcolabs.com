@@ -30,8 +30,8 @@ class ProfessionalSkillController extends Controller
     public function index()
     {
         $id = Auth::guard('candidate')->user()->id;
-        $professional = ProfessionalSkill::with('candidate')->where('candidate_id', $id)->paginate(10);
-        return view('admin.candidates.professional.index', compact('professional'));
+        $professionals = ProfessionalSkill::with('candidate')->where('candidate_id', $id)->paginate(10);
+        return view('candidates.professionals.index', compact('professionals'));
     }
 
     /**
@@ -90,7 +90,7 @@ class ProfessionalSkillController extends Controller
     {
         $id = auth()->guard('candidate')->user()->id;
         $professional = ProfessionalSkill::with('candidate')->where('candidate_id', $id);
-        return view('candidates.professional.show', compact('professional'));
+        return view('candidates.professionals.show', compact('professional'));
     }
 
     /**
@@ -103,7 +103,7 @@ class ProfessionalSkillController extends Controller
     {
         $c_id = auth()->guard('candidate')->user()->id;
         $professional = ProfessionalSkill::with('candidate')->where('candidate_id', $c_id)->find($id);
-        return view('candidates.edit', compact('professional'));
+        return view('candidates.professionals.edit', compact('professional'));
     }
 
     /**

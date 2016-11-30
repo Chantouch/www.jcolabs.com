@@ -14,29 +14,29 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($edu as $index => $education)
+    @foreach($professionals as $index => $professional)
         <tr>
             <td>{!! $index + 1 !!}</td>
-            <td>{!! $education->school_university_name !!}</td>
-            <td>{!! $education->degree_level !!}</td>
-            <td>{!! $education->start_date !!}</td>
+            <td>{!! $professional->school_university_name !!}</td>
+            <td>{!! $professional->degree_level !!}</td>
+            <td>{!! $professional->start_date !!}</td>
             <td>
-                @if($education->is_studying == "1")
+                @if($professional->is_studying == "1")
                     <span>Present</span>
                 @else
-                    <span>{!! $education->end_date !!}</span>
+                    <span>{!! $professional->end_date !!}</span>
                 @endif
             </td>
-            <td>{!! $education->country_name !!}</td>
-            <td>{!! $education->field_of_study !!}</td>
-            <td>{!! $education->grade !!}</td>
-            <td class="hidden-md hidden-sm hidden-xs">{!! $education->description !!}</td>
+            <td>{!! $professional->country_name !!}</td>
+            <td>{!! $professional->field_of_study !!}</td>
+            <td>{!! $professional->grade !!}</td>
+            <td class="hidden-md hidden-sm hidden-xs">{!! $professional->description !!}</td>
             <td>
-                {!! Form::open(['route' => ['candidate.edu.details.destroy', $education->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['candidate.edu.details.destroy', $professional->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    {{--<a href="{!! route('candidate.edu.details.show', [$education->id]) !!}"--}}
+                    {{--<a href="{!! route('candidate.edu.details.show', [$professional->id]) !!}"--}}
                     {{--class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>--}}
-                    <a href="{!! route('candidate.edu.details.edit', [$education->id]) !!}"
+                    <a href="{!! route('candidate.edu.details.edit', [$professional->id]) !!}"
                        class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>
