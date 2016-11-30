@@ -33,7 +33,7 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::model($experience, ['route' => ['candidate.experiences.details.update', $experience->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
+        {!! Form::model($experience, ['route' => ['candidate.experiences.update', $experience->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
 
         <div class="row" style="background-color: #ECF0F1;">
             <div id="edu_details" class="col-md-12 aug_group">
@@ -95,7 +95,7 @@
                 {{--<div class="spacer-1"></div>--}}
                 <div class="col-md-12">
                     <button type="submit" class="my_button"><i class="fa fa-save"></i> Save</button>
-                    <a href="{!! route('candidate.experiences.details') !!}" class="my_button"><i
+                    <a href="{!! route('candidate.experiences.index') !!}" class="my_button"><i
                                 class="fa fa-backward"></i> Cancel</a>
                 </div>
             </div>

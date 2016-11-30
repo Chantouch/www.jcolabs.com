@@ -70,11 +70,11 @@
                 @endif
             </td>
             <td>
-                {!! Form::open(['route' => ['candidate.destroy.language.details', $language->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['candidate.languages.destroy', $language->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    {{--<a href="{!! route('candidate.edu.details.show', [$language->id]) !!}"--}}
+                    {{--<a href="{!! route('candidate.languages.show', [$language->id]) !!}"--}}
                     {{--class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>--}}
-                    <a href="{!! route('candidate.edit.language.details', [$language->id]) !!}"
+                    <a href="{!! route('candidate.languages.edit', [$language->id]) !!}"
                        class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>

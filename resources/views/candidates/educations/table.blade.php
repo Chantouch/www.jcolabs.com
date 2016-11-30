@@ -32,11 +32,11 @@
             <td>{!! $education->grade !!}</td>
             <td class="hidden-md hidden-sm hidden-xs">{!! $education->description !!}</td>
             <td>
-                {!! Form::open(['route' => ['candidate.edu.details.destroy', $education->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['candidate.educations.destroy', $education->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    {{--<a href="{!! route('candidate.edu.details.show', [$education->id]) !!}"--}}
+                    {{--<a href="{!! route('candidate.educations.show', [$education->id]) !!}"--}}
                     {{--class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>--}}
-                    <a href="{!! route('candidate.edu.details.edit', [$education->id]) !!}"
+                    <a href="{!! route('candidate.educations.edit', [$education->id]) !!}"
                        class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>

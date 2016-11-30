@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Candidate;
 
+use App\Model\frontend\Candidate;
 use App\Models\ProfessionalSkill;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,9 +30,14 @@ class ProfessionalSkillController extends Controller
      */
     public function index()
     {
-        $id = Auth::guard('candidate')->user()->id;
+        $id = auth()->guard('candidate')->user()->id;
+        $candidate = Candidate::find($id);
         $professionals = ProfessionalSkill::with('candidate')->where('candidate_id', $id)->paginate(10);
-        return view('candidates.professionals.index', compact('professionals'));
+        if (count($candidate->professionals) >= 1) {
+            return view('candidates.professionals.index', compact('professionals'));
+        } else {
+            return redirect()->route('candidate.professionals.create')->with('message', 'You can not view without inserting data');
+        }
     }
 
     /**
@@ -41,7 +47,9 @@ class ProfessionalSkillController extends Controller
      */
     public function create()
     {
-        return view('candidates.professional.create');
+        $level = ProfessionalSkill::level();
+        $experience = ProfessionalSkill::experience();
+        return view('candidates.professionals.create', compact('level', 'experience'));
     }
 
     /**
@@ -77,7 +85,7 @@ class ProfessionalSkillController extends Controller
 
         }
         DB::commit();
-        return redirect()->route('candidate.professionals.index')->with('success', 'Your professional skills added successfully');
+        return redirect()->route('candidate.professionals.index')->with('message', 'Your professional skills added successfully');
     }
 
     /**
@@ -103,7 +111,9 @@ class ProfessionalSkillController extends Controller
     {
         $c_id = auth()->guard('candidate')->user()->id;
         $professional = ProfessionalSkill::with('candidate')->where('candidate_id', $c_id)->find($id);
-        return view('candidates.professionals.edit', compact('professional'));
+        $level = ProfessionalSkill::level();
+        $experience = ProfessionalSkill::experience();
+        return view('candidates.professionals.edit', compact('professional', 'level', 'experience'));
     }
 
     /**
@@ -136,7 +146,7 @@ class ProfessionalSkillController extends Controller
 
         }
         DB::commit();
-        return redirect()->route('candidate.professionals.index')->with('success', 'Professional skill added successfully');
+        return redirect()->route('candidate.professionals.index')->with('message', 'Professional skill added successfully');
     }
 
     /**
@@ -153,6 +163,6 @@ class ProfessionalSkillController extends Controller
             return redirect()->route('candidate.professionals.index')->with('error', 'Professional skill not found');
         }
         $professional->delete();
-        return redirect()->route('candidate.professionals.index')->with('success', 'Professional skill deleted successfully');
+        return redirect()->route('candidate.professionals.index')->with('message', 'Professional skill deleted successfully');
     }
 }

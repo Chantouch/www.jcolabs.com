@@ -166,7 +166,7 @@
 
                         <div class="form-group">
                             <label for="dob">Date of Birth</label>
-                            {!! Form::date('dob', null, ['class'=>'form-control input', 'id'=>'dob']) !!}
+                            {!! Form::text('dob', null, ['class'=>'form-control input', 'id'=>'dob']) !!}
                         </div>
 
                         <div class="form-group">

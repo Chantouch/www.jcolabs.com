@@ -11,7 +11,26 @@
         }
 
         .aug_group {
-            background-color: #ECF0F1;
+            /*background-color: #ECF0F1;*/
+        }
+
+        .aug_legend {
+            /*width: 100%;*/
+            font-family: Verdana, Geneva, Tahoma, Arial, Helvetica, sans-serif;
+            display: inline-block;
+            color: #FFFFFF;
+            /*background-color: #8AC007;*/
+            background-color: #1abc9c;
+            font-size: 15px;
+            text-align: center;
+            padding: 5px 16px;
+            text-decoration: none;
+            /*margin-left: -15px;
+            margin-right: 15px;*/
+            margin-top: 0px;
+            margin-bottom: 10px;
+            /*border: 1px solid #8AC007;*/
+            white-space: nowrap;
         }
 
         .p-l-0 {
@@ -33,32 +52,40 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::model($language, ['route' => ['candidate.languages.update', $language->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
+        {!! Form::model($reference, ['route' => ['candidate.references.update', $reference->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
 
         <div class="row" style="background-color: #ECF0F1;">
             <div id="edu_details" class="col-md-12 aug_group">
-                <div class="form-group aug_legend"> Education Details :</div>
+                <div class="form-group aug_legend"> References Details :</div>
                 <div class="_details">
-                    <div class="form-group col-md-4">
-                        <label for="school_university_name" class="control-label"> University Name: </label>
-                        {!! Form::text('name', null, ['class'=>'university_name form-control input']) !!}
+                    <div class="form-group col-md-6">
+                        <label for="first_name" class="control-label"> First Name: </label>
+                        {!! Form::text('first_name', null, ['class'=>'first_name form-control input']) !!}
                     </div>
 
-                    <div class="form-group col-md-2">
-                        <label for="can_read" class="control-label">Read :</label>
-                        {!! Form::select('read', $level, null, ['class'=>'form-control', 'required']) !!}
+                    <div class="form-group col-md-6">
+                        <label for="degree_level" class="control-label"> Last Name:</label>
+                        {!! Form::text('last_name', null, ['class'=>'last_name form-control input']) !!}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="can_write" class="control-label">Write :</label>
-                        {!! Form::select('write', $level, null, ['class'=>'form-control', 'required']) !!}
+
+                    <div class="form-group col-md-6{!! $errors->has('start_date') ? ' has-error' : '' !!}">
+                        <label for="company_name" class="control-label">Company name:</label>
+                        {!! Form::text('company_name', null, ['class'=>'company_name form-control input', 'id'=>'first_name']) !!}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="can_speak" class="control-label">Speak :</label>
-                        {!! Form::select('speak', $level, null, ['class'=>'form-control', 'required']) !!}
+
+                    <div class="form-group col-md-6">
+                        <label for="position" class="control-label">Position:</label>
+                        {!! Form::text('position', null, ['class'=>'position form-control input', 'id' => 'position']) !!}
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="can_speak_fluently" class="control-label">Listen :</label>
-                        {!! Form::select('listen', $level, null, ['class'=>'form-control', 'required']) !!}
+
+                    <div class="form-group col-md-6">
+                        <label for="phone_number" class="control-label">Phone number:</label>
+                        {!! Form::text('phone_number', null, ['class'=>'form-control input']) !!}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="email" class="control-label">Email:</label>
+                        {!! Form::text('email', null, ['class'=>'form-control input']) !!}
                     </div>
 
                 </div>
@@ -67,14 +94,13 @@
             <div class="form-group col-sm-12">
                 {{--<div class="spacer-1"></div>--}}
                 <div class="col-md-12">
-                    <button type="submit" class="my_button btn-green"><i class="fa fa-save"></i> Save</button>
-                    <a href="{!! route('candidate.languages.index') !!}" class="my_button"><i class="fa fa-save"></i> Back</a>
+                    <button type="submit" class="my_button"><i class="fa fa-save"></i> Save</button>
+                    <a href="{!! route('candidate.references.index') !!}" class="my_button"><i class="fa fa-backward"></i> Back</a>
                 </div>
             </div>
         </div>
 
         {!! Form::close() !!}
-        <div class="spacer-1">&nbsp;</div>
 
     </div>
 @stop

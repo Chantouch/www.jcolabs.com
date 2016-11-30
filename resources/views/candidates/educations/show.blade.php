@@ -20,14 +20,9 @@
 @stop
 
 @section('content')
-    <div class="container" id="languages">
+    <div class="container">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.languages.store', 'files' => 'true', 'class'=>'post-education']) !!}
 
-        @include('candidates.languages.field')
-
-        {!! Form::close() !!}
-        <div class="spacer-1">&nbsp;</div>
     </div>
 @stop
 

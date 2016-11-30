@@ -22,9 +22,9 @@
 @section('content')
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.experiences.details.store', 'files' => 'true', 'class'=>'post-education']) !!}
+        {!! Form::open(['route' => 'candidate.professionals.store', 'files' => 'true', 'class'=>'post-education']) !!}
 
-        @include('candidates.edu.field')
+        @include('candidates.professionals.field')
 
         {!! Form::close() !!}
     </div>

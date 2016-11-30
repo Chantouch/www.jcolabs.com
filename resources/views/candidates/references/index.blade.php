@@ -20,13 +20,19 @@
 @stop
 
 @section('content')
-    <div class="container" id="languages">
+    <div class="container">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.languages.store', 'files' => 'true', 'class'=>'post-education']) !!}
-
-        @include('candidates.languages.field')
-
-        {!! Form::close() !!}
+        <div class="row" style="background-color: #ECF0F1;">
+            <div id="edu_details" class="aug_group">
+                <div class="form-group aug_legend"> Education Details :</div>
+                <div class="form-group lang-legend pull-right">
+                    <a href="{!! route('candidate.dashboard') !!}" class="my_button"><i class="fa fa-backward"></i> <span> Back</span></a>
+                </div>
+                <div class="col-md-12">
+                    @include('candidates.references.table')
+                </div>
+            </div>
+        </div>
         <div class="spacer-1">&nbsp;</div>
     </div>
 @stop

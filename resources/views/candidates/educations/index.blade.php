@@ -25,8 +25,11 @@
         <div class="row" style="background-color: #ECF0F1;">
             <div id="edu_details" class="aug_group">
                 <div class="form-group aug_legend"> Education Details :</div>
+                <div class="form-group lang-legend pull-right">
+                    <a href="{!! route('candidate.dashboard') !!}" class="my_button"><i class="fa fa-backward"></i> <span> Back</span></a>
+                </div>
                 <div class="col-md-12">
-                    @include('candidates.edu.table')
+                    @include('candidates.educations.table')
                 </div>
             </div>
         </div>

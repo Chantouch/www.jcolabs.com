@@ -310,64 +310,30 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::post('logout', ['as' => 'candidate.process.logout', 'uses' => 'Candidate\Auth\LoginController@getLogout']);
     Route::get('dashboard', ['as' => 'candidate.dashboard', 'uses' => 'Candidate\CandidateController@dashboard']);
 
-    Route::get('/create_resume', ['as' => 'candidate.create.resume', 'uses' => 'Candidate\CandidateController@createResume']);
-    Route::post('/create_resume', ['as' => 'candidate.store.resume', 'uses' => 'Candidate\CandidateController@storeResume']);
-    Route::get('/edit_resume', ['as' => 'candidate.edit.resume', 'uses' => 'Candidate\CandidateController@editResume']);
-    Route::patch('/edit_resume', ['as' => 'candidate.update.resume', 'uses' => 'Candidate\CandidateController@updateResume']);
-
-    Route::get('/create-edu-details', ['as' => 'candidate.create.edu_details', 'uses' => 'Candidate\CandidateController@createEduDetails']);
-    Route::post('/create-edu-details', ['as' => 'candidate.store.edu_details', 'uses' => 'Candidate\CandidateController@storeEduDetails']);
-    Route::get('/edit-edu-details', ['as' => 'candidate.edit.edu_details', 'uses' => 'Candidate\CandidateController@editEduDetails']);
-    Route::patch('/edit-edu-details', ['as' => 'candidate.update.edu_details', 'uses' => 'Candidate\CandidateController@updateEduDetails']);
-
-    Route::get('/create_experience_details', ['as' => 'candidate.create.exp_details', 'uses' => 'Candidate\CandidateController@createExperienceDetails']);
-    Route::post('/create_experience_details', ['as' => 'candidate.store.exp_details', 'uses' => 'Candidate\CandidateController@storeExperienceDetails']);
-
-    Route::get('/edit_experience_details', ['as' => 'candidate.edit.exp_details', 'uses' => 'Candidate\CandidateController@editExperienceDetails']);
-    Route::post('/edit_experience_details', ['as' => 'candidate.update.exp_details', 'uses' => 'Candidate\CandidateController@updateExperienceDetails']);
-
-    Route::get('/create_language_details', ['as' => 'candidate.create.language_details', 'uses' => 'Candidate\CandidateController@createLanguageDetails']);
-    Route::post('/create_language_details', ['as' => 'candidate.store.language_details', 'uses' => 'Candidate\CandidateController@storeLanguageDetails']);
-
-    Route::get('/edit_language_details', ['as' => 'candidate.edit.language_details', 'uses' => 'Candidate\CandidateController@editLanguageDetails']);
-    Route::post('/edit_language_details', ['as' => 'candidate.update.language_details', 'uses' => 'Candidate\CandidateController@updateLanguageDetails']);
-
     Route::get('/get_identity_card', ['as' => 'candidate.get.i_card', 'uses' => 'Candidate\CandidateController@getIdentityCard']);
     Route::get('/files/{file}/preview', ['as' => 'candidate.image_preview', 'uses' => 'Candidate\CandidateController@image_preview']);
     Route::get('/files/{file}/{year}/{id}/{file_name}/preview', ['as' => 'candidate.file_preview', 'uses' => 'Candidate\CandidateController@file_preview']);
 
+    //Personal info of candidate
     Route::get('/personal/info', ['as' => 'candidate.personal.info', 'uses' => 'Candidate\CVController@personalInfo']);
     Route::patch('/personal/info/update', ['as' => 'candidate.personal.info.update', 'uses' => 'Candidate\CVController@updatePersonalInfo']);
 
-
-    Route::get('/create/edu/details', ['as' => 'candidate.create.edu.details', 'uses' => 'Candidate\CVController@createEduDetails']);
-    Route::post('/create/edu/details', ['as' => 'candidate.store.edu.details', 'uses' => 'Candidate\CVController@storeEduDetails']);
-    Route::get('/edit/edu/details', ['as' => 'candidate.edit.edu.details', 'uses' => 'Candidate\CVController@editEduDetails']);
-    Route::patch('/edit/edu/details', ['as' => 'candidate.update.edu.details', 'uses' => 'Candidate\CVController@updateEduDetails']);
-
-    Route::get('/edu/details', ['as' => 'candidate.edu.details', 'uses' => 'Candidate\CVController@eduDetails']);
-    Route::get('/edu/{idEdu}/details', ['as' => 'candidate.edu.details.show', 'uses' => 'Candidate\CVController@showEdu']);
-    Route::get('/edu/{idEdu}/details/edit', ['as' => 'candidate.edu.details.edit', 'uses' => 'Candidate\CVController@editEdu']);
-    Route::patch('/edu/{idEdu}/details/update', ['as' => 'candidate.edu.details.update', 'uses' => 'Candidate\CVController@updateEdu']);
-    Route::delete('/destroy/{idEdu}/details/update', ['as' => 'candidate.edu.details.destroy', 'uses' => 'Candidate\CVController@deleteEdu']);
-
-    //Candidate Language details
-    Route::get('/lang/details', ['as' => 'candidate.lang.details', 'uses' => 'Candidate\CVController@langDetails']);
-    Route::get('/create/language/details', ['as' => 'candidate.create.language.details', 'uses' => 'Candidate\CVController@createLang']);
-    Route::post('/create/language/details', ['as' => 'candidate.store.language.details', 'uses' => 'Candidate\CVController@storeLang']);
-    Route::get('/edit/{id}/language/details', ['as' => 'candidate.edit.language.details', 'uses' => 'Candidate\CVController@editLang']);
-    Route::patch('/edit/{id}/language/details', ['as' => 'candidate.update.language.details', 'uses' => 'Candidate\CVController@updateLang']);
-    Route::delete('/destroy/{id}/language/details', ['as' => 'candidate.destroy.language.details', 'uses' => 'Candidate\CVController@deleteLang']);
-
-    //Candidate Experiences
-    Route::get('/experiences/details', ['as' => 'candidate.experiences.details', 'uses' => 'Candidate\CVController@getExperiences']);
-    Route::get('/experiences/details/create', ['as' => 'candidate.experiences.details.create', 'uses' => 'Candidate\CVController@createExperiences']);
-    Route::post('/experiences/details/create', ['as' => 'candidate.experiences.details.store', 'uses' => 'Candidate\CVController@storeExperiences']);
-    Route::get('/experiences/details/{id}/edit', ['as' => 'candidate.experiences.details.edit', 'uses' => 'Candidate\CVController@editExperiences']);
-    Route::patch('/experiences/details/{id}/edit', ['as' => 'candidate.experiences.details.update', 'uses' => 'Candidate\CVController@updateExperiences']);
-    Route::delete('/experiences/details/{id}/destroy', ['as' => 'candidate.experiences.details.delete', 'uses' => 'Candidate\CVController@deleteExperience']);
-
-
-    //Candidate Professional skills
+    //Candidate Professionals skills
     Route::resource('professionals', 'Candidate\ProfessionalSkillController', ["as" => 'candidate']);
+
+    //Candidate Educations skills
+    Route::resource('educations', 'Candidate\EducationController', ["as" => 'candidate']);
+
+    //Candidate Experiences skills
+    Route::resource('experiences', 'Candidate\ExperienceController', ["as" => 'candidate']);
+
+    //Candidate Languages skills
+    Route::resource('languages', 'Candidate\LanguageController', ["as" => 'candidate']);
+
+    //Candidate Languages skills
+    Route::resource('references', 'Candidate\ReferenceController', ["as" => 'candidate']);
+
+    //Candidate Languages skills
+    Route::resource('accomplishments', 'Candidate\AccomplishmentController', ["as" => 'candidate']);
+
 });

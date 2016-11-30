@@ -30,11 +30,11 @@
                 <span>{!! $experience->country !!}</span>
             </td>
             <td>
-                {!! Form::open(['route' => ['candidate.experiences.details.delete', $experience->id], 'method' => 'delete']) !!}
+                {!! Form::open(['route' => ['candidate.experiences.destroy', $experience->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
-                    {{--<a href="{!! route('candidate.edu.details.show', [$experience->id]) !!}"--}}
+                    {{--<a href="{!! route('candidate.experiences.show', [$experience->id]) !!}"--}}
                     {{--class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>--}}
-                    <a href="{!! route('candidate.experiences.details.edit', [$experience->id]) !!}"
+                    <a href="{!! route('candidate.experiences.edit', [$experience->id]) !!}"
                        class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
                     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
                 </div>

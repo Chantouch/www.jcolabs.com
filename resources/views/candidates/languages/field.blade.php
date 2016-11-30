@@ -40,7 +40,8 @@
     <div class="form-group col-sm-12">
         {{--<div class="spacer-1"></div>--}}
         <div class="col-md-12">
-            <button type="submit" class="btn btn-lg my_button btn-green">Save</button>
+            <button type="submit" class="my_button btn-green"><i class="fa fa-save"></i> Save</button>
+            <a href="{!! route('candidate.languages.index') !!}" class="my_button"><i class="fa fa-save"></i> Back</a>
         </div>
     </div>
 </div>

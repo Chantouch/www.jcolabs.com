@@ -22,7 +22,7 @@
 @section('content')
     <div class="container" id="languages">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.experiences.details.store', 'files' => 'true', 'class'=>'post-education']) !!}
+        {!! Form::open(['route' => 'candidate.experiences.store', 'files' => 'true', 'class'=>'post-education']) !!}
 
         @include('candidates.experiences.field')
 

@@ -2,11 +2,14 @@
 
 namespace App\Model\frontend;
 
+use App\Models\Accomplishment;
 use App\Models\CandidateEduDetails;
 use App\Models\CandidateExpDetails;
 use App\Models\CandidateInfo;
 use App\Models\CandidateLanguageInfo;
 use App\Models\EduDetails;
+use App\Models\ProfessionalSkill;
+use App\Models\Reference;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -166,6 +169,21 @@ class Candidate extends Authenticatable
     public function language()
     {
         return $this->hasMany(CandidateLanguageInfo::class, 'candidate_id');
+    }
+
+    public function references()
+    {
+        return $this->hasMany(Reference::class, 'candidate_id');
+    }
+
+    public function professionals()
+    {
+        return $this->hasMany(ProfessionalSkill::class, 'candidate_id');
+    }
+
+    public function accomplishments()
+    {
+        return $this->hasMany(Accomplishment::class, 'candidate_id');
     }
 
     public function verified()

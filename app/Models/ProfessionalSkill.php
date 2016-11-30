@@ -34,4 +34,22 @@ class ProfessionalSkill extends Model
         return $this->belongsTo(Candidate::class, 'candidate_id');
     }
 
+    public static function level()
+    {
+        return [
+            'Beginner' => 'Beginner',
+            'Intermediate' => 'Intermediate',
+            'Professional' => 'Professional',
+        ];
+    }
+    public static function experience()
+    {
+        return [
+            '1 year or less' => '1 year or less',
+            '2-5 years' => '2-5 years',
+            '5-7 years' => '5-7 years',
+            'More than 7 years' => 'More than 7 years',
+        ];
+    }
+
 }

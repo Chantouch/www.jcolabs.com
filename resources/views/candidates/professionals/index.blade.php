@@ -16,7 +16,7 @@
 
 @section('main_page_container')
     <div class="post-resume-page-title">Fill up Education Details</div>
-    <div class="post-resume-phone">Call: 97999 49999</div>
+    <div class="post-resume-phone">Call: 070375783</div>
 @stop
 
 @section('content')
@@ -24,7 +24,10 @@
         <div class="spacer-1">&nbsp;</div>
         <div class="row" style="background-color: #ECF0F1;">
             <div id="edu_details" class="aug_group">
-                <div class="form-group aug_legend"> Education Details :</div>
+                <div class="form-group aug_legend"> Professional Skills Details :</div>
+                <div class="form-group lang-legend pull-right">
+                    <a href="{!! route('candidate.dashboard') !!}" class="my_button"><i class="fa fa-backward"></i> <span> Back</span></a>
+                </div>
                 <div class="col-md-12">
                     @include('candidates.professionals.table')
                 </div>

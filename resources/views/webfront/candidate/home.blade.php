@@ -285,7 +285,7 @@
             {{--</div><!--/.col-->--}}
             {{--</a>--}}
 
-            <a href="{{URL::route('candidate.create.edu.details')}}">
+            <a href="{{URL::route('candidate.educations.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box facebook-bg">
                         <i class="fa fa-book"></i>
@@ -295,7 +295,7 @@
                 </div><!--/.col-->
             </a>
 
-            <a href="{{URL::route('candidate.lang.details')}}">
+            <a href="{{URL::route('candidate.languages.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box dark-bg">
                         <i class="fa fa-comments-o"></i>
@@ -305,7 +305,7 @@
                 </div><!--/.col-->
             </a>
 
-            <a href="{{URL::route('candidate.experiences.details')}}">
+            <a href="{{URL::route('candidate.experiences.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box linkedin-bg">
                         <i class="fa fa-cubes"></i>
@@ -320,6 +320,26 @@
                     <div class="info-box linkedin-bg">
                         <i class="fa fa-cubes"></i>
                         <div class="count">Professional Skills</div>
+
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+            </a>
+
+            <a href="{{URL::route('candidate.references.index')}}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box linkedin-bg">
+                        <i class="fa fa-cubes"></i>
+                        <div class="count">References</div>
+
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+            </a>
+
+            <a href="{{URL::route('candidate.accomplishments.index')}}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box linkedin-bg">
+                        <i class="fa fa-cubes"></i>
+                        <div class="count">Accomplish</div>
 
                     </div><!--/.info-box-->
                 </div><!--/.col-->
