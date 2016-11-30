@@ -276,13 +276,13 @@
             </a>
 
             {{--<a href="{{URL::route('candidate.create.edu_details')}}">--}}
-                {{--<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">--}}
-                    {{--<div class="info-box facebook-bg">--}}
-                        {{--<i class="fa fa-book"></i>--}}
-                        {{--<div class="count">Education Details</div>--}}
+            {{--<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">--}}
+            {{--<div class="info-box facebook-bg">--}}
+            {{--<i class="fa fa-book"></i>--}}
+            {{--<div class="count">Education Details</div>--}}
 
-                    {{--</div><!--/.info-box-->--}}
-                {{--</div><!--/.col-->--}}
+            {{--</div><!--/.info-box-->--}}
+            {{--</div><!--/.col-->--}}
             {{--</a>--}}
 
             <a href="{{URL::route('candidate.create.edu.details')}}">
@@ -310,6 +310,16 @@
                     <div class="info-box linkedin-bg">
                         <i class="fa fa-cubes"></i>
                         <div class="count">Experience</div>
+
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+            </a>
+
+            <a href="{{URL::route('candidate.professionals.index')}}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box linkedin-bg">
+                        <i class="fa fa-cubes"></i>
+                        <div class="count">Professional Skills</div>
 
                     </div><!--/.info-box-->
                 </div><!--/.col-->

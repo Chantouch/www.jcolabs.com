@@ -44,7 +44,8 @@ class CVController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+        $dob = date('Y-m-d', strtotime($request->dob));
+        $data['dob'] = $dob;
         $candidate->update($data);
 
         return redirect()->route('candidate.dashboard')->with('message', 'Personal/Contact Info has been added');
@@ -106,7 +107,7 @@ class CVController extends Controller
             return redirect()->route('candidate.dashboard')->with('message', 'Your education added successfully');
 
         } else {
-            return redirect()->route('candidate.edit.edu_details')->with('message', 'Edit your change if needed');
+            return redirect()->route('candidate.edu.details')->with('message', 'Edit your change if needed');
         }
     }
 

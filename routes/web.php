@@ -368,4 +368,6 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::delete('/experiences/details/{id}/destroy', ['as' => 'candidate.experiences.details.delete', 'uses' => 'Candidate\CVController@deleteExperience']);
 
 
+    //Candidate Professional skills
+    Route::resource('professionals', 'Candidate\ProfessionalSkillController', ["as" => 'candidate']);
 });

@@ -144,6 +144,7 @@
     </script>
 @stop
 @section('page_specific_scripts')
+
     $('#add').on('click', function(e){
     e.preventDefault();
     addRow();
@@ -164,7 +165,11 @@
     });
     });
 
-    $('.start_date, .end_date').datepicker({
-    {{--startDate: '-3d'--}}
+    $('#start_date, #end_date').datepicker({
+    format: 'yyyy-mm-dd',
+    startDate: '-16y',
+    endDate: 'today',
+    todayHighlight: true,
     });
+
 @stop

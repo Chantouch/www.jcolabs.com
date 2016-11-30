@@ -7,6 +7,7 @@ use App\Models\CandidateExpDetails;
 use App\Models\CandidateInfo;
 use App\Models\CandidateLanguageInfo;
 use App\Models\EduDetails;
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Request;
@@ -190,6 +191,21 @@ class Candidate extends Authenticatable
 
         return 'images/missing.png';
 
+    }
+
+    public function getDates()
+    {
+        return ['created_at', 'updated_at', 'dob'];
+    }
+
+    public function setDobAttribute($value)
+    {
+        $this->attributes['dob'] = date('Y-m-d', strtotime($value));
+    }
+
+    public function getDobAttribute()
+    {
+        return Carbon::parse($this->attributes['dob'])->format('d-M-Y');
     }
 
 }

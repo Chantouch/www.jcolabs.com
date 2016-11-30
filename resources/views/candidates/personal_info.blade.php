@@ -3,6 +3,7 @@
 @section('page_specific_styles')
 
     <link href="{{ asset('plugins/jQueryUI/jquery-ui-1.10.3.custom.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('plugins/datepicker/datepicker3.css')}}" rel="stylesheet" type="text/css"/>
 
     <style>
         .form-horizontal .form-group {
@@ -115,8 +116,6 @@
     <div class="col-md-6">
         <div class="post-resume-page-title">
             <h3>Edit your CV</h3>
-            <h3>Personal Details:</h3>
-            <h5>Your details and Contact</h5>
         </div>
     </div>
     <div class="col-md-6">
@@ -167,7 +166,7 @@
 
                         <div class="form-group">
                             <label for="dob">Date of Birth</label>
-                            {!! Form::date('dob', null, ['class'=>'form-control input']) !!}
+                            {!! Form::date('dob', null, ['class'=>'form-control input', 'id'=>'dob']) !!}
                         </div>
 
                         <div class="form-group">
@@ -253,17 +252,20 @@
 
 @section('page_specific_js')
     <script src="{{ URL::asset('plugins/jQueryUI/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('plugins/datepicker/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 @stop
 
 @section('page_specific_scripts')
-    $( "._date" ).datepicker({
+    $( "#dob" ).datepicker({
     changeMonth: true,
+    format: 'd-M-yyyy',
     changeYear: true,
     defaultDate: "-22Y",
-    //yearRange: "-26:+0",
+    yearRange: "-60:+0",
     autoSize: true,
+    autoClose: true,
     dateFormat: "dd-mm-yy",
-    //minDate: '-26Y',
+    minDate: '-60Y',
     maxDate: "-16Y"
     });
 
