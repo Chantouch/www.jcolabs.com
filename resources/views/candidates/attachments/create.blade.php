@@ -23,9 +23,9 @@
 @section('content')
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
-        {!! Form::open(['route' => 'candidate.accomplishments.store', 'files' => 'true', 'class'=>'post-education']) !!}
+        {!! Form::open(['route' => 'candidate.attachments.store', 'files' => 'true', 'class'=>'post-education']) !!}
 
-        @include('candidates.accomplishments.field')
+        @include('candidates.attachments.field')
 
         {!! Form::close() !!}
     </div>

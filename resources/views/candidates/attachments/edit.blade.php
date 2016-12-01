@@ -68,8 +68,8 @@
                         {!! Form::text('date', null, ['class'=>'date form-control input', 'id'=>'date']) !!}
                     </div>
 
-                    <div class="form-group col-md-12{!! $errors->has('description') ? ' has-error' : '' !!}">
-                        <label for="description" class="control-label">Description:</label>
+                    <div class="form-group col-md-12{!! $errors->has('start_date[]') ? ' has-error' : '' !!}">
+                        <label for="company_name" class="control-label">Description:</label>
                         {!! Form::textarea('description', null, ['class'=>'description form-control', 'id'=>'first_name', 'rows'=>'5']) !!}
                     </div>
 
@@ -153,5 +153,5 @@
     autoClose: true,
     todayHighlight: true
     });
-    
+
 @stop

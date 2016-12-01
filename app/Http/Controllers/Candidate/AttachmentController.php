@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Candidate;
 
 use App\Model\frontend\Candidate;
-use App\Models\Accomplishment;
+use App\Models\Attachment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Psy\Exception\ErrorException;
 use DB;
 use Validator;
 
-class AccomplishmentController extends Controller
+
+class AttachmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,12 +22,12 @@ class AccomplishmentController extends Controller
     {
 
         $c_id = auth()->guard('candidate')->user()->id;
-        $candidate = Candidate::find($c_id);
-        $accomplishments = Accomplishment::with('candidate')->orderBy('title')->where('candidate_id', $c_id)->get();
-        if (count($candidate->accomplishments) >= 1) {
-            return view('candidates.accomplishments.index', compact('accomplishments'));
+        $candidate = Candidate::with('attachments')->find($c_id);
+        $attachments = Attachment::with('candidate')->orderBy('name')->where('candidate_id', $c_id)->get();
+        if (count($candidate->attachments) >= 1) {
+            return view('candidates.attachments.index', compact('attachments'));
         } else {
-            return redirect()->route('candidate.accomplishments.create')->with('message', 'You can not edit without inserting data');
+            return redirect()->route('candidate.attachments.create')->with('message', 'You can not edit without inserting data');
         }
 
     }
@@ -38,7 +39,7 @@ class AccomplishmentController extends Controller
      */
     public function create()
     {
-        return view('candidates.accomplishments.create');
+        return view('candidates.attachments.create');
     }
 
     /**
@@ -52,19 +53,18 @@ class AccomplishmentController extends Controller
         try {
             DB::beginTransaction();
             $id = auth()->guard('candidate')->user()->id;
-            $validator = Validator::make($data = $request->all(), Accomplishment::rules(), Accomplishment::messages());
+            $validator = Validator::make($data = $request->all(), Attachment::rules(), Attachment::messages());
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Error');
+                return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Please review your field and try again');
             }
-            foreach ($request->title as $key => $value) {
+            foreach ($request->name as $key => $value) {
                 $entries = [
                     'candidate_id' => $id,
-                    'title' => $request->title[$key],
-                    'date' => $request->date[$key],
-                    'description' => $request->description[$key],
+                    'name' => $request->name[$key],
+//                    'file' => $request->file[$key],
                 ];
 
-                $ps = Accomplishment::create($entries);
+                $ps = Attachment::create($entries);
                 if (!$ps) {
                     DB::rollbackTransaction();
                     return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Unable to process your request');
@@ -74,7 +74,7 @@ class AccomplishmentController extends Controller
 
         }
         DB::commit();
-        return redirect()->route('candidate.accomplishments.index')->with('message', 'Your reference  added successfully');
+        return redirect()->route('candidate.attachments.index')->with('message', 'Your reference  added successfully');
     }
 
     /**
@@ -86,8 +86,8 @@ class AccomplishmentController extends Controller
     public function show($id)
     {
         $id = auth()->guard('candidate')->user()->id;
-        $accomplishment = Accomplishment::with('candidate')->where('candidate_id', $id);
-        return view('candidates.accomplishments.show', compact('accomplishment'));
+        $attachment = Attachment::with('candidate')->where('candidate_id', $id);
+        return view('candidates.attachments.show', compact('attachment'));
     }
 
     /**
@@ -99,8 +99,8 @@ class AccomplishmentController extends Controller
     public function edit($id)
     {
         $c_id = auth()->guard('candidate')->user()->id;
-        $accomplishment = Accomplishment::with('candidate')->where('candidate_id', $c_id)->find($id);
-        return view('candidates.accomplishments.edit', compact('accomplishment'));
+        $attachment = Attachment::with('candidate')->where('candidate_id', $c_id)->find($id);
+        return view('candidates.attachments.edit', compact('attachment'));
     }
 
     /**
@@ -115,17 +115,17 @@ class AccomplishmentController extends Controller
         try {
             DB::beginTransaction();
             $c_id = auth()->guard('candidate')->user()->id;
-            $accomplishment = Accomplishment::with('candidate')->where('candidate_id', $c_id)->find($id);
-            if (empty($accomplishment)) {
-                return redirect()->route('candidate.accomplishments.index')->with('error', 'Accomplishment not found');
+            $attachment = Attachment::with('candidate')->where('candidate_id', $c_id)->find($id);
+            if (empty($attachment)) {
+                return redirect()->route('candidate.attachments.index')->with('error', 'Attachment not found');
             }
-            $validator = Validator::make($data = $request->all(), Accomplishment::rules(), Accomplishment::messages());
+            $validator = Validator::make($data = $request->all(), Attachment::rules(), Attachment::messages());
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Error');
             }
 
-            $accomplishment = $accomplishment->update($data);
-            if (!$accomplishment) {
+            $attachment = $attachment->update($data);
+            if (!$attachment) {
                 DB::rollbackTransaction();
                 return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Unable to process your request right now');
             }
@@ -133,7 +133,7 @@ class AccomplishmentController extends Controller
 
         }
         DB::commit();
-        return redirect()->route('candidate.accomplishments.index')->with('message', 'Accomplishment added successfully');
+        return redirect()->route('candidate.attachments.index')->with('message', 'Attachment added successfully');
     }
 
     /**
@@ -145,11 +145,11 @@ class AccomplishmentController extends Controller
     public function destroy($id)
     {
         $c_id = auth()->guard('candidate')->user()->id;
-        $accomplishment = Accomplishment::with('candidate')->where('candidate_id', $c_id)->find($id);
-        if (empty($accomplishment)) {
-            return redirect()->route('candidate.accomplishments.index')->with('error', 'Accomplishment not found');
+        $attachment = Attachment::with('candidate')->where('candidate_id', $c_id)->find($id);
+        if (empty($attachment)) {
+            return redirect()->route('candidate.attachments.index')->with('error', 'Attachment not found');
         }
-        $accomplishment->delete();
-        return redirect()->route('candidate.accomplishments.index')->with('message', 'Accomplishment deleted successfully');
+        $attachment->delete();
+        return redirect()->route('candidate.attachments.index')->with('message', 'Attachment deleted successfully');
     }
 }

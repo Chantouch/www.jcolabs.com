@@ -3,6 +3,7 @@
 namespace App\Model\frontend;
 
 use App\Models\Accomplishment;
+use App\Models\Attachment;
 use App\Models\CandidateEduDetails;
 use App\Models\CandidateExpDetails;
 use App\Models\CandidateInfo;
@@ -184,6 +185,11 @@ class Candidate extends Authenticatable
     public function accomplishments()
     {
         return $this->hasMany(Accomplishment::class, 'candidate_id');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
     }
 
     public function verified()

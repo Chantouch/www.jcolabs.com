@@ -49,8 +49,8 @@
             width: 99px;
             float: left;
             text-align: center;
-            margin-right: 20px;
-            padding-right: 20px;
+            margin-right: 0px;
+            padding-right: 0px;
             color: rgba(255, 255, 255, 0.75);
         }
 
@@ -270,27 +270,15 @@
                     <div class="info-box blue-bg">
                         <i class="fa fa-user"></i>
                         <div class="count">Bio/Personal Information</div>
-
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>
-
-            {{--<a href="{{URL::route('candidate.create.edu_details')}}">--}}
-            {{--<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">--}}
-            {{--<div class="info-box facebook-bg">--}}
-            {{--<i class="fa fa-book"></i>--}}
-            {{--<div class="count">Education Details</div>--}}
-
-            {{--</div><!--/.info-box-->--}}
-            {{--</div><!--/.col-->--}}
-            {{--</a>--}}
 
             <a href="{{URL::route('candidate.educations.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="info-box facebook-bg">
                         <i class="fa fa-book"></i>
                         <div class="count">Education Details</div>
-
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>
@@ -300,7 +288,6 @@
                     <div class="info-box dark-bg">
                         <i class="fa fa-comments-o"></i>
                         <div class="count">Languages Known</div>
-
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>
@@ -310,37 +297,41 @@
                     <div class="info-box linkedin-bg">
                         <i class="fa fa-cubes"></i>
                         <div class="count">Experience</div>
-
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>
 
             <a href="{{URL::route('candidate.professionals.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box linkedin-bg">
+                    <div class="info-box pink-bg">
                         <i class="fa fa-cubes"></i>
                         <div class="count">Professional Skills</div>
-
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>
 
             <a href="{{URL::route('candidate.references.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box linkedin-bg">
+                    <div class="info-box dark-heading-bg">
                         <i class="fa fa-cubes"></i>
                         <div class="count">References</div>
-
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>
 
             <a href="{{URL::route('candidate.accomplishments.index')}}">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="info-box linkedin-bg">
+                    <div class="info-box brown-bg">
                         <i class="fa fa-cubes"></i>
                         <div class="count">Accomplish</div>
-
+                    </div><!--/.info-box-->
+                </div><!--/.col-->
+            </a>
+            <a href="{{URL::route('candidate.attachments.index')}}">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="info-box teal-bg">
+                        <i class="fa fa-comments-o"></i>
+                        <div class="count">Attachment</div>
                     </div><!--/.info-box-->
                 </div><!--/.col-->
             </a>

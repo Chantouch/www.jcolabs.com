@@ -318,22 +318,25 @@ Route::group(['middleware' => ['candidate'], 'prefix' => 'candidate'], function 
     Route::get('/personal/info', ['as' => 'candidate.personal.info', 'uses' => 'Candidate\CVController@personalInfo']);
     Route::patch('/personal/info/update', ['as' => 'candidate.personal.info.update', 'uses' => 'Candidate\CVController@updatePersonalInfo']);
 
-    //Candidate Professionals skills
+    //Candidate Professionals
     Route::resource('professionals', 'Candidate\ProfessionalSkillController', ["as" => 'candidate']);
 
-    //Candidate Educations skills
+    //Candidate Educations
     Route::resource('educations', 'Candidate\EducationController', ["as" => 'candidate']);
 
-    //Candidate Experiences skills
+    //Candidate Experiences
     Route::resource('experiences', 'Candidate\ExperienceController', ["as" => 'candidate']);
 
-    //Candidate Languages skills
+    //Candidate Languages
     Route::resource('languages', 'Candidate\LanguageController', ["as" => 'candidate']);
 
-    //Candidate Languages skills
+    //Candidate Reference
     Route::resource('references', 'Candidate\ReferenceController', ["as" => 'candidate']);
 
-    //Candidate Languages skills
+    //Candidate Accomplishment
     Route::resource('accomplishments', 'Candidate\AccomplishmentController', ["as" => 'candidate']);
+
+    //Candidate Attachments
+    Route::resource('attachments', 'Candidate\AttachmentController', ["as" => 'candidate']);
 
 });
