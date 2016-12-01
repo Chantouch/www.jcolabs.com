@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model
 {
+
+    protected $table = 'attachments';
+
     protected $fillable = [
         'name', 'file', 'candidate_id'
     ];

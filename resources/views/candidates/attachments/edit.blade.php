@@ -52,25 +52,20 @@
     <div class="container">
         <div class="spacer-1">&nbsp;</div>
 
-        {!! Form::model($accomplishment, ['route' => ['candidate.accomplishments.update', $accomplishment->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
+        {!! Form::model($attachment, ['route' => ['candidate.accomplishments.update', $attachment->id], 'role'=>'form', 'method' => 'patch', 'class'=>'post-education']) !!}
 
         <div class="row" style="background-color: #ECF0F1;">
             <div id="edu_details" class="col-md-12 aug_group">
                 <div class="form-group aug_legend"> References Details :</div>
                 <div class="_details">
                     <div class="form-group col-md-6">
-                        <label for="title" class="control-label"> Title: </label>
-                        {!! Form::text('title', null, ['class'=>'title form-control input']) !!}
+                        <label for="name" class="control-label"> Name: </label>
+                        {!! Form::text('name', null, ['class'=>'title form-control input']) !!}
                     </div>
 
                     <div class="form-group col-md-6">
-                        <label for="date" class="control-label"> Date:</label>
-                        {!! Form::text('date', null, ['class'=>'date form-control input', 'id'=>'date']) !!}
-                    </div>
-
-                    <div class="form-group col-md-12{!! $errors->has('start_date[]') ? ' has-error' : '' !!}">
-                        <label for="company_name" class="control-label">Description:</label>
-                        {!! Form::textarea('description', null, ['class'=>'description form-control', 'id'=>'first_name', 'rows'=>'5']) !!}
+                        <label for="file" class="control-label"> Attachments:</label>
+                        {!! Form::file('file', ['class'=>'date form-control input']) !!}
                     </div>
 
                 </div>
@@ -80,7 +75,7 @@
                 {{--<div class="spacer-1"></div>--}}
                 <div class="col-md-12">
                     <button type="submit" class="my_button"><i class="fa fa-save"></i> Save</button>
-                    <a href="{!! route('candidate.references.index') !!}" class="my_button"><i
+                    <a href="{!! route('candidate.attachments.index') !!}" class="my_button"><i
                                 class="fa fa-backward"></i> Back</a>
                 </div>
             </div>

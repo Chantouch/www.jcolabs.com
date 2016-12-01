@@ -51,20 +51,34 @@ class AttachmentController extends Controller
     public function store(Request $request)
     {
         try {
+            $data = $request->all();
             DB::beginTransaction();
             $id = auth()->guard('candidate')->user()->id;
-            $validator = Validator::make($data = $request->all(), Attachment::rules(), Attachment::messages());
+            $validator = Validator::make($data, Attachment::rules(), Attachment::messages());
             if ($validator->fails()) {
                 return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Please review your field and try again');
             }
+
+            $path = 'uploads/candidates/' . date('Y') . '/' . $id;
+            $destination_path = public_path($path);
+            if (!file_exists($destination_path)) {
+                mkdir($destination_path, 0777, true);
+            }
             foreach ($request->name as $key => $value) {
-                $entries = [
+                if ($request->hasFile('file')) {
+                    if ($request->file('file')->isValid()) {
+                        $fileName = auth()->user()->name . '_' . $request->name[$key] . $request->file('file')->getClientOriginalExtension();
+                        $request->file('file')->move($destination_path, $fileName);
+                        $data['file'] = $path . '/' . $fileName;
+                    }
+                }
+                $data = [
                     'candidate_id' => $id,
                     'name' => $request->name[$key],
-//                    'file' => $request->file[$key],
+                    'file' => $request->file[$key],
                 ];
 
-                $ps = Attachment::create($entries);
+                $ps = Attachment::create($data);
                 if (!$ps) {
                     DB::rollbackTransaction();
                     return redirect()->back()->withErrors($validator)->withInput()->with('error', 'Unable to process your request');
@@ -85,8 +99,8 @@ class AttachmentController extends Controller
      */
     public function show($id)
     {
-        $id = auth()->guard('candidate')->user()->id;
-        $attachment = Attachment::with('candidate')->where('candidate_id', $id);
+        $c_id = auth()->guard('candidate')->user()->id;
+        $attachment = Attachment::with('candidate')->where('candidate_id', $c_id)->find($id);
         return view('candidates.attachments.show', compact('attachment'));
     }
 
@@ -100,6 +114,9 @@ class AttachmentController extends Controller
     {
         $c_id = auth()->guard('candidate')->user()->id;
         $attachment = Attachment::with('candidate')->where('candidate_id', $c_id)->find($id);
+        if (empty($attachment)) {
+            return redirect()->route('candidate.attachments.index')->with('error', 'Attachment not found');
+        }
         return view('candidates.attachments.edit', compact('attachment'));
     }
 

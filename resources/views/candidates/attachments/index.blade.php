@@ -29,7 +29,7 @@
                     <a href="{!! route('candidate.dashboard') !!}" class="my_button"><i class="fa fa-backward"></i> <span> Back</span></a>
                 </div>
                 <div class="col-md-12">
-                    @include('candidates.accomplishments.table')
+                    @include('candidates.attachments.table')
                 </div>
             </div>
         </div>
