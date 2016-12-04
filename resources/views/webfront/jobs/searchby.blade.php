@@ -49,8 +49,8 @@
 
                 <div class='panel-container'>
                     <div id="all"><!-- Tabs section 1 -->
-                        @if(!empty($cat))
-                            @foreach($cat->jobs as $job)
+                        @if(!empty($categories))
+                            @foreach($categories as $job)
                                 <div class="recent-job-list"><!-- Tabs content -->
                                     <div class="job-list-logo col-md-1 ">
                                         @if($job->employer->photo == 'default.jpg')
@@ -77,7 +77,7 @@
                                             <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                         </div>
                                         <div class="col-md-2 job-list-button">
-                                            <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                            <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
                                                class="btn-view-job">View</a>
                                         </div>
                                     </div>
@@ -85,8 +85,8 @@
                                 </div><!-- Tabs content -->
                             @endforeach
                         @endif
-                        @if(!empty($industry))
-                            @foreach($industry->jobs as $job)
+                        @if(!empty($industries))
+                            @foreach($industries as $job)
                                 <div class="recent-job-list"><!-- Tabs content -->
                                     <div class="job-list-logo col-md-1 ">
                                         @if($job->employer->photo == 'default.jpg')
@@ -113,7 +113,7 @@
                                             <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                         </div>
                                         <div class="col-md-2 job-list-button">
-                                            <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                            <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
                                                class="btn-view-job">View</a>
                                         </div>
                                     </div>
@@ -121,8 +121,8 @@
                                 </div><!-- Tabs content -->
                             @endforeach
                         @endif
-                        @if(!empty($company))
-                            @foreach($company->jobs as $job)
+                        @if(!empty($companies))
+                            @foreach($companies as $job)
                                 <div class="recent-job-list"><!-- Tabs content -->
                                     <div class="job-list-logo col-md-1 ">
                                         @if($job->employer->photo == 'default.jpg')
@@ -149,7 +149,7 @@
                                             <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                         </div>
                                         <div class="col-md-2 job-list-button">
-                                            <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                            <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
                                                class="btn-view-job">View</a>
                                         </div>
                                     </div>
@@ -157,8 +157,8 @@
                                 </div><!-- Tabs content -->
                             @endforeach
                         @endif
-                        @if(!empty($city))
-                            @foreach($city->jobs as $job)
+                        @if(!empty($cities))
+                            @foreach($cities as $job)
                                 <div class="recent-job-list"><!-- Tabs content -->
                                     <div class="job-list-logo col-md-1 ">
                                         @if($job->employer->photo == 'default.jpg')
@@ -185,17 +185,18 @@
                                             <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                                         </div>
                                         <div class="col-md-2 job-list-button">
-                                            <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                            <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
                                                class="btn-view-job">View</a>
                                         </div>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div><!-- Tabs content -->
                             @endforeach
+                            @if(empty($cities) || empty($categories) || empty($industries)|| empty($companies) )
+                                <span>There is no job here</span>
+                            @endif
                         @endif
-                        @if(empty($city) || empty($cat) || empty($industry)|| empty($company) )
-                            <span>There is no job here</span>
-                        @endif
+
                     </div><!-- Tabs section 1 -->
                     <div id="contract"><!-- Tabs section 2 -->
                     </div><!-- Tabs section 2 -->

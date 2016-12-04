@@ -71,6 +71,10 @@ Route::group(['middleware' => ['guest']], function () {
     //Candidate login with social network
     Route::get('auth/github', ['as' => 'auth.github', 'uses' => 'Candidate\Auth\LoginController@redirectToProvider']);
     Route::get('auth/github/callback', ['as' => 'auth.gitgub.callback', 'uses' => 'Candidate\Auth\LoginController@handleProviderCallback']);
+
+//    Route::get('share/{id}', ['as' => 'social.share', 'uses' => 'FrontController@share']);
+
+
 });
 
 

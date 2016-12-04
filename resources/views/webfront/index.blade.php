@@ -14,10 +14,9 @@
             <a class="slider-prev"><i class="fa fa-chevron-circle-left"></i></a>
             <a class="slider-next"><i class="fa fa-chevron-circle-right"></i></a>
         </div>
-        <div id="home-slider" class="owl-carousel owl-theme" style="display: block; opacity: 1;">
+        <div id="home-slider" class="owl-carousel owl-theme">
             <div class="owl-wrapper-outer">
-                <div class="owl-wrapper"
-                     style="width: 5396px; left: 0px; display: block; transition: all 0ms ease; transform: translate3d(-1349px, 0px, 0px); transform-origin: 2023.5px 50% 0px; perspective-origin: 2023.5px 50%;">
+                <div class="owl-wrapper">
                     <div class="owl-item">
                         <div class="item-slide">
                             <img src="{!! asset('webfront/images/upload/dummy-slide-1.jpg')!!}" class="img-responsive"
@@ -27,6 +26,18 @@
                     <div class="owl-item">
                         <div class="item-slide">
                             <img src="{!! asset('webfront/images/upload/dummy-slide-2.jpg')!!}" class="img-responsive"
+                                 alt="dummy-slide">
+                        </div>
+                    </div>
+                    <div class="owl-item">
+                        <div class="item-slide">
+                            <img src="{!! asset('webfront/images/upload/dummy-slide-2.jpg')!!}" class="img-responsive"
+                                 alt="dummy-slide">
+                        </div>
+                    </div>
+                    <div class="owl-item">
+                        <div class="item-slide">
+                            <img src="{!! asset('webfront/images/upload/dummy-slide-1.jpg')!!}" class="img-responsive"
                                  alt="dummy-slide">
                         </div>
                     </div>
@@ -55,35 +66,9 @@
         </div>
     </div><!-- end headline section -->
 
-    <div class="job-finder"><!-- start job finder -->
-        <div class="container">
-            <h3>Find a Job</h3>
-            {!! Form::open(array('route' => 'job.search', 'role'=>'search', 'method' => 'GET')) !!}
-            <div class="col-md-7 form-group group-1">
-                <label for="searchjob" class="label">Search</label>
-                {!! Form::text('searchjob', null, ['class' => 'input-job', 'placeholder' => 'Keywords (IT Engineer, Shop Manager, Hr Manager...)', 'id' => 'searchjob']) !!}
-            </div>
-            <div class="col-md-5 form-group group-2">
-                <label for="searchplace" class="label">Job Location</label>
-                {!! Form::select('searchplace', $city_list, null, ['class' => 'input-location', 'placeholder' => 'Phnom Penh, Kandal, Kompong Chnang etc.', 'id' => 'searchplace']) !!}
-                {{--                {!! Form::select('searchplace', $city_list , null, ['class' => 'input-location']) !!}--}}
-            </div>
-
-            <div class="form-group">
-                <label for="experiences" class="label clearfix">Experiences(-/+)</label>
-                <input id="experiences" class="value-slider" type="text" name="area" value="1;1"/>
-            </div>
-            <div class="clearfix"></div>
-            <br/>
-            <div class="form-group">
-                <label for="salary" class="label clearfix">Salary ($)/per year</label>
-                <input id="salary" class="value-slider" type="text" name="area" value="0;0"/>
-                <div class="clearfix"></div>
-            </div>
-            {{ Form::submit('Search', array('class' => 'btn btn-default btn-green')) }}
-            {{ Form::close() }}
-        </div>
-    </div><!-- end job finder -->
+    <!-- start job finder -->
+    @include('components.search')
+    <!-- end job finder -->
 
     <div class="recent-job"><!-- Start Recent Job -->
         <div class="container">
@@ -107,7 +92,7 @@
                                                      class="img-responsive"
                                                      alt="{!! $job->post_name !!}"/>
                                             @else
-                                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                                <img src="{!!asset('uploads/employers/avatar/'.$job->employer->id.'/'.$job->employer->photo)!!}"
                                                      class="img-responsive"
                                                      alt="{!! $job->post_name !!}"/>
                                             @endif
@@ -273,8 +258,11 @@
 
                     <div class="post-resume-title">Post Your Resume</div>
                     <div class="post-resume-container">
-                        <button type="button" class="post-resume-button">Upload Your Resume
-                            <i class="icon-upload grey"></i></button>
+                        {{--<button type="button" class="post-resume-button">Upload Your Resume--}}
+                        {{--<i class="icon-upload grey"></i></button>--}}
+                        <a href="{!! route('candidate.attachments.create') !!}" class="post-resume-button text-center">Upload
+                            Your Resume
+                            <i class="icon-upload grey"></i></a>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -601,12 +589,12 @@
                     @foreach($companies as $com)
                         <div class="company">
                             @if($com->photo != 'default.jpg')
-                                <img class="profile-user-img img-responsive img-circle"
+                                <img class="profile-user-img img-responsive"
                                      src="{!! asset($com->path.'/'.$com->photo) !!}"
                                      alt="{!! $com->contact_name !!}">
                             @else
                                 <img src="{!! asset('uploads/employers/' .$com->photo) !!}"
-                                     class="profile-user-img img-responsive img-circle"
+                                     class="profile-user-img img-responsive"
                                      alt="{!! $com->contact_name !!}"/>
                             @endif
                         </div>
@@ -679,7 +667,7 @@
 
     var path = "{!! route('job.search.name') !!}";
     var city_path = "{!! route('job.search.city') !!}";
-    $('#searchjob').typeahead({
+    $('#name').typeahead({
     source: function (query, process) {
     return $.get(path, {query: query}, function (data) {
     return process(data);
@@ -687,7 +675,7 @@
     }
     });
 
-    $('#searchplace').typeahead({
+    $('#city').typeahead({
     source: function (query, process) {
     return $.get(city_path, {city: query}, function (data) {
     return process(data);
@@ -696,5 +684,12 @@
     });
 
     new WOW().init();
+
+    $("#experiences").slider({
+    animate: true,
+    value:0,
+    min: 0,
+    max: 1000,
+    step: 10
 
 @stop

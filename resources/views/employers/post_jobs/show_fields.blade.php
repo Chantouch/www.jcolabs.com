@@ -1,6 +1,6 @@
 {{--<div class="col-md-12 text-center view-job">--}}
-    {{--<h3>{!! $postJob->post_name !!}</h3>--}}
-    {{--<div class="spacer-1"></div>--}}
+{{--<h3>{!! $postJob->post_name !!}</h3>--}}
+{{--<div class="spacer-1"></div>--}}
 {{--</div>--}}
 
 <table class="table table-bordered">
@@ -21,8 +21,8 @@
     </tr>
     <tr>
         <td class="bg-color-table">Salary</td>
-        <td>USD($) {!! $postJob->salary_offered_min !!} ~
-            USD($) {!! $postJob->salary_offered_max !!}</td>
+        <td>USD($){{ \App\Helpers\BaseHelper::moneyFormatCambodia($postJob->salary_offered_min) }}
+            - USD($){{ \App\Helpers\BaseHelper::moneyFormatCambodia($postJob->salary_offered_max) }}</td>
         <td class="bg-color-table">
             Industry
         </td>
@@ -47,8 +47,8 @@
         <td>
             @foreach($postJob->languages as $language)
                 <span class="label label-success">
-                                                                {!! $language->name !!}
-                                                            </span>
+                    {!! $language->name !!}
+                </span>
             @endforeach
         </td>
     </tr>

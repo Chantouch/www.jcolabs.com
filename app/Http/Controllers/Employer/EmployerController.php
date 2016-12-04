@@ -68,7 +68,7 @@ class EmployerController extends Controller
     public function listJobs()
     {
         $id = Auth::guard('employer')->user()->id;
-        $jobs = PostedJob::with('industry')->where('created_by', $id)->paginate(20);
+        $jobs = PostedJob::with('industry')->where('created_by', '=', $id)->paginate(20);
         return view('employers.jobs.index', compact('jobs'));
     }
 
@@ -180,7 +180,7 @@ class EmployerController extends Controller
         $jobs_filled_up = PostedJob::with('industry')->where('created_by', $id)
             ->where('status', 2)
             ->get();
-        return view('employers.company.profile', compact('all_jobs','positions', 'departments', 'profile', 'total_jobs', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up'));
+        return view('employers.company.profile', compact('all_jobs', 'positions', 'departments', 'profile', 'total_jobs', 'jobs_not_verified', 'jobs_available', 'jobs_filled_up'));
     }
 
     /**
@@ -316,8 +316,10 @@ class EmployerController extends Controller
         $id = Auth::guard('employer')->user()->id;
         $profile = Auth::guard('employer')->user();
         $path = 'uploads/employers/profile/' . $id . '/';
+        $path_small = 'uploads/employers/small/' . $id . '/';
         $path_avatar = 'uploads/employers/avatar/' . $id . '/';
         $destination_path = public_path($path);
+        $destination_small = public_path($path_small);
         $destination_avatar = public_path($path_avatar);
 
         if ($request->hasFile('photo')) {
@@ -331,13 +333,21 @@ class EmployerController extends Controller
                     mkdir($destination_avatar, 0777, true);
                 }
 
+                if (!file_exists($destination_small)) {
+                    mkdir($destination_small, 0777, true);
+                }
+
                 $avatar = Image::make($request->file('photo'))->resize(256, 256);
+                $profile_image = Image::make($request->file('photo'))->resize(800, 385);
+                $profile_small = Image::make($request->file('photo'))->resize(200, 40);
                 //to remove space from string
                 $company_name = preg_replace('/\s+/', '', $request->organization_name);
                 $fileName = uniqid($company_name . '_') . '_' . time() . '.' . $request->file('photo')->getClientOriginalExtension();
                 $oldName = $profile->photo;
                 $avatar->save($destination_avatar . '/' . $fileName, 100);
-                $request->file('photo')->move($destination_path, $fileName);
+                $profile_image->save($destination_path . '/' . $fileName, 100);
+                $profile_small->save($destination_small . '/' . $fileName, 100);
+                //$request->file('photo')->move($destination_path, $fileName);
                 $data['path'] = $path;
                 $data['photo'] = $fileName;
                 //$storage = Storage::delete($destination_path . $oldName);
@@ -355,8 +365,9 @@ class EmployerController extends Controller
      */
     public function jobExpired()
     {
-        $expired = PostedJob::where('is_expired', 1);
-        return view('employers.jobs.index', compact('expired'));
+        $current_date = date('Y-m-d');
+        $expired = PostedJob::with('employer')->where('closing_date', '<', $current_date)->paginate(20);
+        return view('employers.expired_jobs.index', compact('expired'));
     }
 
 }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Jobs expired')
 @section('content')
     <section class="content-header">
         <h1 class="pull-left">Job expired list</h1>
@@ -15,7 +15,7 @@
         <div class="clearfix"></div>
         <div class="box box-primary">
             <div class="box-body">
-                    @include('employers.jobs.table')
+                    @include('employers.expired_jobs.table')
             </div>
         </div>
     </div>

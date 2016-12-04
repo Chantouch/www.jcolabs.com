@@ -10,36 +10,9 @@
 
 @section('full_content')
 
-    <div class="job-finder"><!-- start job finder -->
-        <div class="container">
-            <h3 class="text-center">Job Search</h3>
-            <form>
-                <div class="col-md-7 form-group group-1">
-                    <label for="searchjob" class="label">Search</label>
-                    <input id="searchjob" class="input-job"
-                           placeholder="Keywords (IT Engineer, Shop Manager, Hr Manager...)">
-                </div>
-
-                <div class="col-md-5 form-group group-2">
-                    <label for="searchplace" class="label">Location</label>
-                    <input id="searchplace" class="input-location"
-                           placeholder="New York, Hong Kong, New Delhi, Berlin etc.">
-                </div>
-
-                <div class="form-group">
-                    <label for="experiences" class="label clearfix">Experiences(-/+)</label>
-                    <input id="experiences" class="value-slider" type="text" name="area" value="1;1"/>
-                </div>
-                <div class="clearfix"></div>
-                <br/>
-                <div class="form-group">
-                    <label for="salary" class="label clearfix">Salary ($)/per year</label>
-                    <input id="salary" class="value-slider" type="text" name="area" value="0;0"/>
-                </div>
-                <button type="button" class="btn btn-default btn-green">search</button>
-            </form>
-        </div>
-    </div><!-- end job finder -->
+    <!-- start job finder -->
+    @include('components.search')
+    <!-- end job finder -->
 
     <div class="recent-job"><!-- Start Job -->
         <div class="container">
@@ -54,11 +27,7 @@
 
                 <div class='panel-container'>
                     <div id="all"><!-- Tabs section 1 -->
-                        @if (count($jobs) === 0)
-                            <div class="recent-job-list"><!-- Tabs content -->
-                                <span>There is no job match with your search!</span>
-                            </div>
-                        @elseif (count($jobs) >= 1)
+                        @if (count($jobs) >= 1)
                             @foreach($jobs as $job)
                                 <div class="recent-job-list"><!-- Tabs content -->
                                     <div class="col-md-1 job-list-logo">
@@ -87,7 +56,7 @@
                                             </div>
                                             <div class="col-md-5 job-list-button">
                                                 <h6 class="pull-right">
-                                                    <a href="{!! route('jobs.view.name', [preg_replace('/\s+/', '', $job->employer->organization_name), preg_replace('/\s+/', '', $job->industry->name ), $job->id,$job->slug]) !!}"
+                                                    <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
                                                        class="btn-view-job">View</a>
                                                 </h6>
                                             </div>
@@ -96,7 +65,11 @@
                                     <div class="clearfix"></div>
                                 </div><!-- Tabs content -->
                             @endforeach
+                        @else
+                            <span>There is no job match</span>
                         @endif
+
+                        {!! $jobs->render() !!}
 
                     </div><!-- Tabs section 1 -->
                     <div id="contract"><!-- Tabs section 2 -->
@@ -120,32 +93,35 @@
                 <div class="clearfix"></div>
                 <br/>
                 <div id="job-listing-carousel" class="owl-carousel"><!-- job opening carousel item -->
-                    <div class="item-listing">
-                        <div class="job-opening">
-                            @if($job->employer->photo == 'default.jpg')
-                                <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
-                                     class="img-responsive"
-                                     alt="{!! $job->post_name !!}"/>
-                            @else
-                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
-                                     class="img-responsive"
-                                     alt="{!! $job->post_name !!}"/>
-                            @endif
-                            <div class="job-opening-content">
-                                {!! $job->post_name!!}
-                                <p>
-                                    {!! \Illuminate\Support\Str::limit($job->description, 100) !!}
-                                </p>
-                            </div>
-                            <div class="job-opening-meta clearfix">
-                                <div class="meta-job-location meta-block"><i
-                                            class="fa fa-map-marker"></i>{!!$job->city->name !!}
+                    @foreach($top_jobs as $job)
+                        <div class="item-listing">
+                            <div class="job-opening">
+                                @if($job->employer->photo == 'default.jpg')
+                                    <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+                                         class="img-responsive"
+                                         alt="{!! $job->post_name !!}"/>
+                                @else
+                                    <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                         class="img-responsive"
+                                         alt="{!! $job->post_name !!}"/>
+                                @endif
+                                <div class="job-opening-content">
+                                    {!! $job->post_name!!}
+                                    <p>
+                                        {!! \Illuminate\Support\Str::limit($job->description, 100) !!}
+                                    </p>
                                 </div>
-                                <div class="meta-job-type meta-block"><i class="fa fa-user"></i> {!!$job->job_type!!}
+                                <div class="job-opening-meta clearfix">
+                                    <div class="meta-job-location meta-block"><i
+                                                class="fa fa-map-marker"></i>{!!$job->city->name !!}
+                                    </div>
+                                    <div class="meta-job-type meta-block"><i
+                                                class="fa fa-user"></i> {!!$job->job_type!!}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
 
                     <div class="item-listing">
                         <div class="job-opening">
@@ -203,6 +179,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div><!-- job opening carousel item -->
             </div>
         </div>
@@ -211,7 +188,6 @@
     <!-- Start page content -->
     @include('webfront.jobs.page-content')
     <!--End page content -->
-
 
     <!-- ###################### Feature Search ##################### -->
     @include('webfront.jobs.feature-search')
@@ -223,13 +199,40 @@
 
 @section('page_specific_js')
 
+    <script src="{{ asset('plugins/typeahead/bootstrap3-typeahead.min.js')}}" type="text/javascript"></script>
     <script src="{{ asset('plugins/wow/wow.min.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
 
-
     </script>
 @stop
+
 @section('page_specific_scripts')
+
+    $.ajaxSetup({
+    headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
+    var path = "{!! route('job.search.name') !!}";
+    var city_path = "{!! route('job.search.city') !!}";
+    $('#searchjob').typeahead({
+    source: function (query, process) {
+    return $.get(path, {query: query}, function (data) {
+    return process(data);
+    })
+    }
+    });
+
+    $('#searchplace').typeahead({
+    source: function (query, process) {
+    return $.get(city_path, {city: query}, function (data) {
+    return process(data);
+    })
+    }
+    });
+
     new WOW().init();
+
 @stop

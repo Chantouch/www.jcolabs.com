@@ -19,4 +19,10 @@ class HistoryController extends Controller
         $histories = PostedJob::with('revisionHistory')->find($id);
         return view('employers.histories.jobs-activities', compact('histories'));
     }
+
+    public function createJobActivities()
+    {
+        $jobs = PostedJob::with('revisionHistory')->get();
+        return view('employers.histories.job-create', compact('jobs'));
+    }
 }

@@ -14,7 +14,7 @@
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
+            'csrfToken' => csrf_token(),
         ]); ?>
     </script>
 
@@ -42,6 +42,8 @@
     <!-- Form Slider -->
 
     <link href="{{ asset('css/jcolabs.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="{!! asset('css/select.css') !!}"/>
+    <link rel="stylesheet" type="text/css" href="{!! asset('css/skin-elastic.css') !!}"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -104,13 +106,14 @@
 <!-- Owl Carousel -->
 
 <!-- Form Slider -->
-<script src="{{ asset('plugins/form-slider/jshashtable-2.1_src.js')}}" type="text/javascript"></script>
-<script src="{{ asset('plugins/form-slider/jquery.numberformatter-1.2.3.js')}}" type="text/javascript"></script>
+{{--<script src="{{ asset('plugins/form-slider/jshashtable-2.1_src.js')}}" type="text/javascript"></script>--}}
+{{--<script src="{{ asset('plugins/form-slider/jquery.numberformatter-1.2.3.js')}}" type="text/javascript"></script>--}}
 <script src="{{ asset('plugins/form-slider/tmpl.js')}}" type="text/javascript"></script>
 <script src="{{ asset('plugins/form-slider/jquery.dependClass-0.1.js')}}" type="text/javascript"></script>
 <script src="{{ asset('plugins/form-slider/draggable-0.1.js')}}" type="text/javascript"></script>
 <script src="{{ asset('plugins/form-slider/jquery.slider.js')}}" type="text/javascript"></script>
 <!-- Form Slider -->
+
 <!-- Map -->
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <!-- Map -->
@@ -119,6 +122,8 @@
 <script src="{{ asset('webfront/js/main.js')}}" type="text/javascript"></script>
 
 <script src="{{ asset('js/jcolabs.js')}}" type="text/javascript"></script>
+<script src="{!! asset('js/classie.js') !!}"></script>
+<script src="{!! asset('js/selectFx.js') !!}"></script>
 
 @yield('page_specific_js')
 
@@ -152,6 +157,13 @@
             window.console.log('YT event: ', payload);
         }
     }
+
+    (function () {
+        [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
+            new SelectFx(el);
+        });
+    })();
+
 </script>
 
 </body>

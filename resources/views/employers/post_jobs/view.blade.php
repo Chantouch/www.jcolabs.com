@@ -65,12 +65,12 @@
 
                             <div class="col-md-12 job-field">
                                 <div class="col-md-6"><i class="fa fa-gg"></i> Min Salary offered</div>
-                                <div class="col-md-6"> {{ number_format($results->salary_offered_min, 2, '.', '') }}</div>
+                                <div class="col-md-6"> {{ \App\Helpers\BaseHelper::moneyFormatCambodia($results->salary_offered_min) }}</div>
                             </div>
 
                             <div class="col-md-12 job-field">
                                 <div class="col-md-6"><i class="fa fa-gg"></i> Max Salary offered</div>
-                                <div class="col-md-6"> {{ number_format($results->salary_offered_max, 2, '.', '') }}</div>
+                                <div class="col-md-6"> {{ \App\Helpers\BaseHelper::moneyFormatCambodia($results->salary_offered_max) }}</div>
                             </div>
 
                             <div class="col-md-12 job-field">

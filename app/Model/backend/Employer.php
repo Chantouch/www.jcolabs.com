@@ -32,7 +32,7 @@ class Employer extends Authenticatable
         'organization_type', 'latitude',
         'organization_sector', 'services',
         'industry_id', 'address', 'products',
-        'city_id', 'district_id',
+        'city_id', 'district_id', 'twitter_url', 'g_plus_url', 'fb_url',
         'pin_code', 'phone_no_ext',
         'phone_no_main', 'organisation_email',
         'web_address', 'organisation_id_proof',
@@ -74,6 +74,7 @@ class Employer extends Authenticatable
         'email.required' => 'Contact email is required',
         'details.required' => 'Please describe something about your company.',
         'district_id.required' => 'Please select your district',
+        'photo.dimensions' => 'Your profile should between min width=800,max width=15000,min height=380,max height=12000',
     ];
 
     public function rules()
@@ -101,7 +102,7 @@ class Employer extends Authenticatable
                     'contact_mobile_no' => "required|numeric|unique:employers,contact_mobile_no,{$employer->id},id",
                     'web_address' => 'url',
                     'address' => 'required|max:255',
-                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240',
                 ];
             }
             case 'PUT':
@@ -113,7 +114,7 @@ class Employer extends Authenticatable
                     'contact_mobile_no' => "required|numeric|unique:employers,contact_mobile_no,{$employer->id},id",
                     'web_address' => 'url',
                     'address' => 'required|max:255',
-                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:10240|dimensions:min_width=800,max_width=15000,min_height=380,max_height=12000',
                     'employees' => 'required|numeric|min:1',
                     'city_id' => 'required',
                     'contact_name' => 'required',
@@ -328,4 +329,31 @@ class Employer extends Authenticatable
     {
         return $this->organization_name;
     }
+
+//    /**
+//     * @param $value
+//     * @return string
+//     */
+//    public function getFBURLAttribute($value)
+//    {
+//        return $this->attributes['fb_url'] = ($this->attributes['fb_url']) ? $value : '';
+//    }
+//
+//    /**
+//     * @param $value
+//     * @return string
+//     */
+//    public function getGPLUSURLAttribute($value)
+//    {
+//        return $this->attributes['g_plus_url'] = "https://plus.google.com/" . $value;
+//    }
+//
+//    /**
+//     * @param $value
+//     * @return string
+//     */
+//    public function getTwitterURLAttribute($value)
+//    {
+//        return $this->attributes['twitter_url'] = "https://twitter.com/" . $value;
+//    }
 }

@@ -51,14 +51,12 @@ class PostJobController extends AppBaseController
     public function index(Request $request)
     {
         $this->postJobRepository->pushCriteria(new RequestCriteria($request));
-        $postJobs = PostedJob::with('industry')->with('city', 'subject', 'district', 'exam')->paginate(20);
         $id = Auth::guard('employer')->user()->id;
-        $jobs = PostedJob::where('created_by', $id)->get();
-        if (count($jobs) == 0) {
+        $postJobs = PostedJob::with('industry')->with('city', 'subject', 'district', 'exam')->where('created_by', $id)->paginate(20);
+        if (count($postJobs) == 0) {
             return redirect()->route('employer.postJobs.create')->with('message', 'Please post your jobs to view it.');
         }
-        return view('employers.post_jobs.index')
-            ->with('postJobs', $postJobs);
+        return view('employers.post_jobs.index')->with('postJobs', $postJobs);
     }
 
     /**
@@ -196,7 +194,7 @@ class PostJobController extends AppBaseController
         $districts = District::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $exams = Exam::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $subjects = Subject::where('status', 1)->orderBy('name')->pluck('name', 'id');
-        $genders = ['ANY' => 'ANY', 'MALE' => 'MALE', 'FEMALE' => 'FEMALE', 'OTHERS' => 'OTHERS',];
+        $genders = PostedJob::gender();
         $job_types = Employer::job_types();
         $job_categories = Category::where('status', 1)->orderBy('name')->pluck('name', 'id');
         $contact_person = ContactPerson::orderBy('contact_name')->pluck('contact_name', 'id');

@@ -65,6 +65,26 @@
             margin: 15px 0 0 0;
         }
 
+        .social-buttons a i.fa-facebook-official:hover {
+            color: #3b5998;
+            text-decoration: none;
+        }
+
+        .social-buttons a i.fa-twitter-square:hover {
+            color: #4099ff;
+            text-decoration: none;
+        }
+
+        .social-buttons a i.fa-google-plus-square:hover {
+            color: #d34836;
+            text-decoration: none;
+        }
+
+        .social-buttons a i.fa-pinterest-square:hover {
+            color: #cb2027;
+            text-decoration: none;
+        }
+
     </style>
 @stop
 
@@ -75,19 +95,47 @@
         <h1>{!! $job->post_name !!}</h1>
         <div class="spacer-1">&nbsp;</div>
     </div>
-    <img src="{!! asset('images/upload/company-3-post.png') !!}" class="img-responsive job-detail-logo"
-         alt="company-logo">
+    {{--<img src="{!! asset('images/upload/company-3-post.png') !!}" class="img-responsive job-detail-logo"--}}
+    {{--alt="{!!  $job->employer->organization_name !!}">--}}
+    @if($job->employer->photo == 'default.jpg')
+        <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+             class="img-responsive job-detail-logo"
+             alt="{!! $related->post_name !!}"/>
+    @else
+        <img src="{!!asset('uploads/employers/small/'.$job->employer->id.'/'.$job->employer->photo)!!}"
+             class="img-responsive job-detail-logo"
+             alt="{!! $job->post_name !!}"/>
+    @endif
 
     <ul class="meta-job-detail">
-        <li><i class="fa fa-link"></i><a href="">Website</a></li>
-        <li><i class="fa fa-twitter"></i><a href="">Twitter</a></li>
-        <li><i class="fa fa-facebook"></i><a href="">Facebook</a></li>
-        <li><i class="fa fa-google-plus"></i><a href="">Google+</a></li>
+        <li>
+            <i class="fa fa-link"></i>
+            <a href="{!! $job->employer->web_address !!}" target="_blank"
+               title="{!!  $job->employer->organization_name !!}">Website</a></li>
+        <li>
+            <i class="fa fa-twitter"></i>
+            <a href="{!! $job->employer->twitter_url !!}" target="_blank"
+               title="{!!  $job->employer->organization_name !!}">Twitter</a></li>
+        <li>
+            <i class="fa fa-facebook"></i>
+            <a href="{!! $job->employer->fb_url !!}" target="_blank" title="{!!  $job->employer->organization_name !!}">Facebook</a>
+        </li>
+        <li>
+            <i class="fa fa-google-plus"></i>
+            <a href="{!! $job->employer->g_plus_url !!}" target="_blank"
+               title="{!!  $job->employer->organization_name !!}">Google+</a></li>
         <li class="sline">|</li>
-        <li><i class="fa fa-list"></i><a href="">More Job</a></li>
-        <li><i class="fa fa-tag"></i><a href="">Store</a></li>
+        <li>
+            <i class="fa fa-list"></i>
+            <a href="{!! route('jobs.view.by.company', [$job->employer->slug]) !!}"
+               title="View all job by {!! $job->employer->organization_name !!}">More Job</a></li>
+        {{--<li><i class="fa fa-tag"></i><a href="">Store</a></li>--}}
         <li class="sline">|</li>
-        <li><i class="fa fa-share-square-o"></i><a href="">Share</a></li>
+        <li>
+            {{--<i class="fa fa-share-square-o"></i>--}}
+            @include('components.share', ['url' =>  route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug])])
+            {{--<a href="">Share</a>--}}
+        </li>
     </ul>
 
     <div class="recent-job-detail">
@@ -107,7 +155,7 @@
                     <h6><i class="fa fa-user"></i>{!! $job->job_type !!}</h6>
                 </div>
                 <div class="col-md-5 job-detail-button">
-                    <button class="btn-apply-job">APPLY</button>
+                    <a href="#apply-job" class="btn-apply-job">APPLY</a>
                 </div>
             </div>
         </div>
@@ -138,7 +186,8 @@
                         </tr>
                         <tr>
                             <td class="bg-color-table">Salary</td>
-                            <td>USD($) {!! $job->salary_offered_min !!} ~ USD($) {!! $job->salary_offered_max !!}</td>
+                            <td>USD($) {!! \App\Helpers\BaseHelper::moneyFormatCambodia($job->salary_offered_min) !!} ~
+                                USD($) {!! \App\Helpers\BaseHelper::moneyFormatCambodia($job->salary_offered_max) !!}</td>
                             <td class="bg-color-table">
                                 Industry
                             </td>
@@ -220,13 +269,14 @@
                                         </div>
                                         <div class="l-similar-job__right ">
                                     <span class="js-similar-job-title">
-                                        <a href="#" class="similar-job__title"
+                                        <a href="{!! route('jobs.view.name', [$related->employer->slug, $related->industry->slug , $related->id,$related->slug]) !!}"
+                                           class="similar-job__title"
                                            title="{!! $related->post_name !!}">{!! $related->post_name !!}</a>
                                     </span>
                                             <span href="#" class="similar-job__location js-similar-job-location">{!! $related->city->name !!}
                                                 , Cambodia</span>
                                             <span href="#"
-                                                  class="similar-job__date js-similar-job-expiration-date">2016-11-23</span>
+                                                  class="similar-job__date js-similar-job-expiration-date">{!! $related->closing_date !!}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +373,7 @@
         <div class="spacer-1">&nbsp;</div>
     </div>
 
-    <div class="job-detail">
+    <div class="job-detail" id="apply-job">
         <div id="page-content"><!-- start content -->
             <h6>Apply this job</h6>
             <div class="content-about">
@@ -493,8 +543,28 @@
     <script src="{{ asset('plugins/wow/wow.min.js')}}" type="text/javascript"></script>
 
     <script type="text/javascript">
+        var popupSize = {
+            width: 780,
+            height: 550
+        };
 
+        $(document).on('click', '.social-buttons > a', function (e) {
 
+            var
+                verticalPos = Math.floor(($(window).width() - popupSize.width) / 2),
+                horisontalPos = Math.floor(($(window).height() - popupSize.height) / 2);
+
+            var popup = window.open($(this).prop('href'), 'social',
+                'width=' + popupSize.width + ',height=' + popupSize.height +
+                ',left=' + verticalPos + ',top=' + horisontalPos +
+                ',location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
+
+            if (popup) {
+                popup.focus();
+                e.preventDefault();
+            }
+
+        });
     </script>
 @stop
 @section('page_specific_scripts')

@@ -25,10 +25,21 @@
                 <!-- Profile Image -->
                 <div class="box box-primary">
                     <div class="box-body box-profile">
+
+                        {{--@if(Auth::guard('employer')->user()->photo != 'default.jpg')--}}
+                            {{--<img class="profile-user-img img-responsive img-circle"--}}
+                                 {{--src="{!! asset($profile->path.'/'.$profile->photo) !!}"--}}
+                                 {{--alt="User profile picture">--}}
+                        {{--@else--}}
+                            {{--<img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"--}}
+                                 {{--class="profile-user-img img-responsive img-circle"--}}
+                                 {{--alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>--}}
+                        {{--@endif--}}
+
                         @if(Auth::guard('employer')->user()->photo != 'default.jpg')
-                            <img class="profile-user-img img-responsive img-circle"
-                                 src="{!! asset($profile->path.'/'.$profile->photo) !!}"
-                                 alt="User profile picture">
+                            <img src="{!! asset('uploads/employers/avatar/' . Auth::guard('employer')->user()->id.'/' . Auth::guard('employer')->user()->photo) !!}"
+                                 class="profile-user-img img-responsive img-circle"
+                                 alt="{!! Auth::guard('employer')->user()->contact_name !!}"/>
                         @else
                             <img src="{!! asset('uploads/employers/' . Auth::guard('employer')->user()->photo) !!}"
                                  class="profile-user-img img-responsive img-circle"
@@ -301,6 +312,10 @@
                                     </div>
                                 </li>
                                 <!-- END timeline item -->
+
+
+
+
                                 <!-- timeline time label -->
                                 <li class="time-label">
                                     <span class="bg-green">
@@ -441,8 +456,8 @@
                 if (t.length < 500) return;
 
                 $(this).html(
-                        t.slice(0, 500) + '<span>... </span><a href="#" class="more label label-info">More</a>' +
-                        '<span style="display:none;">' + t.slice(500, t.length) + ' <a href="#" class="less label label-info">Less</a></span>'
+                    t.slice(0, 500) + '<span>... </span><a href="#" class="more label label-info">More</a>' +
+                    '<span style="display:none;">' + t.slice(500, t.length) + ' <a href="#" class="less label label-info">Less</a></span>'
                 );
 
             });

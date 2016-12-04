@@ -41,6 +41,11 @@ class CreateEmployersTable extends Migration
             $table->string('organisation_pan_card')->nullable();
             $table->string('contact_people_id')->nullable();
 
+            //Social network
+            $table->string('fb_url')->nullable();
+            $table->string('g_plus_url')->nullable();
+            $table->string('twitter_url')->nullable();
+
             //Contact person details or login
             $table->string('contact_name', 50)->comment('Contact Person Name')->unique();//Required field
             $table->string('contact_designation', 50)->comment('Contact Person Designation')->nullable();

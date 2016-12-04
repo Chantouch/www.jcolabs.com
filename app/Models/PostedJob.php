@@ -57,17 +57,15 @@ class PostedJob extends Model
      */
     protected $fillable = [
         'post_name', 'emp_job_id', 'status',
-        'job_type', 'level', 'other_benefits',
-        'created_by', 'salary_offered_max', 'salary_offered_min',
-        'no_of_post', 'industry_id', 'place_of_employment_city_id',
-        'place_of_employment_district_id', 'preferred_age_min',
-        'preferred_age_max', 'category_id', 'preferred_religion',
-        'subject_id', 'specialization', 'preferred_experience',
-        'physical_height', 'physical_weight', 'description',
-        'requirement_description', 'category_id', 'contact_person_id',
-        'published_date', 'closing_date', 'qualification_id',
+        'job_type', 'level', 'other_benefits', 'created_by', 'salary_offered_max',
+        'salary_offered_min', 'no_of_post', 'industry_id', 'place_of_employment_city_id',
+        'place_of_employment_district_id', 'preferred_age_min', 'preferred_age_max',
+        'category_id', 'preferred_religion', 'subject_id', 'specialization', 'preferred_experience',
+        'physical_height', 'physical_weight', 'description', 'requirement_description',
+        'category_id', 'contact_person_id', 'published_date', 'closing_date', 'qualification_id',
         'is_negotiable', 'field_of_study', 'preferred_sex'
     ];
+
 
     /**
      * Return the sluggable configuration array for this model.
@@ -135,7 +133,12 @@ class PostedJob extends Model
 
     public static function gender()
     {
-        return ['MALE', 'FEMALE', 'OTHERS', 'ANY'];
+        return [
+            'MALE' => 'MALE',
+            'FEMALE' => 'FEMALE',
+            'OTHERS' => 'OTHERS',
+            'ANY' => 'ANY'
+        ];
     }
 
     //i have declared all the types i.e. enum values rather then querrying to reduce the db load
@@ -307,20 +310,15 @@ class PostedJob extends Model
         if (isset($keyword) || !is_null($keyword)) {
             $terms = explode(' ', $keyword); // Array of searchstrings
             foreach ($terms as $term) {
-                //        ->where('place_of_employment_city_id', $city)->first();
-
                 $query = $query->whereHas('city', function ($q) use ($city) {
-//            $city = \Request::get('searchplace');
                     $q->where('place_of_employment_city_id', '=', $city)->with('city');
 
                 });
 
                 return $query->where('post_name', 'LIKE', "%" . $term . "%");
-//            ->orWhere(DB::raw("CONCAT_WS(' ',salary_offered_max,salary_offered_min)"), 'like', "%" . $searchTerm . "%");
             }
         }
         return $query;
-
     }
 
     /**
@@ -348,6 +346,21 @@ class PostedJob extends Model
     public function applies()
     {
         return $this->hasMany(ApplyJob::class);
+    }
+
+    public function getClosingDateAttribute()
+    {
+        return $this->attributes['closing_date'] = Carbon::parse($this->attributes['closing_date'])->format('Y-m-d');
+    }
+
+    public function getPublishedDateAttribute()
+    {
+        return $this->attributes['published_date'] = Carbon::parse($this->attributes['published_date'])->format('Y-m-d');
+    }
+
+    public function getPlaceOfEmploymentDistrictIDAttribute($value)
+    {
+        return $this->attributes['place_of_employment_district_id'] = ($value == "") ? '' : $value;
     }
 
 }

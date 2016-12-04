@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "$postJob->post_name | Edit")
 @section('content')
     <section class="content-header">
         <h1>
@@ -42,15 +42,16 @@
 
 
         $(".place_of_employment_city_id").select2();
-        $('#place_of_employment_city_id').change(function (e) {
-            getDistrictList(this, $('#place_of_employment_district_id'));
-        });
+
+        //        $('#place_of_employment_city_id').change(function (e) {
+        //            getDistrictList(this, $('#place_of_employment_district_id'));
+        //        });
 
         $('#contact_person_id').change(function (e) {
             getContactPerson(this, $('#phone_number'));
         });
 
-        $('#place_of_employment_city_id, #is_negotiable').trigger('change');
+        //        $('#place_of_employment_city_id, #is_negotiable').trigger('change');
 
         $(function () {
             $(".textarea").wysihtml5();
@@ -65,20 +66,18 @@
             $('#closing_date').datepicker({
                 format: "yyyy-m-d",
                 todayHighlight: true,
-                startDate: today,
                 endDate: "+32d",
                 autoclose: true
             });
             $('#published_date').datepicker({
                 format: "yyyy-m-d",
                 todayHighlight: true,
-                startDate: today,
                 endDate: "+2d",
                 autoclose: true
             }).change(calculate).on('changeDate', calculate);
 
 
-            $('#closing_date, #published_date').datepicker('setDate', today);
+            $('#closing_date, #published_date').datepicker();
 
 
             function calculate() {
@@ -157,4 +156,13 @@
         }
 
     </script>
+@stop
+
+@section('page_specific_scripts')
+    $('#place_of_employment_city_id').change(function (e) {
+    getDistrictList(this, $('#place_of_employment_district_id'));
+    });
+    @if(Session::has('message'))
+        $('#place_of_employment_city_id, #is_negotiable').trigger('change');
+    @endif
 @stop

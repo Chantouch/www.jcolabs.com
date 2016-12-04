@@ -34,7 +34,7 @@
             <!--Closing date Field -->
             <div class="form-group col-sm-6">
                 {!! Form::label('closing_date', 'Closing Date:') !!}
-                {!! Form::text('closing_date', null, ['class' => 'form-control', 'placeholder'=>'dd-M-yyyy']) !!}
+                {!! Form::text('closing_date', null, ['class' => 'form-control', 'placeholder'=>'yyyy-m-d']) !!}
             </div>
 
             <!-- Industry Field -->

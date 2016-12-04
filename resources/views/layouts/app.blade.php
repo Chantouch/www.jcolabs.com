@@ -655,10 +655,6 @@
 
         @yield('page_specific_scripts')
 
-                @if(Session::has('message'))
-                $('#place_of_employment_city_id').trigger('change');
-                @endif
-
         var active = '{{ Request::segment(1) }}';
         var subactive = '{{ Request::segment(2) }}';
         var subactive3 = '{{ Request::segment(3) }}';

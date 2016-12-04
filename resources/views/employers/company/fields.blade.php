@@ -23,9 +23,16 @@
                     </span>
                 @endif
             </div>
-            <div class="form-group">
+            <div class="form-group{!! $errors->has('photo') ? ' has-error' : ''!!}">
                 <label for="photo" class="control-label">Logo:</label>
                 {!! Form::file('photo', array('class'=>'form-control','id'=>'photo')) !!}
+                <span class="help-block">
+                    @if ($errors->has('photo'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('photo') }}</strong>
+                        </span>
+                    @endif
+                </span>
                 @if(Auth::guard('employer')->user()->photo != 'default.jpg')
                     <img src="{!! asset($profile->path.$profile->photo) !!}"
                          alt="{!! $profile->organization_name !!}" id="c_profile_preview"
@@ -76,7 +83,6 @@
 
         </div>
         <div class="col-md-6">
-
             <div class="form-group{!! $errors->has('details') ? ' has-error' : '' !!}">
                 <label for="description" class="control-label">About:</label>
                 {!! Form::textarea('details', null, array('class'=>'form-control textarea', 'rows'=>'5')) !!}
@@ -97,14 +103,49 @@
                 <label for="district_id" class="control-label">District:</label>
                 {!! Form::select('district_id', $district, null, ['class'=>'form-control' , 'id'=>'district_id']) !!}
             </div>
-            <div class="form-group{!! $errors->has('address') ? ' has-error' : '' !!}">
-                <label for="address" class="control-label">Address:</label>
-                {!! Form::textarea('address', null, array('class'=>'form-control','rows'=>'3')) !!}
-                @if($errors->has('address'))
-                    <span class="help-block">
+        </div>
+        <div class="form-group col-md-12 col-sm-12{!! $errors->has('address') ? ' has-error' : '' !!}">
+            <label for="address" class="control-label">Address:</label>
+            {!! Form::textarea('address', null, array('class'=>'form-control','rows'=>'3')) !!}
+            @if($errors->has('address'))
+                <span class="help-block">
                         <strong>{!! $errors->first('address') !!}</strong>
                     </span>
-                @endif
+            @endif
+        </div>
+    </div>
+</div>
+
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Social Info</h3>
+    </div>
+    <div class="box-body">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="form-group col-md-4 -col-sm-4">
+                    {!! Form::label('twitter_url', 'Twitter:') !!}
+                    {!! Form::text('twitter_url', null, ['class' => 'form-control', 'placeholder' => 'Example: https://twitter.com/DevidCs83']) !!}
+                </div>
+                <div class="form-group col-md-4 -col-sm-4{!! $errors->has('g_plus_url') ? ' has-error': '' !!}">
+                    {!! Form::label('g_plus_url', 'Google+:') !!}
+                    {!! Form::text('g_plus_url', null, ['class' => 'form-control', 'placeholder' => 'Example: https://plus.google.com/+chantouchsek']) !!}
+                    @if($errors->has('g_plus_url'))
+                        <span class="help-block">
+                            <strong>{!! $errors->has('g_plus_url') !!}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group col-md-4 -col-sm-4{!! $errors->has('fb_url') ? ' has-error': '' !!}">
+                    {!! Form::label('fb_url', 'Facebook:') !!}
+                    {!! Form::text('fb_url', null, ['class' => 'form-control', 'placeholder' => 'Example: https://www.facebook.com/chantouch.sek']) !!}
+                    @if($errors->has('fb_url'))
+                        <span class="help-block">
+                        <strong>{!! $errors->has('fb_url') !!}</strong>
+                    </span>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Post new job')
 @section('content')
     <section class="content-header" xmlns="http://www.w3.org/1999/html">
         <h1>

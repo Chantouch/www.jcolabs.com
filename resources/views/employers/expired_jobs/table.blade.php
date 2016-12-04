@@ -35,6 +35,7 @@
         @endforeach
         </tbody>
     </table>
+    {!! $expired->render() !!}
 @else
     <p class="text-center">No records found</p>
 @endif
