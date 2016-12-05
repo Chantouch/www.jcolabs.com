@@ -6,7 +6,8 @@
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
                     deleniti atque corrupti quos dolores et quas molestias</p>
                 <p>
-                    <a href="{!! route('candidate.attachments.create') !!}" class="btn btn-default btn-black">UPLOAD YOUR RESUME <i class="icon-upload white"></i>
+                    <a href="{!! route('candidate.attachments.create') !!}" class="btn btn-default btn-black">UPLOAD
+                        YOUR RESUME <i class="icon-upload white"></i>
                     </a>
                 </p>
             </div>

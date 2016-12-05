@@ -6,36 +6,10 @@
 
 @section('full_content')
 
-    <div class="job-finder"><!-- start job finder -->
-        <div class="container">
-            <h3>Job Listing</h3>
-            <form>
-                <div class="col-md-7 form-group group-1">
-                    <label for="searchjob" class="label">Search</label>
-                    <input id="searchjob" class="input-job"
-                           placeholder="Keywords (IT Engineer, Shop Manager, Hr Manager...)">
-                </div>
+    <!-- start job finder -->
+    @include('components.search')
+    <!-- end job finder -->
 
-                <div class="col-md-5 form-group group-2">
-                    <label for="searchplace" class="label">Location</label>
-                    <input id="searchplace" class="input-location"
-                           placeholder="New York, Hong Kong, New Delhi, Berlin etc.">
-                </div>
-
-                <div class="form-group">
-                    <label for="experiences" class="label clearfix">Experiences(-/+)</label>
-                    <input id="experiences" class="value-slider" type="text" name="area" value="1;1"/>
-                </div>
-                <div class="clearfix"></div>
-                <br/>
-                <div class="form-group">
-                    <label for="salary" class="label clearfix">Salary ($)/per year</label>
-                    <input id="salary" class="value-slider" type="text" name="area" value="0;0"/>
-                </div>
-                <button type="button" class="btn btn-default btn-green">search</button>
-            </form>
-        </div>
-    </div><!-- end job finder -->
     <div class="recent-job"><!-- Start Job -->
         <div class="container">
             <h4><i class="glyphicon glyphicon-briefcase"></i> JOBS</h4>
@@ -192,9 +166,9 @@
                                     <div class="clearfix"></div>
                                 </div><!-- Tabs content -->
                             @endforeach
-                            @if(empty($cities) || empty($categories) || empty($industries)|| empty($companies) )
-                                <span>There is no job here</span>
-                            @endif
+                            {{--@if(empty($cities) || empty($categories) || empty($industries)|| empty($companies) )--}}
+                            {{--<span>There is no job here</span>--}}
+                            {{--@endif--}}
                         @endif
 
                     </div><!-- Tabs section 1 -->

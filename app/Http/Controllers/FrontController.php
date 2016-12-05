@@ -52,13 +52,16 @@ class FrontController extends Controller
         $jobs_filled_up = PostedJob::where('status', 2)->get();
         $companies = Employer::where('status', 1)->orderBy('created_at', 'DESC')->get();
         $job_contracts = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
+        $job_full_time = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Full Time')->orderBy('created_at', 'DESC')->paginate(20);
+        $internship = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Internship')->orderBy('created_at', 'DESC')->paginate(20);
+        $part_time = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Part Time')->orderBy('created_at', 'DESC')->paginate(20);
         $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
         $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
         $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
         $city = City::with('jobs')->where('status', 1)->take(5)->get();
         $city_list = City::with('jobs')->where('status', 1)->pluck('name', 'id');
         $applicant = Candidate::count();
-        return view('webfront.index', compact('applicant', 'city_list', 'city', 'company', 'category', 'industry', 'posted_jobs', 'top_jobs', 'posted_job_count', 'jobs_filled_up', 'companies', 'job_contracts'));
+        return view('webfront.index', compact('applicant', 'job_contracts', 'part_time', 'internship', 'job_full_time', 'city_list', 'city', 'company', 'category', 'industry', 'posted_jobs', 'top_jobs', 'posted_job_count', 'jobs_filled_up', 'companies'));
     }
 
     /**
@@ -79,6 +82,11 @@ class FrontController extends Controller
             if ($job->closing_date < $current_date) {
                 return redirect()->route('home')->with('error', 'The job you are looking for may expired, Please find other jobs!!');
             }
+            $posted_jobs = PostedJob::with('industry', 'employer')->where('status', 1)->where('closing_date', '>=', $current_date)->orderBy('created_at', 'DESC')->paginate(20);
+            $job_contracts = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Contract')->orderBy('created_at', 'DESC')->paginate(20);
+            $job_full_time = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Full Time')->orderBy('created_at', 'DESC')->paginate(20);
+            $internship = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Internship')->orderBy('created_at', 'DESC')->paginate(20);
+            $part_time = PostedJob::with('industry', 'employer')->where('status', 1)->where('job_type', 'Part Time')->orderBy('created_at', 'DESC')->paginate(20);
             $category = Category::with('jobs')->where('status', 1)->limit(5)->get();
             $industry = IndustryType::with('jobs')->where('status', 1)->orderBy('name', 'ASC')->take(5)->get();
             $company = Employer::with('jobs')->where('status', 1)->limit(5)->get();
@@ -92,7 +100,7 @@ class FrontController extends Controller
         } catch (ErrorException $errorException) {
             return $errorException;
         }
-        return view('webfront.jobs.view', compact('job', 'city', 'company', 'category', 'industry', 'emp_jobs', 'related_jobs'));
+        return view('webfront.jobs.view', compact('job', 'posted_jobs', 'job_contracts', 'part_time', 'internship', 'job_full_time', 'city', 'company', 'category', 'industry', 'emp_jobs', 'related_jobs'));
     }
 
     /**
@@ -101,10 +109,11 @@ class FrontController extends Controller
      */
     public function searchByFunction($slug)
     {
+        $city_list = City::with('jobs')->where('status', 1)->pluck('name', 'id');
         $cat = Category::with('jobs')->where('slug', $slug)->firstOrFail();
         $current_date = date('Y-m-d');
         $categories = PostedJob::with('industry', 'employer')->where('category_id', '=', $cat->id)->where('status', 1)->where('closing_date', '>=', $current_date)->orderBy('created_at', 'DESC')->paginate(20);
-        return view('webfront.jobs.searchby', compact('categories'));
+        return view('webfront.jobs.searchby', compact('categories', 'city_list'));
     }
 
     /**
@@ -113,10 +122,11 @@ class FrontController extends Controller
      */
     public function searchByIndustry($slug)
     {
+        $city_list = City::with('jobs')->where('status', 1)->pluck('name', 'id');
         $industry = IndustryType::with('jobs')->where('slug', $slug)->firstOrFail();
         $current_date = date('Y-m-d');
         $industries = PostedJob::with('industry', 'employer')->where('industry_id', '=', $industry->id)->where('status', 1)->where('closing_date', '>=', $current_date)->orderBy('created_at', 'DESC')->paginate(20);
-        return view('webfront.jobs.searchby', compact('industries'));
+        return view('webfront.jobs.searchby', compact('industries', 'city_list'));
     }
 
     /**
@@ -125,10 +135,11 @@ class FrontController extends Controller
      */
     public function searchByCompany($slug)
     {
+        $city_list = City::with('jobs')->where('status', 1)->pluck('name', 'id');
         $company = Employer::with('jobs')->where('slug', $slug)->firstOrFail();
         $current_date = date('Y-m-d');
         $companies = PostedJob::with('industry', 'employer')->where('created_by', '=', $company->id)->where('status', 1)->where('closing_date', '>=', $current_date)->orderBy('created_at', 'DESC')->paginate(20);
-        return view('webfront.jobs.searchby', compact('companies'));
+        return view('webfront.jobs.searchby', compact('companies', 'city_list'));
     }
 
     /**
@@ -137,10 +148,11 @@ class FrontController extends Controller
      */
     public function searchByCity($slug)
     {
+        $city_list = City::with('jobs')->where('status', 1)->pluck('name', 'id');
         $city = City::with('jobs')->where('slug', $slug)->firstOrFail();
         $current_date = date('Y-m-d');
         $cities = PostedJob::with('industry', 'employer')->where('place_of_employment_city_id', '=', $city->id)->where('status', 1)->where('closing_date', '>=', $current_date)->orderBy('created_at', 'DESC')->paginate(20);
-        return view('webfront.jobs.searchby', compact('cities'));
+        return view('webfront.jobs.searchby', compact('cities', 'city_list'));
     }
 
     /**

@@ -404,5 +404,21 @@
 }
 
 .select2-dropdown .select2-search__field:focus, .select2-search--inline .select2-search__field:focus {
-    border:none;
+    border: none;
+}
+
+.btn-search {
+    margin-top: 3em !important;
+    margin-bottom: 2em !important;
+    padding: 1.5em 20% !important;
+    font-size: 1.2em;
+}
+
+@media screen and (max-width: 30em) {
+    .btn-search {
+        margin-top: 2.5em !important;
+        margin-bottom: 1.8em !important;
+        padding: 1.8em 17% !important;
+        font-size: 0.9em;
+    }
 }

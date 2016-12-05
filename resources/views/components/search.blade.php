@@ -30,7 +30,12 @@
             <div class="clearfix"></div>
         </div>
 
-        {{ Form::submit('Search', array('class' => 'btn btn-default btn-green')) }}
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {{ Form::submit('Find Your Dream Job', array('class' => 'btn btn-default btn-green btn-search')) }}
+            </div>
+        </div>
+
         {{ Form::close() }}
 
     </div>

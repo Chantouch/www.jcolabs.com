@@ -255,7 +255,8 @@
                                 <div class="similar-job js-similar-job">
                                     <div class="l-similar-job">
                                         <div class="l-similar-job__left">
-                                            <a href="#" title="">
+                                            <a href="{!! route('jobs.view.by.company', [$related->employer->slug]) !!}"
+                                               title="{!! $related->employer->organization_name !!}" target="_blank">
                                                 @if($related->employer->photo == 'default.jpg')
                                                     <img src="{!!asset('uploads/employers/'.$related->employer->photo)!!}"
                                                          class="similar-job__company-img img-responsive"
@@ -268,15 +269,16 @@
                                             </a>
                                         </div>
                                         <div class="l-similar-job__right ">
-                                    <span class="js-similar-job-title">
-                                        <a href="{!! route('jobs.view.name', [$related->employer->slug, $related->industry->slug , $related->id,$related->slug]) !!}"
-                                           class="similar-job__title"
-                                           title="{!! $related->post_name !!}">{!! $related->post_name !!}</a>
-                                    </span>
-                                            <span href="#" class="similar-job__location js-similar-job-location">{!! $related->city->name !!}
-                                                , Cambodia</span>
-                                            <span href="#"
-                                                  class="similar-job__date js-similar-job-expiration-date">{!! $related->closing_date !!}</span>
+                                            <span class="js-similar-job-title">
+                                                <a href="{!! route('jobs.view.name', [$related->employer->slug, $related->industry->slug , $related->id,$related->slug]) !!}"
+                                                   class="similar-job__title"
+                                                   title="{!! $related->post_name !!}">{!! $related->post_name !!}</a>
+                                            </span>
+                                            <a href="{!! route('jobs.view.by.city', [$related->city->slug]) !!}"
+                                               target="_blank"
+                                               class="similar-job__location js-similar-job-location">{!! $related->city->name !!}
+                                                , Cambodia</a>
+                                            <span class="similar-job__date js-similar-job-expiration-date">{!! $related->closing_date !!}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -284,9 +286,10 @@
                         @else
                             <p> No job</p>
                         @endif
+                            {{--{!! Request::fullUrl() !!}--}}
                     </div>
                     <div class="similar-jobs__btn-wrapper">
-                        <a href="/en/jobs/similar/46215/" class="btn -btn -btn--grey-border">See more jobs</a>
+                        <a href="#" class="btn btn-default">See more jobs</a>
                     </div>
                 </div>
             </div>
@@ -463,64 +466,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <h4><i class="glyphicon glyphicon-briefcase"></i> RELATED JOBS</h4>
-                    <div id="tab-container" class='tab-container'><!-- Start Tabs -->
-                        <ul class='etabs clearfix'>
-                            <li class='tab'><a href="#all">All</a></li>
-                            <li class='tab'><a href="#contract">Contract</a></li>
-                            <li class='tab'><a href="#full">Full Time</a></li>
-                            <li class='tab'><a href="#free">Free lence</a></li>
-                        </ul>
-                        <div class='panel-container'>
-                            <div id="all"><!-- Tabs section 1 -->
-                                @foreach($emp_jobs as $jobs)
-                                    <div class="recent-job-list-home"><!-- Tabs content -->
-                                        <div class="job-list-logo col-md-1 ">
-                                            @if($job->employer->photo == 'default.jpg')
-                                                <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
-                                                     class="img-responsive"
-                                                     alt="{!! $job->post_name !!}"/>
-                                            @else
-                                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
-                                                     class="img-responsive"
-                                                     alt="{!! $job->post_name !!}"/>
-                                            @endif
-                                        </div>
-                                        <div class="col-md-5 job-list-desc">
-                                            <h6>{!! \Illuminate\Support\Str::limit($jobs->post_name, 35) !!}</h6>
-                                            <p>{!! \Illuminate\Support\Str::limit($jobs->description, 50) !!}</p>
-                                        </div>
-                                        <div class="col-md-6 full">
 
-                                            <div class="job-list-location col-md-5 ">
-                                                <h6>
-                                                    <i class="fa fa-map-marker"></i>{!! $jobs->city->name !!}
-                                                </h6>
-                                            </div>
-                                            <div class="job-list-type col-md-5 ">
-                                                <h6><i class="fa fa-user"></i>{!! $jobs->job_type !!}</h6>
-                                            </div>
-                                            <div class="col-md-2 job-list-button">
-                                                <a href="{!! route('jobs.view.name', [$jobs->employer->slug, $jobs->industry->slug, $jobs->id,$jobs->slug]) !!}"
-                                                   class="btn-view-job">View</a>
-                                            </div>
+                    {{--Tab jos--}}
+                    @include('components.tab_jobs')
+                    {{--Tab jos--}}
 
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div><!-- Tabs content -->
-                                @endforeach
-
-                            </div><!-- Tabs section 1 -->
-                            <div id="contract"><!-- Tabs section 2 -->
-                                Contract
-                            </div><!-- Tabs section 2 -->
-                            <div id="full"><!-- Tabs section 3 -->
-                                Full time
-                            </div><!-- Tabs section 3 -->
-                            <div id="free"><!-- Tabs section 4 -->
-                                Freelancer
-                            </div><!-- Tabs section 4 -->
-                        </div>
-                    </div><!-- end Tabs -->
                 </div>
 
                 <div class="clearfix"></div>

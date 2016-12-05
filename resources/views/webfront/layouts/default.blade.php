@@ -19,6 +19,7 @@
     </script>
 
     <!-- Bootstrap 3.3.4 -->
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>--}}
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Main Style -->
     <link href="{{ asset('webfront/css/style.css') }}" rel="stylesheet" type="text/css"/>
