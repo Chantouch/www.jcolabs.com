@@ -11,8 +11,7 @@
                     <!--======= Search By Category =========-->
                     <li class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
                         <h3>Search By Function</h3>
-                        <span><i class="fa fa-cloud-download"></i></span>
-                        <p class="stats-count" data-from="0" data-to="890" data-speed="1500">34353</p>
+                        <span><i class="fa fa-coffee"></i></span>
                         <ul>
                             @foreach($category as $cat)
                                 <li><a href="{!! route('jobs.view.by.function',[$cat->slug]) !!}">{!! $cat->name !!}
@@ -24,8 +23,7 @@
                     <!--======= Search By Industry =========-->
                     <li class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.6s">
                         <h3>Search By Industry</h3>
-                        <span><i class="fa fa-user"></i></span>
-                        <p class="stats-count" data-from="0" data-to="900" data-speed="2000">95600</p>
+                        <span><i class="fa fa-industry"></i></span>
                         <ul>
                             @foreach($industry as $ind)
                                 <li><a href="{!! route('jobs.view.by.industry', [$ind->slug]) !!}">{!! $ind->name !!}
@@ -37,8 +35,7 @@
                     <!--======= Search by Company =========-->
                     <li class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="0.9s">
                         <h3>Search by Company</h3>
-                        <span><i class="fa fa-bookmark-o"></i></span>
-                        <p class="stats-count" data-from="0" data-to="560" data-speed="1500">5600</p>
+                        <span><i class="fa fa-briefcase" aria-hidden="true"></i></span>
                         <ul>
                             @foreach($company as $com)
                                 <li>
@@ -53,8 +50,7 @@
                     <!--======= Search by City =========-->
                     <li class="col-md-3 col-sm-6 wow fadeInUp" data-wow-delay="1.2s">
                         <h3>Search by City</h3>
-                        <span><i class="fa fa-star-half-o"></i></span>
-                        <p class="stats-count" data-from="0" data-to="4.5" data-speed="4000">4.5</p>
+                        <span><i class="fa fa-building-o"></i></span>
                         <ul>
                             @foreach($city as $ci)
                                 <li><a href="{!! route('jobs.view.by.city', [$ci->slug]) !!}">{!! $ci->name !!}

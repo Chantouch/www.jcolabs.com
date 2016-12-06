@@ -14,27 +14,34 @@
             @foreach($top_jobs as $job)
                 <div class="item-listing">
                     <div class="job-opening">
-                        @if($job->employer->photo == 'default.jpg')
-                            <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
-                                 class="img-responsive"
-                                 alt="{!! $job->post_name !!}"/>
-                        @else
-                            <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
-                                 class="img-responsive"
-                                 alt="{!! $job->post_name !!}"/>
-                        @endif
+                        <a href="{!! route('jobs.view.by.company', [$job->employer->slug]) !!}"
+                           title="{!! $job->employer->organization_name !!}" target="_blank">
+                            @if($job->employer->photo == 'default.jpg')
+                                <img src="{!!asset('uploads/employers/'.$job->employer->photo)!!}"
+                                     class="img-responsive"
+                                     alt="{!! $job->employer->organization_name !!}"/>
+                            @else
+                                <img src="{!!asset($job->employer->path.$job->employer->photo)!!}"
+                                     class="img-responsive"
+                                     alt="{!! $job->employer->organization_name !!}"/>
+                            @endif
+                        </a>
                         <div class="job-opening-content">
-                            {!! $job->post_name!!}
+                            <a href="{!! route('jobs.view.name', [$job->employer->slug, $job->industry->slug , $job->id,$job->slug]) !!}"
+                               target="_blank"
+                               title="{!! $job->post_name!!} at {!! $job->employer->organization_name !!}">{!! $job->post_name!!}</a>
                             <p>
                                 {!! \Illuminate\Support\Str::limit($job->description, 100) !!}
                             </p>
                         </div>
                         <div class="job-opening-meta clearfix">
-                            <div class="meta-job-location meta-block"><i
-                                        class="fa fa-map-marker"></i>{!!$job->city->name !!}
+                            <div class="meta-job-location meta-block">
+                                <i class="fa fa-map-marker"></i>
+                                <a href="{!! route('jobs.view.by.city', [$job->city->slug]) !!}"
+                                   title="{!!$job->city->name !!}" target="_blank">{!!$job->city->name !!}</a>
                             </div>
-                            <div class="meta-job-type meta-block"><i
-                                        class="fa fa-user"></i> {!!$job->job_type!!}
+                            <div class="meta-job-type meta-block">
+                                <i class="fa fa-user"></i> {!!$job->job_type!!}
                             </div>
                         </div>
                     </div>

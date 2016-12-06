@@ -264,7 +264,7 @@ class FrontController extends Controller
             });
         }
 
-        $jobs = $query->orderBy('post_name', 'DESC')->paginate(20);
+        $jobs = $query->orderBy('created_at', 'DESC')->paginate(20);
 
         //dd($jobs);
 

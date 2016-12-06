@@ -23,12 +23,12 @@
 
             <div id="tab-container" class='tab-container'><!-- Start Tabs -->
                 <ul class='etabs clearfix'>
-                    <li class='tab'><a href="#all">All</a></li>
-                    <li class='tab'><a href="#contract">Contract</a></li>
-                    <li class='tab'><a href="#full">Full Time</a></li>
-                    <li class='tab'><a href="#free">Freelence</a></li>
+                    <li class='tab'><a href="#all">All Jobs Matches</a></li>
+                    {{--<li class='tab'><a href="#full">Full Time</a></li>--}}
+                    {{--<li class='tab'><a href="#part_time">Part Time</a></li>--}}
+                    {{--<li class='tab'><a href="#contract">Contract</a></li>--}}
+                    {{--<li class='tab'><a href="#internship">Internship</a></li>--}}
                 </ul>
-
                 <div class='panel-container'>
                     <div id="all"><!-- Tabs section 1 -->
                         @if (count($jobs) >= 1)
@@ -76,12 +76,24 @@
                         {!! $jobs->render() !!}
 
                     </div><!-- Tabs section 1 -->
-                    <div id="contract"><!-- Tabs section 2 -->
-                    </div><!-- Tabs section 2 -->
-                    <div id="full"><!-- Tabs section 3 -->
-                    </div><!-- Tabs section 3 -->
-                    <div id="free"><!-- Tabs section 4 -->
-                    </div><!-- Tabs section 4 -->
+
+                    {{--<div id="contract"><!-- Tabs section 2 -->--}}
+                    {{----}}
+                    {{--</div><!-- Tabs section 2 -->--}}
+
+                    {{--<div id="full"><!-- Tabs section 3 -->--}}
+                    {{----}}
+                    {{--</div><!-- Tabs section 3 -->--}}
+
+                    {{--<div id="part_time"><!-- Tabs section 4 -->--}}
+                    {{----}}
+                    {{--</div><!-- Tabs section 4 -->--}}
+
+                    {{--<div id="internship">
+                    <!-- Tabs section 5 -->--}}
+                    {{----}}
+                    {{--</div><!-- Tabs section 5 -->--}}
+
                 </div>
             </div><!-- end Tabs -->
 

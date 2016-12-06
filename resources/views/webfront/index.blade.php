@@ -51,14 +51,18 @@
         <div class="row">
             <div class="col-md-6 align-right">
                 <h4>Easiest Way To Find Your Dream Job</h4>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout. The point of using</p>
-                <p><a href="#" class="btn btn-default btn-yellow">Find a Job</a></p>
+                <p>
+                    The price of success is hard work, dedication to the job at hand, and the determination that whether
+                    we win or lose, we have applied the best of ourselves to the task at hand.
+                </p>
+                <p><a href="{!! route('job.search') !!}" class="btn btn-default btn-yellow">Find a Job</a></p>
             </div>
             <div class="col-md-6 align-left">
                 <h4>Hire Skilled People, best of them</h4>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when
-                    looking at its layout. The point of using</p>
+                <p>
+                    Understand, our police officers put their lives on the line for us every single day. They've got a
+                    tough job to do to maintain public safety and hold accountable those who break the law.
+                </p>
                 <p><a href="{!! route('employer.postJobs.create') !!}" class="btn btn-default btn-light">Post a Job</a>
                 </p>
             </div>
@@ -107,9 +111,8 @@
         <div class="container">
             <h1>Jobs Stats Updates</h1>
             <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
-                provident, similique sunt in culpa qui officia deserunt mollitia animi.
+                A leader's job is not to do the work for others, it's to help others figure out how to do it themselves,
+                to get things done, and to succeed beyond what they thought possible.
             </p>
 
             <div class="counter clearfix">
@@ -146,8 +149,9 @@
         <div class="container">
             <h1 class="wow fadeInDown" data-wow-delay="0.3s">Easiest Way To Use</h1>
             <p class="wow bounceIn" data-wow-delay="0.6s">
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas mo
+                People don't want to go to the dump and have a picnic, they want to go out to a beautiful place and
+                enjoy their day. And so I think our job is to try to take the environment, take what the good Lord has
+                given us, and expand upon it or enhance it, without destroying it.
             </p>
 
             <div class="step-spacer"></div>
@@ -203,8 +207,10 @@
         <div class="container">
             <h1>What People Say About Us</h1>
             <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas mo
+                The job market of the future will consist of those jobs that robots cannot perform. Our blue-collar work
+                is pattern recognition, making sense of what you see. Gardeners will still have jobs because every
+                garden is different. The same goes for construction workers. The losers are white-collar workers,
+                low-level accountants, brokers, and agents.
             </p>
 
         </div>
@@ -412,9 +418,9 @@
 
             <h1>Companies Who Have Posted Jobs</h1>
             <p>
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
-                deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non
-                provident, similique sunt in culpa qui officia deserunt mollitia animi.
+                A good job is more than just a paycheck. A good job fosters independence and discipline, and contributes
+                to the health of the community. A good job is a means to provide for the health and welfare of your
+                family, to own a home, and save for retirement.
             </p>
 
             <div id="company-post-list" class="owl-carousel company-post">
@@ -517,12 +523,5 @@
     });
 
     new WOW().init();
-
-    $("#experiences").slider({
-    animate: true,
-    value:0,
-    min: 0,
-    max: 1000,
-    step: 10
 
 @stop
