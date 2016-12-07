@@ -11,7 +11,7 @@
         <div class="row">
             <!-- Post Name Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('post_name', 'Post Name:') !!}
+                {!! Form::label('post_name', 'Job Title:') !!}
                 {!! Form::text('post_name', null, ['class' => 'form-control', 'autofocus']) !!}
             </div>
 
@@ -64,13 +64,13 @@
 
             <!-- Salary offer Min Field -->
             <div class="form-group col-sm-6" id="salary_min">
-                {!! Form::label('salary_offered_min', 'Salary Offered Min:') !!}
+                {!! Form::label('salary_offered_min', 'Salary Min:') !!}
                 {!! Form::text('salary_offered_min', null, ['class' => 'form-control', 'id'=> 'salary_offered_min']) !!}
             </div>
 
             <!-- Salary offer Max Field -->
             <div class="form-group col-sm-6" id="salary_max">
-                {!! Form::label('salary_offered_max', 'Salary Offered Max:') !!}
+                {!! Form::label('salary_offered_max', 'Salary Max:') !!}
                 {!! Form::text('salary_offered_max', null, ['class' => 'form-control', 'id'=>'salary_offered_max']) !!}
             </div>
 
@@ -117,7 +117,7 @@
 
             <!-- Preferred Experience Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('preferred_experience', 'Preferred Experience:') !!}
+                {!! Form::label('preferred_experience', 'Year Experiences:') !!}
                 {!! Form::text('preferred_experience', null, ['class' => 'form-control']) !!}
             </div>
 
@@ -127,22 +127,22 @@
                 {!! Form::select('qualification_id', $qualifications, null, ['class' => 'form-control','placeholder'=>'--Select Qualification--']) !!}
             </div>
 
-            <div class="form-group col-sm-6">
-                {!! Form::label('field_of_study', 'Field of Study:') !!}
-                {!! Form::text('field_of_study', null, ['class' => 'form-control']) !!}
-            </div>
+            {{--<div class="form-group col-sm-6">--}}
+                {{--{!! Form::label('field_of_study', 'Field of Study:') !!}--}}
+                {{--{!! Form::text('field_of_study', null, ['class' => 'form-control']) !!}--}}
+            {{--</div>--}}
 
             <!-- Subject Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('subject_id', 'Subject:') !!}
+                {!! Form::label('subject_id', 'Field of Study:') !!}
                 {!! Form::select('subject_id', $subjects, null, ['class' => 'form-control', 'placeholder'=>'--Select Subject--']) !!}
             </div>
 
             <!-- Specialization Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('specialization', 'Specialization:') !!}
-                {!! Form::text('specialization', null, ['class' => 'form-control']) !!}
-            </div>
+            {{--<div class="form-group col-sm-6">--}}
+                {{--{!! Form::label('specialization', 'Specialization:') !!}--}}
+                {{--{!! Form::text('specialization', null, ['class' => 'form-control']) !!}--}}
+            {{--</div>--}}
 
             <!-- Languages fields-->
             <div class="form-group col-sm-6">
@@ -152,32 +152,20 @@
 
             <!-- Job types Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('preferred_sex', 'Preferred Sex:') !!}
+                {!! Form::label('preferred_sex', 'Gender:') !!}
                 {!! Form::select('preferred_sex', $genders , null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Preferred Age Min Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('preferred_age_min', 'Preferred Age Min:') !!}
+                {!! Form::label('preferred_age_min', 'Age Min:') !!}
                 {!! Form::text('preferred_age_min', null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Preferred Age Max Field -->
             <div class="form-group col-sm-6">
-                {!! Form::label('preferred_age_max', 'Preferred Age Max:') !!}
+                {!! Form::label('preferred_age_max', 'Age Max:') !!}
                 {!! Form::text('preferred_age_max', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Physical Height Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('physical_height', 'Physical Height:') !!}
-                {!! Form::text('physical_height', null, ['class' => 'form-control']) !!}
-            </div>
-
-            <!-- Physical Weight Field -->
-            <div class="form-group col-sm-6">
-                {!! Form::label('physical_weight', 'Physical Weight:') !!}
-                {!! Form::text('physical_weight', null, ['class' => 'form-control']) !!}
             </div>
 
             <!-- Description Field -->

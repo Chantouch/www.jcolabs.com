@@ -24,6 +24,7 @@ Route::get('search-city', ['as' => 'job.search.city', 'uses' => 'RestController@
 Route::group(['middleware' => ['guest']], function () {
 
     Route::get('/', ['as' => 'home', 'uses' => 'FrontController@index']);
+    Route::get('/pages/about', ['as' => 'pages.about', 'uses' => 'HomeController@about']);
     // ADMIN
     Route::get('admin/login', ['as' => 'admin.process.login', 'uses' => 'backend\Auth\LoginController@getLoginForm']);
     Route::post('admin/authenticate', ['as' => 'admin.process.authenticate.do', 'uses' => 'backend\Auth\LoginController@authenticate']);

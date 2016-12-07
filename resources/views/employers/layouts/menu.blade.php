@@ -1,3 +1,8 @@
+<li class="{{ Request::is('employers/dashboard*') ? 'active' : '' }}">
+    <a href="{!! route('employers.dashboard') !!}">
+        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+    </a>
+</li>
 <li class="treeview {{ Request::is('employers/post-jobs*') ? 'active' : '' }}">
     <a href="#">
         <i class="fa fa-dashboard"></i> <span>Jobs Settings</span>

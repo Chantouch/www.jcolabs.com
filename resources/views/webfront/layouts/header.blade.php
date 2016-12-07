@@ -68,7 +68,7 @@
                     <li><a href="{!! route('job.search') !!}">JOB SEARCH</a></li>
                     <li><a href="{!! route('employer.postJobs.create') !!}">POST A JOB</a></li>
                     <li><a href="{!! route('candidate.attachments.create') !!}">POST A RESUME</a></li>
-                    <li><a href="{!! route('candidate.attachments.create') !!}">About Us</a></li>
+                    <li><a href="{!! route('pages.about') !!}">About Us</a></li>
                     <li><a href="{!! route('candidate.attachments.create') !!}">Feedback</a></li>
                 </ul>
             </nav>
