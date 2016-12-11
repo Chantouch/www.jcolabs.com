@@ -200,6 +200,8 @@ hr {
 
 .main-logo {
     margin: 35px 0;
+    width: 35%;
+    max-width: 120px;
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -486,7 +488,7 @@ nav {
     vertical-align: top;
 }
 
-.input-job:focus , .cs-select:focus{
+.input-job:focus, .cs-select:focus {
     outline: none !important;
     border: 1px solid #00b8d4;
     box-shadow: 0 0 10px #719ECE;
