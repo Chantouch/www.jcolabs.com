@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\DB;
 
 class CheckAdmin
 {
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $guard = "admin")
     {
-        if (!empty(auth()->guard('admin')->id())) {
+        if (!empty(auth()->guard($guard)->id())) {
             $data = DB::table('admins')
                 ->select('admins.usertype', 'admins.id')
                 ->where('admins.id', auth()->guard('admin')->id())
@@ -24,7 +24,6 @@ class CheckAdmin
         } else {
             return redirect()->intended('admin/login/')->with('status', 'Please Login to access admin area');
         }
-
 
     }
 }
