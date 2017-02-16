@@ -33,15 +33,8 @@ class CreatePostedJobsTable extends Migration
             $table->enum('preferred_religion', ['BUDDHISM', 'CHRISTIANITY', 'HINDUISM', 'ISLAM', 'JAINISM', 'PARSI', 'SIKHISM', 'OTHERS', 'ANY']);
             $table->enum('preferred_sex', ['MALE', 'FEMALE', 'OTHERS', 'ANY'])->comment('gender');
             $table->integer('subject_id', false)->unsigned()->default('0')->comment('Subject foreign key from master subjects');
-            $table->string('specialization', 255)->nullable();
-            $table->string('field_of_study')->nullable()->comment('Store field of study of candidate');
             $table->integer('preferred_experience', false)->default(0)->comment('preferred years of experience');
             $table->enum('level', ['Non-Executive', 'Fresh Entry', 'Junior', 'Senior', 'Manager', 'CEO', 'Top Management'])->default('Non-Executive')->comment('Whether Ex-serviceman needed');
-            //Physical Measurement
-            $table->decimal('physical_height', 5, 2)->nullable()->comment('in cm');
-            $table->decimal('physical_weight', 5, 2)->nullable()->comment('in k.g.');
-//            $table->decimal('physical_chest', 5, 2)->nullable()->comment('Measurement in cm');
-//            $table->enum('physical_challenge', ['YES', 'NO'])->default('NO')->comment('Whether Physically Challenged ?');
             $table->enum('job_type', ['Full Time', 'Part Time', 'Contract', 'Freelancer', 'Internship', 'Volunteer'])->default('Full Time')->comment('Whether Job is part time, full time or others?');
             $table->longText('description')->nullable();
             $table->integer('qualification_id')->unsigned()->nullable()->comment('Store qualification for candidate needed');

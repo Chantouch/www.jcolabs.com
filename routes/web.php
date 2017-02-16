@@ -24,6 +24,7 @@ Route::get('search-city', ['as' => 'job.search.city', 'uses' => 'RestController@
 Route::group(['middleware' => ['guest']], function () {
 
     Route::get('/', ['as' => 'home', 'uses' => 'FrontController@index']);
+    Route::get('/pages/about', ['as' => 'pages.about', 'uses' => 'HomeController@about']);
     // ADMIN
     Route::get('admin/login', ['as' => 'admin.process.login', 'uses' => 'backend\Auth\LoginController@getLoginForm']);
     Route::post('admin/authenticate', ['as' => 'admin.process.authenticate.do', 'uses' => 'backend\Auth\LoginController@authenticate']);
@@ -221,6 +222,14 @@ Route::group(['middleware' => ['admin']], function () {
             Route::get('qualifications/{qualifications}', ['as' => 'admin.qualifications.show', 'uses' => 'backend\QualificationController@show']);
             Route::get('qualifications/{qualifications}/edit', ['as' => 'admin.qualifications.edit', 'uses' => 'backend\QualificationController@edit']);
 
+            Route::get('company-types', ['as'=> 'admin.companyTypes.index', 'uses' => 'backend\CompanyTypeController@index']);
+            Route::post('company-types', ['as'=> 'admin.companyTypes.store', 'uses' => 'backend\CompanyTypeController@store']);
+            Route::get('company-types/create', ['as'=> 'admin.companyTypes.create', 'uses' => 'backend\CompanyTypeController@create']);
+            Route::put('company-types/{companyTypes}', ['as'=> 'admin.companyTypes.update', 'uses' => 'backend\CompanyTypeController@update']);
+            Route::patch('company-types/{companyTypes}', ['as'=> 'admin.companyTypes.update', 'uses' => 'backend\CompanyTypeController@update']);
+            Route::delete('company-types/{companyTypes}', ['as'=> 'admin.companyTypes.destroy', 'uses' => 'backend\CompanyTypeController@destroy']);
+            Route::get('company-types/{companyTypes}', ['as'=> 'admin.companyTypes.show', 'uses' => 'backend\CompanyTypeController@show']);
+            Route::get('company-types/{companyTypes}/edit', ['as'=> 'admin.companyTypes.edit', 'uses' => 'backend\CompanyTypeController@edit']);
 
         });
 

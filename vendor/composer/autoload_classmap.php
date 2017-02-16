@@ -23,6 +23,7 @@ return array(
     'CreateCandidatesTable' => $baseDir . '/database/migrations/2016_10_20_014016_create_candidates_table.php',
     'CreateCategoriesTable' => $baseDir . '/database/migrations/2016_11_01_093357_create_categories_table.php',
     'CreateCitiesTable' => $baseDir . '/database/migrations/2016_10_20_045413_create_cities_table.php',
+    'CreateCompanyTypesTable' => $baseDir . '/database/migrations/2016_12_11_123744_create_company_types_table.php',
     'CreateContactPeopleTable' => $baseDir . '/database/migrations/2016_10_24_234221_create_contact_people_table.php',
     'CreateCoverLetterTable' => $baseDir . '/database/migrations/2016_11_23_210440_create_cover_letter_table.php',
     'CreateDepartmentTypesTable' => $baseDir . '/database/migrations/2016_10_20_044916_create_department_types_table.php',

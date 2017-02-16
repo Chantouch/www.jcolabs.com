@@ -2,6 +2,9 @@
 @section('title', 'Jobs Result of Searching')
 @section('page_specific_styles')
     <link href="{{ asset('plugins/animate/animate.css') }}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{!! asset('plugins/ion-range-slider/css/ion.rangeSlider.css') !!}">
+    <link rel="stylesheet" href="{!! asset('plugins/ion-range-slider/css/ion.rangeSlider.skinFlat.css') !!}">
+
     <style>
 
     </style>
@@ -120,7 +123,7 @@
 
     <script src="{{ asset('plugins/typeahead/bootstrap3-typeahead.min.js')}}" type="text/javascript"></script>
     <script src="{{ asset('plugins/wow/wow.min.js')}}" type="text/javascript"></script>
-
+    <script src="{{ asset('plugins/ion-range-slider/js/ion.rangeSlider.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript">
 
     </script>
@@ -150,6 +153,24 @@
     return process(data);
     })
     }
+    });
+
+    $("#salary_search").ionRangeSlider({
+    type: "single",
+    grid: true,
+    min: 0,
+    max: 5000,
+    prefix: "$",
+    values: [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 3000]
+    });
+
+    $("#experiences_search").ionRangeSlider({
+    type: "single",
+    grid: true,
+    min: 0,
+    max: 10,
+    prefix: "Y",
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     });
 
     new WOW().init();

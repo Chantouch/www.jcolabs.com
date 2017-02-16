@@ -79,6 +79,12 @@
                 <i class="fa fa-edit"></i><span>Qualifications</span></a>
         </li>
 
+        <li class="{{ Request::is('admin/master/company-types*') ? 'active' : '' }}">
+            <a href="{!! route('admin.companyTypes.index') !!}">
+                <i class="fa fa-edit"></i><span>CompanyTypes</span>
+            </a>
+        </li>
+
     </ul>
 
 </li>

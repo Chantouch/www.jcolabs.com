@@ -4,6 +4,8 @@
     <link href="{{ asset('plugins/animate/animate.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Select2 -->
     <link rel="stylesheet" href="{!! asset('plugins/select2/select2.min.css') !!}">
+    <link rel="stylesheet" href="{!! asset('plugins/ion-range-slider/css/ion.rangeSlider.css') !!}">
+    <link rel="stylesheet" href="{!! asset('plugins/ion-range-slider/css/ion.rangeSlider.skinFlat.css') !!}">
 
 @stop
 
@@ -492,6 +494,7 @@
     <!-- Select2 -->
     <script src="{!! asset('plugins/select2/select2.full.min.js') !!}"></script>
     <script src="{{ asset('plugins/wow/wow.min.js')}}" type="text/javascript"></script>
+    <script src="{{ asset('plugins/ion-range-slider/js/ion.rangeSlider.min.js')}}" type="text/javascript"></script>
 
     <script !src="">
 
@@ -520,6 +523,24 @@
     return process(data);
     })
     }
+    });
+
+    $("#salary_search").ionRangeSlider({
+    type: "single",
+    grid: true,
+    min: 0,
+    max: 3000,
+    prefix: "$",
+    values: [0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 3000]
+    });
+
+    $("#experiences_search").ionRangeSlider({
+    type: "single",
+    grid: true,
+    min: 0,
+    max: 10,
+    prefix: "Y",
+    values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     });
 
     new WOW().init();

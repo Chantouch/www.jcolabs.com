@@ -447,6 +447,7 @@ class ComposerStaticInit01222514f3e6261a08df46fb264bd759
         'CreateCandidatesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_014016_create_candidates_table.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_01_093357_create_categories_table.php',
         'CreateCitiesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_045413_create_cities_table.php',
+        'CreateCompanyTypesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_11_123744_create_company_types_table.php',
         'CreateContactPeopleTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_24_234221_create_contact_people_table.php',
         'CreateCoverLetterTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_23_210440_create_cover_letter_table.php',
         'CreateDepartmentTypesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_20_044916_create_department_types_table.php',

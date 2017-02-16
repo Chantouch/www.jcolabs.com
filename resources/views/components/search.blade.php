@@ -3,7 +3,7 @@
         <h3>Find a Job</h3>
         {!! Form::open(array('route' => 'job.search', 'role'=>'search', 'method' => 'GET')) !!}
         <div class="col-md-7 form-group group-1">
-            <label for="name" class="label">Search</label>
+            <label for="name" class="label">Job Title</label>
             {!! Form::text('name', null, ['class' => 'input-job', 'placeholder' => 'Keywords (IT Engineer, Shop Manager, Hr Manager...)', 'id' => 'name']) !!}
         </div>
         <div class="col-md-5 form-group group-2">
@@ -19,14 +19,15 @@
         </div>
 
         <div class="form-group">
-            <label for="experiences" class="label clearfix">Experiences(-/+)</label>
-            <input id="experiences" class="value-slider" type="text" name="experiences" value="0"/>
+            <label for="experiences_search" class="label clearfix">Experiences(-/+)</label>
+            {{--<input id="experiences" class="value-slider" type="text" name="experiences" value="0"/>--}}
+            <input type="text" id="experiences_search" name="experiences" value="" />
         </div>
         <div class="clearfix"></div>
         <br/>
         <div class="form-group">
-            <label for="salary" class="label clearfix">Salary ($)/per month</label>
-            <input id="salary" class="value-slider" type="text" name="salary_min" value="0"/>
+            <label for="salary_search" class="label clearfix">Salary ($)/per month</label>
+            <input id="salary_search" class="value-slider" type="text" name="salary_min" value=""/>
             <div class="clearfix"></div>
         </div>
 
